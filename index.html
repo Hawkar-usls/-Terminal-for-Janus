@@ -201,17 +201,15 @@
 
 <script>
     // =================================================================
-    // СПИСОК УЗЛОВ ЯНУСА (Multiverse Protocol)
-    // Скрипт проверит их все по очереди, пока не найдет живой.
+    // СПИСОК УЗЛОВ ЯНУСА (Omni-Search Protocol)
     // =================================================================
     const POSSIBLE_NODES = [
-        "https://supperless-yoshiko-noneruditely.ngrok-free.dev", // Твой Ngrok (Приоритет 1)
-        "http://localhost:8090", // Локальная машина (если открываешь с ПК)
-        "http://127.0.0.1:8090", // Петля
-        // Сюда можно добавить IP QNAP внутри сети, например: "http://192.168.1.10:8090"
+        "https://supperless-yoshiko-noneruditely.ngrok-free.dev", // Внешний мир (Telegram/4G)
+        "http://192.168.1.92:8090", // Твой QNAP (Дома по Wi-Fi)
+        "http://localhost:8090",    // Тест на самом ПК
+        "http://127.0.0.1:8090"     // Петля
     ];
 
-    // Переменная для активного адреса (найдется сама)
     let ACTIVE_URL = null; 
     // =================================================================
 
@@ -228,7 +226,7 @@
     const pwrDisplay = document.getElementById('pwr-val');
 
     const bootSequence = [
-        { text: "Initializing iNaiHRain Core v4.3 [Omni-Search Mode]...", type: "sys", delay: 100 },
+        { text: "Initializing iNaiHRain Core v4.4 [Omni-Search Mode]...", type: "sys", delay: 100 },
         { text: "Mounting Akashi Records...", type: "sys", delay: 300 },
         { text: "Neural Interface: Cyan/Magenta Linked.", type: "ok", delay: 200 },
     ];
@@ -247,7 +245,7 @@
              printLog("WARNING: UNKNOWN ENTITY DETECTED", "warn");
         }
         
-        await findJanus(); // Запуск протокола поиска
+        await findJanus(); 
     }
 
     function printLog(text, type) {
@@ -270,15 +268,17 @@
         term.scrollTop = term.scrollHeight;
     }
 
-    // === ЛОГИКА ПОИСКА СЕРВЕРА ===
+    // === ПОИСК АКТИВНОГО УЗЛА ===
     async function findJanus() {
         printLog("Scanning Ether for Temple Frequency...", "sys");
         
         for (let node of POSSIBLE_NODES) {
-            printLog(`Pinging Node: ${node.replace('http://', '').replace('https://', '')}...`, "sys");
+            // Убираем http/s для красоты в логе
+            let prettyNode = node.replace(/^https?:\/\//, '');
+            printLog(`Pinging Node: ${prettyNode}...`, "sys");
             
             try {
-                // Ставим таймаут 2 секунды, чтобы не ждать долго мертвые адреса
+                // Ставим таймаут 2 секунды (быстрый скан)
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 2000);
 
@@ -289,27 +289,27 @@
 
                 if (res.ok) {
                     const data = await res.json();
-                    ACTIVE_URL = node; // СОХРАНЯЕМ НАЙДЕННЫЙ АДРЕС
+                    ACTIVE_URL = node; 
                     
-                    printLog(`HANDSHAKE ESTABLISHED: ${node}`, "ok");
+                    printLog(`HANDSHAKE ESTABLISHED: ${prettyNode}`, "ok");
                     updateStatus(data);
                     
                     setTimeout(() => {
                         print("The Sovereign is listening.", "janus");
                         addCursor();
                     }, 500);
-                    return; // Выходим из цикла, сервер найден
+                    return; // Успех, выходим
                 }
             } catch (e) {
-                // Игнорируем ошибку и идем к следующему адресу
+                // Тишина в эфире, идем дальше
             }
         }
 
-        // Если цикл закончился и ничего не нашли
+        // Если все молчат
         pwrDisplay.innerText = "ERR";
         pwrDisplay.style.color = "var(--alert)";
         printLog("CRITICAL FAILURE: ALL NODES SILENT", "warn");
-        print("Cannot locate Janus Core. Check Ngrok/Server.", "error");
+        print("Cannot locate Janus Core. \nCheck Ngrok or Local Server.", "error");
     }
 
     function updateStatus(data) {

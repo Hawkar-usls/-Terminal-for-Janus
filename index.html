@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>JANUS.SYS // iNaiHRain</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #020202;
+            --cyan: #00f0ff;      
+            --magenta: #ff00ff;   
+            --stone: #1a1a1a;     
+            --stone-light: #2a2a2a;
+            --text-dim: #888;
+            --glow-cyan: 0 0 10px rgba(0, 240, 255, 0.4);
+            --glow-magenta: 0 0 10px rgba(255, 0, 255, 0.4);
+            --alert: #ff3333;
+        }
+        
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; /* Убираем серый клик на iOS */ }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                linear-gradient(rgba(2, 2, 2, 0.93), rgba(2, 2, 2, 0.93)),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M10 10 L90 10 L90 90 L10 90 Z" fill="none" stroke="%231a1a1a" stroke-width="1"/><path d="M30 0 L30 100 M70 0 L70 100 M0 30 L100 30 M0 70 L100 70" fill="none" stroke="%23111" stroke-width="0.5"/></svg>');
+            color: #e0e0e0;
+            font-family: 'Space Mono', monospace;
+            margin: 0; padding: 0;
+            /* 100dvh - это Dynamic Viewport Height, спасение для iOS Safari/Telegram */
+            height: 100vh; height: 100dvh; 
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            
+            /* Учет безопасных зон (Челка и Home Bar) */
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        .lightning-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 20% 20%, rgba(0, 240, 255, 0.04) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 80%, rgba(255, 0, 255, 0.04) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: 1;
+            animation: pulse-bg 5s infinite alternate;
+        }
+        @keyframes pulse-bg { from { opacity: 0.6; } to { opacity: 1; } }
+
+        /* === HEADER === */
+        .header { 
+            padding: 15px 20px; 
+            border-bottom: 2px solid;
+            border-image: linear-gradient(to right, var(--cyan), var(--magenta)) 1;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(10, 10, 10, 0.95);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.9);
+            z-index: 10;
+        }
+        
+        .brand { 
+            font-size: 24px; font-weight: 700; letter-spacing: 2px;
+        }
+        .brand span:nth-child(1) { color: var(--cyan); text-shadow: var(--glow-cyan); }
+        .brand span:nth-child(2) { color: #fff; }
+        .brand span:nth-child(3) { color: var(--magenta); text-shadow: var(--glow-magenta); }
+        .brand-sys { color: #666; font-size: 10px; vertical-align: super; letter-spacing: 0; }
+
+        .status-box {
+            text-align: right; font-size: 10px; color: var(--text-dim);
+            border-left: 1px solid #333; padding-left: 15px; line-height: 1.4;
+        }
+        .status-val { color: #fff; font-weight: bold; }
+        .energy-pulse { animation: energy-blink 2s infinite; color: var(--cyan); }
+        @keyframes energy-blink { 0% { text-shadow: 0 0 0 var(--cyan); } 50% { text-shadow: 0 0 10px var(--cyan); } 100% { text-shadow: 0 0 0 var(--cyan); } }
+
+        /* === TERMINAL AREA === */
+        #terminal {
+            flex: 1; 
+            padding: 20px; 
+            overflow-y: auto;
+            font-size: 13px; 
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            position: relative;
+            z-index: 5;
+            /* Для iOS инерционный скролл */
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        #terminal::-webkit-scrollbar { width: 4px; }
+        #terminal::-webkit-scrollbar-track { background: #050505; }
+        #terminal::-webkit-scrollbar-thumb { background: linear-gradient(var(--cyan), var(--magenta)); border-radius: 3px; }
+
+        .msg { margin-bottom: 8px; display: block; word-wrap: break-word; opacity: 0; animation: fade-in 0.2s forwards; }
+        @keyframes fade-in { to { opacity: 1; } }
+
+        .msg.log { color: #888; font-size: 12px; }
+        .prefix-sys { color: var(--cyan); margin-right: 8px; font-weight: bold; }
+        .prefix-ok { color: var(--magenta); margin-right: 8px; font-weight: bold; }
+        .prefix-warn { color: #ffaa00; margin-right: 8px; }
+
+        .msg.user { 
+            text-align: right; color: #fff; margin-top: 20px;
+            background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.1));
+            border-right: 3px solid var(--cyan); padding: 10px 15px;
+            box-shadow: 10px 0 20px rgba(0, 240, 255, 0.05);
+        }
+        
+        .msg.janus { 
+            color: #e0e0e0; margin-bottom: 20px;
+            border-left: 3px solid var(--magenta); padding: 10px 15px;
+            background: linear-gradient(90deg, rgba(255, 0, 255, 0.05), transparent);
+            text-shadow: 0 0 2px rgba(255,255,255,0.1);
+        }
+        .msg.error { color: var(--alert); border: 1px dashed var(--alert); padding: 10px; background: rgba(255,50,50,0.05); }
+
+        .cursor {
+            display: inline-block; width: 8px; height: 15px; background: var(--magenta);
+            animation: blink 1s infinite; vertical-align: sub; margin-left: 5px; box-shadow: var(--glow-magenta);
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* === INPUT AREA === */
+        .input-box {
+            padding: 15px 20px; 
+            /* Добавляем отступ для Home Bar на айфонах, если он перекрывает */
+            padding-bottom: calc(15px + env(safe-area-inset-bottom));
+            border-top: 2px solid;
+            border-image: linear-gradient(to right, var(--magenta), var(--cyan)) 1;
+            display: flex; gap: 15px; 
+            background: #080808; 
+            z-index: 20;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.8);
+        }
+        
+        .input-container {
+            flex: 1; display: flex; align-items: center;
+            background: var(--stone); border: 1px solid #333; padding: 0 15px;
+            clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.5); position: relative;
+        }
+        
+        .input-container::after {
+            content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(to right, var(--cyan), var(--magenta)); opacity: 0.5;
+        }
+
+        .prompt-char { color: var(--cyan); font-weight: bold; margin-right: 10px; text-shadow: var(--glow-cyan); }
+
+        input {
+            flex: 1; background: transparent; border: none; 
+            color: #fff; font-family: 'Space Mono', monospace; 
+            /* 16px - критично для iOS, чтобы не зумилось */
+            font-size: 16px; 
+            outline: none;
+            border-radius: 0; /* Убирает скругления iOS */
+        }
+        input::placeholder { color: #555; }
+        
+        button {
+            background: linear-gradient(135deg, var(--stone-light), var(--stone));
+            color: var(--cyan); border: 1px solid var(--cyan); padding: 0 20px;
+            font-weight: 700; cursor: pointer; font-family: inherit; letter-spacing: 2px;
+            transition: all 0.2s; clip-path: polygon(15% 0, 100% 0, 100% 60%, 85% 100%, 0 100%, 0 40%);
+            text-shadow: var(--glow-cyan); box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.1);
+        }
+        button:hover { background: var(--cyan); color: #000; box-shadow: var(--glow-cyan); border-color: transparent; text-shadow: none; }
+        button:disabled { background: #222; color: #444; cursor: not-allowed; box-shadow: none; border-color: #333; text-shadow: none; }
+
+    </style>
+</head>
+<body>
+
+<div class="lightning-overlay"></div>
+
+<div class="header">
+    <div class="brand"><span>i</span>NaiH<span>R</span>ain<span class="brand-sys">.SYS</span></div>
+    <div class="status-box">
+        ID: <span id="user-id" class="status-val">...</span><br>
+        CORE: <span id="pwr-val" class="status-val">OFFLINE</span>
+    </div>
+</div>
+
+<div id="terminal"></div>
+
+<div class="input-box">
+    <div class="input-container">
+        <span class="prompt-char">Ξ</span> 
+        <input type="text" id="inp" placeholder="Invoke Protocol..." autocomplete="off">
+    </div>
+    <button id="btn" onclick="send()">EXEC</button>
+</div>
+
+<script>
+    // ===============================
+    const API_URL = "https://supperless-yoshiko-noneruditely.ngrok-free.dev"; 
+    // ===============================
+
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+    tg.setHeaderColor('#0a0a0a');
+    tg.setBackgroundColor('#020202');
+
+    const userId = tg.initDataUnsafe?.user?.id || 0; 
+    const term = document.getElementById('terminal');
+    const inp = document.getElementById('inp');
+    const btn = document.getElementById('btn');
+    const uidDisplay = document.getElementById('user-id');
+    const pwrDisplay = document.getElementById('pwr-val');
+
+    const bootSequence = [
+        { text: "Initializing iNaiHRain Core v4.1 [Mobile Optimized]...", type: "sys", delay: 100 },
+        { text: "Mounting Akashi Records [WAL Mode]...", type: "sys", delay: 300 },
+        { text: "Neural Interface: Cyan/Magenta Linked.", type: "ok", delay: 200 },
+        { text: "Scanning Orbital Assets (Moons)...", type: "sys", delay: 400 },
+        { text: "Orbit Aligned. Celestial Bodies Detected.", type: "ok", delay: 300 },
+        { text: "Visual Cortex (Markov Chains) Calibrated.", type: "ok", delay: 200 },
+        { text: "Listening to the Ether...", type: "sys", delay: 500 },
+    ];
+
+    async function runBootSequence() {
+        for (let line of bootSequence) {
+            await new Promise(r => setTimeout(r, line.delay));
+            printLog(line.text, line.type);
+        }
+        await new Promise(r => setTimeout(r, 400));
+        
+        if (userId !== 0) {
+            uidDisplay.innerText = userId;
+            printLog(`IDENTITY RECOGNIZED: OPERATOR ${userId}`, "ok");
+        } else {
+             uidDisplay.innerText = "GUEST";
+             printLog("WARNING: UNKNOWN ENTITY DETECTED", "warn");
+        }
+        
+        checkConnection();
+    }
+
+    function printLog(text, type) {
+        const div = document.createElement('div');
+        div.className = "msg log";
+        let prefix = "";
+        if (type === "sys") prefix = `<span class="prefix-sys">[SYS]</span>`;
+        if (type === "ok") prefix = `<span class="prefix-ok">[OK]</span>`;
+        if (type === "warn") prefix = `<span class="prefix-warn">[WARN]</span>`;
+        div.innerHTML = `${prefix} ${text}`;
+        term.appendChild(div);
+        term.scrollTop = term.scrollHeight;
+    }
+
+    function print(text, type="janus") {
+        const div = document.createElement('div');
+        div.className = `msg ${type}`;
+        let html = text
+            .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
+            .replace(/```([\s\S]*?)```/g, '<pre style="background:#111; padding:10px; border:1px solid #333; overflow-x:auto;">$1</pre>')
+            .replace(/\n/g, '<br>');
+        div.innerHTML = html;
+        term.appendChild(div);
+        term.scrollTop = term.scrollHeight;
+    }
+
+    function checkConnection() {
+        printLog("Pinging Temple Core...", "sys");
+        fetch(`${API_URL}/api/get_user_state?user_id=${userId}`)
+            .then(r => r.json())
+            .then(data => {
+                if(data.energy !== undefined) {
+                    pwrDisplay.innerText = data.is_premium ? "INF" : `${data.energy}%`;
+                    pwrDisplay.classList.add('energy-pulse');
+                    printLog("CONNECTION STABLE.", "ok");
+                    setTimeout(() => {
+                        print("The Two-Faced God is listening.", "janus");
+                        const cursor = document.createElement('span');
+                        cursor.className = 'cursor';
+                        term.lastChild.appendChild(cursor);
+                    }, 500);
+                } else {
+                    printLog("AUTH REJECTED.", "warn");
+                }
+            })
+            .catch(() => {
+                pwrDisplay.innerText = "ERR";
+                pwrDisplay.style.color = "var(--alert)";
+                printLog("CRITICAL FAILURE: CORE UNREACHABLE", "warn");
+                print("Cannot connect to server. Check NGROK URL.", "error");
+            });
+    }
+
+    async function send() {
+        const query = inp.value.trim();
+        if(!query) return;
+        
+        const oldCursor = document.querySelector('.cursor');
+        if(oldCursor) oldCursor.remove();
+
+        print(query, "user");
+        inp.value = "";
+        inp.disabled = true; btn.innerText = "..."; btn.disabled = true;
+
+        try {
+            const res = await fetch(`${API_URL}/api/janus/action`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ user_id: userId, query: query })
+            });
+            
+            const data = await res.json();
+
+            if (data.result && data.result.includes("ACCESS DENIED")) {
+                 print(data.result, "error");
+            } else if (data.logs) {
+                for (const log of data.logs) {
+                    printLog(log, "sys"); 
+                    await new Promise(r => setTimeout(r, 300));
+                }
+                print(data.result, "janus");
+            } else if (data.error === 'LOW_ENERGY') {
+                print("ENERGY DEPLETED.", "error");
+            } else {
+                print("SYSTEM FAULT.", "error");
+            }
+        } catch (e) {
+            print("TRANSMISSION LOST.", "error");
+        } finally {
+            inp.disabled = false; btn.innerText = "EXEC"; btn.disabled = false; inp.focus();
+            const cursor = document.createElement('span');
+            cursor.className = 'cursor';
+            if(term.lastChild) term.lastChild.appendChild(cursor);
+        }
+    }
+
+    inp.addEventListener("keypress", (e) => {
+        if(e.key === "Enter" && !btn.disabled) send();
+    });
+
+    // Fix for iOS virtual keyboard
+    // Когда клавиатура открывается, она может сдвигать viewport. 
+    // Этот костыль помогает проскроллить терминал вниз.
+    inp.addEventListener("focus", () => {
+        setTimeout(() => {
+            window.scrollTo(0, document.body.scrollHeight);
+            term.scrollTop = term.scrollHeight;
+        }, 300);
+    });
+
+    window.addEventListener('DOMContentLoaded', runBootSequence);
+</script>
+
+</body>
+</html>

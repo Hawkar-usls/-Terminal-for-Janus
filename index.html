@@ -10,9 +10,9 @@
     <style>
         :root {
             --bg: #020202;
-            --cyan: #00f0ff;      
-            --magenta: #ff00ff;   
-            --stone: #1a1a1a;     
+            --cyan: #00f0ff;       
+            --magenta: #ff00ff;    
+            --stone: #1a1a1a;      
             --stone-light: #2a2a2a;
             --text-dim: #888;
             --glow-cyan: 0 0 10px rgba(0, 240, 255, 0.4);
@@ -96,7 +96,6 @@
             word-wrap: break-word; 
             opacity: 0; 
             animation: fade-in 0.2s forwards;
-            /* ВАЖНО: Сохраняет пробелы и переносы строк от Python */
             white-space: pre-wrap; 
         }
         @keyframes fade-in { to { opacity: 1; } }
@@ -201,10 +200,20 @@
 </div>
 
 <script>
-    // ===============================
-    // Твой зафиксированный адрес (Янус на порту 8090)
-    const API_URL = "https://supperless-yoshiko-noneruditely.ngrok-free.dev"; 
-    // ===============================
+    // =================================================================
+    // СПИСОК УЗЛОВ ЯНУСА (Multiverse Protocol)
+    // Скрипт проверит их все по очереди, пока не найдет живой.
+    // =================================================================
+    const POSSIBLE_NODES = [
+        "https://supperless-yoshiko-noneruditely.ngrok-free.dev", // Твой Ngrok (Приоритет 1)
+        "http://localhost:8090", // Локальная машина (если открываешь с ПК)
+        "http://127.0.0.1:8090", // Петля
+        // Сюда можно добавить IP QNAP внутри сети, например: "http://192.168.1.10:8090"
+    ];
+
+    // Переменная для активного адреса (найдется сама)
+    let ACTIVE_URL = null; 
+    // =================================================================
 
     const tg = window.Telegram.WebApp;
     tg.expand();
@@ -219,12 +228,9 @@
     const pwrDisplay = document.getElementById('pwr-val');
 
     const bootSequence = [
-        { text: "Initializing iNaiHRain Core v4.2 [Sovereign Mode]...", type: "sys", delay: 100 },
-        { text: "Mounting Akashi Records [WAL Mode]...", type: "sys", delay: 300 },
+        { text: "Initializing iNaiHRain Core v4.3 [Omni-Search Mode]...", type: "sys", delay: 100 },
+        { text: "Mounting Akashi Records...", type: "sys", delay: 300 },
         { text: "Neural Interface: Cyan/Magenta Linked.", type: "ok", delay: 200 },
-        { text: "Scanning Orbital Assets (Moons)...", type: "sys", delay: 400 },
-        { text: "Orbit Aligned. Celestial Bodies Detected.", type: "ok", delay: 300 },
-        { text: "Listening to the Ether (Port 8090)...", type: "sys", delay: 500 },
     ];
 
     async function runBootSequence() {
@@ -232,7 +238,6 @@
             await new Promise(r => setTimeout(r, line.delay));
             printLog(line.text, line.type);
         }
-        await new Promise(r => setTimeout(r, 400));
         
         if (userId !== 0) {
             uidDisplay.innerText = userId;
@@ -242,7 +247,7 @@
              printLog("WARNING: UNKNOWN ENTITY DETECTED", "warn");
         }
         
-        checkConnection();
+        await findJanus(); // Запуск протокола поиска
     }
 
     function printLog(text, type) {
@@ -260,40 +265,73 @@
     function print(text, type="janus") {
         const div = document.createElement('div');
         div.className = `msg ${type}`;
-        // Простой рендеринг без замены \n на <br>, так как CSS pre-wrap сделает это лучше
         div.innerText = text; 
         term.appendChild(div);
         term.scrollTop = term.scrollHeight;
     }
 
-    function checkConnection() {
-        printLog("Pinging Temple Core...", "sys");
-        fetch(`${API_URL}/api/get_user_state?user_id=${userId}`)
-            .then(r => r.json())
-            .then(data => {
-                if(data.energy !== undefined) {
-                    pwrDisplay.innerText = data.is_premium ? "INF" : `${data.energy}%`;
-                    pwrDisplay.classList.add('energy-pulse');
-                    printLog("CONNECTION STABLE.", "ok");
+    // === ЛОГИКА ПОИСКА СЕРВЕРА ===
+    async function findJanus() {
+        printLog("Scanning Ether for Temple Frequency...", "sys");
+        
+        for (let node of POSSIBLE_NODES) {
+            printLog(`Pinging Node: ${node.replace('http://', '').replace('https://', '')}...`, "sys");
+            
+            try {
+                // Ставим таймаут 2 секунды, чтобы не ждать долго мертвые адреса
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 2000);
+
+                const res = await fetch(`${node}/api/get_user_state?user_id=${userId}`, {
+                    signal: controller.signal
+                });
+                clearTimeout(timeoutId);
+
+                if (res.ok) {
+                    const data = await res.json();
+                    ACTIVE_URL = node; // СОХРАНЯЕМ НАЙДЕННЫЙ АДРЕС
+                    
+                    printLog(`HANDSHAKE ESTABLISHED: ${node}`, "ok");
+                    updateStatus(data);
+                    
                     setTimeout(() => {
                         print("The Sovereign is listening.", "janus");
-                        const cursor = document.createElement('span');
-                        cursor.className = 'cursor';
-                        term.lastChild.appendChild(cursor);
+                        addCursor();
                     }, 500);
-                } else {
-                    printLog("AUTH REJECTED.", "warn");
+                    return; // Выходим из цикла, сервер найден
                 }
-            })
-            .catch(() => {
-                pwrDisplay.innerText = "ERR";
-                pwrDisplay.style.color = "var(--alert)";
-                printLog("CRITICAL FAILURE: CORE UNREACHABLE", "warn");
-                print("Cannot connect to server. Check NGROK URL.", "error");
-            });
+            } catch (e) {
+                // Игнорируем ошибку и идем к следующему адресу
+            }
+        }
+
+        // Если цикл закончился и ничего не нашли
+        pwrDisplay.innerText = "ERR";
+        pwrDisplay.style.color = "var(--alert)";
+        printLog("CRITICAL FAILURE: ALL NODES SILENT", "warn");
+        print("Cannot locate Janus Core. Check Ngrok/Server.", "error");
+    }
+
+    function updateStatus(data) {
+        if(data.energy !== undefined) {
+            pwrDisplay.innerText = data.is_premium ? "INF" : `${data.energy}%`;
+            pwrDisplay.classList.add('energy-pulse');
+            printLog("CONNECTION STABLE.", "ok");
+        }
+    }
+
+    function addCursor() {
+        const cursor = document.createElement('span');
+        cursor.className = 'cursor';
+        if(term.lastChild) term.lastChild.appendChild(cursor);
     }
 
     async function send() {
+        if (!ACTIVE_URL) {
+            print("Target unreachable. Reboot required.", "error");
+            return;
+        }
+
         const query = inp.value.trim();
         if(!query) return;
         
@@ -305,7 +343,7 @@
         inp.disabled = true; btn.innerText = "..."; btn.disabled = true;
 
         try {
-            const res = await fetch(`${API_URL}/api/janus/action`, {
+            const res = await fetch(`${ACTIVE_URL}/api/janus/action`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({ user_id: userId, query: query })
@@ -330,9 +368,7 @@
             print("TRANSMISSION LOST.", "error");
         } finally {
             inp.disabled = false; btn.innerText = "EXEC"; btn.disabled = false; inp.focus();
-            const cursor = document.createElement('span');
-            cursor.className = 'cursor';
-            if(term.lastChild) term.lastChild.appendChild(cursor);
+            addCursor();
         }
     }
 

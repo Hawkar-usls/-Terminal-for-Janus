@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>JANUS.SYS // iNaiHRain</title>
+    <title>JANUS.SYS // MIRROR</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     
@@ -201,12 +201,12 @@
 
 <script>
     // =================================================================
-    // СПИСОК УЗЛОВ ЯНУСА (Omni-Search Protocol)
+    // PROTOCOL: MIRROR NODE (Omni-Search)
     // =================================================================
     const POSSIBLE_NODES = [
-        "https://supperless-yoshiko-noneruditely.ngrok-free.dev", // Внешний мир (Telegram/4G)
-        "http://192.168.1.92:8090", // Твой QNAP (Дома по Wi-Fi)
-        "http://localhost:8090",    // Тест на самом ПК
+        "https://supperless-yoshiko-noneruditely.ngrok-free.dev", // Внешний мир
+        "http://192.168.1.29:8090", // !!! ЗЕРКАЛЬНЫЙ IP ЯНУСА !!!
+        "http://localhost:8090",    // Локальный тест
         "http://127.0.0.1:8090"     // Петля
     ];
 
@@ -226,8 +226,9 @@
     const pwrDisplay = document.getElementById('pwr-val');
 
     const bootSequence = [
-        { text: "Initializing iNaiHRain Core v4.4 [Omni-Search Mode]...", type: "sys", delay: 100 },
+        { text: "Initializing iNaiHRain Core v4.5 [Mirror Mode]...", type: "sys", delay: 100 },
         { text: "Mounting Akashi Records...", type: "sys", delay: 300 },
+        { text: "Targeting Reflection (192.168.1.29)...", type: "sys", delay: 400 },
         { text: "Neural Interface: Cyan/Magenta Linked.", type: "ok", delay: 200 },
     ];
 
@@ -273,12 +274,11 @@
         printLog("Scanning Ether for Temple Frequency...", "sys");
         
         for (let node of POSSIBLE_NODES) {
-            // Убираем http/s для красоты в логе
             let prettyNode = node.replace(/^https?:\/\//, '');
             printLog(`Pinging Node: ${prettyNode}...`, "sys");
             
             try {
-                // Ставим таймаут 2 секунды (быстрый скан)
+                // Таймаут 2с
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 2000);
 
@@ -298,10 +298,10 @@
                         print("The Sovereign is listening.", "janus");
                         addCursor();
                     }, 500);
-                    return; // Успех, выходим
+                    return; // Успех
                 }
             } catch (e) {
-                // Тишина в эфире, идем дальше
+                // Тишина
             }
         }
 
@@ -309,7 +309,7 @@
         pwrDisplay.innerText = "ERR";
         pwrDisplay.style.color = "var(--alert)";
         printLog("CRITICAL FAILURE: ALL NODES SILENT", "warn");
-        print("Cannot locate Janus Core. \nCheck Ngrok or Local Server.", "error");
+        print("Cannot locate Janus Core. \nCheck Ngrok or Mirror Node (.29).", "error");
     }
 
     function updateStatus(data) {

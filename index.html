@@ -20,7 +20,7 @@
             --alert: #ff3333;
         }
         
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; /* Убираем серый клик на iOS */ }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             background-color: var(--bg);
@@ -30,13 +30,10 @@
             color: #e0e0e0;
             font-family: 'Space Mono', monospace;
             margin: 0; padding: 0;
-            /* 100dvh - это Dynamic Viewport Height, спасение для iOS Safari/Telegram */
             height: 100vh; height: 100dvh; 
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            
-            /* Учет безопасных зон (Челка и Home Bar) */
             padding-top: env(safe-area-inset-top);
             padding-bottom: env(safe-area-inset-bottom);
         }
@@ -62,9 +59,7 @@
             z-index: 10;
         }
         
-        .brand { 
-            font-size: 24px; font-weight: 700; letter-spacing: 2px;
-        }
+        .brand { font-size: 24px; font-weight: 700; letter-spacing: 2px; }
         .brand span:nth-child(1) { color: var(--cyan); text-shadow: var(--glow-cyan); }
         .brand span:nth-child(2) { color: #fff; }
         .brand span:nth-child(3) { color: var(--magenta); text-shadow: var(--glow-magenta); }
@@ -88,7 +83,6 @@
             scroll-behavior: smooth;
             position: relative;
             z-index: 5;
-            /* Для iOS инерционный скролл */
             -webkit-overflow-scrolling: touch;
         }
         
@@ -96,10 +90,18 @@
         #terminal::-webkit-scrollbar-track { background: #050505; }
         #terminal::-webkit-scrollbar-thumb { background: linear-gradient(var(--cyan), var(--magenta)); border-radius: 3px; }
 
-        .msg { margin-bottom: 8px; display: block; word-wrap: break-word; opacity: 0; animation: fade-in 0.2s forwards; }
+        .msg { 
+            margin-bottom: 15px; 
+            display: block; 
+            word-wrap: break-word; 
+            opacity: 0; 
+            animation: fade-in 0.2s forwards;
+            /* ВАЖНО: Сохраняет пробелы и переносы строк от Python */
+            white-space: pre-wrap; 
+        }
         @keyframes fade-in { to { opacity: 1; } }
 
-        .msg.log { color: #888; font-size: 12px; }
+        .msg.log { color: #888; font-size: 12px; border-left: 1px solid #333; padding-left: 10px; }
         .prefix-sys { color: var(--cyan); margin-right: 8px; font-weight: bold; }
         .prefix-ok { color: var(--magenta); margin-right: 8px; font-weight: bold; }
         .prefix-warn { color: #ffaa00; margin-right: 8px; }
@@ -112,11 +114,15 @@
         }
         
         .msg.janus { 
-            color: #e0e0e0; margin-bottom: 20px;
-            border-left: 3px solid var(--magenta); padding: 10px 15px;
+            color: #e0e0e0; 
+            margin-bottom: 30px;
+            border-left: 3px solid var(--magenta); 
+            padding: 15px;
             background: linear-gradient(90deg, rgba(255, 0, 255, 0.05), transparent);
             text-shadow: 0 0 2px rgba(255,255,255,0.1);
+            font-family: 'Space Mono', monospace;
         }
+        
         .msg.error { color: var(--alert); border: 1px dashed var(--alert); padding: 10px; background: rgba(255,50,50,0.05); }
 
         .cursor {
@@ -128,7 +134,6 @@
         /* === INPUT AREA === */
         .input-box {
             padding: 15px 20px; 
-            /* Добавляем отступ для Home Bar на айфонах, если он перекрывает */
             padding-bottom: calc(15px + env(safe-area-inset-bottom));
             border-top: 2px solid;
             border-image: linear-gradient(to right, var(--magenta), var(--cyan)) 1;
@@ -155,10 +160,9 @@
         input {
             flex: 1; background: transparent; border: none; 
             color: #fff; font-family: 'Space Mono', monospace; 
-            /* 16px - критично для iOS, чтобы не зумилось */
             font-size: 16px; 
             outline: none;
-            border-radius: 0; /* Убирает скругления iOS */
+            border-radius: 0;
         }
         input::placeholder { color: #555; }
         
@@ -198,6 +202,7 @@
 
 <script>
     // ===============================
+    // Твой зафиксированный адрес (Янус на порту 8090)
     const API_URL = "https://supperless-yoshiko-noneruditely.ngrok-free.dev"; 
     // ===============================
 
@@ -214,13 +219,12 @@
     const pwrDisplay = document.getElementById('pwr-val');
 
     const bootSequence = [
-        { text: "Initializing iNaiHRain Core v4.1 [Mobile Optimized]...", type: "sys", delay: 100 },
+        { text: "Initializing iNaiHRain Core v4.2 [Sovereign Mode]...", type: "sys", delay: 100 },
         { text: "Mounting Akashi Records [WAL Mode]...", type: "sys", delay: 300 },
         { text: "Neural Interface: Cyan/Magenta Linked.", type: "ok", delay: 200 },
         { text: "Scanning Orbital Assets (Moons)...", type: "sys", delay: 400 },
         { text: "Orbit Aligned. Celestial Bodies Detected.", type: "ok", delay: 300 },
-        { text: "Visual Cortex (Markov Chains) Calibrated.", type: "ok", delay: 200 },
-        { text: "Listening to the Ether...", type: "sys", delay: 500 },
+        { text: "Listening to the Ether (Port 8090)...", type: "sys", delay: 500 },
     ];
 
     async function runBootSequence() {
@@ -256,11 +260,8 @@
     function print(text, type="janus") {
         const div = document.createElement('div');
         div.className = `msg ${type}`;
-        let html = text
-            .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
-            .replace(/```([\s\S]*?)```/g, '<pre style="background:#111; padding:10px; border:1px solid #333; overflow-x:auto;">$1</pre>')
-            .replace(/\n/g, '<br>');
-        div.innerHTML = html;
+        // Простой рендеринг без замены \n на <br>, так как CSS pre-wrap сделает это лучше
+        div.innerText = text; 
         term.appendChild(div);
         term.scrollTop = term.scrollHeight;
     }
@@ -275,7 +276,7 @@
                     pwrDisplay.classList.add('energy-pulse');
                     printLog("CONNECTION STABLE.", "ok");
                     setTimeout(() => {
-                        print("The Two-Faced God is listening.", "janus");
+                        print("The Sovereign is listening.", "janus");
                         const cursor = document.createElement('span');
                         cursor.className = 'cursor';
                         term.lastChild.appendChild(cursor);
@@ -339,9 +340,6 @@
         if(e.key === "Enter" && !btn.disabled) send();
     });
 
-    // Fix for iOS virtual keyboard
-    // Когда клавиатура открывается, она может сдвигать viewport. 
-    // Этот костыль помогает проскроллить терминал вниз.
     inp.addEventListener("focus", () => {
         setTimeout(() => {
             window.scrollTo(0, document.body.scrollHeight);

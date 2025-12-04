@@ -203,14 +203,13 @@
 <script>
     // =================================================================
     // CONFIG: OMNI-SCANNER
-    // Янус ищет себя сам. 
     // =================================================================
     const EXTERNAL_NODES = [
-        "https://supperless-yoshiko-noneruditely.ngrok-free.dev" // Твой статический домен Ngrok
+        "https://supperless-yoshiko-noneruditely.ngrok-free.dev"
     ];
 
     const LOCAL_IPS = [
-        "192.168.1.92", // <--- ИСПРАВЛЕНО (БЫЛО .29, СТАЛО .92)
+        "192.168.1.92", // <--- Твой реальный IP
         "127.0.0.1",
         "localhost",
         window.location.hostname 
@@ -234,7 +233,7 @@
     const pwrDisplay = document.getElementById('pwr-val');
 
     const bootSequence = [
-        { text: "Initializing iNaiHRain Core v5.2 [Omni-Scanner]...", type: "sys", delay: 100 },
+        { text: "Initializing iNaiHRain Core v5.5 [Bypass Protocol]...", type: "sys", delay: 100 },
         { text: "Loading Port Heuristics...", type: "sys", delay: 300 },
         { text: "Initiating Deep Scan...", type: "scan", delay: 400 },
     ];
@@ -276,18 +275,14 @@
         term.scrollTop = term.scrollHeight;
     }
 
-    // === УМНЫЙ ПОИСК ЯНУСА ===
+    // === УМНЫЙ ПОИСК ЯНУСА С ОБХОДОМ NGROK ===
     async function findJanus() {
-        // 1. Собираем список всех возможных адресов
         let potentialNodes = [...EXTERNAL_NODES];
-        
-        // Генерация локальных комбинаций IP:PORT
         let uniqueIps = [...new Set(LOCAL_IPS)];
         
         for (let ip of uniqueIps) {
             if (!ip) continue;
             for (let port of PORTS_TO_SCAN) {
-                // Пытаемся стучаться по HTTP на локальные адреса
                 potentialNodes.push(`http://${ip}:${port}`);
             }
         }
@@ -296,17 +291,21 @@
 
         for (let node of potentialNodes) {
             let prettyNode = node.replace(/^https?:\/\//, '');
-            // Не спамим лог, если сканируем кучу портов, только если это не ngrok
             if(node.includes("ngrok")) printLog(`Pinging External: ${prettyNode}...`, "sys");
             
             try {
-                // Таймаут очень короткий для локалки (500мс), чтобы сканировать быстро
                 const controller = new AbortController();
                 const timeoutTime = node.includes("ngrok") ? 3000 : 800; 
                 const timeoutId = setTimeout(() => controller.abort(), timeoutTime);
 
                 const res = await fetch(`${node}/api/get_user_state?user_id=${userId}`, {
-                    signal: controller.signal
+                    signal: controller.signal,
+                    // === ВОТ ЭТОТ СЕКРЕТНЫЙ КЛЮЧ ===
+                    headers: {
+                        "ngrok-skip-browser-warning": "69420",
+                        "Content-Type": "application/json"
+                    }
+                    // ===============================
                 });
                 clearTimeout(timeoutId);
 
@@ -321,14 +320,13 @@
                         print("The Sovereign is listening.", "janus");
                         addCursor();
                     }, 500);
-                    return; // Нашли! Выходим.
+                    return; 
                 }
             } catch (e) {
-                // Порт закрыт, идем дальше молча
+                // Ignore
             }
         }
 
-        // Если все молчат
         pwrDisplay.innerText = "LOST";
         pwrDisplay.style.color = "var(--alert)";
         printLog("CRITICAL FAILURE: JANUS NOT FOUND ON ANY PORT", "warn");
@@ -367,7 +365,12 @@
         try {
             const res = await fetch(`${ACTIVE_URL}/api/janus/action`, {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
+                // === И ЗДЕСЬ ТОЖЕ ДОБАВЛЯЕМ ЕГО ===
+                headers: {
+                    "Content-Type": "application/json",
+                    "ngrok-skip-browser-warning": "69420"
+                },
+                // ==================================
                 body: JSON.stringify({ user_id: userId, query: query })
             });
             

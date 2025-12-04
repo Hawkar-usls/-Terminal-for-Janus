@@ -203,14 +203,14 @@
 <script>
     // =================================================================
     // CONFIG: OMNI-SCANNER
-    // Янус ищет себя сам. Укажи только внешний туннель.
+    // Янус ищет себя сам. 
     // =================================================================
     const EXTERNAL_NODES = [
-        "https://supperless-yoshiko-noneruditely.ngrok-free.dev" // <--- ОБНОВИ ЭТОТ URL ЕСЛИ NGROK ПЕРЕЗАПУЩЕН
+        "https://supperless-yoshiko-noneruditely.ngrok-free.dev" // Твой статический домен Ngrok
     ];
 
     const LOCAL_IPS = [
-        "192.168.1.29", // Твой QNAP
+        "192.168.1.92", // Твой QNAP (ОБНОВЛЕНО)
         "127.0.0.1",
         "localhost",
         window.location.hostname // IP, с которого открыта страница
@@ -234,7 +234,7 @@
     const pwrDisplay = document.getElementById('pwr-val');
 
     const bootSequence = [
-        { text: "Initializing iNaiHRain Core v5.0 [Omni-Scanner]...", type: "sys", delay: 100 },
+        { text: "Initializing iNaiHRain Core v5.1 [Omni-Scanner]...", type: "sys", delay: 100 },
         { text: "Loading Port Heuristics...", type: "sys", delay: 300 },
         { text: "Initiating Deep Scan...", type: "scan", delay: 400 },
     ];
@@ -282,14 +282,12 @@
         let potentialNodes = [...EXTERNAL_NODES];
         
         // Генерация локальных комбинаций IP:PORT
-        // Убираем дубликаты IP
         let uniqueIps = [...new Set(LOCAL_IPS)];
         
         for (let ip of uniqueIps) {
             if (!ip) continue;
             for (let port of PORTS_TO_SCAN) {
-                // Если мы на HTTPS (ngrok), мы не можем стучаться на HTTP без костылей, 
-                // но попытаться стоит, некоторые браузеры пускают localhost
+                // Пытаемся стучаться по HTTP на локальные адреса
                 potentialNodes.push(`http://${ip}:${port}`);
             }
         }

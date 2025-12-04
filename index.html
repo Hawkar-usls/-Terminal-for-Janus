@@ -210,13 +210,13 @@
     ];
 
     const LOCAL_IPS = [
-        "192.168.1.92", // Твой QNAP (ОБНОВЛЕНО)
+        "192.168.1.92", // <--- ИСПРАВЛЕНО (БЫЛО .29)
         "127.0.0.1",
         "localhost",
-        window.location.hostname // IP, с которого открыта страница
+        window.location.hostname 
     ];
 
-    const PORTS_TO_SCAN = [5000, 8090, 8000, 8080, 3000]; // Порты, где Янус может прятаться
+    const PORTS_TO_SCAN = [5000, 8090, 8000, 8080, 3000]; 
     
     let ACTIVE_URL = null; 
     // =================================================================
@@ -234,7 +234,7 @@
     const pwrDisplay = document.getElementById('pwr-val');
 
     const bootSequence = [
-        { text: "Initializing iNaiHRain Core v5.1 [Omni-Scanner]...", type: "sys", delay: 100 },
+        { text: "Initializing iNaiHRain Core v5.2 [Omni-Scanner]...", type: "sys", delay: 100 },
         { text: "Loading Port Heuristics...", type: "sys", delay: 300 },
         { text: "Initiating Deep Scan...", type: "scan", delay: 400 },
     ];

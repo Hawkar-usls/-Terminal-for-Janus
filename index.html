@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>JANUS.SYS // MIRROR</title>
+    <title>JANUS.SYS // OMNI-SCANNER</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --bg: #020202;
-            --cyan: #00f0ff;       
-            --magenta: #ff00ff;    
-            --stone: #1a1a1a;      
+            --cyan: #00f0ff;        
+            --magenta: #ff00ff;     
+            --stone: #1a1a1a;       
             --stone-light: #2a2a2a;
             --text-dim: #888;
             --glow-cyan: 0 0 10px rgba(0, 240, 255, 0.4);
@@ -103,6 +103,7 @@
         .msg.log { color: #888; font-size: 12px; border-left: 1px solid #333; padding-left: 10px; }
         .prefix-sys { color: var(--cyan); margin-right: 8px; font-weight: bold; }
         .prefix-ok { color: var(--magenta); margin-right: 8px; font-weight: bold; }
+        .prefix-scan { color: #ffff00; margin-right: 8px; font-weight: bold; animation: blink 0.5s infinite;}
         .prefix-warn { color: #ffaa00; margin-right: 8px; }
 
         .msg.user { 
@@ -201,15 +202,22 @@
 
 <script>
     // =================================================================
-    // PROTOCOL: MIRROR NODE (Omni-Search)
+    // CONFIG: OMNI-SCANNER
+    // Янус ищет себя сам. Укажи только внешний туннель.
     // =================================================================
-    const POSSIBLE_NODES = [
-        "https://supperless-yoshiko-noneruditely.ngrok-free.dev", // Внешний мир
-        "http://192.168.1.29:8090", // !!! ЗЕРКАЛЬНЫЙ IP ЯНУСА !!!
-        "http://localhost:8090",    // Локальный тест
-        "http://127.0.0.1:8090"     // Петля
+    const EXTERNAL_NODES = [
+        "https://supperless-yoshiko-noneruditely.ngrok-free.dev" // <--- ОБНОВИ ЭТОТ URL ЕСЛИ NGROK ПЕРЕЗАПУЩЕН
     ];
 
+    const LOCAL_IPS = [
+        "192.168.1.29", // Твой QNAP
+        "127.0.0.1",
+        "localhost",
+        window.location.hostname // IP, с которого открыта страница
+    ];
+
+    const PORTS_TO_SCAN = [5000, 8090, 8000, 8080, 3000]; // Порты, где Янус может прятаться
+    
     let ACTIVE_URL = null; 
     // =================================================================
 
@@ -226,10 +234,9 @@
     const pwrDisplay = document.getElementById('pwr-val');
 
     const bootSequence = [
-        { text: "Initializing iNaiHRain Core v4.5 [Mirror Mode]...", type: "sys", delay: 100 },
-        { text: "Mounting Akashi Records...", type: "sys", delay: 300 },
-        { text: "Targeting Reflection (192.168.1.29)...", type: "sys", delay: 400 },
-        { text: "Neural Interface: Cyan/Magenta Linked.", type: "ok", delay: 200 },
+        { text: "Initializing iNaiHRain Core v5.0 [Omni-Scanner]...", type: "sys", delay: 100 },
+        { text: "Loading Port Heuristics...", type: "sys", delay: 300 },
+        { text: "Initiating Deep Scan...", type: "scan", delay: 400 },
     ];
 
     async function runBootSequence() {
@@ -240,10 +247,9 @@
         
         if (userId !== 0) {
             uidDisplay.innerText = userId;
-            printLog(`IDENTITY RECOGNIZED: OPERATOR ${userId}`, "ok");
         } else {
              uidDisplay.innerText = "GUEST";
-             printLog("WARNING: UNKNOWN ENTITY DETECTED", "warn");
+             printLog("WARNING: ID NOT VERIFIED", "warn");
         }
         
         await findJanus(); 
@@ -256,6 +262,7 @@
         if (type === "sys") prefix = `<span class="prefix-sys">[SYS]</span>`;
         if (type === "ok") prefix = `<span class="prefix-ok">[OK]</span>`;
         if (type === "warn") prefix = `<span class="prefix-warn">[WARN]</span>`;
+        if (type === "scan") prefix = `<span class="prefix-scan">[SCAN]</span>`;
         div.innerHTML = `${prefix} ${text}`;
         term.appendChild(div);
         term.scrollTop = term.scrollHeight;
@@ -269,18 +276,36 @@
         term.scrollTop = term.scrollHeight;
     }
 
-    // === ПОИСК АКТИВНОГО УЗЛА ===
+    // === УМНЫЙ ПОИСК ЯНУСА ===
     async function findJanus() {
-        printLog("Scanning Ether for Temple Frequency...", "sys");
+        // 1. Собираем список всех возможных адресов
+        let potentialNodes = [...EXTERNAL_NODES];
         
-        for (let node of POSSIBLE_NODES) {
+        // Генерация локальных комбинаций IP:PORT
+        // Убираем дубликаты IP
+        let uniqueIps = [...new Set(LOCAL_IPS)];
+        
+        for (let ip of uniqueIps) {
+            if (!ip) continue;
+            for (let port of PORTS_TO_SCAN) {
+                // Если мы на HTTPS (ngrok), мы не можем стучаться на HTTP без костылей, 
+                // но попытаться стоит, некоторые браузеры пускают localhost
+                potentialNodes.push(`http://${ip}:${port}`);
+            }
+        }
+
+        printLog(`Target list compiled. ${potentialNodes.length} vectors found.`, "sys");
+
+        for (let node of potentialNodes) {
             let prettyNode = node.replace(/^https?:\/\//, '');
-            printLog(`Pinging Node: ${prettyNode}...`, "sys");
+            // Не спамим лог, если сканируем кучу портов, только если это не ngrok
+            if(node.includes("ngrok")) printLog(`Pinging External: ${prettyNode}...`, "sys");
             
             try {
-                // Таймаут 2с
+                // Таймаут очень короткий для локалки (500мс), чтобы сканировать быстро
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 2000);
+                const timeoutTime = node.includes("ngrok") ? 3000 : 800; 
+                const timeoutId = setTimeout(() => controller.abort(), timeoutTime);
 
                 const res = await fetch(`${node}/api/get_user_state?user_id=${userId}`, {
                     signal: controller.signal
@@ -291,32 +316,31 @@
                     const data = await res.json();
                     ACTIVE_URL = node; 
                     
-                    printLog(`HANDSHAKE ESTABLISHED: ${prettyNode}`, "ok");
+                    printLog(`TARGET ACQUIRED: ${prettyNode}`, "ok");
                     updateStatus(data);
                     
                     setTimeout(() => {
                         print("The Sovereign is listening.", "janus");
                         addCursor();
                     }, 500);
-                    return; // Успех
+                    return; // Нашли! Выходим.
                 }
             } catch (e) {
-                // Тишина
+                // Порт закрыт, идем дальше молча
             }
         }
 
         // Если все молчат
-        pwrDisplay.innerText = "ERR";
+        pwrDisplay.innerText = "LOST";
         pwrDisplay.style.color = "var(--alert)";
-        printLog("CRITICAL FAILURE: ALL NODES SILENT", "warn");
-        print("Cannot locate Janus Core. \nCheck Ngrok or Mirror Node (.29).", "error");
+        printLog("CRITICAL FAILURE: JANUS NOT FOUND ON ANY PORT", "warn");
+        print("Scanned ports: " + PORTS_TO_SCAN.join(", ") + ".\nCheck server power or Ngrok URL.", "error");
     }
 
     function updateStatus(data) {
         if(data.energy !== undefined) {
             pwrDisplay.innerText = data.is_premium ? "INF" : `${data.energy}%`;
             pwrDisplay.classList.add('energy-pulse');
-            printLog("CONNECTION STABLE.", "ok");
         }
     }
 

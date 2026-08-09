@@ -3,23 +3,39 @@
 # Terminal for Janus
 ### Supporting interface prototype
 
-`UI / terminal` · `integration support` · `not a research claim`
+![Status](https://img.shields.io/badge/status-work%20in%20progress-8c959f)
+![Class](https://img.shields.io/badge/class-supporting%20prototype-6e7681)
 
 </div>
 
-This repository contains a supporting terminal/interface experiment for JANUS-related software.
+## Status
 
-It is not a flagship research result and should not be used to infer claims about intelligence, security, prediction or scientific validation.
+**Work in Progress.** This repository is incomplete. Interface behavior, integration assumptions, and documentation may change. It is not a finished product or evidence-bearing research result.
 
-## Portfolio status
+## Abstract
+
+Terminal for Janus is a small UI/terminal experiment for interacting with JANUS-related software and integration flows.
+
+## Current scope
+
+- terminal/interface experiments;
+- integration and operator-flow prototyping;
+- local development support.
+
+## Boundary
 
 ```text
-PROJECT_CLASS = SUPPORTING_INTERFACE_PROTOTYPE
+MATURITY = WORK_IN_PROGRESS
 FLAGSHIP_RESEARCH = FALSE
-SCIENTIFIC_CLAIMS = NONE_BY_REPOSITORY_CLASSIFICATION
+SCIENTIFIC_RESULT = NOT_CLAIMED
 SECURITY_CERTIFICATION = NOT_ESTABLISHED
+PRODUCTION_READINESS = NOT_ESTABLISHED
 ```
 
-Machine-readable status: [`PROJECT_STATUS.json`](PROJECT_STATUS.json)
+## Review
 
-For the account's current research and engineering entry points, see the [public portfolio index](https://github.com/Hawkar-usls/Janus/blob/main/portfolio-index.json).
+- Machine-readable project status: [`PROJECT_STATUS.json`](PROJECT_STATUS.json)
+- Account visibility/maturity policy: [`portfolio-visibility.json`](https://github.com/Hawkar-usls/Janus/blob/main/portfolio-visibility.json)
+- Current primary work: [public portfolio](https://github.com/Hawkar-usls/Hawkar-usls)
+
+Presentation follows the account's [public repository standard](https://github.com/Hawkar-usls/Janus/blob/main/docs/PUBLIC_REPOSITORY_PRESENTATION_STANDARD.md). No affiliation with MIT is implied by the presentation style.

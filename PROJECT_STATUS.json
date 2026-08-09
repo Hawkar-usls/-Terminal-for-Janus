@@ -4,8 +4,12 @@
   "repository": "https://github.com/Hawkar-usls/-Terminal-for-Janus",
   "portfolio_class": "supporting_interface_prototype",
   "last_reviewed": "2026-08-09",
+  "maturity": "WORK_IN_PROGRESS",
+  "completion_status": "INCOMPLETE",
   "summary": "Supporting terminal/interface experiment for JANUS-related software.",
   "flagship_research": false,
   "scientific_claims_by_repository_classification": [],
-  "security_certification": "not_established"
+  "security_certification": "NOT_ESTABLISHED",
+  "production_readiness": "NOT_ESTABLISHED",
+  "visibility_policy": "https://github.com/Hawkar-usls/Janus/blob/main/portfolio-visibility.json"
 }

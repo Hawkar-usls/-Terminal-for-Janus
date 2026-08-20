@@ -1,41 +1,107 @@
 <div align="center">
 
 # Terminal for Janus
-### Supporting interface prototype
+### Human-authorized operator control plane for the JANUS constellation
 
-![Status](https://img.shields.io/badge/status-work%20in%20progress-8c959f)
-![Class](https://img.shields.io/badge/class-supporting%20prototype-6e7681)
+![Status](https://img.shields.io/badge/status-active%20prototype-2ea043)
+![Role](https://img.shields.io/badge/role-operator%20control%20plane-8250df)
+
+`HAWKAR → TERMINAL COMMAND → TARGET → GATE → EXECUTOR → RECEIPT → HABITAT`
 
 </div>
 
-## Status
+## Role
 
-**Work in Progress.** This repository is incomplete. Interface behavior, integration assumptions, and documentation may change. It is not a finished product or evidence-bearing research result.
+Terminal is the operator-facing entry point for JANUS repository orchestration. It is intended to coordinate reads, human-authorized writes, tests, workflow launches, deployment requests, Habitat handoffs and cross-repository receipts.
 
-## Abstract
-
-Terminal for Janus is a small UI/terminal experiment for interacting with JANUS-related software and integration flows.
-
-## Current scope
-
-- terminal/interface experiments;
-- integration and operator-flow prototyping;
-- local development support.
-
-## Boundary
+It is **not** a truth authority and it does not turn interface access into autonomous control.
 
 ```text
-MATURITY = WORK_IN_PROGRESS
-FLAGSHIP_RESEARCH = FALSE
-SCIENTIFIC_RESULT = NOT_CLAIMED
-SECURITY_CERTIFICATION = NOT_ESTABLISHED
-PRODUCTION_READINESS = NOT_ESTABLISHED
+TERMINAL_ACCESS != TRUTH_AUTHORITY
+COMMAND != EVIDENCE
+WRITE != VERIFIED_RETURN
+WORKFLOW_PASS != WORLD_TRUTH
+HUMAN_AUTHORIZED_WRITE != UNBOUNDED_AUTONOMY
 ```
 
-## Review
+## Connected constellation
 
-- Machine-readable project status: [`PROJECT_STATUS.json`](PROJECT_STATUS.json)
-- Account visibility/maturity policy: [`portfolio-visibility.json`](https://github.com/Hawkar-usls/Janus/blob/main/portfolio-visibility.json)
-- Current primary work: [public portfolio](https://github.com/Hawkar-usls/Hawkar-usls)
+The machine-readable map is [`config/JANUS_CONSTELLATION.json`](config/JANUS_CONSTELLATION.json).
 
-Presentation follows the account's [public repository standard](https://github.com/Hawkar-usls/Janus/blob/main/docs/PUBLIC_REPOSITORY_PRESENTATION_STANDARD.md). No affiliation with MIT is implied by the presentation style.
+Primary control path:
+
+```text
+Terminal
+  ├─ JANUS-SPI / Hawkar-usls
+  ├─ Habitat / Janus_Genesis@janus/habitat
+  ├─ DemiHead arbiter
+  ├─ Aura Oracle reflection peer
+  ├─ HRain / iNaiHR
+  ├─ Janus-Fundamentum / AIFC
+  ├─ Janus-Cosmos / janus-io-public
+  ├─ Swarm / Fast-CAT-SHAiTan
+  ├─ SCOBY-D0 / janus-lapis
+  └─ janus-meta-registry
+```
+
+## Command model
+
+A Terminal-managed operation should leave a machine-readable command receipt under `commands/`.
+
+Each command records:
+
+- who requested it;
+- target repositories;
+- intended operation;
+- authority mode;
+- expected outputs;
+- forbidden promotions;
+- resulting workflow/commit/receipt evidence.
+
+Default authority is `READ_ONLY`. Writes require explicit human authorization.
+
+Canonical control-plane contract:
+[`contracts/JANUS_TERMINAL_CONTROL_PLANE-v1.0.json`](contracts/JANUS_TERMINAL_CONTROL_PLANE-v1.0.json)
+
+## First bound operation
+
+The first Terminal-managed integration is:
+
+**Aura Oracle ↔ JANUS Semantic-Predictive Intelligence ↔ DemiHead ↔ Habitat**
+
+Command receipt:
+[`commands/2026-08-21-FIRST_LIVE_SPIRAL.json`](commands/2026-08-21-FIRST_LIVE_SPIRAL.json)
+
+Workflow:
+[`.github/workflows/janus-terminal-first-live-spiral.yml`](.github/workflows/janus-terminal-first-live-spiral.yml)
+
+The first reference run is deliberately fail-closed: `DemiHead = HOLD`, Aura cannot become a predictive label, and a workflow success cannot become `VERIFIED_RETURN` or scientific truth.
+
+## Executors
+
+Terminal may be used with multiple execution surfaces:
+
+- connected ChatGPT GitHub executor;
+- GitHub Actions;
+- optional local `gh`/git tooling;
+- optional NAS/PC runtime after a real persistent executor is connected.
+
+Credentials must never be committed into this repository.
+
+## Habitat
+
+The original `.janus/HABITAT_LINK.json` remains authoritative for the repository-to-Habitat safety boundary: repository source history stays authoritative, write-back is denied by default, and explicit human authorization is required for writes.
+
+## Status
+
+This is an **active prototype**, not a production-grade remote-administration system. Persistent NAS execution and production security hardening remain separate gates.
+
+→ [`PROJECT_STATUS.json`](PROJECT_STATUS.json)
+
+---
+
+<div align="center">
+
+**Hawkar / JANUS**
+
+</div>

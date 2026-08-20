@@ -1,0 +1,90 @@
+{
+  "schema": "janus.terminal.control_plane.v1",
+  "contract_id": "JANUS_TERMINAL_CONTROL_PLANE_v1.0",
+  "status": "FROZEN_BEFORE_CONTROL_PLANE_EXECUTION",
+  "created_at_local": "2026-08-21T02:07:00+03:00",
+  "repository": "Hawkar-usls/-Terminal-for-Janus",
+  "role": "HUMAN_AUTHORIZED_OPERATOR_CONTROL_PLANE",
+  "purpose": "Provide one operator-facing JANUS control surface for repository orchestration, Habitat routing, Aura/SPI spiral launches, DemiHead arbitration requests, CI/test requests, receipts and cross-repository handoffs without converting interface access into epistemic or physical authority.",
+  "canonical_route": [
+    "HAWKAR_INTENT",
+    "TERMINAL_COMMAND_RECEIPT",
+    "TARGET_RESOLUTION",
+    "DEMIHEAD_OR_RELEVANT_GATE",
+    "EXECUTOR",
+    "RESULT_RECEIPT",
+    "HABITAT_MEMORY",
+    "OPTIONAL_ORIGIN_PRIME_AFTER_VERIFIED_RETURN"
+  ],
+  "connected_peers": {
+    "home_cognitive_gateway": "Hawkar-usls/Hawkar-usls",
+    "habitat": "Hawkar-usls/Janus_Genesis@janus/habitat",
+    "arbiter": "Hawkar-usls/Demi_Head",
+    "aura": "Hawkar-usls/aura-oracle-tg",
+    "structural_context": "Hawkar-usls/Hrain",
+    "associative_context": "Hawkar-usls/iNaiHR",
+    "proof_guard": "Hawkar-usls/Janus-Fundamentum",
+    "future_audit": "Hawkar-usls/AIFC",
+    "cosmos": "Hawkar-usls/Janus-Cosmos",
+    "measurement": "Hawkar-usls/janus-io-public",
+    "swarm": "Hawkar-usls/janus-distributed-ai-swarm",
+    "scout": "Hawkar-usls/Fast-CAT-SHAiTan",
+    "materials": "Hawkar-usls/SCOBY-D0",
+    "ranking_sandbox": "Hawkar-usls/janus-lapis",
+    "registry": "Hawkar-usls/janus-meta-registry"
+  },
+  "command_envelope": {
+    "required": [
+      "command_id",
+      "created_at",
+      "requested_by",
+      "operation",
+      "targets",
+      "intent",
+      "authority",
+      "expected_outputs"
+    ],
+    "authority_modes": [
+      "READ_ONLY",
+      "HUMAN_AUTHORIZED_WRITE",
+      "TEST_EXECUTION",
+      "WORKFLOW_TRIGGER",
+      "DEPLOY_REQUEST"
+    ],
+    "default_authority": "READ_ONLY",
+    "write_requires_explicit_human_authorization": true
+  },
+  "executor_modes": {
+    "CHATGPT_GITHUB_CONNECTOR": "May execute GitHub reads/writes only within the user's explicit request and connected permissions.",
+    "GITHUB_ACTIONS": "May execute repository workflow operations within granted workflow/token permissions.",
+    "LOCAL_GH_CLI": "Optional local operator executor when explicitly configured by the human.",
+    "NAS_RUNTIME": "Optional deployment executor after a real NAS/PC runtime connection exists."
+  },
+  "laws": [
+    "TERMINAL_ACCESS != TRUTH_AUTHORITY",
+    "TERMINAL_ACCESS != PHYSICAL_EFFECT_AUTHORITY",
+    "COMMAND != EVIDENCE",
+    "WORKFLOW_PASS != WORLD_TRUTH",
+    "MODEL_OUTPUT != COMMAND",
+    "AURA_OUTPUT != PREDICTIVE_LABEL",
+    "PREDICTION != TRUTH",
+    "MEMORY != VERDICT_AUTHORITY",
+    "WRITE != VERIFIED_RETURN",
+    "HUMAN_AUTHORIZED_WRITE != UNBOUNDED_AUTONOMY",
+    "PRIVATE_CONTENT != PUBLIC_HABITAT",
+    "CREDENTIALS_MUST_NOT_BE_PERSISTED_IN_REPOSITORY",
+    "FAILED_OR_REJECTED_COMMANDS_REMAIN_VISIBLE_AS_RECEIPTS"
+  ],
+  "safety": {
+    "credentials_in_repo": false,
+    "issue_text_is_command": false,
+    "commit_message_is_command": false,
+    "workflow_status_is_permission": false,
+    "external_effects_default": false,
+    "mass_effect_budget_default": 0,
+    "destructive_operations_require_explicit_target_and_human_authorization": true,
+    "protected_runtime_services_may_not_be_stopped_by_repository_command": true
+  },
+  "first_bound_operation": "FIRST_LIVE_AURA_SPI_HABITAT_SPIRAL",
+  "claim_ceiling": "OPERATOR_ORCHESTRATION_LAYER_NOT_AUTONOMOUS_SUPERUSER_NOT_EPISTEMIC_AUTHORITY"
+}

@@ -1,0 +1,21 @@
+{
+  "schema": "janus.aura_spi.spiral_cycle_receipt.v1",
+  "session_id": "spiral-65f6be27de774f5c",
+  "generation": 1,
+  "intent_id": "b51a904a58af97b01a6241f07f2453b06cf0e484b78516292cc5db4ba425b05d",
+  "intent_authority": "LOCAL_PREVIEW",
+  "terminal": "HOLD",
+  "turn_hashes": [
+    "86d1c25233afcd80db4ef81566c892ba143f613c3d0dcf5362e5b72ec9768a6b",
+    "aa4c601643711209ab6a63e0e335f1a53e421cdc73a48bc9e72c07d41ee05aaf",
+    "ad1712f1df98b6c07a85b8e7493942f1c29fb9331af4329a86a2b05d89f0e0e1",
+    "89286f8124dc789781fd2f82a2721c3b6c4fa5ed87ef853764649d0c96e685a8",
+    "a5a5adef9b6becc9f052e6d9fbf5a4ceaa5324867d2a379509a2da560c43f6c1",
+    "237adc3700be11e273f2189c6d7fc4a78011f6d99a5a1b248bec17c1429fe24c"
+  ],
+  "last_turn_hash": "237adc3700be11e273f2189c6d7fc4a78011f6d99a5a1b248bec17c1429fe24c",
+  "chain_valid": true,
+  "predictive_model_updated": false,
+  "fresh_external_trigger_consumed": true,
+  "continuous_is_infinite_self_chat": false
+}

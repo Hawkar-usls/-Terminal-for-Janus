@@ -1,0 +1,15 @@
+{
+  "schema": "janus.terminal.first_live_spiral_summary.v1",
+  "command_id": "JANUS_TERMINAL_FIRST_LIVE_SPIRAL_2026_08_21",
+  "github_run_id": "32427785558",
+  "github_run_attempt": "1",
+  "source_commit": "a21e24a8d4c08e5b5b6a623188ae00fb3c871aad",
+  "session_id": "spiral-65f6be27de774f5c",
+  "generation": 1,
+  "terminal": "HOLD",
+  "chain_valid": true,
+  "predictive_model_updated": false,
+  "status": "REFERENCE_INTEGRATION_PASS_FAIL_CLOSED",
+  "world_truth": false,
+  "verified_return": false
+}

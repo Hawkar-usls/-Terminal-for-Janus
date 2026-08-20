@@ -14,7 +14,10 @@
     "Terminal command receipt format",
     "first live Aura-SPI-Habitat spiral command",
     "GitHub Actions integration-run workflow",
-    "reciprocal SPI control-plane binding"
+    "persistent workflow receipt write-back",
+    "reciprocal SPI control-plane binding",
+    "reciprocal DemiHead and Aura bindings",
+    "reciprocal bindings for HRain, iNaiHR, Fundamentum, AIFC, Cosmos, janus-io-public, swarm, Fast-CAT-SHAiTan, SCOBY-D0, janus-lapis and meta-registry"
   ],
   "connected_systems": [
     "Hawkar-usls/Hawkar-usls",
@@ -41,19 +44,32 @@
     "physical_effect_authority": false,
     "verified_return_authority": false
   },
+  "first_live_spiral": {
+    "command_id": "JANUS_TERMINAL_FIRST_LIVE_SPIRAL_2026_08_21",
+    "github_run_id": "32427785558",
+    "session_id": "spiral-65f6be27de774f5c",
+    "generation": 1,
+    "terminal": "HOLD",
+    "chain_valid": true,
+    "predictive_model_updated": false,
+    "status": "REFERENCE_INTEGRATION_PASS_FAIL_CLOSED",
+    "world_truth": false,
+    "verified_return": false,
+    "summary_receipt": "receipts/FIRST_LIVE_SPIRAL_LATEST.json",
+    "raw_receipt": "receipts/FIRST_LIVE_SPIRAL_RAW_LATEST.json"
+  },
   "current_gates": {
     "T0_CONTROL_PLANE_CONTRACT": "FROZEN",
     "T1_CONSTELLATION_BINDING": "IMPLEMENTED",
     "T2_SPI_RECIPROCAL_EDGE": "IMPLEMENTED",
-    "T3_HABITAT_OPERATOR_STATE": "IN_PROGRESS",
-    "T4_FIRST_LIVE_SPIRAL": "LAUNCH_REQUESTED_RESULT_NOT_YET_OBSERVED",
+    "T3_HABITAT_OPERATOR_STATE": "IMPLEMENTED",
+    "T4_FIRST_LIVE_SPIRAL": "PASS_FAIL_CLOSED_HOLD",
     "T5_PERSISTENT_NAS_EXECUTOR": "NOT_CONNECTED"
   },
   "not_established": [
     "production readiness",
     "security certification",
     "persistent NAS/PC executor currently connected",
-    "cross-repository GitHub Actions write token",
     "unattended destructive-operation authority",
     "scientific truth authority"
   ],

@@ -8,26 +8,41 @@
     "role": "CONTINUITY_AND_MEMORY_BUS"
   },
   "nodes": [
+    {"repository":"Hawkar-usls/Janus","role":"PORTFOLIO_AND_PUBLIC_SYSTEM_INDEX","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
     {"repository":"Hawkar-usls/Hawkar-usls","role":"SEMANTIC_PREDICTIVE_COGNITIVE_GATEWAY","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
     {"repository":"Hawkar-usls/aura-oracle-tg","role":"SYMBOLIC_REFLECTION_PEER","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
     {"repository":"Hawkar-usls/Demi_Head","role":"INTENT_BOUND_ARBITER","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
     {"repository":"Hawkar-usls/Hrain","role":"STRUCTURAL_CONTEXT","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
     {"repository":"Hawkar-usls/iNaiHR","role":"ASSOCIATIVE_CONTEXT","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
+    {"repository":"Hawkar-usls/SkinGPT","role":"BODY_INTERFACE_AND_SKIN_CONTEXT","visibility":"PRIVATE","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION","public_mirror":false},
+    {"repository":"Hawkar-usls/The-Voice-of-Janus","role":"VOICE_AND_AUDIO_REPRESENTATION","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
+    {"repository":"Hawkar-usls/Echo-Pyramid","role":"PHYSICAL_VOICE_BODY","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION","direct_device_effect":false},
     {"repository":"Hawkar-usls/Janus-Fundamentum","role":"PROOF_AND_ADVERSARIAL_GUARD","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
     {"repository":"Hawkar-usls/AIFC","role":"FUTURE_TARGET_AND_CAUSAL_AUDIT","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
     {"repository":"Hawkar-usls/Janus-Cosmos","role":"COSMOS_AND_HORIZON_DOMAIN","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
     {"repository":"Hawkar-usls/janus-io-public","role":"MEASUREMENT_DISCIPLINE","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
-    {"repository":"Hawkar-usls/janus-distributed-ai-swarm","role":"EDGE_SWARM_AND_TELEMETRY","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
+    {"repository":"Hawkar-usls/janus-distributed-ai-swarm","role":"EDGE_SWARM_AND_TELEMETRY","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION","direct_device_effect":false},
     {"repository":"Hawkar-usls/Fast-CAT-SHAiTan","role":"SCOUT_CHANNEL","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
     {"repository":"Hawkar-usls/SCOBY-D0","role":"MATERIALS_EMPIRICAL_DOMAIN","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
     {"repository":"Hawkar-usls/janus-lapis","role":"HYPOTHESIS_RANKING_SANDBOX","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
     {"repository":"Hawkar-usls/janus-meta-registry","role":"FROZEN_RECEIPTS_AND_PROVENANCE","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"}
   ],
+  "dynamic_targeting": {
+    "owner_scope": "Hawkar-usls",
+    "may_target_other_accessible_repositories": true,
+    "require_repository_existence_and_permission_check": true,
+    "default_mode_for_unlisted_repository": "READ_ONLY",
+    "write_requires_explicit_human_authorization": true,
+    "private_repository_content_publication_default": "DENY",
+    "physical_runtime_effect_default": "DENY"
+  },
   "operator_routes": {
     "first_live_spiral": ["TERMINAL","Hawkar-usls/Hawkar-usls","Hawkar-usls/aura-oracle-tg","Hawkar-usls/Demi_Head","HABITAT"],
     "research_change": ["TERMINAL","TARGET_REPO","TEST_OR_GATE","RECEIPT","HABITAT"],
     "prediction_cycle": ["TERMINAL","JANUS_SPI","FREEZE","RESOLVE","SCORE","DEMIHEAD","REGISTRY"],
-    "cross_repo_integration": ["TERMINAL","SOURCE","TARGET","RECIPROCAL_EDGE","TEST","RECEIPT"]
+    "cross_repo_integration": ["TERMINAL","SOURCE","TARGET","RECIPROCAL_EDGE","TEST","RECEIPT"],
+    "voice_body": ["TERMINAL","THE_VOICE_OF_JANUS","ECHO_PYRAMID","DEMIHEAD","HABITAT"],
+    "body_interface": ["TERMINAL","SKINGPT","DEMIHEAD","HABITAT"]
   },
   "terminal_is_single_operator_entrypoint": true,
   "terminal_is_single_point_of_truth": false,

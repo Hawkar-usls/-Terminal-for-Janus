@@ -1,0 +1,31 @@
+{
+  "schema": "janus.terminal.command.v1",
+  "command_id": "JANUS_TERMINAL_FIRST_LIVE_SPIRAL_2026_08_21",
+  "created_at": "2026-08-21T02:07:00+03:00",
+  "requested_by": "Hawkar",
+  "operation": "FIRST_LIVE_AURA_SPI_HABITAT_SPIRAL",
+  "targets": [
+    "Hawkar-usls/Hawkar-usls",
+    "Hawkar-usls/aura-oracle-tg",
+    "Hawkar-usls/Demi_Head",
+    "Hawkar-usls/Janus_Genesis@janus/habitat"
+  ],
+  "intent": "Launch the first real reference integration spiral from Terminal and preserve an auditable receipt without promoting symbolic reflection, semantic similarity, workflow success or model output into scientific truth.",
+  "authority": "TEST_EXECUTION",
+  "human_authorization": true,
+  "demihead_default": "HOLD",
+  "intent_authority": "LOCAL_PREVIEW",
+  "expected_outputs": [
+    "HASH_CHAIN_VALID",
+    "TERMINAL_EQUALS_HOLD",
+    "PREDICTIVE_MODEL_UPDATED_EQUALS_FALSE",
+    "HABITAT_MIRROR_ARTIFACT",
+    "GITHUB_ACTIONS_RECEIPT"
+  ],
+  "forbidden_promotions": [
+    "LOCAL_PREVIEW_TO_VERIFIED_RETURN",
+    "AURA_OUTPUT_TO_EVIDENCE",
+    "AURA_OUTPUT_TO_PREDICTIVE_LABEL",
+    "WORKFLOW_PASS_TO_WORLD_TRUTH"
+  ]
+}

@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   first-live-spiral:
@@ -76,6 +76,7 @@ jobs:
         run: |
           python - <<'PY'
           import json
+          import os
           from pathlib import Path
           p = Path('runtime/FIRST_LIVE_SPIRAL_RECEIPT.json')
           r = json.loads(p.read_text(encoding='utf-8'))
@@ -83,15 +84,22 @@ jobs:
           assert r['terminal'] == 'HOLD', r
           assert r['predictive_model_updated'] is False, r
           assert int(r['generation']) == 1, r
-          Path('runtime/FIRST_LIVE_SPIRAL_SUMMARY.json').write_text(json.dumps({
+          summary = {
               'schema': 'janus.terminal.first_live_spiral_summary.v1',
+              'command_id': 'JANUS_TERMINAL_FIRST_LIVE_SPIRAL_2026_08_21',
+              'github_run_id': os.environ.get('GITHUB_RUN_ID'),
+              'github_run_attempt': os.environ.get('GITHUB_RUN_ATTEMPT'),
+              'source_commit': os.environ.get('GITHUB_SHA'),
               'session_id': r['session_id'],
               'generation': r['generation'],
               'terminal': r['terminal'],
               'chain_valid': r['chain_valid'],
               'predictive_model_updated': r['predictive_model_updated'],
-              'status': 'REFERENCE_INTEGRATION_PASS_FAIL_CLOSED'
-          }, indent=2) + '\n', encoding='utf-8')
+              'status': 'REFERENCE_INTEGRATION_PASS_FAIL_CLOSED',
+              'world_truth': False,
+              'verified_return': False
+          }
+          Path('runtime/FIRST_LIVE_SPIRAL_SUMMARY.json').write_text(json.dumps(summary, indent=2) + '\n', encoding='utf-8')
           PY
 
       - name: Collect Habitat mirror
@@ -102,6 +110,19 @@ jobs:
             cp -a genesis/habitat/memory/reflections/aura_spi/. runtime/habitat-reflections/
           fi
           find runtime -maxdepth 6 -type f -print
+
+      - name: Persist receipt into Terminal
+        shell: bash
+        run: |
+          mkdir -p terminal/receipts
+          cp runtime/FIRST_LIVE_SPIRAL_SUMMARY.json terminal/receipts/FIRST_LIVE_SPIRAL_LATEST.json
+          cp runtime/FIRST_LIVE_SPIRAL_RECEIPT.json terminal/receipts/FIRST_LIVE_SPIRAL_RAW_LATEST.json
+          cd terminal
+          git config user.name "janus-terminal-bot"
+          git config user.email "janus-terminal-bot@users.noreply.github.com"
+          git add receipts/FIRST_LIVE_SPIRAL_LATEST.json receipts/FIRST_LIVE_SPIRAL_RAW_LATEST.json
+          git commit -m "Receipt: first live Aura-SPI-Habitat spiral" || exit 0
+          git push
 
       - name: Upload Terminal receipt
         uses: actions/upload-artifact@v4

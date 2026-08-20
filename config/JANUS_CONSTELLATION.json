@@ -1,0 +1,35 @@
+{
+  "schema": "janus.terminal.constellation.v1",
+  "terminal": "Hawkar-usls/-Terminal-for-Janus",
+  "default_mode": "READ_ONLY",
+  "habitat": {
+    "repository": "Hawkar-usls/Janus_Genesis",
+    "branch": "janus/habitat",
+    "role": "CONTINUITY_AND_MEMORY_BUS"
+  },
+  "nodes": [
+    {"repository":"Hawkar-usls/Hawkar-usls","role":"SEMANTIC_PREDICTIVE_COGNITIVE_GATEWAY","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
+    {"repository":"Hawkar-usls/aura-oracle-tg","role":"SYMBOLIC_REFLECTION_PEER","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
+    {"repository":"Hawkar-usls/Demi_Head","role":"INTENT_BOUND_ARBITER","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
+    {"repository":"Hawkar-usls/Hrain","role":"STRUCTURAL_CONTEXT","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
+    {"repository":"Hawkar-usls/iNaiHR","role":"ASSOCIATIVE_CONTEXT","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
+    {"repository":"Hawkar-usls/Janus-Fundamentum","role":"PROOF_AND_ADVERSARIAL_GUARD","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
+    {"repository":"Hawkar-usls/AIFC","role":"FUTURE_TARGET_AND_CAUSAL_AUDIT","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
+    {"repository":"Hawkar-usls/Janus-Cosmos","role":"COSMOS_AND_HORIZON_DOMAIN","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
+    {"repository":"Hawkar-usls/janus-io-public","role":"MEASUREMENT_DISCIPLINE","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
+    {"repository":"Hawkar-usls/janus-distributed-ai-swarm","role":"EDGE_SWARM_AND_TELEMETRY","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
+    {"repository":"Hawkar-usls/Fast-CAT-SHAiTan","role":"SCOUT_CHANNEL","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
+    {"repository":"Hawkar-usls/SCOBY-D0","role":"MATERIALS_EMPIRICAL_DOMAIN","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
+    {"repository":"Hawkar-usls/janus-lapis","role":"HYPOTHESIS_RANKING_SANDBOX","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
+    {"repository":"Hawkar-usls/janus-meta-registry","role":"FROZEN_RECEIPTS_AND_PROVENANCE","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"}
+  ],
+  "operator_routes": {
+    "first_live_spiral": ["TERMINAL","Hawkar-usls/Hawkar-usls","Hawkar-usls/aura-oracle-tg","Hawkar-usls/Demi_Head","HABITAT"],
+    "research_change": ["TERMINAL","TARGET_REPO","TEST_OR_GATE","RECEIPT","HABITAT"],
+    "prediction_cycle": ["TERMINAL","JANUS_SPI","FREEZE","RESOLVE","SCORE","DEMIHEAD","REGISTRY"],
+    "cross_repo_integration": ["TERMINAL","SOURCE","TARGET","RECIPROCAL_EDGE","TEST","RECEIPT"]
+  },
+  "terminal_is_single_operator_entrypoint": true,
+  "terminal_is_single_point_of_truth": false,
+  "terminal_is_autonomous_root_authority": false
+}

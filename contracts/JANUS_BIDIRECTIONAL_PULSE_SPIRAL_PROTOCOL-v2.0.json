@@ -1,0 +1,82 @@
+{
+  "schema": "janus.bidirectional_pulse_spiral.protocol.v2",
+  "protocol_id": "JANUS_BIDIRECTIONAL_PULSE_SPIRAL_PROTOCOL_v2.0",
+  "version": "2.0",
+  "status": "ACTIVE_EXPERIMENTAL",
+  "created_at_local": "2026-08-21T18:15:00+03:00",
+  "purpose": "Run each spiral pulse as two concurrent directional lanes from the same parent state: a forward lane advances from the head of the gate queue while a reverse lane attacks from the tail toward origin; only a fail-closed join may emit the next state.",
+  "analogy": "Counter-propagating pulsejet-inspired reasoning waves; software control metaphor only.",
+  "canonical_pair_pulse": [
+    "SHARED_INTAKE_PARENT_STATE",
+    "CONCURRENT_LAUNCH_BARRIER",
+    "FORWARD_COMPRESSION_AND_IGNITION",
+    "REVERSE_COMPRESSION_AND_IGNITION",
+    "CROSS_DIRECTION_JOIN_GATE",
+    "MERGED_EXPANSION_STATE_DELTA",
+    "EXHAUST_PAIR_RECEIPT",
+    "RETURN_MERGED_STATE_OR_HOLD"
+  ],
+  "direction_laws": [
+    "FORWARD_AND_REVERSE_START_FROM_IDENTICAL_PARENT_STATE",
+    "FORWARD_AND_REVERSE_MUST_EXECUTE_CONCURRENTLY_NOT_SEQUENTIALLY",
+    "FORWARD_INDEX_n = n",
+    "REVERSE_INDEX_n = (N-1)-n",
+    "CENTER_GATE_MAY_BE_SHARED_ON_ODD_LENGTH_QUEUE",
+    "REVERSE != UNDO",
+    "REVERSE = BACKWARD_ADVERSARIAL_VALIDATION_TOWARD_ORIGIN",
+    "NO_LANE_MAY_PROMOTE_ALONE",
+    "JOIN_REQUIRES_BOTH_LANES_PASS",
+    "JOIN_REQUIRES_PARENT_HASH_EQUALITY",
+    "JOIN_REQUIRES_DIRECTIONAL_RECEIPTS",
+    "JOIN_CONFLICT -> HOLD_CONFLICT_NO_PROMOTION",
+    "ZERO_MERGED_DELTA -> HOLD_STALL_NO_PROMOTION",
+    "REPEATED_MERGED_STATE_HASH -> HOLD_REPEAT_STATE_RESONANCE"
+  ],
+  "queue": [
+    "BASELINE",
+    "ZERO_DELTA",
+    "AURA_CANDIDATE",
+    "DEMIHEAD_BINDING",
+    "HOME_RECEIPT",
+    "FORK_FIREWALL",
+    "TRUTH_FIREWALL"
+  ],
+  "pairing": [
+    ["BASELINE", "TRUTH_FIREWALL"],
+    ["ZERO_DELTA", "FORK_FIREWALL"],
+    ["AURA_CANDIDATE", "HOME_RECEIPT"],
+    ["DEMIHEAD_BINDING", "DEMIHEAD_BINDING"]
+  ],
+  "join_gate": {
+    "both_lanes_pass_required": true,
+    "same_parent_hash_required": true,
+    "lane_receipt_hashes_required": true,
+    "center_duplicate_is_single_gate_double_direction_check": true,
+    "conflict_policy": "HOLD_CONFLICT_NO_PROMOTION",
+    "automatic_resolution_by_majority": false,
+    "automatic_resolution_by_average": false
+  },
+  "concurrency": {
+    "implementation": "THREADPOOL_TWO_WORKERS_WITH_SHARED_BARRIER",
+    "worker_count": 2,
+    "sequential_fallback_counts_as_bidirectional": false,
+    "launch_barrier_required": true,
+    "direction_start_timestamps_recorded": true
+  },
+  "anti_runaway": {
+    "max_pair_pulses": 4,
+    "automatic_external_effect": false,
+    "autonomous_unbounded_recursion": false,
+    "first_pair_failure_stops_train": true,
+    "zero_delta_stops_train": true,
+    "repeated_state_stops_train": true
+  },
+  "truth_firewall": {
+    "bidirectional_pass_is_world_truth": false,
+    "agreement_between_lanes_is_external_validation": false,
+    "reverse_consistency_is_causal_proof": false,
+    "world_claim_requires_external_validation": true
+  },
+  "promotion_rule": "PARENT_n -> [FORWARD_n || REVERSE_n] -> JOIN_PASS -> MERGED_STATE_(n+1)",
+  "claim_ceiling": "CONCURRENT_BIDIRECTIONAL_INTERNAL_STRESS_TEST_NOT_WORLD_TRUTH"
+}

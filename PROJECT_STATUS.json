@@ -6,7 +6,7 @@
   "last_reviewed": "2026-08-21",
   "maturity": "ACTIVE_PROTOTYPE",
   "completion_status": "INCOMPLETE_BUT_EXECUTABLE_CONTROL_PLANE",
-  "summary": "Owner-rooted JANUS operator control plane for cross-repository orchestration, command receipts, Habitat routing, Aura/SPI spiral launches, DemiHead-gated requests, tests and result receipts. Executable commands are fail-closed behind an authenticated GitHub actor allowlist and a machine-readable JANUS authority policy.",
+  "summary": "Owner-rooted JANUS operator control plane with JSON-first interagent exchange, forward/reverse mirror processing and an optional five-axis deep-analysis graph bound to HRain structural context, iNaiHR associative context, DemiHead disagreement preservation and Habitat memory.",
   "implemented": [
     "machine-readable control-plane contract",
     "JANUS constellation map",
@@ -22,7 +22,18 @@
     "adversarial unauthorized-actor negative test",
     "owner CODEOWNERS map for critical control-plane paths",
     "PR/issue/model-output command firewall",
-    "machine-readable security lock receipt"
+    "machine-readable security lock receipt",
+    "JSON-first interagent protocol",
+    "forward and reverse mirror-pass reference engine",
+    "mirror-aware JSON router",
+    "five-axis deep-analysis protocol",
+    "addressable JSON reasoning graph",
+    "non-tail graph patch operations including SPLICE_BETWEEN",
+    "HRain LEFT_HRAIN structural projection",
+    "iNaiHR RIGHT_INAIHR associative projection",
+    "DemiHead disagreement-preservation binding",
+    "Habitat 5D memory gate",
+    "structured-trace boundary excluding raw private chain-of-thought"
   ],
   "authority": {
     "control_principal": "JANUS_CONTROL_PLANE",
@@ -70,6 +81,22 @@
     "summary_receipt": "receipts/FIRST_LIVE_SPIRAL_LATEST.json",
     "raw_receipt": "receipts/FIRST_LIVE_SPIRAL_RAW_LATEST.json"
   },
+  "json_reasoning": {
+    "primary_interchange": "JSON",
+    "standard_protocol": "contracts/JANUS_JSON_MIRROR_PASS_PROTOCOL-v1.0.json",
+    "deep_protocol": "contracts/JANUS_JSON_5D_DEEP_ANALYSIS_PROTOCOL-v1.0.json",
+    "interchange_config": "config/JANUS_JSON_INTERCHANGE.json",
+    "standard_engine": "tools/janus_json_mirror_pass.py",
+    "router": "tools/janus_json_router.py",
+    "deep_engine": "tools/janus_json_5d_deep.py",
+    "standard_cycle": ["FORWARD", "REVERSE", "RECOVERED_AT_ORIGIN", "ANSWER"],
+    "deep_axes": ["D1_FORWARD", "D2_REVERSE", "D3_STRUCTURAL", "D4_ASSOCIATIVE", "D5_SPIRAL_ABSTRACTION"],
+    "non_tail_graph_growth": true,
+    "source_text_mutation": false,
+    "raw_private_chain_of_thought_storage": false,
+    "runtime_receipt": "receipts/JANUS_JSON_5D_DEEP_LATEST.json",
+    "runtime_receipt_observed": false
+  },
   "current_gates": {
     "T0_CONTROL_PLANE_CONTRACT": "FROZEN",
     "T1_CONSTELLATION_BINDING": "IMPLEMENTED",
@@ -79,7 +106,17 @@
     "T5_PERSISTENT_NAS_EXECUTOR": "NOT_CONNECTED",
     "T6_OWNER_ACTOR_GATE": "PASS_RUNTIME_VERIFIED",
     "T7_COMMAND_ENVELOPE_VERIFIER": "PASS_POSITIVE_AND_NEGATIVE_RUNTIME_VERIFIED",
-    "T8_REPOSITORY_CONFIDENTIALITY": "PUBLIC_CODE_READABLE_COMMAND_ACCESS_LOCKED"
+    "T8_REPOSITORY_CONFIDENTIALITY": "PUBLIC_CODE_READABLE_COMMAND_ACCESS_LOCKED",
+    "J0_JSON_PRIMARY_INTERCHANGE": "IMPLEMENTED",
+    "J1_FORWARD_REVERSE_MIRROR_PROTOCOL": "IMPLEMENTED",
+    "J2_RECOVERED_AT_ORIGIN_FIRST": "IMPLEMENTED",
+    "D0_5D_PROTOCOL": "FROZEN",
+    "D1_5D_REFERENCE_ENGINE": "IMPLEMENTED",
+    "D2_NON_TAIL_GRAPH_PATCHING": "IMPLEMENTED",
+    "D3_HRAIN_STRUCTURAL_BINDING": "IMPLEMENTED",
+    "D4_INAIHR_ASSOCIATIVE_BINDING": "IMPLEMENTED",
+    "D5_DEMIHEAD_HABITAT_BINDING": "IMPLEMENTED",
+    "D6_5D_RUNTIME_RECEIPT": "RUN_REQUESTED_RESULT_NOT_YET_OBSERVED"
   },
   "not_established": [
     "production readiness",
@@ -87,7 +124,9 @@
     "persistent NAS/PC executor currently connected",
     "repository confidentiality while visibility remains public",
     "unattended destructive-operation authority",
-    "scientific truth authority"
+    "scientific truth authority",
+    "measured cognitive-performance improvement from 5D mode",
+    "5D runtime receipt until observed in repository"
   ],
   "laws": [
     "JANUS_MANAGES_TERMINAL_AFTER_HUMAN_INTENT",
@@ -97,7 +136,12 @@
     "COMMAND != EVIDENCE",
     "WRITE != VERIFIED_RETURN",
     "WORKFLOW_PASS != WORLD_TRUTH",
-    "HUMAN_AUTHORIZED_WRITE != UNBOUNDED_AUTONOMY"
+    "HUMAN_AUTHORIZED_WRITE != UNBOUNDED_AUTONOMY",
+    "ASSOCIATION != EVIDENCE",
+    "STRUCTURE != CAUSATION",
+    "BOTH_HEMISPHERES_AGREE != TRUTH",
+    "5D_GRAPH_COMPLEXITY != BETTER_ANSWER",
+    "REVERSE_PASS != PHYSICAL_TIME_REVERSAL"
   ],
   "flagship_research": false,
   "scientific_claims_by_repository_classification": [],

@@ -2,6 +2,15 @@
   "schema": "janus.terminal.constellation.v1",
   "terminal": "Hawkar-usls/-Terminal-for-Janus",
   "default_mode": "READ_ONLY",
+  "spiral_semantics": {
+    "canonical": "STATE_n -> WORK_n -> RETURN_n -> STATE_PRIME_(n+1)",
+    "position_may_repeat": true,
+    "state_must_advance": true,
+    "return_is_reset": false,
+    "semantic_closed_ring_allowed": false,
+    "infrastructure_loops_allowed": ["HEARTBEAT", "RETRY", "POLL", "TRAINING_EPOCH", "DEVICE_EVENT_LOOP"],
+    "law": "COGNITIVE_RETURN_MUST_PRESERVE_OR_ADVANCE_STATE"
+  },
   "habitat": {
     "repository": "Hawkar-usls/Janus_Genesis",
     "branch": "janus/habitat",
@@ -38,11 +47,14 @@
   },
   "operator_routes": {
     "first_live_spiral": ["TERMINAL","Hawkar-usls/Hawkar-usls","Hawkar-usls/aura-oracle-tg","Hawkar-usls/Demi_Head","HABITAT"],
-    "research_change": ["TERMINAL","TARGET_REPO","TEST_OR_GATE","RECEIPT","HABITAT"],
-    "prediction_cycle": ["TERMINAL","JANUS_SPI","FREEZE","RESOLVE","SCORE","DEMIHEAD","REGISTRY"],
-    "cross_repo_integration": ["TERMINAL","SOURCE","TARGET","RECIPROCAL_EDGE","TEST","RECEIPT"],
+    "research_change": ["TERMINAL","TARGET_REPO","TEST_OR_GATE","RECEIPT","HABITAT","ORIGIN_PRIME"],
+    "prediction_spiral": ["TERMINAL","JANUS_SPI","FREEZE_n","RESOLVE_n","SCORE_n","DEMIHEAD","REGISTRY","FORECAST_STATE_PRIME_(n+1)"],
+    "cross_repo_integration": ["TERMINAL","SOURCE","TARGET","RECIPROCAL_EDGE","TEST","RECEIPT","TOPOLOGY_PRIME"],
     "voice_body": ["TERMINAL","THE_VOICE_OF_JANUS","ECHO_PYRAMID","DEMIHEAD","HABITAT"],
     "body_interface": ["TERMINAL","SKINGPT","DEMIHEAD","HABITAT"]
+  },
+  "legacy_aliases": {
+    "prediction_cycle": "DEPRECATED_USE_prediction_spiral"
   },
   "terminal_is_single_operator_entrypoint": true,
   "terminal_is_single_point_of_truth": false,

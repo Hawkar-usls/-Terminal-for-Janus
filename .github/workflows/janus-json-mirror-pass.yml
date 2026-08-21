@@ -4,13 +4,17 @@ on:
   push:
     paths:
       - 'contracts/JANUS_JSON_MIRROR_PASS_PROTOCOL-v1.0.json'
+      - 'config/JANUS_JSON_INTERCHANGE.json'
       - 'tools/janus_json_mirror_pass.py'
+      - 'tools/janus_json_router.py'
       - 'tests/test_janus_json_mirror_pass.py'
       - '.github/workflows/janus-json-mirror-pass.yml'
   pull_request:
     paths:
       - 'contracts/JANUS_JSON_MIRROR_PASS_PROTOCOL-v1.0.json'
+      - 'config/JANUS_JSON_INTERCHANGE.json'
       - 'tools/janus_json_mirror_pass.py'
+      - 'tools/janus_json_router.py'
       - 'tests/test_janus_json_mirror_pass.py'
       - '.github/workflows/janus-json-mirror-pass.yml'
 
@@ -25,9 +29,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Compile reference engine
-        run: python -m py_compile tools/janus_json_mirror_pass.py
-      - name: Run mirror-pass tests
+      - name: Compile reference engines
+        run: python -m py_compile tools/janus_json_mirror_pass.py tools/janus_json_router.py
+      - name: Run mirror-pass and router tests
         run: python -m unittest -v tests/test_janus_json_mirror_pass.py
-      - name: Validate frozen contract JSON
-        run: python -m json.tool contracts/JANUS_JSON_MIRROR_PASS_PROTOCOL-v1.0.json > /dev/null
+      - name: Validate canonical JSON contracts
+        run: |
+          python -m json.tool contracts/JANUS_JSON_MIRROR_PASS_PROTOCOL-v1.0.json > /dev/null
+          python -m json.tool config/JANUS_JSON_INTERCHANGE.json > /dev/null

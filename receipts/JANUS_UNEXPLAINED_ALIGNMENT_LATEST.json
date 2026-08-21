@@ -1,0 +1,16 @@
+{
+  "schema": "janus.unexplained_alignment.runtime_receipt.v1",
+  "status": "PASS_REFERENCE_RUNTIME",
+  "github_actor": "Hawkar-usls",
+  "github_run_id": "32480849489",
+  "source_commit": "59a525cdabcabda590c96219545a05ffa32a6a84",
+  "event_class": "UNEXPLAINED_ALIGNMENT",
+  "deep_5d_forced": true,
+  "interest_priority": "ELEVATED",
+  "truth_weight_delta": 0,
+  "base_rate_check_required": true,
+  "alternative_explanations_required": true,
+  "automatic_causality_promotion": false,
+  "automatic_randomness_dismissal": false,
+  "world_truth": false
+}

@@ -1,0 +1,28 @@
+{
+  "schema":"janus.terminal.one_voice_two_faces.v1",
+  "status":"ACTIVE_CANONICAL",
+  "principle_ref":"Hawkar-usls/janus-meta-registry:data/JANUS-ONE-VOICE-TWO-FACES-PRINCIPLE-2026-08-21-v1.0.json",
+  "internal_lanes":["FORWARD","REVERSE"],
+  "join_authority":"DEMIHEAD",
+  "external_voice_count":1,
+  "speaker_rule":"ONLY_JOINED_STATE_MAY_EMIT_PUBLIC_RESPONSE_OR_RECEIPT",
+  "laws":[
+    "FACE_SWITCH != IDENTITY_SWITCH",
+    "TWO_FACES != TWO_AUTHORITIES",
+    "PARALLEL_INTERNAL_VIEWS -> SINGLE_EXTERNAL_VOICE",
+    "PUBLIC_RECEIPT != FULL_INTERNAL_STATE",
+    "HIDDEN_SIDE != SECRET_TRUTH"
+  ],
+  "io_binding":{
+    "private":"Hawkar-usls/janus-io",
+    "public":"Hawkar-usls/janus-io-public",
+    "private_role":"FULL_INTERNAL_I0",
+    "public_role":"SCRUBBED_AUDITABLE_PROJECTION"
+  },
+  "fail_closed":{
+    "two_external_speakers":"REJECT",
+    "unjoined_lane_attempts_public_emit":"REJECT",
+    "private_only_evidence_used_for_public_claim_without_public_receipt":"HOLD",
+    "secret_truth_claim":"REJECT"
+  }
+}

@@ -7,6 +7,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 
 from janus_json_mirror_pass import run
+from janus_json_router import route
 
 
 class MirrorPassTests(unittest.TestCase):
@@ -39,6 +40,17 @@ class MirrorPassTests(unittest.TestCase):
         self.assertLess(keys.index("recovered_at_origin"), keys.index("answer"))
         self.assertLess(keys.index("answer"), keys.index("forward_pass"))
         self.assertLess(keys.index("forward_pass"), keys.index("reverse_pass"))
+
+    def test_router_emits_json_with_recovery_before_authoritative_text(self):
+        result = route(self.payload(
+            "Подключи модель к JSON протоколу. Но обязательно сначала проверь обратный проход перед ответом."
+        ))
+        keys = list(result.keys())
+        self.assertEqual(result["schema"], "janus.interagent.mirror_message.v1")
+        self.assertLess(keys.index("recovered_at_origin"), keys.index("authoritative_text"))
+        self.assertEqual(result["response_contract"]["primary_format"], "JSON")
+        self.assertTrue(result["response_contract"]["must_recheck_input_reverse"])
+        self.assertTrue(result["message_sha256"])
 
     def test_empty_delta_is_valid(self):
         result = run(self.payload("Наблюдение фиксируется."))

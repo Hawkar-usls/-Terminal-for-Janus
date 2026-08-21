@@ -88,7 +88,8 @@ jobs:
           assert out['hemisphere_views']['inaihr']['hemisphere'] == 'RIGHT_INAIHR'
           assert out['hemisphere_views']['demihead_disagreement']['automatic_merge'] is False
           assert out['hemisphere_views']['demihead_disagreement']['agreement_is_truth'] is False
-          source_sha = hashlib.sha256(inp['text'].encode('utf-8')).hexdigest()
+          canonical_source = json.dumps(inp['text'], ensure_ascii=False, sort_keys=True, separators=(',', ':')).encode('utf-8')
+          source_sha = hashlib.sha256(canonical_source).hexdigest()
           assert out['integrity']['authoritative_text_sha256'] == source_sha
           receipt = {
             'schema': 'janus.json_5d_deep_analysis.runtime_receipt.v1',
@@ -100,7 +101,8 @@ jobs:
             'axes_verified': list(out['axes'].keys()),
             'non_tail_splice_verified': True,
             'logical_order_prefix': order[:3],
-            'source_immutable_verified': True,
+            'source_identity_hash_verified': True,
+            'source_text_mutated': False,
             'hrain_projection_verified': True,
             'inaihr_projection_verified': True,
             'demihead_disagreement_preserved': True,

@@ -3,7 +3,7 @@ name: JANUS Terminal First Live Spiral
 on:
   push:
     paths:
-      - 'commands/*FIRST_LIVE_SPIRAL*.json'
+      - 'commands/2026-08-21-FIRST_LIVE_SPIRAL.json'
       - '.janus/JANUS_TERMINAL_AUTHORITY_POLICY.json'
       - 'tools/verify_janus_terminal_command.py'
       - '.github/workflows/janus-terminal-first-live-spiral.yml'
@@ -13,11 +13,13 @@ concurrency:
   group: janus-terminal-control-plane
   cancel-in-progress: false
 
+# The verification/execution plane is read-only. Only the narrow persistence job
+# receives repository write permission after the fail-closed run has succeeded.
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  first-live-spiral:
+  verify-and-run:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -172,26 +174,69 @@ jobs:
           fi
           find runtime -maxdepth 6 -type f -print
 
-      - name: Persist receipt into Terminal
-        shell: bash
-        run: |
-          mkdir -p terminal/receipts
-          cp runtime/TERMINAL_COMMAND_AUTHORITY_RECEIPT.json terminal/receipts/TERMINAL_COMMAND_AUTHORITY_LATEST.json
-          cp runtime/TERMINAL_UNAUTHORIZED_ACTOR_RECEIPT.json terminal/receipts/TERMINAL_UNAUTHORIZED_ACTOR_LATEST.json
-          cp runtime/FIRST_LIVE_SPIRAL_SUMMARY.json terminal/receipts/FIRST_LIVE_SPIRAL_LATEST.json
-          cp runtime/FIRST_LIVE_SPIRAL_RECEIPT.json terminal/receipts/FIRST_LIVE_SPIRAL_RAW_LATEST.json
-          cd terminal
-          git config user.name "janus-terminal-bot"
-          git config user.email "janus-terminal-bot@users.noreply.github.com"
-          git add receipts/TERMINAL_COMMAND_AUTHORITY_LATEST.json receipts/TERMINAL_UNAUTHORIZED_ACTOR_LATEST.json receipts/FIRST_LIVE_SPIRAL_LATEST.json receipts/FIRST_LIVE_SPIRAL_RAW_LATEST.json
-          git commit -m "Receipt: Terminal system spiral through Aura v2" || exit 0
-          git pull --rebase origin main
-          git push
-
-      - name: Upload Terminal receipt
+      - name: Upload verified runtime bundle
         uses: actions/upload-artifact@v4
         with:
-          name: JANUS-TERMINAL-SYSTEM-SPIRAL
+          name: JANUS-TERMINAL-VERIFIED-RUNTIME
           path: runtime/
           if-no-files-found: error
           retention-days: 30
+
+  persist-receipts:
+    needs: verify-and-run
+    if: ${{ github.actor == 'Hawkar-usls' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Terminal for receipt-only write
+        uses: actions/checkout@v4
+        with:
+          path: terminal
+
+      - name: Download verified runtime bundle
+        uses: actions/download-artifact@v4
+        with:
+          name: JANUS-TERMINAL-VERIFIED-RUNTIME
+          path: runtime
+
+      - name: Re-verify receipt bundle before write
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          auth=json.loads(Path('runtime/TERMINAL_COMMAND_AUTHORITY_RECEIPT.json').read_text(encoding='utf-8'))
+          neg=json.loads(Path('runtime/TERMINAL_UNAUTHORIZED_ACTOR_RECEIPT.json').read_text(encoding='utf-8'))
+          summary=json.loads(Path('runtime/FIRST_LIVE_SPIRAL_SUMMARY.json').read_text(encoding='utf-8'))
+          raw=json.loads(Path('runtime/FIRST_LIVE_SPIRAL_RECEIPT.json').read_text(encoding='utf-8'))
+          assert auth['authorized'] is True, auth
+          assert auth['github_actor'] == 'Hawkar-usls', auth
+          assert neg['authorized'] is False, neg
+          assert 'GITHUB_ACTOR_NOT_AUTHORIZED' in neg['errors'], neg
+          assert summary['github_actor'] == 'Hawkar-usls', summary
+          assert summary['terminal'] == 'HOLD' and summary['chain_valid'] is True, summary
+          assert raw['terminal'] == 'HOLD' and raw['chain_valid'] is True, raw
+          assert raw['predictive_model_updated'] is False, raw
+          print('JANUS_TERMINAL_RECEIPT_PERSISTENCE_GATE=PASS')
+          PY
+
+      - name: Persist receipts only
+        shell: bash
+        run: |
+          cd terminal
+          git pull --ff-only origin main
+          mkdir -p receipts
+          cp ../runtime/TERMINAL_COMMAND_AUTHORITY_RECEIPT.json receipts/TERMINAL_COMMAND_AUTHORITY_LATEST.json
+          cp ../runtime/TERMINAL_UNAUTHORIZED_ACTOR_RECEIPT.json receipts/TERMINAL_UNAUTHORIZED_ACTOR_LATEST.json
+          cp ../runtime/FIRST_LIVE_SPIRAL_SUMMARY.json receipts/FIRST_LIVE_SPIRAL_LATEST.json
+          cp ../runtime/FIRST_LIVE_SPIRAL_RECEIPT.json receipts/FIRST_LIVE_SPIRAL_RAW_LATEST.json
+          git config user.name "janus-terminal-bot"
+          git config user.email "janus-terminal-bot@users.noreply.github.com"
+          git add receipts/TERMINAL_COMMAND_AUTHORITY_LATEST.json receipts/TERMINAL_UNAUTHORIZED_ACTOR_LATEST.json receipts/FIRST_LIVE_SPIRAL_LATEST.json receipts/FIRST_LIVE_SPIRAL_RAW_LATEST.json
+          if git diff --cached --quiet; then
+            echo "JANUS_TERMINAL_RECEIPTS_UNCHANGED"
+            exit 0
+          fi
+          git commit -m "Receipt: Terminal system spiral through Aura v2"
+          git push

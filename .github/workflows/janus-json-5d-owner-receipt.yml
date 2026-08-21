@@ -1,0 +1,133 @@
+name: JANUS JSON 5D Owner Runtime Receipt
+
+on:
+  push:
+    paths:
+      - 'contracts/JANUS_JSON_5D_DEEP_ANALYSIS_PROTOCOL-v1.0.json'
+      - 'config/JANUS_JSON_INTERCHANGE.json'
+      - 'tools/janus_json_mirror_pass.py'
+      - 'tools/janus_json_5d_deep.py'
+      - 'tests/test_janus_json_5d_deep.py'
+      - '.github/workflows/janus-json-5d-owner-receipt.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deep-5d-runtime:
+    if: github.actor == 'Hawkar-usls'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Compile JANUS JSON engines
+        run: python -m py_compile tools/janus_json_mirror_pass.py tools/janus_json_router.py tools/janus_json_5d_deep.py
+
+      - name: Run mirror and 5D tests
+        run: python -m unittest -v tests/test_janus_json_mirror_pass.py tests/test_janus_json_5d_deep.py
+
+      - name: Execute 5D non-tail insertion reference run
+        shell: bash
+        run: |
+          mkdir -p runtime
+          cat > runtime/input.json <<'JSON'
+          {
+            "schema": "janus.mirror.input.v1",
+            "message_id": "JANUS-5D-RUNTIME-REFERENCE",
+            "created_at": "2026-08-21T13:52:00+03:00",
+            "source": "GITHUB_ACTIONS_OWNER_REFERENCE_RUN",
+            "intent_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "text": "Создай JSON граф глубокого анализа. HRain должен выделить структурный контекст. iNaiHR должен предложить ассоциативный контекст как гипотезу. Но перед ответом вернись от конца к началу и сохрани найденное у истока."
+          }
+          JSON
+          cat > runtime/patch.json <<'JSON'
+          [
+            {
+              "op": "SPLICE_BETWEEN",
+              "left_id": "S0001",
+              "right_id": "S0002",
+              "node": {
+                "id": "RUNTIME-MIDDLE-ABSTRACTION",
+                "label": "Runtime-verified non-tail abstraction inserted between source anchors without rewriting source text.",
+                "kind": "ABSTRACTION",
+                "axis": "D5_SPIRAL_ABSTRACTION",
+                "source_segment_ids": ["S0001", "S0002"],
+                "abstraction_level": "L3_CROSS_DOMAIN_ABSTRACTION",
+                "confidence": "MEDIUM",
+                "validation_status": "REFERENCE_RUNTIME_STRUCTURE_ONLY"
+              },
+              "reason": "Verify that JANUS deep analysis can grow JSON at a logical interior position rather than only at the tail.",
+              "provenance": {
+                "executor": "GITHUB_ACTIONS",
+                "strategy": "JANUS_JSON_5D_DEEP_ANALYSIS_PROTOCOL_v1.0",
+                "github_actor": "Hawkar-usls"
+              }
+            }
+          ]
+          JSON
+          python tools/janus_json_5d_deep.py runtime/input.json --patch runtime/patch.json -o runtime/output.json
+
+      - name: Verify 5D invariants and build receipt
+        run: |
+          python - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          inp = json.loads(Path('runtime/input.json').read_text(encoding='utf-8'))
+          out = json.loads(Path('runtime/output.json').read_text(encoding='utf-8'))
+          order = out['graph']['logical_order']
+          assert out['analysis_mode'] == 'DEEP_TRANSCEPTION_5D'
+          assert set(out['axes']) == {'D1_FORWARD','D2_REVERSE','D3_STRUCTURAL','D4_ASSOCIATIVE','D5_SPIRAL_ABSTRACTION'}
+          assert order[:3] == ['S0001','RUNTIME-MIDDLE-ABSTRACTION','S0002'], order
+          assert out['provenance']['patch_count'] == 1
+          assert out['provenance']['raw_private_chain_of_thought_stored'] is False
+          assert out['hemisphere_views']['hrain']['hemisphere'] == 'LEFT_HRAIN'
+          assert out['hemisphere_views']['inaihr']['hemisphere'] == 'RIGHT_INAIHR'
+          assert out['hemisphere_views']['demihead_disagreement']['automatic_merge'] is False
+          assert out['hemisphere_views']['demihead_disagreement']['agreement_is_truth'] is False
+          source_sha = hashlib.sha256(inp['text'].encode('utf-8')).hexdigest()
+          assert out['integrity']['authoritative_text_sha256'] == source_sha
+          receipt = {
+            'schema': 'janus.json_5d_deep_analysis.runtime_receipt.v1',
+            'status': 'PASS_REFERENCE_RUNTIME',
+            'protocol_id': 'JANUS_JSON_5D_DEEP_ANALYSIS_PROTOCOL_v1.0',
+            'github_actor': os.environ.get('GITHUB_ACTOR'),
+            'github_run_id': os.environ.get('GITHUB_RUN_ID'),
+            'source_commit': os.environ.get('GITHUB_SHA'),
+            'axes_verified': list(out['axes'].keys()),
+            'non_tail_splice_verified': True,
+            'logical_order_prefix': order[:3],
+            'source_immutable_verified': True,
+            'hrain_projection_verified': True,
+            'inaihr_projection_verified': True,
+            'demihead_disagreement_preserved': True,
+            'raw_private_chain_of_thought_stored': False,
+            'patch_count': out['provenance']['patch_count'],
+            'recovered_at_origin_count': len(out['recovered_at_origin']),
+            'graph_sha256': out['integrity']['graph_sha256'],
+            'world_truth': False,
+            'claim_ceiling': 'REFERENCE_RUNTIME_PASS_NOT_SCIENTIFIC_TRUTH'
+          }
+          Path('runtime/receipt.json').write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          PY
+
+      - name: Persist 5D runtime receipt
+        shell: bash
+        run: |
+          mkdir -p receipts
+          cp runtime/receipt.json receipts/JANUS_JSON_5D_DEEP_LATEST.json
+          git config user.name "janus-terminal-bot"
+          git config user.email "janus-terminal-bot@users.noreply.github.com"
+          git add receipts/JANUS_JSON_5D_DEEP_LATEST.json
+          git commit -m "Receipt: JANUS JSON 5D deep-analysis runtime" || exit 0
+          git push
+
+      - name: Upload runtime graph
+        uses: actions/upload-artifact@v4
+        with:
+          name: JANUS-JSON-5D-DEEP-REFERENCE-RUN
+          path: runtime/
+          retention-days: 30

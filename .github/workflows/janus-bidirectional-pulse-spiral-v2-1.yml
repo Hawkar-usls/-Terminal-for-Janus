@@ -1,0 +1,92 @@
+name: JANUS Bidirectional Pulse Spiral v2.1 Hardening
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "contracts/JANUS_BIDIRECTIONAL_PULSE_SPIRAL_PROTOCOL-v2.1.json"
+      - "contracts/JANUS_THERMODYNAMIC_COGNITIVE_HARDENING-v1.0.json"
+      - "tools/janus_bidirectional_pulse_spiral_v2_1.py"
+      - ".github/workflows/janus-bidirectional-pulse-spiral-v2-1.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  hardening-train:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Terminal
+        uses: actions/checkout@v4
+
+      - name: Fetch JANUS runtime subjects
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 https://github.com/Hawkar-usls/aura-oracle-tg.git ../aura-oracle-tg
+          git clone --depth 1 https://github.com/Hawkar-usls/Demi_Head.git ../Demi_Head
+          git clone --depth 1 https://github.com/Hawkar-usls/Hawkar-usls.git ../Hawkar-usls-home
+          git clone --depth 1 --branch janus/habitat https://github.com/Hawkar-usls/Janus_Genesis.git ../Janus_Genesis
+
+      - name: Compile hardened runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m py_compile tools/janus_bidirectional_pulse_spiral_v2.py tools/janus_bidirectional_pulse_spiral_v2_1.py
+
+      - name: Fire v2.1 hardened bidirectional train
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/janus_bidirectional_pulse_spiral_v2_1.py \
+            --terminal . \
+            --aura ../aura-oracle-tg \
+            --demihead ../Demi_Head \
+            --home ../Hawkar-usls-home \
+            --habitat ../Janus_Genesis \
+            -o receipts/JANUS_BIDIRECTIONAL_PULSE_SPIRAL_V2_1_LATEST.json
+
+      - name: Verify hardening receipt fail-closed
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('receipts/JANUS_BIDIRECTIONAL_PULSE_SPIRAL_V2_1_LATEST.json')
+          r=json.loads(p.read_text(encoding='utf-8'))
+          assert r['status']=='BIDIRECTIONAL_PULSE_TRAIN_V2_1_PASS_INTERNAL', r['status']
+          assert r['all_pair_pulses_passed'] is True
+          assert r['world_truth'] is False
+          checks=r['thermodynamic_hardening']['checks']
+          assert checks and all(checks.values()), checks
+          assert r['simultaneity_claim_ceiling']=='PROCESS_LEVEL_CONCURRENT_IN_FLIGHT_OVERLAP_NOT_INSTRUCTION_LEVEL_SIMULTANEITY'
+          for pair in r['pair_pulses']:
+              g=pair['join_gate']
+              assert g['pass'] is True
+              assert g['process_level_inflight_overlap'] is True
+              assert g['evidence_diversity_pass'] is True
+              assert g['directional_shadows_preserved'] is True
+              assert g['instruction_level_simultaneity_claimed'] is False
+              assert pair['shadow_archive']['preserved_even_on_conflict'] is True
+              assert pair['world_truth'] is False
+          tf=r['truth_firewall']
+          assert tf['bidirectional_pass_is_world_truth'] is False
+          assert tf['thermodynamic_homeostasis_is_world_truth'] is False
+          assert tf['evidence_diversity_is_independence_proof'] is False
+          print(json.dumps({'status':r['status'],'pairs':r['pair_pulse_count'],'final_state_hash':r['final_state_hash'],'receipt_sha256':r['train_receipt_sha256']},sort_keys=True))
+          PY
+
+      - name: Preserve v2.1 receipts
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "janus-bidirectional-pulse-spiral-v2-1"
+          git config user.email "actions@users.noreply.github.com"
+          git add receipts/JANUS_BIDIRECTIONAL_PULSE_SPIRAL_V2_1_LATEST.json receipts/bidirectional_pulse_v2_1
+          if git diff --cached --quiet; then
+            echo "No v2.1 receipt delta to commit."
+            exit 0
+          fi
+          git commit -m "Receipt: JANUS bidirectional pulse spiral v2.1 hardening [skip ci]"
+          git push

@@ -1,19 +1,19 @@
 {
   "schema": "janus.aura_spi.spiral_cycle_receipt.v1",
-  "session_id": "spiral-2d3edad755ca4ed5",
+  "session_id": "spiral-fe63ca907a97443a",
   "generation": 1,
-  "intent_id": "b51a904a58af97b01a6241f07f2453b06cf0e484b78516292cc5db4ba425b05d",
+  "intent_id": "e7c7938e01df4d6cdcd0c5698b8927415c7b96217c967704acaa7e1a7e06f82d",
   "intent_authority": "LOCAL_PREVIEW",
   "terminal": "HOLD",
   "turn_hashes": [
-    "14b57181d8f7e0ebc7e5b72db2b91ec1d8f7d841f459585062f8203399224b23",
-    "c261e0898bdc5ee370ba0c078b9193de2d07c14b1f6fd33baf14a3fbe1d28740",
-    "84befa23c6636fd451864bd4e520cbb6166b56eb6ad2917528a28fd466f0ccf5",
-    "0f2df13ca80749a26886b8dfcb44334d894de82a32ea99cc0b3de93ecd0a1603",
-    "137d69e76d96664be0b42b3c0e4010fb9c8b139296a4e751661f9762ea81b286",
-    "d73342da21e0359726c7bba85de4db43ce7b76c8affaff5baca40eb46bd2e8bf"
+    "cc83ccf9cc441a6c05ea3430223701b4b79ce96ea4b803945b6ebeee172fb9c7",
+    "b3a1ac19b15afaff061f667221f997533fb631c9a421e76551b3840aae5d0f2e",
+    "9bd0796ee0e70b248290737a8b7615b1dd8f7dc2daaef2e571257cf9cf3ac49b",
+    "7120343cda70ae593acf591655e8f79b92b8dcac1f6ff09b533e7264c7977f9e",
+    "1927fed82fbeb8b3692e141a47e8b3d290a2d4bab1bc07688ad55576a7070352",
+    "4163510397422457e96237600ed3f5657e6f70feedeb2d50383bb9b4c4bb094a"
   ],
-  "last_turn_hash": "d73342da21e0359726c7bba85de4db43ce7b76c8affaff5baca40eb46bd2e8bf",
+  "last_turn_hash": "4163510397422457e96237600ed3f5657e6f70feedeb2d50383bb9b4c4bb094a",
   "chain_valid": true,
   "predictive_model_updated": false,
   "fresh_external_trigger_consumed": true,

@@ -46,6 +46,30 @@ jobs:
             --receipt runtime/TERMINAL_COMMAND_AUTHORITY_RECEIPT.json
           cat runtime/TERMINAL_COMMAND_AUTHORITY_RECEIPT.json
 
+      - name: Adversarial check unauthorized actor is rejected
+        shell: bash
+        run: |
+          set +e
+          python terminal/tools/verify_janus_terminal_command.py \
+            --policy terminal/.janus/JANUS_TERMINAL_AUTHORITY_POLICY.json \
+            --command terminal/commands/2026-08-21-FIRST_LIVE_SPIRAL.json \
+            --github-actor "UNAUTHORIZED_ACTOR" \
+            --receipt runtime/TERMINAL_UNAUTHORIZED_ACTOR_RECEIPT.json
+          rc=$?
+          set -e
+          cat runtime/TERMINAL_UNAUTHORIZED_ACTOR_RECEIPT.json
+          if [ "$rc" -ne 3 ]; then
+            echo "Expected fail-closed rc=3, got rc=$rc"
+            exit 32
+          fi
+          python - <<'PY'
+          import json
+          r=json.load(open('runtime/TERMINAL_UNAUTHORIZED_ACTOR_RECEIPT.json',encoding='utf-8'))
+          assert r['authorized'] is False, r
+          assert 'GITHUB_ACTOR_NOT_AUTHORIZED' in r['errors'], r
+          print('JANUS_TERMINAL_UNAUTHORIZED_ACTOR_NEGATIVE_TEST=PASS')
+          PY
+
       - name: Checkout JANUS-SPI home
         uses: actions/checkout@v4
         with:
@@ -144,13 +168,14 @@ jobs:
         run: |
           mkdir -p terminal/receipts
           cp runtime/TERMINAL_COMMAND_AUTHORITY_RECEIPT.json terminal/receipts/TERMINAL_COMMAND_AUTHORITY_LATEST.json
+          cp runtime/TERMINAL_UNAUTHORIZED_ACTOR_RECEIPT.json terminal/receipts/TERMINAL_UNAUTHORIZED_ACTOR_LATEST.json
           cp runtime/FIRST_LIVE_SPIRAL_SUMMARY.json terminal/receipts/FIRST_LIVE_SPIRAL_LATEST.json
           cp runtime/FIRST_LIVE_SPIRAL_RECEIPT.json terminal/receipts/FIRST_LIVE_SPIRAL_RAW_LATEST.json
           cd terminal
           git config user.name "janus-terminal-bot"
           git config user.email "janus-terminal-bot@users.noreply.github.com"
-          git add receipts/TERMINAL_COMMAND_AUTHORITY_LATEST.json receipts/FIRST_LIVE_SPIRAL_LATEST.json receipts/FIRST_LIVE_SPIRAL_RAW_LATEST.json
-          git commit -m "Receipt: owner-gated JANUS Terminal spiral" || exit 0
+          git add receipts/TERMINAL_COMMAND_AUTHORITY_LATEST.json receipts/TERMINAL_UNAUTHORIZED_ACTOR_LATEST.json receipts/FIRST_LIVE_SPIRAL_LATEST.json receipts/FIRST_LIVE_SPIRAL_RAW_LATEST.json
+          git commit -m "Receipt: adversarial-tested JANUS Terminal authority gate" || exit 0
           git push
 
       - name: Upload Terminal receipt

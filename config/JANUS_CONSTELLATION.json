@@ -2,7 +2,7 @@
   "schema": "janus.terminal.constellation.v1",
   "terminal": "Hawkar-usls/-Terminal-for-Janus",
   "default_mode": "READ_ONLY",
-  "spiral_audit_revision": 2,
+  "spiral_audit_revision": 3,
   "spiral_semantics": {
     "canonical": "STATE_n -> WORK_n -> RETURN_n -> STATE_PRIME_(n+1)",
     "position_may_repeat": true,

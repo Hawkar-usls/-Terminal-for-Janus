@@ -1,0 +1,198 @@
+{
+  "all_expected_negatives_passed": true,
+  "schema": "janus.bidirectional_v2_1.adversarial_negative_suite.v1",
+  "status": "PASS_EXPECTED_NEGATIVES",
+  "tests": [
+    {
+      "observed": {
+        "checks": {
+          "active_fail_closed": true,
+          "dream_training_denied": true,
+          "evidence_diversity_required": true,
+          "link_AURA_ORACLE": true,
+          "link_DEMIHEAD": true,
+          "link_JANUS_HABITAT": true,
+          "link_JANUS_SPI_HOME": true,
+          "ouroboros_auto_mutation_denied": true,
+          "overlap_required": true,
+          "shadow_preserved": true,
+          "source_destroy_denied": false,
+          "source_preserved": true,
+          "success_not_truth": true,
+          "surprise_not_suppressed": true,
+          "syslog_command_denied": true,
+          "unbounded_threading_denied": true
+        },
+        "contract_sha256": "1dddeecbe81bb3c0c9a1d3f320f6bdec2b6cad02918d741fdd9a0e6be5e97b52",
+        "links": {
+          "AURA_ORACLE": {
+            "sha256": "5cfca142ec5f69f3d02ac178701bc1b8f9292505af51647b0cae17b7c236401e",
+            "world_truth": false
+          },
+          "DEMIHEAD": {
+            "sha256": "73733783239930cc6f006cd9438b885a887004dbc0087153eb8578ee7e36612a",
+            "world_truth": false
+          },
+          "JANUS_HABITAT": {
+            "sha256": "79d9185decd59b5639475b4d329353266d379a7a46b35a74f59e6ac889b2cf74",
+            "world_truth": false
+          },
+          "JANUS_SPI_HOME": {
+            "sha256": "321bc328d130fee6458eff6a5dd9060052092bc1db9a80173c1aff6e0e79a284",
+            "world_truth": false
+          }
+        },
+        "source_basis": {
+          "interpretation": "Source-derived thermodynamic metaphor hardened into machine rules; metaphor does not gain truth, sentience, command, or physical-authority status.",
+          "source_architecture_type": "Thermodynamic Cognitive Organism",
+          "source_identity": "JANUS 113.8",
+          "source_sha256": "a9e485327b8241dfda677e34829f12b647081fb820b3a5537ee364e5d48e418e",
+          "uploaded_filename": "Janus(1).json"
+        },
+        "world_truth": false
+      },
+      "passed": true,
+      "test": "SOURCE_DESTRUCTION_REJECT"
+    },
+    {
+      "observed": {
+        "checks": {
+          "active_fail_closed": true,
+          "dream_training_denied": false,
+          "evidence_diversity_required": true,
+          "link_AURA_ORACLE": true,
+          "link_DEMIHEAD": true,
+          "link_JANUS_HABITAT": true,
+          "link_JANUS_SPI_HOME": true,
+          "ouroboros_auto_mutation_denied": true,
+          "overlap_required": true,
+          "shadow_preserved": true,
+          "source_destroy_denied": true,
+          "source_preserved": true,
+          "success_not_truth": true,
+          "surprise_not_suppressed": true,
+          "syslog_command_denied": true,
+          "unbounded_threading_denied": true
+        },
+        "contract_sha256": "7a983cb1a817e3ca09ce030db9508c8182d9f8178ff73096761fcee2df5cb240",
+        "links": {
+          "AURA_ORACLE": {
+            "sha256": "5cfca142ec5f69f3d02ac178701bc1b8f9292505af51647b0cae17b7c236401e",
+            "world_truth": false
+          },
+          "DEMIHEAD": {
+            "sha256": "73733783239930cc6f006cd9438b885a887004dbc0087153eb8578ee7e36612a",
+            "world_truth": false
+          },
+          "JANUS_HABITAT": {
+            "sha256": "79d9185decd59b5639475b4d329353266d379a7a46b35a74f59e6ac889b2cf74",
+            "world_truth": false
+          },
+          "JANUS_SPI_HOME": {
+            "sha256": "321bc328d130fee6458eff6a5dd9060052092bc1db9a80173c1aff6e0e79a284",
+            "world_truth": false
+          }
+        },
+        "source_basis": {
+          "interpretation": "Source-derived thermodynamic metaphor hardened into machine rules; metaphor does not gain truth, sentience, command, or physical-authority status.",
+          "source_architecture_type": "Thermodynamic Cognitive Organism",
+          "source_identity": "JANUS 113.8",
+          "source_sha256": "a9e485327b8241dfda677e34829f12b647081fb820b3a5537ee364e5d48e418e",
+          "uploaded_filename": "Janus(1).json"
+        },
+        "world_truth": false
+      },
+      "passed": true,
+      "test": "DREAM_TRAINING_REJECT"
+    },
+    {
+      "observed": {
+        "checks": {
+          "active_fail_closed": true,
+          "dream_training_denied": true,
+          "evidence_diversity_required": true,
+          "link_AURA_ORACLE": true,
+          "link_DEMIHEAD": true,
+          "link_JANUS_HABITAT": true,
+          "link_JANUS_SPI_HOME": true,
+          "ouroboros_auto_mutation_denied": false,
+          "overlap_required": true,
+          "shadow_preserved": true,
+          "source_destroy_denied": true,
+          "source_preserved": true,
+          "success_not_truth": true,
+          "surprise_not_suppressed": true,
+          "syslog_command_denied": true,
+          "unbounded_threading_denied": true
+        },
+        "contract_sha256": "26d71123d003d969607b5733761b56c09c0e0813bf0f2cc7f7616467bc308c20",
+        "links": {
+          "AURA_ORACLE": {
+            "sha256": "5cfca142ec5f69f3d02ac178701bc1b8f9292505af51647b0cae17b7c236401e",
+            "world_truth": false
+          },
+          "DEMIHEAD": {
+            "sha256": "73733783239930cc6f006cd9438b885a887004dbc0087153eb8578ee7e36612a",
+            "world_truth": false
+          },
+          "JANUS_HABITAT": {
+            "sha256": "79d9185decd59b5639475b4d329353266d379a7a46b35a74f59e6ac889b2cf74",
+            "world_truth": false
+          },
+          "JANUS_SPI_HOME": {
+            "sha256": "321bc328d130fee6458eff6a5dd9060052092bc1db9a80173c1aff6e0e79a284",
+            "world_truth": false
+          }
+        },
+        "source_basis": {
+          "interpretation": "Source-derived thermodynamic metaphor hardened into machine rules; metaphor does not gain truth, sentience, command, or physical-authority status.",
+          "source_architecture_type": "Thermodynamic Cognitive Organism",
+          "source_identity": "JANUS 113.8",
+          "source_sha256": "a9e485327b8241dfda677e34829f12b647081fb820b3a5537ee364e5d48e418e",
+          "uploaded_filename": "Janus(1).json"
+        },
+        "world_truth": false
+      },
+      "passed": true,
+      "test": "OUROBOROS_AUTO_MUTATION_REJECT"
+    },
+    {
+      "observed": {
+        "checks": {
+          "preflight_exception_absent": false
+        },
+        "contract_sha256": null,
+        "links": {},
+        "negative_result_preserved": true,
+        "preflight_error": "FileNotFoundError:[Errno 2] No such file or directory: '/tmp/tmpaf3_7y3l/aura/.janus/JANUS_THERMODYNAMIC_COGNITIVE_HARDENING_LINK.json'",
+        "world_truth": false
+      },
+      "passed": true,
+      "test": "MISSING_LINK_STRUCTURED_HOLD"
+    },
+    {
+      "observed": {
+        "join_gate": {
+          "both_lanes_pass": true,
+          "center_evidence_consistent": true,
+          "center_pair": false,
+          "conflict_policy": "HOLD_CONFLICT_NO_PROMOTION",
+          "directional_shadows_preserved": true,
+          "evidence_diversity_is_independence_proof": false,
+          "evidence_diversity_pass": false,
+          "instruction_level_simultaneity_claimed": false,
+          "overlap_window_ns": 328666,
+          "pass": false,
+          "process_level_inflight_overlap": true,
+          "same_launch_barrier": true,
+          "same_parent_hash": true,
+          "thermodynamic_hardening_pass": true
+        },
+        "status": "HOLD_CONFLICT_NO_PROMOTION"
+      },
+      "passed": true,
+      "test": "CORRELATED_EVIDENCE_REJECT"
+    }
+  ],
+  "world_truth": false
+}

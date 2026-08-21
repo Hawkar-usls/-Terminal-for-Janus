@@ -1,0 +1,52 @@
+name: JANUS Bidirectional Pulse Spiral
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "contracts/JANUS_BIDIRECTIONAL_PULSE_SPIRAL_PROTOCOL-v2.0.json"
+      - "tools/janus_bidirectional_pulse_spiral_v2.py"
+      - ".github/workflows/janus-bidirectional-pulse-spiral.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  bidirectional-pulse-train:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Terminal
+        uses: actions/checkout@v4
+
+      - name: Fetch JANUS runtime subjects
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 https://github.com/Hawkar-usls/aura-oracle-tg.git ../aura-oracle-tg
+          git clone --depth 1 https://github.com/Hawkar-usls/Demi_Head.git ../Demi_Head
+          git clone --depth 1 https://github.com/Hawkar-usls/Hawkar-usls.git ../Hawkar-usls-home
+
+      - name: Fire concurrent forward and reverse pulse train
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/janus_bidirectional_pulse_spiral_v2.py \
+            --terminal . \
+            --aura ../aura-oracle-tg \
+            --demihead ../Demi_Head \
+            --home ../Hawkar-usls-home \
+            -o receipts/JANUS_BIDIRECTIONAL_PULSE_SPIRAL_LATEST.json
+
+      - name: Preserve bidirectional receipts
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "janus-bidirectional-pulse-spiral"
+          git config user.email "actions@users.noreply.github.com"
+          git add receipts/JANUS_BIDIRECTIONAL_PULSE_SPIRAL_LATEST.json receipts/bidirectional_pulse
+          if git diff --cached --quiet; then
+            echo "No bidirectional receipt delta to commit."
+            exit 0
+          fi
+          git commit -m "Receipt: JANUS bidirectional pulse spiral train [skip ci]"
+          git push

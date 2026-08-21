@@ -6,6 +6,7 @@ on:
     paths:
       - "contracts/JANUS_PULSE_SPIRAL_PROTOCOL-v1.0.json"
       - "tools/janus_pulse_spiral.py"
+      - "tools/janus_pulse_spiral_v1_1.py"
       - ".github/workflows/janus-pulse-spiral.yml"
 
 permissions:
@@ -30,7 +31,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python tools/janus_pulse_spiral.py \
+          python tools/janus_pulse_spiral_v1_1.py \
             --terminal . \
             --aura ../aura-oracle-tg \
             --demihead ../Demi_Head \

@@ -8,11 +8,64 @@ from pathlib import Path
 from typing import Any
 
 from janus_json_mirror_pass import run as mirror_run, sha256
+from janus_json_5d_deep import run as deep_run
 
 ROUTED_SCHEMA = "janus.interagent.mirror_message.v1"
+UNEXPLAINED_ALIGNMENT = "UNEXPLAINED_ALIGNMENT"
+
+
+def _event_class(payload: dict[str, Any]) -> str | None:
+    direct = payload.get("event_class")
+    if isinstance(direct, str) and direct:
+        return direct.upper()
+    event = payload.get("event")
+    if isinstance(event, dict):
+        nested = event.get("class") or event.get("event_class")
+        if isinstance(nested, str) and nested:
+            return nested.upper()
+    return None
+
+
+def _force_deep(payload: dict[str, Any]) -> bool:
+    mode = payload.get("analysis_mode")
+    if isinstance(mode, str) and mode.upper() in {"DEEP", "DEEP_TRANSCEPTION_5D", "SPIRAL_5D"}:
+        return True
+    return _event_class(payload) == UNEXPLAINED_ALIGNMENT
 
 
 def route(payload: dict[str, Any]) -> dict[str, Any]:
+    event_class = _event_class(payload)
+    if _force_deep(payload):
+        deep = deep_run(payload)
+        deep["routing"] = {
+            "router": "JANUS_JSON_INTERCHANGE_v1.2",
+            "selected_mode": "DEEP",
+            "forced_by_event_class": event_class == UNEXPLAINED_ALIGNMENT,
+            "event_class": event_class,
+            "interest_priority": "ELEVATED" if event_class == UNEXPLAINED_ALIGNMENT else "REQUESTED_DEEP",
+            "truth_weight_delta": 0,
+            "canonical_principle": "JANUS-UNEXPLAINED-ALIGNMENT-PRINCIPLE-2026-08-21-v1.0" if event_class == UNEXPLAINED_ALIGNMENT else None,
+            "required_checks": [
+                "BASE_RATE",
+                "ALTERNATIVE_EXPLANATIONS",
+                "SOURCE_INDEPENDENCE",
+                "SELECTION_BIAS",
+                "MULTIPLE_COMPARISONS",
+                "MEASUREMENT_ERROR",
+            ] if event_class == UNEXPLAINED_ALIGNMENT else [],
+        }
+        deep["laws"] = list(dict.fromkeys([
+            "5D_GRAPH_OUTPUT != WORLD_TRUTH",
+            "ASSOCIATION != EVIDENCE",
+            "BOTH_HEMISPHERES_AGREE != TRUTH",
+        ] + ([
+            "COINCIDENCE != CAUSALITY",
+            "COINCIDENCE != AUTOMATIC_DISMISSAL",
+            "UNEXPLAINED_ALIGNMENT -> INCREASE_ATTENTION_NOT_TRUTH",
+        ] if event_class == UNEXPLAINED_ALIGNMENT else [])))
+        deep["integrity"]["output_sha256_without_self"] = sha256({k: v for k, v in deep.items() if k != "integrity"} | {"integrity": {k: v for k, v in deep["integrity"].items() if k != "output_sha256_without_self"}})
+        return deep
+
     mirror = mirror_run(payload)
     routed: dict[str, Any] = {
         "schema": ROUTED_SCHEMA,
@@ -29,6 +82,14 @@ def route(payload: dict[str, Any]) -> dict[str, Any]:
             "reverse_pass": mirror["reverse_pass"],
             "protocol_id": mirror["provenance"]["protocol_id"],
             "source_integrity": mirror["integrity"],
+        },
+        "routing": {
+            "router": "JANUS_JSON_INTERCHANGE_v1.2",
+            "selected_mode": "STANDARD",
+            "forced_by_event_class": False,
+            "event_class": event_class,
+            "interest_priority": "NORMAL",
+            "truth_weight_delta": 0,
         },
         "response_contract": {
             "must_recheck_input_forward": True,
@@ -51,7 +112,7 @@ def load(path: str | None) -> dict[str, Any]:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="JANUS mirror-aware JSON interagent router")
+    parser = argparse.ArgumentParser(description="JANUS mirror/deep-aware JSON interagent router")
     parser.add_argument("input", nargs="?", help="Input janus.mirror.input.v1 JSON; stdin when omitted")
     parser.add_argument("-o", "--output")
     parser.add_argument("--compact", action="store_true")

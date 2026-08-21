@@ -4,6 +4,7 @@
   "version": "1.0",
   "status": "FROZEN_BEFORE_SELF_RUN",
   "created_at_local": "2026-08-21T16:06:00+03:00",
+  "last_self_run_request": "2026-08-21T16:42:00+03:00_AFTER_R1_R2_R3_REPAIRS",
   "purpose": "Apply the JANUS mirror/5D/spiral method to its own contracts, runtimes, arbiters and receipts without allowing self-consistency to masquerade as world truth.",
   "canonical_path": [
     "METHOD_AS_SOURCE_n",

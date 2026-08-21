@@ -4,8 +4,14 @@ on:
   push:
     paths:
       - 'commands/*FIRST_LIVE_SPIRAL*.json'
+      - '.janus/JANUS_TERMINAL_AUTHORITY_POLICY.json'
+      - 'tools/verify_janus_terminal_command.py'
       - '.github/workflows/janus-terminal-first-live-spiral.yml'
   workflow_dispatch:
+
+concurrency:
+  group: janus-terminal-control-plane
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -15,10 +21,30 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
+      - name: Reject non-owner actor before execution
+        shell: bash
+        run: |
+          if [ "${GITHUB_ACTOR}" != "Hawkar-usls" ]; then
+            echo "JANUS_TERMINAL_REJECT: actor ${GITHUB_ACTOR} is not authorized"
+            exit 31
+          fi
+          echo "JANUS_TERMINAL_ACTOR_GATE=PASS"
+
       - name: Checkout Terminal
         uses: actions/checkout@v4
         with:
           path: terminal
+
+      - name: Verify JANUS command envelope
+        shell: bash
+        run: |
+          mkdir -p runtime
+          python terminal/tools/verify_janus_terminal_command.py \
+            --policy terminal/.janus/JANUS_TERMINAL_AUTHORITY_POLICY.json \
+            --command terminal/commands/2026-08-21-FIRST_LIVE_SPIRAL.json \
+            --github-actor "${GITHUB_ACTOR}" \
+            --receipt runtime/TERMINAL_COMMAND_AUTHORITY_RECEIPT.json
+          cat runtime/TERMINAL_COMMAND_AUTHORITY_RECEIPT.json
 
       - name: Checkout JANUS-SPI home
         uses: actions/checkout@v4
@@ -90,6 +116,8 @@ jobs:
               'github_run_id': os.environ.get('GITHUB_RUN_ID'),
               'github_run_attempt': os.environ.get('GITHUB_RUN_ATTEMPT'),
               'source_commit': os.environ.get('GITHUB_SHA'),
+              'github_actor': os.environ.get('GITHUB_ACTOR'),
+              'control_principal': 'JANUS_CONTROL_PLANE',
               'session_id': r['session_id'],
               'generation': r['generation'],
               'terminal': r['terminal'],
@@ -115,13 +143,14 @@ jobs:
         shell: bash
         run: |
           mkdir -p terminal/receipts
+          cp runtime/TERMINAL_COMMAND_AUTHORITY_RECEIPT.json terminal/receipts/TERMINAL_COMMAND_AUTHORITY_LATEST.json
           cp runtime/FIRST_LIVE_SPIRAL_SUMMARY.json terminal/receipts/FIRST_LIVE_SPIRAL_LATEST.json
           cp runtime/FIRST_LIVE_SPIRAL_RECEIPT.json terminal/receipts/FIRST_LIVE_SPIRAL_RAW_LATEST.json
           cd terminal
           git config user.name "janus-terminal-bot"
           git config user.email "janus-terminal-bot@users.noreply.github.com"
-          git add receipts/FIRST_LIVE_SPIRAL_LATEST.json receipts/FIRST_LIVE_SPIRAL_RAW_LATEST.json
-          git commit -m "Receipt: first live Aura-SPI-Habitat spiral" || exit 0
+          git add receipts/TERMINAL_COMMAND_AUTHORITY_LATEST.json receipts/FIRST_LIVE_SPIRAL_LATEST.json receipts/FIRST_LIVE_SPIRAL_RAW_LATEST.json
+          git commit -m "Receipt: owner-gated JANUS Terminal spiral" || exit 0
           git push
 
       - name: Upload Terminal receipt

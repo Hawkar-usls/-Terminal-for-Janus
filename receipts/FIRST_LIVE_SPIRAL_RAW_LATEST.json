@@ -1,19 +1,19 @@
 {
   "schema": "janus.aura_spi.spiral_cycle_receipt.v1",
-  "session_id": "spiral-65f6be27de774f5c",
+  "session_id": "spiral-98a2971e869e4f44",
   "generation": 1,
   "intent_id": "b51a904a58af97b01a6241f07f2453b06cf0e484b78516292cc5db4ba425b05d",
   "intent_authority": "LOCAL_PREVIEW",
   "terminal": "HOLD",
   "turn_hashes": [
-    "86d1c25233afcd80db4ef81566c892ba143f613c3d0dcf5362e5b72ec9768a6b",
-    "aa4c601643711209ab6a63e0e335f1a53e421cdc73a48bc9e72c07d41ee05aaf",
-    "ad1712f1df98b6c07a85b8e7493942f1c29fb9331af4329a86a2b05d89f0e0e1",
-    "89286f8124dc789781fd2f82a2721c3b6c4fa5ed87ef853764649d0c96e685a8",
-    "a5a5adef9b6becc9f052e6d9fbf5a4ceaa5324867d2a379509a2da560c43f6c1",
-    "237adc3700be11e273f2189c6d7fc4a78011f6d99a5a1b248bec17c1429fe24c"
+    "5db810c557ad526af9df16f112abfbb8f4013d9274a7efbb9f9a7c62b678389d",
+    "cb5ac10b6a97a335379df6ad07653c40e1ce9af982258f72c75777d30c354144",
+    "4079def3762dcdbffa54b5cdb495c25958c0cca9e12f8b0aa83aff36677c48f4",
+    "666de45f249c4a856a01b3a367065602056d8b14adb92f49a0e446e5d5253eb9",
+    "6f949aa5663e4ac7a80f3871b8735975906bd814fc94ed089f97733d4c6f1f68",
+    "be37e9780e01efe8f9284ebdca1572fce47fe78f63bf3e8b2ed0d1daa508838d"
   ],
-  "last_turn_hash": "237adc3700be11e273f2189c6d7fc4a78011f6d99a5a1b248bec17c1429fe24c",
+  "last_turn_hash": "be37e9780e01efe8f9284ebdca1572fce47fe78f63bf3e8b2ed0d1daa508838d",
   "chain_valid": true,
   "predictive_model_updated": false,
   "fresh_external_trigger_consumed": true,

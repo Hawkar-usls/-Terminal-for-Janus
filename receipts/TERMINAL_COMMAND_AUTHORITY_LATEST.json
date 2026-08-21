@@ -1,0 +1,12 @@
+{
+  "authorized": true,
+  "command_id": "JANUS_TERMINAL_FIRST_LIVE_SPIRAL_2026_08_21",
+  "command_is_evidence": false,
+  "control_principal": "JANUS_CONTROL_PLANE",
+  "errors": [],
+  "github_actor": "Hawkar-usls",
+  "human_root": "Hawkar-usls",
+  "policy_id": "JANUS_TERMINAL_AUTHORITY_POLICY_v1.0",
+  "schema": "janus.terminal.command_verification_receipt.v1",
+  "terminal_is_truth_authority": false
+}

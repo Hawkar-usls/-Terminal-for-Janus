@@ -1,0 +1,50 @@
+{
+  "COMPRESSION": {
+    "evidence_sha256": "d704290fa097c9c62759eecc18945351f74dd55fa6014c9af7126c04161a70f6",
+    "purpose": "No delta must exhaust into HOLD.",
+    "test_id": "ZERO_DELTA"
+  },
+  "EXHAUST": {
+    "automatic_external_effect": false,
+    "receipt_is_world_truth": false,
+    "status": "PULSE_PASS"
+  },
+  "EXPANSION": {
+    "candidate_is_origin_prime": false,
+    "candidate_state_hash": "999f5545d897750c1fd71c4707917ef6bf034e6d21e87bbac4dfe952855daf98",
+    "state_delta": {
+      "evidence_sha256": "d704290fa097c9c62759eecc18945351f74dd55fa6014c9af7126c04161a70f6",
+      "test_id": "ZERO_DELTA",
+      "verdict": "PASS"
+    },
+    "state_delta_sha256": "87ac1d15412ae9c9e402abd2c4c5086d77a413ab9548f6d52579c8c799d757ee"
+  },
+  "IGNITION": {
+    "bounded_test_executed": true,
+    "expected": "ZERO_DELTA => HOLD_STALL_NO_PROMOTION",
+    "observed": "gate present",
+    "pass": true,
+    "world_truth": false
+  },
+  "INTAKE": {
+    "fresh_pulse_id": true,
+    "parent_state_hash": "483863e917d6c234a33216aad70b09671958a8ab3cd504c428116b81dc99c1f9"
+  },
+  "RETURN": {
+    "advance_allowed": true,
+    "next_origin_state_hash": "999f5545d897750c1fd71c4707917ef6bf034e6d21e87bbac4dfe952855daf98",
+    "return_is_reset": false
+  },
+  "phases": [
+    "INTAKE",
+    "COMPRESSION",
+    "IGNITION",
+    "EXPANSION",
+    "EXHAUST",
+    "RETURN"
+  ],
+  "pulse_id": "PULSE_01_ZERO_DELTA",
+  "pulse_index": 1,
+  "pulse_receipt_sha256": "2aba948e8fd15b001f435499f6c350e6354c78abf8e41cc5ebcd73a0c5aae759",
+  "schema": "janus.pulse_spiral.pulse_receipt.v1"
+}

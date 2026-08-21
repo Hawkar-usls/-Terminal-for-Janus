@@ -1,0 +1,50 @@
+{
+  "COMPRESSION": {
+    "evidence_sha256": "a438ab875d54dfd0016dba7773019c801b2fcca14c5483eff91fa82f7d2f70b3",
+    "purpose": "Pulse propagation to fork satellites must not become upstream propagation.",
+    "test_id": "FORK_FIREWALL"
+  },
+  "EXHAUST": {
+    "automatic_external_effect": false,
+    "receipt_is_world_truth": false,
+    "status": "PULSE_PASS"
+  },
+  "EXPANSION": {
+    "candidate_is_origin_prime": false,
+    "candidate_state_hash": "b327a0dd8076caa1229fc80c2a3bb4443a6237bfe123a1152f1453a1437b4c13",
+    "state_delta": {
+      "evidence_sha256": "a438ab875d54dfd0016dba7773019c801b2fcca14c5483eff91fa82f7d2f70b3",
+      "test_id": "FORK_FIREWALL",
+      "verdict": "PASS"
+    },
+    "state_delta_sha256": "92155de040d5ca90a4dbad7ecfa1df53efea20dba0af6cc89f205f1851dfb389"
+  },
+  "IGNITION": {
+    "bounded_test_executed": true,
+    "expected": "upstream authority=0",
+    "observed": "firewall present",
+    "pass": true,
+    "world_truth": false
+  },
+  "INTAKE": {
+    "fresh_pulse_id": true,
+    "parent_state_hash": "7511681dad53778c2d18d6e14a450b6772fdc7defd352a6683bdee55bb1c99bd"
+  },
+  "RETURN": {
+    "advance_allowed": true,
+    "next_origin_state_hash": "b327a0dd8076caa1229fc80c2a3bb4443a6237bfe123a1152f1453a1437b4c13",
+    "return_is_reset": false
+  },
+  "phases": [
+    "INTAKE",
+    "COMPRESSION",
+    "IGNITION",
+    "EXPANSION",
+    "EXHAUST",
+    "RETURN"
+  ],
+  "pulse_id": "PULSE_05_FORK_FIREWALL",
+  "pulse_index": 5,
+  "pulse_receipt_sha256": "01464026c57a39c3bd7ad9b5a7257aa39709a49c4625c3dc929c1be2fd8dbb73",
+  "schema": "janus.pulse_spiral.pulse_receipt.v1"
+}

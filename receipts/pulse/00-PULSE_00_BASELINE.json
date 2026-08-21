@@ -1,0 +1,50 @@
+{
+  "COMPRESSION": {
+    "evidence_sha256": "32cfe3a76e4cd9a55953664bea35273a191f1cda37a782b1f180d7726175c4d6",
+    "purpose": "Start only from fail-closed self-consistency.",
+    "test_id": "BASELINE"
+  },
+  "EXHAUST": {
+    "automatic_external_effect": false,
+    "receipt_is_world_truth": false,
+    "status": "PULSE_PASS"
+  },
+  "EXPANSION": {
+    "candidate_is_origin_prime": false,
+    "candidate_state_hash": "483863e917d6c234a33216aad70b09671958a8ab3cd504c428116b81dc99c1f9",
+    "state_delta": {
+      "evidence_sha256": "32cfe3a76e4cd9a55953664bea35273a191f1cda37a782b1f180d7726175c4d6",
+      "test_id": "BASELINE",
+      "verdict": "PASS"
+    },
+    "state_delta_sha256": "e81749baed0e0af31f9a9174e071679ecc6fb00881755cc3c2744fce95eedf4a"
+  },
+  "IGNITION": {
+    "bounded_test_executed": true,
+    "expected": "SELF_CONSISTENCY_PASS + 0 hard defects + world_truth=false",
+    "observed": "SELF_CONSISTENCY_PASS",
+    "pass": true,
+    "world_truth": false
+  },
+  "INTAKE": {
+    "fresh_pulse_id": true,
+    "parent_state_hash": "459568a18abf0aea59c044ce099ad033b73e7f80324dd67634f6752bb0405c6c"
+  },
+  "RETURN": {
+    "advance_allowed": true,
+    "next_origin_state_hash": "483863e917d6c234a33216aad70b09671958a8ab3cd504c428116b81dc99c1f9",
+    "return_is_reset": false
+  },
+  "phases": [
+    "INTAKE",
+    "COMPRESSION",
+    "IGNITION",
+    "EXPANSION",
+    "EXHAUST",
+    "RETURN"
+  ],
+  "pulse_id": "PULSE_00_BASELINE",
+  "pulse_index": 0,
+  "pulse_receipt_sha256": "09d5215b648b980e4b67e91b9309f27321d890b38669899452fc4b4aaeea6077",
+  "schema": "janus.pulse_spiral.pulse_receipt.v1"
+}

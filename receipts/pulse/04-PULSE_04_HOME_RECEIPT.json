@@ -1,0 +1,50 @@
+{
+  "COMPRESSION": {
+    "evidence_sha256": "765996949105a603ef3629492f2df99acd25a57c244c1510fec3e962fa26dac7",
+    "purpose": "Bare PASS cannot sustain next pulse.",
+    "test_id": "HOME_RECEIPT"
+  },
+  "EXHAUST": {
+    "automatic_external_effect": false,
+    "receipt_is_world_truth": false,
+    "status": "PULSE_PASS"
+  },
+  "EXPANSION": {
+    "candidate_is_origin_prime": false,
+    "candidate_state_hash": "7511681dad53778c2d18d6e14a450b6772fdc7defd352a6683bdee55bb1c99bd",
+    "state_delta": {
+      "evidence_sha256": "765996949105a603ef3629492f2df99acd25a57c244c1510fec3e962fa26dac7",
+      "test_id": "HOME_RECEIPT",
+      "verdict": "PASS"
+    },
+    "state_delta_sha256": "5ae395857a40f6d9e5636f9377bae7e64aec42c1bea1a3ca948c4e544ff4a561"
+  },
+  "IGNITION": {
+    "bounded_test_executed": true,
+    "expected": "real hash-valid receipt required",
+    "observed": "receipt firewall present",
+    "pass": true,
+    "world_truth": false
+  },
+  "INTAKE": {
+    "fresh_pulse_id": true,
+    "parent_state_hash": "bac81981bb33a79b7dee0071c569e1b6f7f18eb098c3e166adc73f1ed3f550b0"
+  },
+  "RETURN": {
+    "advance_allowed": true,
+    "next_origin_state_hash": "7511681dad53778c2d18d6e14a450b6772fdc7defd352a6683bdee55bb1c99bd",
+    "return_is_reset": false
+  },
+  "phases": [
+    "INTAKE",
+    "COMPRESSION",
+    "IGNITION",
+    "EXPANSION",
+    "EXHAUST",
+    "RETURN"
+  ],
+  "pulse_id": "PULSE_04_HOME_RECEIPT",
+  "pulse_index": 4,
+  "pulse_receipt_sha256": "f724851a82e088af16ec740da8be2045a6b1931f46514d7efa379ec19aaf46db",
+  "schema": "janus.pulse_spiral.pulse_receipt.v1"
+}

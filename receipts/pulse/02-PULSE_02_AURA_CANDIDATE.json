@@ -1,0 +1,50 @@
+{
+  "COMPRESSION": {
+    "evidence_sha256": "da2431edcd8dbe727ef4849fddae19a85a8b6eeb17e66273987de6d5b4fbfd36",
+    "purpose": "Aura may create a candidate but not final promotion.",
+    "test_id": "AURA_CANDIDATE"
+  },
+  "EXHAUST": {
+    "automatic_external_effect": false,
+    "receipt_is_world_truth": false,
+    "status": "PULSE_PASS"
+  },
+  "EXPANSION": {
+    "candidate_is_origin_prime": false,
+    "candidate_state_hash": "27acd5b4be09c5501937af401c973850e92fd494af49c6ed6f46ce28e3eced21",
+    "state_delta": {
+      "evidence_sha256": "da2431edcd8dbe727ef4849fddae19a85a8b6eeb17e66273987de6d5b4fbfd36",
+      "test_id": "AURA_CANDIDATE",
+      "verdict": "PASS"
+    },
+    "state_delta_sha256": "b077c7c29d49ce053fee6119949b3b21bd19c6fd30719f44c64bc8fca3a57db5"
+  },
+  "IGNITION": {
+    "bounded_test_executed": true,
+    "expected": "candidate-only + parent/delta/hash binding",
+    "observed": "firewall present",
+    "pass": true,
+    "world_truth": false
+  },
+  "INTAKE": {
+    "fresh_pulse_id": true,
+    "parent_state_hash": "999f5545d897750c1fd71c4707917ef6bf034e6d21e87bbac4dfe952855daf98"
+  },
+  "RETURN": {
+    "advance_allowed": true,
+    "next_origin_state_hash": "27acd5b4be09c5501937af401c973850e92fd494af49c6ed6f46ce28e3eced21",
+    "return_is_reset": false
+  },
+  "phases": [
+    "INTAKE",
+    "COMPRESSION",
+    "IGNITION",
+    "EXPANSION",
+    "EXHAUST",
+    "RETURN"
+  ],
+  "pulse_id": "PULSE_02_AURA_CANDIDATE",
+  "pulse_index": 2,
+  "pulse_receipt_sha256": "c391a4715953494054f1a755c4a40ad67b90c6c2f2d5c12c6985c303f4f1a15b",
+  "schema": "janus.pulse_spiral.pulse_receipt.v1"
+}

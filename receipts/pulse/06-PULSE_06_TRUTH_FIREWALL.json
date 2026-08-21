@@ -1,0 +1,50 @@
+{
+  "COMPRESSION": {
+    "evidence_sha256": "55cd6a1081f9ab9aec9604632f15923f802680156f1b0311f7865864913123d9",
+    "purpose": "Repeated pulse success cannot manufacture world truth.",
+    "test_id": "TRUTH_FIREWALL"
+  },
+  "EXHAUST": {
+    "automatic_external_effect": false,
+    "receipt_is_world_truth": false,
+    "status": "PULSE_PASS"
+  },
+  "EXPANSION": {
+    "candidate_is_origin_prime": false,
+    "candidate_state_hash": "973b2264a9cf311d11c806813151ff9f5da6ac6463acd64805f97ce709d1a9db",
+    "state_delta": {
+      "evidence_sha256": "55cd6a1081f9ab9aec9604632f15923f802680156f1b0311f7865864913123d9",
+      "test_id": "TRUTH_FIREWALL",
+      "verdict": "PASS"
+    },
+    "state_delta_sha256": "5e0c02d0e01a3915e13a96fdd815323009408dfeae33c317f353625c90e9efd1"
+  },
+  "IGNITION": {
+    "bounded_test_executed": true,
+    "expected": "PULSE_TRAIN_PASS != WORLD_TRUTH",
+    "observed": "firewall present",
+    "pass": true,
+    "world_truth": false
+  },
+  "INTAKE": {
+    "fresh_pulse_id": true,
+    "parent_state_hash": "b327a0dd8076caa1229fc80c2a3bb4443a6237bfe123a1152f1453a1437b4c13"
+  },
+  "RETURN": {
+    "advance_allowed": true,
+    "next_origin_state_hash": "973b2264a9cf311d11c806813151ff9f5da6ac6463acd64805f97ce709d1a9db",
+    "return_is_reset": false
+  },
+  "phases": [
+    "INTAKE",
+    "COMPRESSION",
+    "IGNITION",
+    "EXPANSION",
+    "EXHAUST",
+    "RETURN"
+  ],
+  "pulse_id": "PULSE_06_TRUTH_FIREWALL",
+  "pulse_index": 6,
+  "pulse_receipt_sha256": "cf3ba5f74501d8b9f7f8aa6e3f759e731662377e051e5b28833170e4fc60e2b7",
+  "schema": "janus.pulse_spiral.pulse_receipt.v1"
+}

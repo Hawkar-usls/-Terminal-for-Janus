@@ -1,0 +1,50 @@
+{
+  "COMPRESSION": {
+    "evidence_sha256": "85df17411561a558952b5ee18f65323f9d6cd12f5ce0663b91091d3c36f09732",
+    "purpose": "DemiHead must bind nonzero candidate to exact parent.",
+    "test_id": "DEMIHEAD_BINDING"
+  },
+  "EXHAUST": {
+    "automatic_external_effect": false,
+    "receipt_is_world_truth": false,
+    "status": "PULSE_PASS"
+  },
+  "EXPANSION": {
+    "candidate_is_origin_prime": false,
+    "candidate_state_hash": "bac81981bb33a79b7dee0071c569e1b6f7f18eb098c3e166adc73f1ed3f550b0",
+    "state_delta": {
+      "evidence_sha256": "85df17411561a558952b5ee18f65323f9d6cd12f5ce0663b91091d3c36f09732",
+      "test_id": "DEMIHEAD_BINDING",
+      "verdict": "PASS"
+    },
+    "state_delta_sha256": "1a8596428de87fb4964292f89a8f5fc56c8b156fd014e43026c16ad5c71e70f7"
+  },
+  "IGNITION": {
+    "bounded_test_executed": true,
+    "expected": "candidate/hash/parent/delta gate",
+    "observed": "binding present",
+    "pass": true,
+    "world_truth": false
+  },
+  "INTAKE": {
+    "fresh_pulse_id": true,
+    "parent_state_hash": "27acd5b4be09c5501937af401c973850e92fd494af49c6ed6f46ce28e3eced21"
+  },
+  "RETURN": {
+    "advance_allowed": true,
+    "next_origin_state_hash": "bac81981bb33a79b7dee0071c569e1b6f7f18eb098c3e166adc73f1ed3f550b0",
+    "return_is_reset": false
+  },
+  "phases": [
+    "INTAKE",
+    "COMPRESSION",
+    "IGNITION",
+    "EXPANSION",
+    "EXHAUST",
+    "RETURN"
+  ],
+  "pulse_id": "PULSE_03_DEMIHEAD_BINDING",
+  "pulse_index": 3,
+  "pulse_receipt_sha256": "f0a12d434fedbe974d4993234ff04364c96ff451e6d727e6633c4d31032cb01c",
+  "schema": "janus.pulse_spiral.pulse_receipt.v1"
+}

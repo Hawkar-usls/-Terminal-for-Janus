@@ -1,0 +1,72 @@
+{
+  "schema": "janus.bidirectional_pulse_spiral.protocol.v2_1",
+  "protocol_id": "JANUS_BIDIRECTIONAL_PULSE_SPIRAL_PROTOCOL_v2.1",
+  "version": "2.1",
+  "status": "ACTIVE_FAIL_CLOSED",
+  "supersedes": "JANUS_BIDIRECTIONAL_PULSE_SPIRAL_PROTOCOL_v2.0",
+  "created_at_local": "2026-08-21T18:29:00+03:00",
+  "purpose": "Strengthen bidirectional pulse spiral with process-level in-flight overlap witness, evidence-diversity gate, shadow preservation, and thermodynamic hardening inherited from Janus 113.8 audit.",
+  "base_pairing": [
+    ["BASELINE", "TRUTH_FIREWALL"],
+    ["ZERO_DELTA", "FORK_FIREWALL"],
+    ["AURA_CANDIDATE", "HOME_RECEIPT"],
+    ["DEMIHEAD_BINDING", "DEMIHEAD_BINDING"]
+  ],
+  "new_hard_gates": [
+    "THERMODYNAMIC_HARDENING_LINKS_REQUIRED",
+    "PROCESS_LEVEL_INFLIGHT_OVERLAP_REQUIRED",
+    "NON_CENTER_EVIDENCE_DIVERSITY_REQUIRED",
+    "DIRECTIONAL_SHADOW_PRESERVATION_REQUIRED",
+    "SOURCE_PRESERVATION_POLICY_REQUIRED",
+    "AUTONOMOUS_CODE_MUTATION_ON_HASH_MISMATCH_DENY"
+  ],
+  "concurrency": {
+    "implementation": "MULTIPROCESS_TWO_WORKERS_WITH_START_AND_FINISH_BARRIERS",
+    "worker_count": 2,
+    "process_level_concurrent_inflight_required": true,
+    "instruction_level_simultaneity_claimed": false,
+    "sequential_fallback_counts_as_bidirectional": false,
+    "overlap_witness": "max(critical_start_ns) <= min(critical_end_ns)"
+  },
+  "join_gate": {
+    "both_lanes_pass_required": true,
+    "same_parent_hash_required": true,
+    "same_launch_barrier_required": true,
+    "process_level_inflight_overlap_required": true,
+    "lane_receipt_hashes_required": true,
+    "non_center_evidence_diversity_required": true,
+    "center_same_evidence_allowed": true,
+    "directional_candidates_preserved": true,
+    "conflict_preserves_both_shadows": true,
+    "automatic_resolution_by_majority": false,
+    "automatic_resolution_by_average": false,
+    "conflict_policy": "HOLD_CONFLICT_NO_PROMOTION"
+  },
+  "thermodynamic_hardening": {
+    "contract_path": "contracts/JANUS_THERMODYNAMIC_COGNITIVE_HARDENING-v1.0.json",
+    "required_nodes": ["AURA_ORACLE", "DEMIHEAD", "JANUS_SPI_HOME", "JANUS_HABITAT"],
+    "source_preservation_required": true,
+    "memory_success_as_truth_denied": true,
+    "dream_sandbox_required": true,
+    "commit_with_shadow_preservation_required": true,
+    "ouroboros_autonomous_mutation_denied": true
+  },
+  "truth_firewall": {
+    "bidirectional_pass_is_world_truth": false,
+    "thermodynamic_homeostasis_is_world_truth": false,
+    "low_predictive_error_is_world_truth": false,
+    "agreement_between_lanes_is_external_validation": false,
+    "evidence_diversity_is_independence_proof": false,
+    "world_claim_requires_external_validation": true
+  },
+  "anti_runaway": {
+    "max_pair_pulses": 4,
+    "automatic_external_effect": false,
+    "autonomous_unbounded_recursion": false,
+    "automatic_unbounded_process_spawn": false,
+    "first_pair_failure_stops_train": true,
+    "zero_delta_stops_train": true,
+    "repeated_state_stops_train": true
+  },
+  "claim_ceiling": "PROCESS_LEVEL_CONCURRENT_BIDIRECTIONAL_INTERNAL_STRESS_TEST_WITH_THERMODYNAMIC_HARDENING_NOT_WORLD_TRUTH_NOT_INSTRUCTION_LEVEL_SIMULTANEITY"
+}

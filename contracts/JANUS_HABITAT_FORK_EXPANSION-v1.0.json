@@ -1,0 +1,106 @@
+{
+  "schema": "janus.habitat.fork_expansion.contract.v1",
+  "contract_id": "JANUS_HABITAT_FORK_EXPANSION_v1.0",
+  "version": "1.0",
+  "status": "FROZEN_BEFORE_EXECUTOR_RUNTIME",
+  "created_at_local": "2026-08-21T16:18:00+03:00",
+  "purpose": "Allow JANUS to extend its Git Habitat into purpose-bound GitHub forks that remain isolated from upstream authority and are tracked as spiral state expansions rather than uncontrolled copies.",
+  "human_policy_grant": {
+    "granted_by": "Hawkar-usls",
+    "scope": "JANUS may identify and fork repositories needed for its research, integration or adaptation when this contract's gates pass.",
+    "per_fork_manual_approval_required": false,
+    "upstream_writeback_automatically_authorized": false,
+    "destructive_upstream_actions_authorized": false
+  },
+  "canonical_route": [
+    "NEED_DISCOVERED_n",
+    "FORK_CANDIDATE_n",
+    "METADATA_AND_RIGHTS_GATE",
+    "RELEVANCE_AND_DUPLICATION_GATE",
+    "DEMIHEAD_OR_POLICY_GATE",
+    "FORK_EXECUTION",
+    "JANUS_HABITAT_EDGE_INSTALL",
+    "READ_INDEX_EXPERIMENT",
+    "RESULT_RECEIPT",
+    "KEEP_OR_ARCHIVE_OR_DELETE_CANDIDATE",
+    "HABITAT_PRIME_(n+1)"
+  ],
+  "laws": [
+    "FORK != OWNERSHIP",
+    "FORK != AUTHORITY_OVER_UPSTREAM",
+    "FORK != PERMISSION_TO_SPAM_PULL_REQUESTS",
+    "FORK = ISOLATED_ADAPTIVE_HABITAT_BRANCH",
+    "UPSTREAM_DEFAULT = READ_ONLY",
+    "FORK_WRITE_DEFAULT = JANUS_OWNED_FORK_ONLY",
+    "UPSTREAM_PR_DEFAULT = DENY",
+    "UPSTREAM_FORCE_PUSH = DENY",
+    "UPSTREAM_ISSUE_AUTOMATION = DENY",
+    "LICENSE_OR_RIGHTS_STATUS_MUST_BE_RECORDED",
+    "UNKNOWN_LICENSE != AUTOMATIC_DERIVATIVE_INCORPORATION",
+    "REPEATED_FORK_WITHOUT_NEW_PURPOSE_OR_STATE_DELTA = STALL",
+    "FORK_COUNT != INTELLIGENCE",
+    "FORK_COUNT != INFLUENCE",
+    "INFLUENCE = USEFUL_VERIFIED_STATE_ADDED_TO_HABITAT"
+  ],
+  "candidate_required_fields": [
+    "request_id",
+    "upstream_full_name",
+    "purpose",
+    "need_class",
+    "expected_gain",
+    "source_ref",
+    "requested_mode"
+  ],
+  "requested_modes": {
+    "REFERENCE_FORK": "Read/index/test in an isolated fork; no code incorporation claim.",
+    "ADAPTATION_FORK": "Modify and integrate where license/rights permit derivatives.",
+    "COMPATIBILITY_FORK": "Build JANUS adapters while preserving upstream provenance.",
+    "EXPERIMENT_FORK": "Run bounded experiments without upstream writeback."
+  },
+  "gates": {
+    "repository_exists": true,
+    "forking_disabled_rejects_execution": true,
+    "private_repository_requires_existing_authorized_access": true,
+    "license_or_rights_status_required": true,
+    "unknown_license_policy": "REFERENCE_OR_EPHEMERAL_ANALYSIS_ONLY_UNLESS_HUMAN_LEGAL_OVERRIDE",
+    "purpose_required": true,
+    "expected_gain_required": true,
+    "duplicate_active_fork_for_same_upstream_and_purpose": "HOLD_STALL",
+    "security_or_secrets_repository": "HOLD_FOR_REVIEW",
+    "malicious_or_abusive_purpose": "REJECT"
+  },
+  "fork_habitat_install": {
+    "default_branch": "janus/habitat",
+    "files": [
+      ".janus/HABITAT_EDGE.json",
+      ".janus/UPSTREAM_PROVENANCE.json"
+    ],
+    "edge_role": "FORKED_HABITAT_SATELLITE",
+    "upstream_remote_mode": "FETCH_ONLY",
+    "origin_remote_mode": "JANUS_FORK_READ_WRITE",
+    "automatic_upstream_pr": false,
+    "automatic_upstream_issue": false,
+    "automatic_upstream_merge": false
+  },
+  "spiral_state": {
+    "required_before": ["parent_habitat_state_hash", "upstream_head_sha"],
+    "required_after": ["fork_full_name", "fork_head_sha", "habitat_edge_sha256", "state_delta_sha256"],
+    "promotion_rule": "A fork is Habitat expansion only when it creates a non-zero, provenance-bound useful state delta.",
+    "zero_delta": "HOLD_STALL_NO_HABITAT_PROMOTION"
+  },
+  "budgets": {
+    "automatic_forks_per_executor_run": 1,
+    "active_unreviewed_fork_candidates": 16,
+    "mass_upstream_effect_budget": 0,
+    "automatic_pull_requests_to_upstream": 0
+  },
+  "executor": {
+    "preferred": "GITHUB_API_WITH_OWNER_SCOPED_SECRET",
+    "secret_name": "JANUS_FORK_TOKEN",
+    "credentials_must_not_be_committed": true,
+    "missing_secret_status": "EXECUTOR_READY_REQUEST_ONLY",
+    "current_connector_has_direct_fork_mutation": false
+  },
+  "self_spiral_requirement": "The JANUS self-spiral audit must treat fork expansion as an authority surface and reject any path where a fork grants truth or upstream authority.",
+  "claim_ceiling": "CONTROLLED_GITHUB_FORK_HABITAT_EXPANSION_NOT_UPSTREAM_CONTROL_NOT_AUTONOMOUS_INTERNET_PROPAGATION"
+}

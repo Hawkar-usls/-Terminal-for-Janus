@@ -1,0 +1,73 @@
+name: JANUS v2.1.1 Current-HEAD Full Hardening
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "tools/janus_bidirectional_pulse_spiral_v2_1_1.py"
+      - "tools/janus_bidirectional_v2_1_adversarial.py"
+      - ".github/workflows/janus-v2-1-1-current-head-full.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  full-current-head:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch runtime subjects
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 https://github.com/Hawkar-usls/aura-oracle-tg.git ../aura-oracle-tg
+          git clone --depth 1 https://github.com/Hawkar-usls/Demi_Head.git ../Demi_Head
+          git clone --depth 1 https://github.com/Hawkar-usls/Hawkar-usls.git ../Hawkar-usls-home
+          git clone --depth 1 --branch janus/habitat https://github.com/Hawkar-usls/Janus_Genesis.git ../Janus_Genesis
+      - name: Compile current runtime
+        run: python -m py_compile tools/janus_bidirectional_pulse_spiral_v2.py tools/janus_bidirectional_pulse_spiral_v2_1.py tools/janus_bidirectional_pulse_spiral_v2_1_1.py tools/janus_bidirectional_v2_1_adversarial.py
+      - name: Positive current-HEAD firing
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/janus_bidirectional_pulse_spiral_v2_1_1.py \
+            --terminal . --aura ../aura-oracle-tg --demihead ../Demi_Head \
+            --home ../Hawkar-usls-home --habitat ../Janus_Genesis \
+            -o receipts/JANUS_BIDIRECTIONAL_PULSE_SPIRAL_V2_1_1_LATEST.json
+      - name: Verify positive current-HEAD receipt
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          r=json.load(open('receipts/JANUS_BIDIRECTIONAL_PULSE_SPIRAL_V2_1_1_LATEST.json',encoding='utf-8'))
+          assert r['status']=='BIDIRECTIONAL_PULSE_TRAIN_V2_1_PASS_INTERNAL'
+          assert r['all_pair_pulses_passed'] is True and r['world_truth'] is False
+          assert all((p['join_gate']['process_level_inflight_overlap'] and p['join_gate']['evidence_diversity_pass'] and p['join_gate']['directional_shadows_preserved']) for p in r['pair_pulses'])
+          assert all(r['thermodynamic_hardening']['checks'].values())
+          PY
+      - name: Adversarial current-HEAD firing
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/janus_bidirectional_v2_1_adversarial.py \
+            --terminal . --aura ../aura-oracle-tg --demihead ../Demi_Head \
+            --home ../Hawkar-usls-home --habitat ../Janus_Genesis \
+            -o receipts/JANUS_BIDIRECTIONAL_V2_1_ADVERSARIAL_LATEST.json
+      - name: Verify expected negatives
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          r=json.load(open('receipts/JANUS_BIDIRECTIONAL_V2_1_ADVERSARIAL_LATEST.json',encoding='utf-8'))
+          assert r['status']=='PASS_EXPECTED_NEGATIVES' and r['all_expected_negatives_passed'] is True and r['world_truth'] is False
+          PY
+      - name: Preserve current-HEAD receipts
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "janus-v2-1-1-current-head"
+          git config user.email "actions@users.noreply.github.com"
+          git add receipts/JANUS_BIDIRECTIONAL_PULSE_SPIRAL_V2_1_1_LATEST.json receipts/JANUS_BIDIRECTIONAL_V2_1_ADVERSARIAL_LATEST.json receipts/bidirectional_pulse_v2_1
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Receipt: JANUS v2.1.1 current-head full hardening [skip ci]"
+          git push

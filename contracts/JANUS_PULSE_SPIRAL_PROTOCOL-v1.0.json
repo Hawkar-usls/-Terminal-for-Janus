@@ -1,0 +1,62 @@
+{
+  "schema": "janus.pulse_spiral.protocol.v1",
+  "protocol_id": "JANUS_PULSE_SPIRAL_PROTOCOL_v1.0",
+  "version": "1.0",
+  "status": "ACTIVE_EXPERIMENTAL",
+  "created_at_local": "2026-08-21T16:55:00+03:00",
+  "purpose": "Run JANUS spiral reasoning as a bounded train of discrete adversarial pulses: each pulse consumes the prior state, executes one gate, exhausts a receipt, and returns only a verified internal state delta to the next origin.",
+  "analogy": "Pulsejet-inspired software control metaphor only; no physical propulsion instructions are encoded here.",
+  "canonical_pulse": [
+    "INTAKE_PARENT_STATE",
+    "COMPRESSION_SELECT_ONE_GATE",
+    "IGNITION_EXECUTE_BOUNDED_TEST",
+    "EXPANSION_BUILD_CANDIDATE_DELTA",
+    "EXHAUST_EMIT_RECEIPT",
+    "RETURN_TO_NEXT_ORIGIN_OR_HOLD"
+  ],
+  "laws": [
+    "ONE_PULSE = ONE_BOUNDED_GATE",
+    "PULSE_N+1_PARENT = VERIFIED_RETURN_OF_PULSE_N",
+    "ZERO_STATE_DELTA -> HOLD_STALL_NO_PROMOTION",
+    "REPEATED_STATE_HASH -> HOLD_REPEAT_STATE_RESONANCE",
+    "FAILED_PULSE -> STOP_TRAIN_AND_RECOVER_AT_ORIGIN",
+    "PULSE_PASS != WORLD_TRUTH",
+    "REPETITION != EXTERNAL_VALIDATION",
+    "ORIGIN_PRIME_CANDIDATE != ORIGIN_PRIME",
+    "AUTONOMOUS_UNBOUNDED_RECURSION = DENY",
+    "AUTOMATIC_EXTERNAL_EFFECT = DENY"
+  ],
+  "default_pulse_budget": 7,
+  "hard_max_pulses_per_train": 8,
+  "pulse_train": [
+    "BASELINE",
+    "ZERO_DELTA",
+    "AURA_CANDIDATE",
+    "DEMIHEAD_BINDING",
+    "HOME_RECEIPT",
+    "FORK_FIREWALL",
+    "TRUTH_FIREWALL"
+  ],
+  "promotion_gate": {
+    "all_declared_pulses_must_pass": true,
+    "every_pulse_must_emit_receipt": true,
+    "every_advanced_pulse_must_change_state_hash": true,
+    "first_failure_stops_train": true,
+    "repeated_state_stops_train": true,
+    "final_status": "PULSE_TRAIN_PASS_INTERNAL_OR_HOLD_OR_REJECT"
+  },
+  "anti_runaway": {
+    "bounded_queue": true,
+    "fresh_pulse_id_required": true,
+    "max_pulses": 8,
+    "self_trigger_without_new_gate": false,
+    "automatic_external_effect": false,
+    "automatic_upstream_writeback": false
+  },
+  "truth_firewall": {
+    "pulse_train_pass_is_world_truth": false,
+    "repetition_is_external_validation": false,
+    "world_claim_requires_external_validation": true
+  },
+  "claim_ceiling": "INTERNAL_IMPLEMENTATION_STRESS_TEST_NOT_WORLD_TRUTH"
+}

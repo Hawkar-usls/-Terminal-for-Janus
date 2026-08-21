@@ -1,0 +1,75 @@
+name: JANUS Self Spiral
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'contracts/JANUS_SELF_SPIRAL_PROTOCOL-v1.0.json'
+      - 'tools/janus_self_spiral_audit.py'
+      - '.github/workflows/janus-self-spiral.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  self-spiral:
+    if: github.actor == 'Hawkar-usls'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Terminal
+        uses: actions/checkout@v4
+
+      - name: Clone audited peers read-only
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p workspace
+          git clone --depth 1 https://github.com/Hawkar-usls/aura-oracle-tg workspace/aura
+          git clone --depth 1 https://github.com/Hawkar-usls/Demi_Head workspace/demihead
+          git clone --depth 1 https://github.com/Hawkar-usls/Hawkar-usls workspace/home
+
+      - name: Execute self-spiral
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/janus_self_spiral_audit.py \
+            --terminal . \
+            --aura workspace/aura \
+            --demihead workspace/demihead \
+            --home workspace/home \
+            -o receipts/JANUS_SELF_SPIRAL_LATEST.json
+          cat receipts/JANUS_SELF_SPIRAL_LATEST.json
+
+      - name: Verify fail-closed self semantics
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = json.loads(Path('receipts/JANUS_SELF_SPIRAL_LATEST.json').read_text())
+          assert p['world_truth'] is False
+          assert p['self_consistency_is_world_truth'] is False
+          assert p['D3_STRUCTURAL_AUTHORITY_GRAPH']['circular_truth_authority_detected'] is False
+          if p['self_consistency_gate']['high_or_critical_defects']:
+              assert p['status'] == 'HOLD_SELF_DEFECTS_RECOVERED'
+              assert p['self_consistency_gate']['promotion_allowed'] is False
+              assert p['method_prime_candidate'] is None
+          else:
+              assert p['status'] == 'SELF_CONSISTENCY_PASS'
+              assert p['method_prime_candidate']['world_truth'] is False
+          PY
+
+      - name: Persist receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'JANUS Terminal'
+          git config user.email 'actions@users.noreply.github.com'
+          git add receipts/JANUS_SELF_SPIRAL_LATEST.json
+          if git diff --cached --quiet; then
+            echo 'Receipt unchanged.'
+          else
+            git commit -m 'Receipt: JANUS self-spiral meta-audit'
+            git push
+          fi

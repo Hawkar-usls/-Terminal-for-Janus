@@ -15,14 +15,14 @@
     "first live Aura-SPI-Habitat spiral command",
     "GitHub Actions integration-run workflow",
     "persistent workflow receipt write-back",
-    "reciprocal SPI control-plane binding",
-    "reciprocal DemiHead and Aura bindings",
     "reciprocal bindings across the primary JANUS constellation",
     "frozen JANUS Terminal authority policy",
     "GitHub actor allowlist gate",
     "fail-closed command-envelope verifier",
+    "adversarial unauthorized-actor negative test",
     "owner CODEOWNERS map for critical control-plane paths",
-    "PR/issue/model-output command firewall"
+    "PR/issue/model-output command firewall",
+    "machine-readable security lock receipt"
   ],
   "authority": {
     "control_principal": "JANUS_CONTROL_PLANE",
@@ -47,10 +47,19 @@
     "model_output_is_command": false,
     "private_content_publication_default": "DENY"
   },
+  "security_validation": {
+    "github_run_id": "32473679399",
+    "workflow_conclusion": "success",
+    "owner_positive_case": "PASS_AUTHORIZED",
+    "unauthorized_negative_case": "PASS_REJECTED_AS_EXPECTED",
+    "positive_receipt": "receipts/TERMINAL_COMMAND_AUTHORITY_LATEST.json",
+    "negative_receipt": "receipts/TERMINAL_UNAUTHORIZED_ACTOR_LATEST.json",
+    "security_lock_receipt": "receipts/TERMINAL_SECURITY_LOCK_2026-08-21-v1.0.json"
+  },
   "first_live_spiral": {
     "command_id": "JANUS_TERMINAL_FIRST_LIVE_SPIRAL_2026_08_21",
-    "github_run_id": "32427785558",
-    "session_id": "spiral-65f6be27de774f5c",
+    "latest_security_run_id": "32473679399",
+    "latest_session_id": "spiral-2d3edad755ca4ed5",
     "generation": 1,
     "terminal": "HOLD",
     "chain_valid": true,
@@ -68,13 +77,13 @@
     "T3_HABITAT_OPERATOR_STATE": "IMPLEMENTED",
     "T4_FIRST_LIVE_SPIRAL": "PASS_FAIL_CLOSED_HOLD",
     "T5_PERSISTENT_NAS_EXECUTOR": "NOT_CONNECTED",
-    "T6_OWNER_ACTOR_GATE": "IMPLEMENTED_PENDING_RUNTIME_RECEIPT",
-    "T7_COMMAND_ENVELOPE_VERIFIER": "IMPLEMENTED_PENDING_RUNTIME_RECEIPT",
-    "T8_REPOSITORY_CONFIDENTIALITY": "PUBLIC_CODE_READABLE"
+    "T6_OWNER_ACTOR_GATE": "PASS_RUNTIME_VERIFIED",
+    "T7_COMMAND_ENVELOPE_VERIFIER": "PASS_POSITIVE_AND_NEGATIVE_RUNTIME_VERIFIED",
+    "T8_REPOSITORY_CONFIDENTIALITY": "PUBLIC_CODE_READABLE_COMMAND_ACCESS_LOCKED"
   },
   "not_established": [
     "production readiness",
-    "security certification",
+    "formal security certification",
     "persistent NAS/PC executor currently connected",
     "repository confidentiality while visibility remains public",
     "unattended destructive-operation authority",

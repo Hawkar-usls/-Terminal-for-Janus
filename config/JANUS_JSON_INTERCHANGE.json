@@ -1,22 +1,50 @@
 {
   "schema": "janus.terminal.json_interchange.v1",
-  "interchange_id": "JANUS_JSON_INTERCHANGE_v1.0",
+  "interchange_id": "JANUS_JSON_INTERCHANGE_v1.1",
   "status": "ACTIVE_REFERENCE_PROTOCOL",
   "primary_format": "JSON",
   "encoding": "UTF-8",
-  "mirror_protocol": "contracts/JANUS_JSON_MIRROR_PASS_PROTOCOL-v1.0.json",
-  "canonical_pipeline": [
-    "RECEIVE_JSON",
-    "VALIDATE_ENVELOPE",
-    "SEGMENT_AUTHORITATIVE_TEXT",
-    "FORWARD_PASS",
-    "REVERSE_PASS",
-    "COMPUTE_SUPPORTED_DELTA",
-    "PREPEND_RECOVERED_AT_ORIGIN",
-    "GENERATE_ANSWER",
-    "EMIT_JSON",
-    "HASH_RECEIPT"
-  ],
+  "protocols": {
+    "standard": "contracts/JANUS_JSON_MIRROR_PASS_PROTOCOL-v1.0.json",
+    "deep": "contracts/JANUS_JSON_5D_DEEP_ANALYSIS_PROTOCOL-v1.0.json"
+  },
+  "analysis_modes": {
+    "STANDARD": {
+      "pipeline": [
+        "RECEIVE_JSON",
+        "VALIDATE_ENVELOPE",
+        "SEGMENT_AUTHORITATIVE_TEXT",
+        "FORWARD_PASS",
+        "REVERSE_PASS",
+        "COMPUTE_SUPPORTED_DELTA",
+        "PREPEND_RECOVERED_AT_ORIGIN",
+        "GENERATE_ANSWER",
+        "EMIT_JSON",
+        "HASH_RECEIPT"
+      ]
+    },
+    "DEEP": {
+      "pipeline": [
+        "RECEIVE_JSON",
+        "VALIDATE_ENVELOPE",
+        "BUILD_ADDRESSABLE_SOURCE_GRAPH",
+        "D1_FORWARD",
+        "D2_REVERSE",
+        "D3_HRAIN_STRUCTURAL",
+        "D4_INAIHR_ASSOCIATIVE",
+        "D5_SPIRAL_ABSTRACTION",
+        "APPLY_PROVENANCE_BOUND_GRAPH_PATCHES",
+        "DEMIHEAD_PRESERVE_DISAGREEMENT",
+        "PREPEND_RECOVERED_AT_ORIGIN",
+        "GENERATE_ANSWER",
+        "EMIT_JSON",
+        "HASH_RECEIPT"
+      ],
+      "non_tail_graph_growth": true,
+      "source_text_mutation": false,
+      "raw_private_chain_of_thought_storage": false
+    }
+  },
   "participants": {
     "terminal": {
       "repository": "Hawkar-usls/-Terminal-for-Janus",
@@ -29,6 +57,18 @@
       "json_required_for_interagent_messages": true,
       "must_consume_recovered_at_origin_before_answer": true
     },
+    "hrain": {
+      "repository": "Hawkar-usls/Hrain",
+      "role": "STRUCTURAL_CONTEXT",
+      "deep_axis": "D3_STRUCTURAL",
+      "automatic_truth_promotion": false
+    },
+    "inaihr": {
+      "repository": "Hawkar-usls/iNaiHR",
+      "role": "ASSOCIATIVE_CONTEXT",
+      "deep_axis": "D4_ASSOCIATIVE",
+      "association_is_evidence": false
+    },
     "aura": {
       "repository": "Hawkar-usls/aura-oracle-tg",
       "role": "SYMBOLIC_REFLECTION_PEER",
@@ -39,7 +79,8 @@
       "repository": "Hawkar-usls/Demi_Head",
       "role": "INTENT_BOUND_ARBITER",
       "json_required_for_arbitration_packets": true,
-      "intent_id_must_survive_both_passes": true
+      "intent_id_must_survive_all_axes": true,
+      "must_preserve_hrain_inaihr_disagreement": true
     },
     "habitat": {
       "repository": "Hawkar-usls/Janus_Genesis",
@@ -48,26 +89,44 @@
       "preferred_memory_record": "JSON_OR_JSONL"
     }
   },
+  "graph_patch_contract": {
+    "allowed_operations": [
+      "INSERT_BEFORE",
+      "INSERT_AFTER",
+      "INSERT_CHILD",
+      "INSERT_SIBLING",
+      "SPLICE_BETWEEN",
+      "FORK_BRANCH",
+      "ANNOTATE_NODE",
+      "ANNOTATE_EDGE",
+      "LINK_DISTANT_NODES",
+      "PROMOTE_TO_ABSTRACTION",
+      "DEMOTE_TO_INSTANCE"
+    ],
+    "anchor_required_where_applicable": true,
+    "reason_required": true,
+    "provenance_required": true,
+    "silent_source_rewrite": false,
+    "silent_history_delete": false
+  },
   "response_rule": {
-    "before_answer": [
+    "standard_before_answer": [
       "PASS_TEXT_FORWARD",
       "PASS_SAME_TEXT_BACKWARD",
       "COMPARE",
       "PLACE_NEW_SUPPORTED_FINDINGS_AT_ORIGIN"
     ],
+    "deep_before_answer": [
+      "RUN_ALL_FIVE_AXES",
+      "COMPARE_STRUCTURAL_AND_ASSOCIATIVE_VIEWS",
+      "PRESERVE_DISAGREEMENT",
+      "APPLY_VALID_GRAPH_PATCHES",
+      "RETURN_TO_SOURCE_ANCHORS",
+      "PLACE_NEW_SUPPORTED_FINDINGS_AT_ORIGIN"
+    ],
     "human_render_order": [
       "RECOVERED_AT_ORIGIN_IF_ANY",
       "MAIN_ANSWER"
-    ],
-    "machine_render_order": [
-      "schema",
-      "message_id",
-      "recovered_at_origin",
-      "answer",
-      "forward_pass",
-      "reverse_pass",
-      "provenance",
-      "integrity"
     ]
   },
   "transport_laws": [
@@ -76,6 +135,9 @@
     "HASH_BINDS_CONTENT_NOT_PRETTY_PRINTING",
     "INVALID_JSON_FAILS_CLOSED",
     "UNKNOWN_FIELDS_MAY_BE_PRESERVED_BUT_NOT_GAIN_AUTHORITY",
-    "MIRROR_PASS_OUTPUT != WORLD_TRUTH"
+    "MIRROR_PASS_OUTPUT != WORLD_TRUTH",
+    "5D_GRAPH_OUTPUT != WORLD_TRUTH",
+    "ASSOCIATION != EVIDENCE",
+    "BOTH_HEMISPHERES_AGREE != TRUTH"
   ]
 }

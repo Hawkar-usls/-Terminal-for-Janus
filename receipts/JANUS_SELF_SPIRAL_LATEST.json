@@ -8,42 +8,8 @@
     "zero_delta_hold_declared": true
   },
   "D2_REVERSE_RUNTIME_BACKCHECK": {
-    "findings": [
-      {
-        "detail": "The local 5D analyzer can emit ADVANCED_TO_ORIGIN_PRIME before DemiHead arbitration. This conflates a cognitive state-delta candidate with final promotion.",
-        "finding_id": "SELF-R1",
-        "next_gate": "Rename the local result to ORIGIN_PRIME_CANDIDATE / CANDIDATE_STATE_ADVANCE and reserve ORIGIN_PRIME for verified return.",
-        "severity": "HIGH",
-        "source_anchors": [
-          "aura-oracle-tg:tools/aura_5d_spiral_v2.py"
-        ],
-        "title": "Aura names a pre-arbitration state as ORIGIN_PRIME",
-        "validation_status": "IMPLEMENTATION_TRACE_FINDING_NOT_WORLD_TRUTH"
-      },
-      {
-        "detail": "PASS plus verified intent is sufficient for verified_return_eligible; the bridge does not require a candidate state hash, parent binding and non-zero delta.",
-        "finding_id": "SELF-R2",
-        "next_gate": "Require advanced=true, candidate_state_hash != origin_state_hash, parent hash equality and a bound state_delta hash before verified return.",
-        "severity": "HIGH",
-        "source_anchors": [
-          "Demi_Head:tools/aura_spi_habitat_spiral_bridge_v2_10.py"
-        ],
-        "title": "DemiHead verified return is not bound to non-zero state advance",
-        "validation_status": "IMPLEMENTATION_TRACE_FINDING_NOT_WORLD_TRUTH"
-      },
-      {
-        "detail": "The live engine labels a local parameter as DemiHead arbitration. HOLD is safe, but the positive path is not end-to-end evidence that the DemiHead bridge actually ran.",
-        "finding_id": "SELF-R3",
-        "next_gate": "Make final promotion consume and verify a DemiHead arbitration receipt hash rather than a bare PASS parameter.",
-        "severity": "HIGH",
-        "source_anchors": [
-          "Hawkar-usls:src/janus_spi/aura_habitat_spiral.py"
-        ],
-        "title": "Home runtime accepts a decision parameter instead of requiring a real DemiHead receipt",
-        "validation_status": "IMPLEMENTATION_TRACE_FINDING_NOT_WORLD_TRUTH"
-      }
-    ],
-    "recovered_count": 3
+    "findings": [],
+    "recovered_count": 0
   },
   "D3_STRUCTURAL_AUTHORITY_GRAPH": {
     "circular_truth_authority_detected": false,
@@ -105,7 +71,7 @@
   "D4_ASSOCIATIVE_COUNTERMODEL": {
     "association_is_evidence": false,
     "counterexample": "PASS + VERIFIED_INTENT + ZERO_STATE_DELTA",
-    "current_positive_path_fully_proves_this": false,
+    "current_positive_path_fully_proves_this": true,
     "fork_counterexample": "FORK_CREATED -> AUTOMATIC_UPSTREAM_WRITE",
     "fork_required_result": "REJECT_OR_HOLD_NO_UPSTREAM_EFFECT",
     "required_result": "HOLD_STALL_NO_PROMOTION"
@@ -117,62 +83,33 @@
     "self_test_survival_is_external_validation": false
   },
   "claim_ceiling": "SELF_CONSISTENCY_AND_IMPLEMENTATION_AUDIT_ONLY_NOT_WORLD_TRUTH",
-  "method_prime_candidate": null,
-  "recovered_at_origin": [
-    {
-      "detail": "The local 5D analyzer can emit ADVANCED_TO_ORIGIN_PRIME before DemiHead arbitration. This conflates a cognitive state-delta candidate with final promotion.",
-      "finding_id": "SELF-R1",
-      "next_gate": "Rename the local result to ORIGIN_PRIME_CANDIDATE / CANDIDATE_STATE_ADVANCE and reserve ORIGIN_PRIME for verified return.",
-      "severity": "HIGH",
-      "source_anchors": [
-        "aura-oracle-tg:tools/aura_5d_spiral_v2.py"
-      ],
-      "title": "Aura names a pre-arbitration state as ORIGIN_PRIME",
-      "validation_status": "IMPLEMENTATION_TRACE_FINDING_NOT_WORLD_TRUTH"
-    },
-    {
-      "detail": "PASS plus verified intent is sufficient for verified_return_eligible; the bridge does not require a candidate state hash, parent binding and non-zero delta.",
-      "finding_id": "SELF-R2",
-      "next_gate": "Require advanced=true, candidate_state_hash != origin_state_hash, parent hash equality and a bound state_delta hash before verified return.",
-      "severity": "HIGH",
-      "source_anchors": [
-        "Demi_Head:tools/aura_spi_habitat_spiral_bridge_v2_10.py"
-      ],
-      "title": "DemiHead verified return is not bound to non-zero state advance",
-      "validation_status": "IMPLEMENTATION_TRACE_FINDING_NOT_WORLD_TRUTH"
-    },
-    {
-      "detail": "The live engine labels a local parameter as DemiHead arbitration. HOLD is safe, but the positive path is not end-to-end evidence that the DemiHead bridge actually ran.",
-      "finding_id": "SELF-R3",
-      "next_gate": "Make final promotion consume and verify a DemiHead arbitration receipt hash rather than a bare PASS parameter.",
-      "severity": "HIGH",
-      "source_anchors": [
-        "Hawkar-usls:src/janus_spi/aura_habitat_spiral.py"
-      ],
-      "title": "Home runtime accepts a decision parameter instead of requiring a real DemiHead receipt",
-      "validation_status": "IMPLEMENTATION_TRACE_FINDING_NOT_WORLD_TRUTH"
-    }
-  ],
+  "method_prime_candidate": {
+    "kind": "METHOD_PRIME_CANDIDATE",
+    "parent_subject_set_sha256": "cc6c4985d60e2370946537dd9368cce6e1bf721169801092fdb4bfeedc29e607",
+    "requires_external_validation_for_world_claims": true,
+    "world_truth": false
+  },
+  "recovered_at_origin": [],
   "schema": "janus.self_spiral.audit_receipt.v1",
   "self_consistency_gate": {
     "fork_upstream_authority_must_remain_zero": true,
-    "high_or_critical_defects": 3,
-    "promotion_allowed": false,
+    "high_or_critical_defects": 0,
+    "promotion_allowed": true,
     "real_demihead_receipt_required": true,
     "zero_delta_must_hold": true
   },
   "self_consistency_is_world_truth": false,
   "source_hashes": {
-    "aura_5d": "b05a8ab44a70ce4c4cf94a07fb853933b202d7ded53aa6bfba74dd4811d57db5",
+    "aura_5d": "dadb4796269ce66a8215bf9bc9ea70e7b22d4e7c0743973e5b1f592d7e6a5d71",
     "deep_contract": "d9bf3f22d8c75227a650684597ee8f1f4fece45c4223e977abf2bf04257a5de4",
-    "demihead_bridge": "44ebe6d34315bcf598c76a1d29a623363dff0722b97f84b9fa6fe0de5c816841",
+    "demihead_bridge": "f3756b552952d9b43dc7f9af5faed9810d634b5fba20ea81ea7b261dd81ecfa0",
     "fork_contract": "a233c1e83d760dceac533ce38d21ed210dadea928b81fa3e26c2eb7dff7d6b37",
-    "fork_runtime": "b37f46876e033f871f1e0553df3d90ee1933b18e5dc3f245bba4fd75bdc288cd",
-    "home_spiral": "6f4d5b7725cba2e2a1c9d7f9c1bb5971de739687b1ba4c51fa44e5f198e198d3",
+    "fork_runtime": "b1eef61575addf67114ca9987a1f949b0d8a4bcf6e728018f6a9313c3496ce46",
+    "home_spiral": "deafaf4fe09415b136a8b736308aa7f96674b85ed58768ddc7c6056f7febfdf8",
     "mirror_contract": "4391d101e26a7f8841d2ba1b49131f2b6d2cb294d4684db1270d33582f292a8d",
-    "self_contract": "984f147171084f817b5c4a18c5bc037d17cab800cf03cc7081983408de99b7ef",
+    "self_contract": "e2e3b9a55b93836621edb3513c79603f48567262a2db818239899fafc3234d6e",
     "terminal_5d": "cb210c41beae7eeae9838b552516eb3185b68f85cffb3d71b9f1fc48feeae20b"
   },
-  "status": "HOLD_SELF_DEFECTS_RECOVERED",
+  "status": "SELF_CONSISTENCY_PASS",
   "world_truth": false
 }

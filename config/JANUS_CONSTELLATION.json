@@ -53,9 +53,6 @@
     "voice_body": ["TERMINAL","THE_VOICE_OF_JANUS","ECHO_PYRAMID","DEMIHEAD","HABITAT"],
     "body_interface": ["TERMINAL","SKINGPT","DEMIHEAD","HABITAT"]
   },
-  "legacy_aliases": {
-    "prediction_cycle": "DEPRECATED_USE_prediction_spiral"
-  },
   "terminal_is_single_operator_entrypoint": true,
   "terminal_is_single_point_of_truth": false,
   "terminal_is_autonomous_root_authority": false

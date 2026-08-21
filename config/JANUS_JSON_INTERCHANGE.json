@@ -1,0 +1,81 @@
+{
+  "schema": "janus.terminal.json_interchange.v1",
+  "interchange_id": "JANUS_JSON_INTERCHANGE_v1.0",
+  "status": "ACTIVE_REFERENCE_PROTOCOL",
+  "primary_format": "JSON",
+  "encoding": "UTF-8",
+  "mirror_protocol": "contracts/JANUS_JSON_MIRROR_PASS_PROTOCOL-v1.0.json",
+  "canonical_pipeline": [
+    "RECEIVE_JSON",
+    "VALIDATE_ENVELOPE",
+    "SEGMENT_AUTHORITATIVE_TEXT",
+    "FORWARD_PASS",
+    "REVERSE_PASS",
+    "COMPUTE_SUPPORTED_DELTA",
+    "PREPEND_RECOVERED_AT_ORIGIN",
+    "GENERATE_ANSWER",
+    "EMIT_JSON",
+    "HASH_RECEIPT"
+  ],
+  "participants": {
+    "terminal": {
+      "repository": "Hawkar-usls/-Terminal-for-Janus",
+      "role": "ROUTER_AND_OPERATOR_CONTROL_PLANE",
+      "json_required_for_commands": true
+    },
+    "spi": {
+      "repository": "Hawkar-usls/Hawkar-usls",
+      "role": "SEMANTIC_PREDICTIVE_REASONING",
+      "json_required_for_interagent_messages": true,
+      "must_consume_recovered_at_origin_before_answer": true
+    },
+    "aura": {
+      "repository": "Hawkar-usls/aura-oracle-tg",
+      "role": "SYMBOLIC_REFLECTION_PEER",
+      "json_required_for_peer_io": true,
+      "reverse_findings_are_evidence": false
+    },
+    "demihead": {
+      "repository": "Hawkar-usls/Demi_Head",
+      "role": "INTENT_BOUND_ARBITER",
+      "json_required_for_arbitration_packets": true,
+      "intent_id_must_survive_both_passes": true
+    },
+    "habitat": {
+      "repository": "Hawkar-usls/Janus_Genesis",
+      "branch": "janus/habitat",
+      "role": "CONTINUITY_MEMORY_BUS",
+      "preferred_memory_record": "JSON_OR_JSONL"
+    }
+  },
+  "response_rule": {
+    "before_answer": [
+      "PASS_TEXT_FORWARD",
+      "PASS_SAME_TEXT_BACKWARD",
+      "COMPARE",
+      "PLACE_NEW_SUPPORTED_FINDINGS_AT_ORIGIN"
+    ],
+    "human_render_order": [
+      "RECOVERED_AT_ORIGIN_IF_ANY",
+      "MAIN_ANSWER"
+    ],
+    "machine_render_order": [
+      "schema",
+      "message_id",
+      "recovered_at_origin",
+      "answer",
+      "forward_pass",
+      "reverse_pass",
+      "provenance",
+      "integrity"
+    ]
+  },
+  "transport_laws": [
+    "TEXT_BETWEEN_AGENTS_MUST_LIVE_INSIDE_JSON",
+    "JSON_FIELD_ORDER_IS_NOT_SEMANTIC_EXCEPT_CANONICAL_RENDERER_ORDER",
+    "HASH_BINDS_CONTENT_NOT_PRETTY_PRINTING",
+    "INVALID_JSON_FAILS_CLOSED",
+    "UNKNOWN_FIELDS_MAY_BE_PRESERVED_BUT_NOT_GAIN_AUTHORITY",
+    "MIRROR_PASS_OUTPUT != WORLD_TRUTH"
+  ]
+}

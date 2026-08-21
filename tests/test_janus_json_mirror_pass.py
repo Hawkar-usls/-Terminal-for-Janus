@@ -52,6 +52,24 @@ class MirrorPassTests(unittest.TestCase):
         self.assertTrue(result["response_contract"]["must_recheck_input_reverse"])
         self.assertTrue(result["message_sha256"])
 
+    def test_unexplained_alignment_forces_deep_without_truth_promotion(self):
+        payload = self.payload(
+            "Зафиксировано неожиданное совпадение двух независимых наблюдений. "
+            "Нужно проверить базовую частоту, альтернативные объяснения и возможную зависимость источников."
+        )
+        payload["event_class"] = "UNEXPLAINED_ALIGNMENT"
+        result = route(payload)
+        self.assertEqual(result["analysis_mode"], "DEEP_TRANSCEPTION_5D")
+        self.assertEqual(result["routing"]["selected_mode"], "DEEP")
+        self.assertTrue(result["routing"]["forced_by_event_class"])
+        self.assertEqual(result["routing"]["interest_priority"], "ELEVATED")
+        self.assertEqual(result["routing"]["truth_weight_delta"], 0)
+        self.assertIn("BASE_RATE", result["routing"]["required_checks"])
+        self.assertIn("ALTERNATIVE_EXPLANATIONS", result["routing"]["required_checks"])
+        self.assertIn("COINCIDENCE != CAUSALITY", result["laws"])
+        self.assertIn("COINCIDENCE != AUTOMATIC_DISMISSAL", result["laws"])
+        self.assertFalse(result["hemisphere_views"]["demihead_disagreement"]["agreement_is_truth"])
+
     def test_empty_delta_is_valid(self):
         result = run(self.payload("Наблюдение фиксируется."))
         self.assertIsInstance(result["recovered_at_origin"], list)

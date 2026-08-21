@@ -1,21 +1,28 @@
 {
-  "schema": "janus.aura_spi.spiral_cycle_receipt.v1",
-  "session_id": "spiral-fe63ca907a97443a",
+  "schema": "janus.aura_spi.spiral_step_receipt.v2",
+  "session_id": "spiral-b838492ba57e4a11",
   "generation": 1,
   "intent_id": "e7c7938e01df4d6cdcd0c5698b8927415c7b96217c967704acaa7e1a7e06f82d",
   "intent_authority": "LOCAL_PREVIEW",
   "terminal": "HOLD",
   "turn_hashes": [
-    "cc83ccf9cc441a6c05ea3430223701b4b79ce96ea4b803945b6ebeee172fb9c7",
-    "b3a1ac19b15afaff061f667221f997533fb631c9a421e76551b3840aae5d0f2e",
-    "9bd0796ee0e70b248290737a8b7615b1dd8f7dc2daaef2e571257cf9cf3ac49b",
-    "7120343cda70ae593acf591655e8f79b92b8dcac1f6ff09b533e7264c7977f9e",
-    "1927fed82fbeb8b3692e141a47e8b3d290a2d4bab1bc07688ad55576a7070352",
-    "4163510397422457e96237600ed3f5657e6f70feedeb2d50383bb9b4c4bb094a"
+    "d4b151d42ebcb8675212105d4a43fc0407762257cfac78903ff5ad4807c12e83",
+    "1784955ccf6770c9954f3e409fe865dd96d0159b2d34e62a20d37963e754a536",
+    "78ed8507e53a312f9ec86758f87624eaad3994f1dc657648e42980aa57ba13cd",
+    "1acce528d6d4afbeafd23a6730a93dfc65cb02fbf685b3374513f3d46a4fbbc2",
+    "f4f25f6cfc2b753b17b4786020aaf961d59e1ed499b436680212c86356b16d2a",
+    "f812adae25f5bb9457ce0f08eeb0c12d586367576569d5a9174da2deaba81c0b"
   ],
-  "last_turn_hash": "4163510397422457e96237600ed3f5657e6f70feedeb2d50383bb9b4c4bb094a",
+  "last_turn_hash": "f812adae25f5bb9457ce0f08eeb0c12d586367576569d5a9174da2deaba81c0b",
   "chain_valid": true,
   "predictive_model_updated": false,
   "fresh_external_trigger_consumed": true,
-  "continuous_is_infinite_self_chat": false
+  "continuous_is_infinite_self_chat": false,
+  "legacy_base_schema": "janus.aura_spi.spiral_step_receipt.v2",
+  "preferred_operation": "SPIRAL_STEP",
+  "legacy_cycle_api_used_internally": true,
+  "legacy_cycle_api_semantics": "BACKWARD_COMPATIBILITY_ONLY_NOT_RING_MODEL",
+  "position_may_repeat_state_must_advance": true,
+  "return_is_reset": false,
+  "demihead_arbitration_receipt_forwarded": false
 }

@@ -1,0 +1,87 @@
+name: JANUS Unexplained Alignment Owner Receipt
+
+on:
+  push:
+    paths:
+      - 'config/JANUS_JSON_INTERCHANGE.json'
+      - 'tools/janus_json_router.py'
+      - 'tools/janus_json_5d_deep.py'
+      - 'tests/test_janus_json_mirror_pass.py'
+      - '.github/workflows/janus-unexplained-alignment-owner-receipt.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  unexplained-alignment:
+    if: github.actor == 'Hawkar-usls'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Compile engines
+        run: python -m py_compile tools/janus_json_mirror_pass.py tools/janus_json_5d_deep.py tools/janus_json_router.py
+      - name: Run mirror/router tests
+        run: python -m unittest -v tests/test_janus_json_mirror_pass.py
+      - name: Execute unexplained-alignment escalation
+        run: |
+          mkdir -p runtime
+          cat > runtime/alignment.json <<'JSON'
+          {
+            "schema": "janus.mirror.input.v1",
+            "message_id": "JANUS-UNEXPLAINED-ALIGNMENT-RUNTIME",
+            "created_at": "2026-08-21T15:08:00+03:00",
+            "source": "GITHUB_ACTIONS_OWNER_REFERENCE_RUN",
+            "event_class": "UNEXPLAINED_ALIGNMENT",
+            "text": "Два независимых наблюдения неожиданно совпали. Но до вывода о причинности проверь базовую частоту, независимость источников, альтернативные объяснения, множественные сравнения и ошибку измерения."
+          }
+          JSON
+          python tools/janus_json_router.py runtime/alignment.json -o runtime/output.json
+      - name: Verify interest rises but truth does not
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          out=json.loads(Path('runtime/output.json').read_text())
+          assert out['analysis_mode']=='DEEP_TRANSCEPTION_5D', out
+          r=out['routing']
+          assert r['selected_mode']=='DEEP', r
+          assert r['forced_by_event_class'] is True, r
+          assert r['interest_priority']=='ELEVATED', r
+          assert r['truth_weight_delta']==0, r
+          assert 'BASE_RATE' in r['required_checks'], r
+          assert 'ALTERNATIVE_EXPLANATIONS' in r['required_checks'], r
+          assert 'COINCIDENCE != CAUSALITY' in out['laws'], out['laws']
+          assert 'COINCIDENCE != AUTOMATIC_DISMISSAL' in out['laws'], out['laws']
+          assert out['hemisphere_views']['demihead_disagreement']['agreement_is_truth'] is False
+          receipt={
+            'schema':'janus.unexplained_alignment.runtime_receipt.v1',
+            'status':'PASS_REFERENCE_RUNTIME',
+            'github_actor':os.environ.get('GITHUB_ACTOR'),
+            'github_run_id':os.environ.get('GITHUB_RUN_ID'),
+            'source_commit':os.environ.get('GITHUB_SHA'),
+            'event_class':'UNEXPLAINED_ALIGNMENT',
+            'deep_5d_forced':True,
+            'interest_priority':'ELEVATED',
+            'truth_weight_delta':0,
+            'base_rate_check_required':True,
+            'alternative_explanations_required':True,
+            'automatic_causality_promotion':False,
+            'automatic_randomness_dismissal':False,
+            'world_truth':False
+          }
+          Path('runtime/receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n')
+          PY
+      - name: Persist receipt
+        run: |
+          mkdir -p receipts
+          cp runtime/receipt.json receipts/JANUS_UNEXPLAINED_ALIGNMENT_LATEST.json
+          git config user.name "janus-terminal-bot"
+          git config user.email "janus-terminal-bot@users.noreply.github.com"
+          git add receipts/JANUS_UNEXPLAINED_ALIGNMENT_LATEST.json
+          git commit -m "Receipt: JANUS unexplained-alignment gate" || exit 0
+          git pull --rebase origin main
+          git push origin HEAD:main

@@ -11,65 +11,25 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 4956,
+  "files_scanned": 4959,
   "counts": {
     "HARD_RING": 0,
-    "LEGACY_COMPAT": 17,
-    "REVIEW": 354,
-    "SAFE_INFRA_LOOP": 731,
-    "HISTORICAL_FROZEN": 234
+    "LEGACY_COMPAT": 13,
+    "REVIEW": 355,
+    "SAFE_INFRA_LOOP": 837,
+    "HISTORICAL_FROZEN": 682
   },
   "active_hard_ring_count": 0,
   "active_hard_rings": [],
   "legacy_compat_findings": [
     {
       "repository": "Hawkar-usls/Hawkar-usls",
-      "path": "run_aura_habitat_bus.py",
-      "line": 20,
-      "classification": "LEGACY_COMPAT",
-      "code": "AURA_V1_REFERENCE",
-      "pattern": "aura_habitat_spiral_peer_v1.py",
-      "excerpt": "parser.add_argument(\"--aura-peer\", required=True, help=\"Aura peer command, e.g. python ../aura-oracle-tg/tools/aura_habitat_spiral_peer_v1.py\")",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Hawkar-usls",
-      "path": "deploy/docker-compose.aura-spi.yml",
-      "line": 15,
-      "classification": "LEGACY_COMPAT",
-      "code": "AURA_V1_REFERENCE",
-      "pattern": "aura_habitat_spiral_peer_v1.py",
-      "excerpt": "- python /aura/tools/aura_habitat_spiral_peer_v1.py",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Hawkar-usls",
-      "path": "docs/AURA_SPI_HABITAT_SPIRAL.md",
-      "line": 86,
-      "classification": "LEGACY_COMPAT",
-      "code": "AURA_V1_REFERENCE",
-      "pattern": "aura_habitat_spiral_peer_v1.py",
-      "excerpt": "--aura-peer \"python ../aura-oracle-tg/tools/aura_habitat_spiral_peer_v1.py\" \\",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Hawkar-usls",
-      "path": "docs/AURA_SPI_HABITAT_SPIRAL.md",
-      "line": 100,
-      "classification": "LEGACY_COMPAT",
-      "code": "AURA_V1_REFERENCE",
-      "pattern": "aura_habitat_spiral_peer_v1.py",
-      "excerpt": "--aura-peer \"python ../aura-oracle-tg/tools/aura_habitat_spiral_peer_v1.py\" \\",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Hawkar-usls",
       "path": ".janus/AURA_HABITAT_SPIRAL_LINK.json",
-      "line": 9,
+      "line": 12,
       "classification": "LEGACY_COMPAT",
-      "code": "AURA_V1_REFERENCE",
+      "code": "AURA_V1_EXPLICIT_FALLBACK",
       "pattern": "aura_habitat_spiral_peer_v1.py",
-      "excerpt": "\"peer_tool\": \"tools/aura_habitat_spiral_peer_v1.py\",",
+      "excerpt": "\"legacy_fallback_peer_tool\": \"tools/aura_habitat_spiral_peer_v1.py\",",
       "active_surface": true
     },
     {
@@ -135,21 +95,21 @@
     {
       "repository": "Hawkar-usls/Demi_Head",
       "path": ".janus/NEXUS_V2_10_AURA_SPI_HABITAT_SPIRAL_LINK.json",
-      "line": 9,
+      "line": 11,
       "classification": "LEGACY_COMPAT",
-      "code": "AURA_V1_REFERENCE",
+      "code": "AURA_V1_EXPLICIT_FALLBACK",
       "pattern": "aura_habitat_spiral_peer_v1.py",
-      "excerpt": "\"peer_tool\": \"tools/aura_habitat_spiral_peer_v1.py\",",
+      "excerpt": "\"legacy_fallback_peer_tool\": \"tools/aura_habitat_spiral_peer_v1.py\",",
       "active_surface": true
     },
     {
       "repository": "Hawkar-usls/Janus_Genesis",
       "path": "habitat/state/AURA_SPI_SPIRAL_GATE_v1.0.json",
-      "line": 51,
+      "line": 58,
       "classification": "LEGACY_COMPAT",
-      "code": "AURA_V1_REFERENCE",
+      "code": "AURA_V1_EXPLICIT_FALLBACK",
       "pattern": "aura_habitat_spiral_peer_v1.py",
-      "excerpt": "\"aura_peer\": \"Hawkar-usls/aura-oracle-tg:tools/aura_habitat_spiral_peer_v1.py\",",
+      "excerpt": "\"aura_legacy_fallback\": \"Hawkar-usls/aura-oracle-tg:tools/aura_habitat_spiral_peer_v1.py\",",
       "active_surface": true
     },
     {
@@ -206,32 +166,12 @@
     },
     {
       "repository": "Hawkar-usls/Hawkar-usls",
-      "path": "run_aura_habitat_spiral.py",
-      "line": 17,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "return engine.cycle(",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Hawkar-usls",
       "path": "README.md",
       "line": 30,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "- carry verified experience forward through an `ORIGIN_PRIME` continual-learning cycle.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Hawkar-usls",
-      "path": "run_aura_habitat_bus.py",
-      "line": 47,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "receipt = engine.cycle(",
       "active_surface": true
     },
     {
@@ -271,7 +211,17 @@
       "classification": "REVIEW",
       "code": "RESET_STATE_LANGUAGE",
       "pattern": "\\breset\\b.{0,80}\\b(state|origin|memory|generation)\\b|\\b(state|origin|memory|generation)\\b.{0,80}\\breset\\b",
-      "excerpt": "`RETURN != RESET`. A generation can revisit a subject, but its state is parent-hashed and prior turns are not overwritten.",
+      "excerpt": "`RETURN != RESET`. A generation can revisit a subject, but its state is parent-hashed and prior turns are not overwritten. `POSITION_MAY_REPEAT_BUT_STATE_MUST_ADVANCE`; a zero-delta return is `HOLD_STALL_NO_PROMOTION`, not a completed cognitive ring.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Hawkar-usls",
+      "path": "docs/AURA_SPI_HABITAT_SPIRAL.md",
+      "line": 56,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "JANUS-SPI stores the reflection with provenance, retrieves semantically related context, and can later freeze numerical/probabilistic forecasts. Predictive heads update only after an explicit future outcome becomes observable. The preferred cognitive operation is `SPIRAL_STEP`; the old `cycle()` API is retained only as backwards-compatible implementation surface and must not be interpreted as ring semantics.",
       "active_surface": true
     },
     {
@@ -302,6 +252,26 @@
       "code": "CLOSED_LOOP_LANGUAGE",
       "pattern": "closed[- ]loop|замкнут(?:ый|ого|ом)?\\s+(?:круг|цикл)|кольцев",
       "excerpt": "\"purpose\": \"prevent closed-loop self-reinforcement and synthetic certainty\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Hawkar-usls",
+      "path": "src/janus_spi/advancing_spiral.py",
+      "line": 11,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "The inherited ``cycle`` name is retained only for backwards compatibility in",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Hawkar-usls",
+      "path": "src/janus_spi/advancing_spiral.py",
+      "line": 31,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "receipt = super().cycle(",
       "active_surface": true
     },
     {
@@ -3183,16 +3153,6 @@
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "\"cycle_id\": \"cycle-00000002-103714ac6364\",",
       "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus_Genesis",
-      "path": "habitat/hearth/resident-choice-cycle-00000009-63b5658e137a.json",
-      "line": 2,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"applied_path\": \"workshop/cycle-00000009-63b5658e137a.json\",",
-      "active_surface": true
     }
   ],
   "safe_infrastructure_loop_sample": [
@@ -3219,7 +3179,7 @@
     {
       "repository": "Hawkar-usls/Hawkar-usls",
       "path": "run_aura_habitat_spiral.py",
-      "line": 81,
+      "line": 84,
       "classification": "SAFE_INFRA_LOOP",
       "code": "INFRASTRUCTURE_LOOP",
       "pattern": "safe_loop_hint",
@@ -3239,7 +3199,7 @@
     {
       "repository": "Hawkar-usls/Hawkar-usls",
       "path": "run_aura_habitat_bus.py",
-      "line": 43,
+      "line": 46,
       "classification": "SAFE_INFRA_LOOP",
       "code": "INFRASTRUCTURE_LOOP",
       "pattern": "safe_loop_hint",
@@ -3249,7 +3209,7 @@
     {
       "repository": "Hawkar-usls/Hawkar-usls",
       "path": "run_aura_habitat_bus.py",
-      "line": 44,
+      "line": 47,
       "classification": "SAFE_INFRA_LOOP",
       "code": "INFRASTRUCTURE_LOOP",
       "pattern": "safe_loop_hint",
@@ -3378,12 +3338,42 @@
     },
     {
       "repository": "Hawkar-usls/Hawkar-usls",
+      "path": "deploy/docker-compose.aura-spi.yml",
+      "line": 38,
+      "classification": "SAFE_INFRA_LOOP",
+      "code": "INFRASTRUCTURE_LOOP",
+      "pattern": "safe_loop_hint",
+      "excerpt": "# Heartbeat/polling remain technical loops; cognitive state is not reset on return.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Hawkar-usls",
       "path": "docs/AURA_SPI_HABITAT_SPIRAL.md",
       "line": 22,
       "classification": "SAFE_INFRA_LOOP",
       "code": "INFRASTRUCTURE_LOOP",
       "pattern": "safe_loop_hint",
       "excerpt": "The runtime is **event driven**. A new generation requires a fresh external trigger from Habitat journal/inbox, a human message, a repository change, a measurement, or a resolved forecast. An idle heartbeat generates no new prose.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Hawkar-usls",
+      "path": "docs/AURA_SPI_HABITAT_SPIRAL.md",
+      "line": 29,
+      "classification": "SAFE_INFRA_LOOP",
+      "code": "INFRASTRUCTURE_LOOP",
+      "pattern": "safe_loop_hint",
+      "excerpt": "Heartbeat, polling, retry and watcher loops are valid infrastructure. They do not imply semantic return-to-same-state and cannot promote `ORIGIN_PRIME` by repetition.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Hawkar-usls",
+      "path": "docs/AURA_SPI_HABITAT_SPIRAL.md",
+      "line": 108,
+      "classification": "SAFE_INFRA_LOOP",
+      "code": "INFRASTRUCTURE_LOOP",
+      "pattern": "safe_loop_hint",
+      "excerpt": "If there is no fresh Habitat event, nothing cognitive is generated. The polling loop is infrastructure only.",
       "active_surface": true
     },
     {
@@ -3584,6 +3574,16 @@
       "code": "INFRASTRUCTURE_LOOP",
       "pattern": "safe_loop_hint",
       "excerpt": "print(json.dumps({\"type\": \"JANUS_SPI_POLL\", \"time\": time.time(), **result}, ensure_ascii=False))",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Hawkar-usls",
+      "path": "src/janus_spi/advancing_spiral.py",
+      "line": 17,
+      "classification": "SAFE_INFRA_LOOP",
+      "code": "INFRASTRUCTURE_LOOP",
+      "pattern": "safe_loop_hint",
+      "excerpt": "engine and does not turn technical event loops into epistemic promotion.",
       "active_surface": true
     },
     {
@@ -4154,46 +4154,6 @@
       "code": "INFRASTRUCTURE_LOOP",
       "pattern": "safe_loop_hint",
       "excerpt": "\"automatic_retry_permitted\": {\"const\": false},",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Demi_Head",
-      "path": "tests/test_nexus_real_subprocess_termination.py",
-      "line": 39,
-      "classification": "SAFE_INFRA_LOOP",
-      "code": "INFRASTRUCTURE_LOOP",
-      "pattern": "safe_loop_hint",
-      "excerpt": "if proc.poll() is not None:",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Demi_Head",
-      "path": "tests/test_nexus_real_subprocess_termination.py",
-      "line": 160,
-      "classification": "SAFE_INFRA_LOOP",
-      "code": "INFRASTRUCTURE_LOOP",
-      "pattern": "safe_loop_hint",
-      "excerpt": "self.assertFalse(receipt[\"control\"][\"automatic_retry_permitted\"])",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Demi_Head",
-      "path": "tests/test_nexus_local_transport.py",
-      "line": 240,
-      "classification": "SAFE_INFRA_LOOP",
-      "code": "INFRASTRUCTURE_LOOP",
-      "pattern": "safe_loop_hint",
-      "excerpt": "def test_backpressure_holds_without_consuming_nonce_or_retry_permission(self):",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Demi_Head",
-      "path": "tests/test_nexus_local_transport.py",
-      "line": 254,
-      "classification": "SAFE_INFRA_LOOP",
-      "code": "INFRASTRUCTURE_LOOP",
-      "pattern": "safe_loop_hint",
-      "excerpt": "self.assertFalse(result[\"control\"][\"automatic_retry_permitted\"])",
       "active_surface": true
     }
   ],

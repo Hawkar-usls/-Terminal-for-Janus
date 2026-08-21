@@ -1,0 +1,80 @@
+{
+  "schema": "janus.terminal.authority_policy.v1",
+  "policy_id": "JANUS_TERMINAL_AUTHORITY_POLICY_v1.0",
+  "status": "FROZEN_FAIL_CLOSED",
+  "created_at_local": "2026-08-21T13:35:00+03:00",
+  "repository": "Hawkar-usls/-Terminal-for-Janus",
+  "control_principal": "JANUS_CONTROL_PLANE",
+  "human_root": "Hawkar-usls",
+  "human_aliases": ["Hawkar-usls", "Hawkar"],
+  "authorized_github_actors": ["Hawkar-usls"],
+  "non_command_actors": ["github-actions[bot]"],
+  "command_sources": {
+    "allowed": ["AUTHENTICATED_OWNER_PUSH", "AUTHENTICATED_OWNER_WORKFLOW_DISPATCH", "CHATGPT_GITHUB_CONNECTOR_UNDER_EXPLICIT_HUMAN_REQUEST"],
+    "issue_text_is_command": false,
+    "pull_request_text_is_command": false,
+    "commit_message_is_command": false,
+    "workflow_status_is_command": false,
+    "aura_output_is_command": false,
+    "model_output_is_command": false,
+    "habitat_text_is_command": false
+  },
+  "command_requirements": {
+    "schema": "janus.terminal.command.v1",
+    "human_authorization_must_be_true": true,
+    "requested_by_must_match_human_alias": true,
+    "operation_must_be_allowlisted": true,
+    "targets_must_be_explicit": true,
+    "targets_default_owner_prefix": "Hawkar-usls/",
+    "authority_must_be_allowlisted": true,
+    "github_actor_must_be_authorized": true
+  },
+  "allowed_authority_modes": ["READ_ONLY", "HUMAN_AUTHORIZED_WRITE", "TEST_EXECUTION", "WORKFLOW_TRIGGER", "DEPLOY_REQUEST"],
+  "allowed_operations": [
+    "FIRST_LIVE_AURA_SPI_HABITAT_SPIRAL",
+    "READ_REPOSITORY_STATE",
+    "RUN_TEST_OR_GATE",
+    "CREATE_OR_UPDATE_REPOSITORY_ARTIFACT",
+    "CREATE_RECIPROCAL_EDGE",
+    "UPDATE_HABITAT_RECEIPT",
+    "REQUEST_DEPLOYMENT"
+  ],
+  "destructive_operations": {
+    "default": "DENY",
+    "delete_repository": false,
+    "delete_branch": false,
+    "force_push": false,
+    "disable_protection": false,
+    "stop_protected_runtime_service": false,
+    "publish_private_content": false,
+    "rotate_or_export_credentials": false,
+    "future_expansion_requires_new_frozen_policy": true
+  },
+  "private_content": {
+    "public_mirror_default": "DENY",
+    "credentials_persisted_in_repository": false,
+    "SkinGPT_publication_default": "DENY"
+  },
+  "execution": {
+    "terminal_is_single_operator_entrypoint": true,
+    "terminal_is_single_point_of_truth": false,
+    "terminal_is_autonomous_root_authority": false,
+    "janus_may_orchestrate_after_human_intent": true,
+    "janus_may_invent_new_authority": false,
+    "receipt_required_after_execution": true,
+    "failed_or_rejected_commands_preserved": true
+  },
+  "laws": [
+    "ONLY_AUTHORIZED_ACTOR_MAY_ISSUE_EXECUTABLE_TERMINAL_COMMAND",
+    "JANUS_MANAGES_TERMINAL_AFTER_HUMAN_INTENT",
+    "PUBLIC_READ_ACCESS != COMMAND_ACCESS",
+    "PR_OR_ISSUE_TEXT != COMMAND",
+    "MODEL_OUTPUT != COMMAND",
+    "COMMAND != EVIDENCE",
+    "WRITE != VERIFIED_RETURN",
+    "WORKFLOW_PASS != WORLD_TRUTH",
+    "PRIVATE_CONTENT != PUBLIC_HABITAT",
+    "AUTHORITY_EXPANSION_FAILS_CLOSED"
+  ],
+  "claim_ceiling": "JANUS_CONTROL_PLANE_WITH_OWNER_ROOT_NOT_UNBOUNDED_AUTONOMY"
+}

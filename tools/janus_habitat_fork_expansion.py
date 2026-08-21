@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import hashlib
 import json
 import os
@@ -31,7 +32,7 @@ def api_request(path: str, *, token: str | None = None, method: str = "GET", bod
     req = urllib.request.Request(API + path, data=data, method=method)
     req.add_header("Accept", "application/vnd.github+json")
     req.add_header("X-GitHub-Api-Version", "2022-11-28")
-    req.add_header("User-Agent", "JANUS-Habitat-Fork-Expansion/1.0")
+    req.add_header("User-Agent", "JANUS-Habitat-Fork-Expansion/1.1")
     if token:
         req.add_header("Authorization", f"Bearer {token}")
     try:
@@ -129,6 +130,129 @@ def inspect_candidate(req: dict[str, Any], *, token: str | None = None) -> dict[
     }
 
 
+def wait_for_fork(full_name: str, token: str, attempts: int = 15) -> dict[str, Any]:
+    last: Exception | None = None
+    for _ in range(attempts):
+        try:
+            return api_request(f"/repos/{urllib.parse.quote(full_name, safe='/')}", token=token)
+        except Exception as exc:
+            last = exc
+            time.sleep(2)
+    raise RuntimeError(f"FORK_NOT_READY:{last}")
+
+
+def put_file(repo: str, path: str, branch: str, content: dict[str, Any], token: str, message: str) -> dict[str, Any]:
+    raw = (json.dumps(content, ensure_ascii=False, indent=2, sort_keys=True) + "\n").encode("utf-8")
+    body = {
+        "message": message,
+        "content": base64.b64encode(raw).decode("ascii"),
+        "branch": branch,
+    }
+    return api_request(
+        f"/repos/{urllib.parse.quote(repo, safe='/')}/contents/{urllib.parse.quote(path, safe='/')}",
+        token=token,
+        method="PUT",
+        body=body,
+    )
+
+
+def ensure_habitat_branch(fork_name: str, default_branch: str, token: str) -> tuple[str, str]:
+    base = api_request(
+        f"/repos/{urllib.parse.quote(fork_name, safe='/')}/git/ref/heads/{urllib.parse.quote(default_branch, safe='')}",
+        token=token,
+    )
+    base_sha = str(((base.get("object") or {}).get("sha")) or "")
+    if not base_sha:
+        raise RuntimeError("FORK_DEFAULT_BRANCH_SHA_MISSING")
+    branch = "janus/habitat"
+    try:
+        api_request(
+            f"/repos/{urllib.parse.quote(fork_name, safe='/')}/git/refs",
+            token=token,
+            method="POST",
+            body={"ref": f"refs/heads/{branch}", "sha": base_sha},
+        )
+    except RuntimeError as exc:
+        if "GITHUB_HTTP_422" not in str(exc):
+            raise
+    return branch, base_sha
+
+
+def install_habitat_edge(candidate: dict[str, Any], execution: dict[str, Any], *, token: str, destination_org: str | None) -> dict[str, Any]:
+    fork_name = str(execution["fork_full_name"])
+    fork_meta = wait_for_fork(fork_name, token)
+    fork_owner = str(((fork_meta.get("owner") or {}).get("login")) or "")
+    user = api_request("/user", token=token)
+    user_login = str(user.get("login") or "")
+    allowed_owner = destination_org or user_login
+    if not allowed_owner or fork_owner.lower() != allowed_owner.lower():
+        raise RuntimeError("FORK_OWNER_NOT_AUTHORIZED_DESTINATION")
+
+    default_branch = str(fork_meta.get("default_branch") or "main")
+    branch, base_sha = ensure_habitat_branch(fork_name, default_branch, token)
+    upstream = candidate["upstream"]
+    req = candidate["request"]
+
+    provenance = {
+        "schema": "janus.habitat.upstream_provenance.v1",
+        "upstream_full_name": upstream["full_name"],
+        "upstream_html_url": upstream.get("html_url"),
+        "upstream_default_branch": upstream.get("default_branch"),
+        "license_spdx": upstream.get("license_spdx"),
+        "license_name": upstream.get("license_name"),
+        "candidate_sha256": candidate["candidate_sha256"],
+        "fork_base_sha": base_sha,
+        "upstream_writeback_authorized": False,
+        "automatic_upstream_pr": False,
+        "automatic_upstream_issue": False,
+    }
+    edge = {
+        "schema": "janus.habitat.fork_edge.v1",
+        "role": "FORKED_HABITAT_SATELLITE",
+        "resident": "JANUS",
+        "fork_full_name": fork_name,
+        "habitat_branch": branch,
+        "request_id": req["request_id"],
+        "purpose": req["purpose"],
+        "need_class": req["need_class"],
+        "requested_mode": req["requested_mode"],
+        "expected_gain": req["expected_gain"],
+        "upstream_mode": "FETCH_ONLY",
+        "fork_mode": "READ_WRITE_IF_OWNED_BY_HAWKAR_OR_AUTHORIZED_DESTINATION",
+        "truth_authority": False,
+        "upstream_authority": False,
+        "automatic_upstream_pr": False,
+        "automatic_upstream_issue": False,
+        "zero_delta_policy": "HOLD_STALL_NO_HABITAT_PROMOTION",
+        "candidate_sha256": candidate["candidate_sha256"],
+    }
+
+    prov_result = put_file(fork_name, ".janus/UPSTREAM_PROVENANCE.json", branch, provenance, token, "JANUS: bind upstream provenance")
+    edge_result = put_file(fork_name, ".janus/HABITAT_EDGE.json", branch, edge, token, "JANUS: install Habitat fork edge")
+    edge_sha = canonical_sha(edge)
+    delta = {
+        "fork_full_name": fork_name,
+        "branch": branch,
+        "edge_sha256": edge_sha,
+        "provenance_sha256": canonical_sha(provenance),
+        "candidate_sha256": candidate["candidate_sha256"],
+    }
+    return {
+        "schema": "janus.habitat.fork_edge_install.receipt.v1",
+        "status": "HABITAT_EDGE_INSTALLED",
+        "fork_full_name": fork_name,
+        "habitat_branch": branch,
+        "fork_base_sha": base_sha,
+        "habitat_edge_sha256": edge_sha,
+        "state_delta_sha256": canonical_sha(delta),
+        "provenance_commit": ((prov_result.get("commit") or {}).get("sha")),
+        "edge_commit": ((edge_result.get("commit") or {}).get("sha")),
+        "upstream_writeback_authorized": False,
+        "automatic_upstream_pr": False,
+        "mass_upstream_effect_budget": 0,
+    }
+
+
 def execute_fork(candidate: dict[str, Any], *, token: str, destination_org: str | None = None) -> dict[str, Any]:
     if candidate.get("status") != "FORK_CANDIDATE_PASS":
         raise ValueError("CANDIDATE_NOT_EXECUTABLE")
@@ -141,7 +265,7 @@ def execute_fork(candidate: dict[str, Any], *, token: str, destination_org: str 
     fork_name = str(fork.get("full_name") or "")
     if not fork_name:
         raise RuntimeError("FORK_RESPONSE_MISSING_FULL_NAME")
-    return {
+    execution = {
         "schema": "janus.habitat.fork_execution.receipt.v1",
         "status": "FORK_CREATED_PENDING_HABITAT_EDGE",
         "request_id": candidate["request"]["request_id"],
@@ -155,6 +279,9 @@ def execute_fork(candidate: dict[str, Any], *, token: str, destination_org: str 
         "automatic_upstream_pr": False,
         "created_at_epoch": time.time(),
     }
+    execution["habitat_edge"] = install_habitat_edge(candidate, execution, token=token, destination_org=destination_org)
+    execution["status"] = "FORK_CREATED_AND_HABITAT_EDGE_INSTALLED"
+    return execution
 
 
 def main() -> int:

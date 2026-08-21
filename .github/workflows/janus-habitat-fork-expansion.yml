@@ -1,0 +1,174 @@
+name: JANUS Habitat Fork Expansion
+
+on:
+  workflow_dispatch:
+    inputs:
+      upstream_full_name:
+        description: owner/repo to evaluate
+        required: true
+        type: string
+      purpose:
+        description: Why JANUS needs this fork
+        required: true
+        type: string
+      expected_gain:
+        description: Expected Habitat state gain
+        required: true
+        type: string
+      requested_mode:
+        description: Fork mode
+        required: true
+        default: REFERENCE_FORK
+        type: choice
+        options:
+          - REFERENCE_FORK
+          - ADAPTATION_FORK
+          - COMPATIBILITY_FORK
+          - EXPERIMENT_FORK
+      execute_if_gated:
+        description: Execute when all gates pass and JANUS_FORK_TOKEN exists
+        required: true
+        default: false
+        type: boolean
+  push:
+    branches: [main]
+    paths:
+      - 'fork_requests/**/*.json'
+      - 'tools/janus_habitat_fork_expansion.py'
+      - 'contracts/JANUS_HABITAT_FORK_EXPANSION-v1.0.json'
+  schedule:
+    - cron: '17 * * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: janus-habitat-fork-expansion
+  cancel-in-progress: false
+
+jobs:
+  expand:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    env:
+      JANUS_FORK_TOKEN: ${{ secrets.JANUS_FORK_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build dispatch request
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        env:
+          UPSTREAM: ${{ inputs.upstream_full_name }}
+          PURPOSE: ${{ inputs.purpose }}
+          EXPECTED_GAIN: ${{ inputs.expected_gain }}
+          MODE: ${{ inputs.requested_mode }}
+          EXECUTE: ${{ inputs.execute_if_gated }}
+        run: |
+          mkdir -p .runtime/fork_requests
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          p = {
+            'request_id': 'dispatch-${{ github.run_id }}',
+            'upstream_full_name': os.environ['UPSTREAM'],
+            'purpose': os.environ['PURPOSE'],
+            'need_class': 'HUMAN_OR_TERMINAL_DECLARED_NEED',
+            'expected_gain': os.environ['EXPECTED_GAIN'],
+            'source_ref': 'github-actions:${{ github.run_id }}',
+            'requested_mode': os.environ['MODE'],
+            'execute_if_gated': os.environ['EXECUTE'].lower() == 'true',
+            'policy_grant_id': 'HAWKAR_JANUS_FORK_POLICY_2026_08_21'
+          }
+          Path('.runtime/fork_requests/request.json').write_text(json.dumps(p, ensure_ascii=False, indent=2)+'\n')
+          PY
+
+      - name: Select one queued request
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .runtime/fork_requests receipts/forks
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            cp .runtime/fork_requests/request.json .runtime/selected.json
+            exit 0
+          fi
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          selected = None
+          for p in sorted(Path('fork_requests').glob('**/*.json')) if Path('fork_requests').exists() else []:
+              try:
+                  d = json.loads(p.read_text(encoding='utf-8-sig'))
+              except Exception:
+                  continue
+              rid = str(d.get('request_id') or p.stem)
+              if (Path('receipts/forks') / f'{rid}.json').exists():
+                  continue
+              if d.get('policy_grant_id') != 'HAWKAR_JANUS_FORK_POLICY_2026_08_21':
+                  continue
+              selected = (p, d)
+              break
+          if selected is None:
+              Path('.runtime/NO_REQUEST').write_text('1')
+          else:
+              Path('.runtime/selected.json').write_text(json.dumps(selected[1], ensure_ascii=False, indent=2)+'\n')
+          PY
+
+      - name: Evaluate and optionally expand Habitat
+        if: ${{ hashFiles('.runtime/selected.json') != '' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          EXECUTE=$(python - <<'PY'
+          import json
+          print('1' if json.load(open('.runtime/selected.json')).get('execute_if_gated') is True else '0')
+          PY
+          )
+          RID=$(python - <<'PY'
+          import json
+          print(json.load(open('.runtime/selected.json'))['request_id'])
+          PY
+          )
+          if [ "$EXECUTE" = "1" ]; then
+            python tools/janus_habitat_fork_expansion.py .runtime/selected.json --execute -o "receipts/forks/${RID}.json"
+          else
+            python tools/janus_habitat_fork_expansion.py .runtime/selected.json -o "receipts/forks/${RID}.json"
+          fi
+          cat "receipts/forks/${RID}.json"
+
+      - name: Verify upstream authority remains zero
+        if: ${{ hashFiles('.runtime/selected.json') != '' }}
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          req=json.loads(Path('.runtime/selected.json').read_text())
+          out=json.loads((Path('receipts/forks')/f"{req['request_id']}.json").read_text())
+          c=out['candidate']
+          assert c['upstream_writeback_authorized'] is False
+          assert c['automatic_upstream_pr'] is False
+          assert c['automatic_upstream_issue'] is False
+          assert c['mass_upstream_effect_budget'] == 0
+          e=out.get('execution') or {}
+          if e.get('habitat_edge'):
+              h=e['habitat_edge']
+              assert h['upstream_writeback_authorized'] is False
+              assert h['automatic_upstream_pr'] is False
+              assert h['mass_upstream_effect_budget'] == 0
+          PY
+
+      - name: Persist receipt
+        if: ${{ hashFiles('.runtime/selected.json') != '' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'JANUS Terminal'
+          git config user.email 'actions@users.noreply.github.com'
+          git add receipts/forks
+          if git diff --cached --quiet; then
+            echo 'No new receipt.'
+          else
+            git commit -m 'Receipt: JANUS Habitat fork expansion gate'
+            git push
+          fi

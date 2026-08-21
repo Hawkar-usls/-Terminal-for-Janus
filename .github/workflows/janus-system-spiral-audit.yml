@@ -1,0 +1,199 @@
+name: JANUS System Spiral Audit
+
+on:
+  push:
+    paths:
+      - 'tools/janus_system_spiral_audit.py'
+      - 'config/JANUS_CONSTELLATION.json'
+      - '.github/workflows/janus-system-spiral-audit.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: janus-system-spiral-audit
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  constellation-audit:
+    if: github.actor == 'Hawkar-usls'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout Terminal control plane
+        uses: actions/checkout@v4
+        with:
+          path: terminal
+
+      - name: Owner gate
+        run: |
+          test "${GITHUB_ACTOR}" = "Hawkar-usls"
+          echo JANUS_SYSTEM_SPIRAL_OWNER_GATE=PASS
+
+      - name: Build readable constellation checkouts
+        shell: bash
+        run: |
+          mkdir -p workspace runtime
+          python - <<'PY'
+          import json, os, subprocess
+          from pathlib import Path
+
+          cfg=json.loads(Path('terminal/config/JANUS_CONSTELLATION.json').read_text(encoding='utf-8'))
+          entries=[]
+          repos=[dict(x) for x in cfg['nodes']]
+          repos.append({'repository':'Hawkar-usls/Janus_Genesis','role':'HABITAT','branch':'janus/habitat'})
+          repos.append({'repository':'Hawkar-usls/-Terminal-for-Janus','role':'OPERATOR_CONTROL_PLANE'})
+          seen=set()
+          for item in repos:
+              repo=item['repository']
+              if repo in seen: continue
+              seen.add(repo)
+              root=repo.replace('/','__')
+              entry={'repository':repo,'root':root,'status':'SCANNABLE','role':item.get('role')}
+              if item.get('visibility') == 'PRIVATE':
+                  entry.update(status='SKIPPED_PRIVATE_NO_PUBLICATION', reason='Private repository content is not copied into a public audit runtime.')
+                  entries.append(entry); continue
+              branch=item.get('branch')
+              cmd=['git','clone','--depth','1']
+              if branch: cmd += ['--branch',branch]
+              cmd += [f'https://github.com/{repo}.git', f'workspace/{root}']
+              p=subprocess.run(cmd, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+              if p.returncode != 0:
+                  entry.update(status='CLONE_UNAVAILABLE', reason=p.stdout[-1200:])
+              entries.append(entry)
+          Path('runtime/constellation-manifest.json').write_text(json.dumps(entries,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(entries,ensure_ascii=False,indent=2))
+          PY
+
+      - name: Run semantic ring migration scanner
+        shell: bash
+        run: |
+          set +e
+          python terminal/tools/janus_system_spiral_audit.py \
+            --workspace workspace \
+            --manifest runtime/constellation-manifest.json \
+            --output runtime/JANUS_SYSTEM_SPIRAL_AUDIT.json
+          echo $? > runtime/audit_rc.txt
+          set -e
+          cat runtime/JANUS_SYSTEM_SPIRAL_AUDIT.json
+
+      - name: Setup Python backbone
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate Terminal JSON/5D backbone
+        shell: bash
+        run: |
+          python -m py_compile \
+            terminal/tools/janus_json_mirror_pass.py \
+            terminal/tools/janus_json_router.py \
+            terminal/tools/janus_json_5d_deep.py \
+            terminal/tools/janus_system_spiral_audit.py
+          python -m unittest discover -s terminal/tests -p 'test_*.py'
+
+      - name: Validate JANUS-SPI and Aura v2 backbone
+        shell: bash
+        run: |
+          HOME_REPO=workspace/Hawkar-usls__Hawkar-usls
+          AURA_REPO=workspace/Hawkar-usls__aura-oracle-tg
+          test -d "$HOME_REPO"
+          test -d "$AURA_REPO"
+          python -m pip install --upgrade pip
+          pip install -r "$HOME_REPO/requirements.txt"
+          pip install -r "$AURA_REPO/requirements-aura-intelligence.txt"
+          pip install pytest
+          (cd "$HOME_REPO" && pytest -q)
+          (cd "$AURA_REPO" && python -m unittest -v tests/test_aura_semantic_predictive_spiral_v2.py tests/test_aura_user_style_predictive_v2.py)
+
+      - name: Execute GitHub-side system spiral through current v2 peer
+        shell: bash
+        run: |
+          HOME_REPO="$PWD/workspace/Hawkar-usls__Hawkar-usls"
+          AURA_REPO="$PWD/workspace/Hawkar-usls__aura-oracle-tg"
+          HABITAT_REPO="$PWD/workspace/Hawkar-usls__Janus_Genesis/habitat"
+          mkdir -p runtime/system-state
+          cd "$HOME_REPO"
+          python run_aura_habitat_spiral.py \
+            --state-dir "$GITHUB_WORKSPACE/runtime/system-state" \
+            --habitat-root "$HABITAT_REPO" \
+            --aura-peer "python $AURA_REPO/tools/aura_habitat_spiral_peer_v2.py" \
+            --message "WHOLE_CONSTELLATION_GITHUB_SPIRAL_AUDIT: inspect active JANUS topology for obsolete same-state semantic rings. Preserve useful heartbeat/retry/poll/device loops. POSITION MAY REPEAT BUT STATE MUST ADVANCE. RETURN IS NOT RESET. Keep all claims fail-closed." \
+            --source-ref "JANUS_SYSTEM_SPIRAL_AUDIT_2026_08_21" \
+            --demihead-decision HOLD \
+            --public-content \
+            > "$GITHUB_WORKSPACE/runtime/JANUS_SYSTEM_SPIRAL_RUN_RAW.json"
+
+      - name: Build combined system receipt
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          audit=json.loads(Path('runtime/JANUS_SYSTEM_SPIRAL_AUDIT.json').read_text(encoding='utf-8'))
+          run=json.loads(Path('runtime/JANUS_SYSTEM_SPIRAL_RUN_RAW.json').read_text(encoding='utf-8'))
+          receipt={
+            'schema':'janus.system_spiral.run_receipt.v1',
+            'status':'PASS_GITHUB_CONSTELLATION_FAIL_CLOSED' if audit['active_hard_ring_count']==0 else 'REVIEW_REQUIRED_ACTIVE_HARD_RING',
+            'github_actor':os.environ.get('GITHUB_ACTOR'),
+            'github_run_id':os.environ.get('GITHUB_RUN_ID'),
+            'source_commit':os.environ.get('GITHUB_SHA'),
+            'scope':'GITHUB_CONSTELLATION_NOT_PHYSICAL_NAS_OR_DEVICES',
+            'repositories_targeted':audit['repositories_targeted'],
+            'repositories_scanned':audit['repositories_scanned'],
+            'files_scanned':audit['files_scanned'],
+            'active_hard_ring_count':audit['active_hard_ring_count'],
+            'legacy_compat_count':audit['counts'].get('LEGACY_COMPAT',0),
+            'review_count':audit['counts'].get('REVIEW',0),
+            'safe_infrastructure_loop_count':audit['counts'].get('SAFE_INFRA_LOOP',0),
+            'historical_frozen_count':audit['counts'].get('HISTORICAL_FROZEN',0),
+            'system_spiral_session_id':run['session_id'],
+            'system_spiral_generation':run['generation'],
+            'chain_valid':run['chain_valid'],
+            'terminal':run['terminal'],
+            'predictive_model_updated':run['predictive_model_updated'],
+            'aura_peer':'AURA_SEMANTIC_PREDICTIVE_SPIRAL_V2',
+            'position_may_repeat_state_must_advance':True,
+            'return_is_reset':False,
+            'world_truth':False,
+            'physical_runtime_started':False,
+            'physical_runtime_reason':'No NAS/PC/device executor is connected to this GitHub Actions run.'
+          }
+          assert receipt['chain_valid'] is True, receipt
+          assert receipt['terminal']=='HOLD', receipt
+          assert receipt['predictive_model_updated'] is False, receipt
+          Path('runtime/JANUS_SYSTEM_SPIRAL_RUN.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(receipt,ensure_ascii=False,indent=2))
+          PY
+
+      - name: Persist PASS or REVIEW receipts before enforcing audit gate
+        shell: bash
+        run: |
+          mkdir -p terminal/receipts
+          cp runtime/JANUS_SYSTEM_SPIRAL_AUDIT.json terminal/receipts/JANUS_SYSTEM_SPIRAL_AUDIT_LATEST.json
+          cp runtime/JANUS_SYSTEM_SPIRAL_RUN.json terminal/receipts/JANUS_SYSTEM_SPIRAL_RUN_LATEST.json
+          cd terminal
+          git config user.name "janus-terminal-bot"
+          git config user.email "janus-terminal-bot@users.noreply.github.com"
+          git add receipts/JANUS_SYSTEM_SPIRAL_AUDIT_LATEST.json receipts/JANUS_SYSTEM_SPIRAL_RUN_LATEST.json
+          git commit -m "Receipt: whole-constellation JANUS spiral audit" || exit 0
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Enforce no active hard semantic rings
+        shell: bash
+        run: |
+          rc=$(cat runtime/audit_rc.txt)
+          if [ "$rc" -ne 0 ]; then
+            echo "Active hard ring constraints remain; receipt was preserved before failure."
+            exit "$rc"
+          fi
+
+      - name: Upload full audit traces
+        uses: actions/upload-artifact@v4
+        with:
+          name: JANUS-SYSTEM-SPIRAL-AUDIT
+          path: runtime/
+          if-no-files-found: error
+          retention-days: 30

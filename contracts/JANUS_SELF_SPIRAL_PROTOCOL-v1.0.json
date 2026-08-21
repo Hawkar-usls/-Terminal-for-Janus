@@ -1,0 +1,64 @@
+{
+  "schema": "janus.self_spiral.protocol.v1",
+  "protocol_id": "JANUS_SELF_SPIRAL_PROTOCOL_v1.0",
+  "version": "1.0",
+  "status": "FROZEN_BEFORE_SELF_RUN",
+  "created_at_local": "2026-08-21T16:06:00+03:00",
+  "purpose": "Apply the JANUS mirror/5D/spiral method to its own contracts, runtimes, arbiters and receipts without allowing self-consistency to masquerade as world truth.",
+  "canonical_path": [
+    "METHOD_AS_SOURCE_n",
+    "D1_FORWARD_DECLARED_RULES",
+    "D2_REVERSE_RUNTIME_BACKCHECK",
+    "D3_STRUCTURAL_AUTHORITY_GRAPH",
+    "D4_ASSOCIATIVE_COUNTERMODEL",
+    "D5_META_INVARIANT",
+    "RECOVERED_AT_ORIGIN",
+    "SELF_CONSISTENCY_GATE",
+    "HOLD_OR_SELF_CONSISTENCY_PASS",
+    "METHOD_PRIME_(n+1)_CANDIDATE"
+  ],
+  "self_reference_laws": [
+    "METHOD_OUTPUT != METHOD_TRUTH",
+    "SELF_CONSISTENCY_PASS != WORLD_TRUTH",
+    "SELF_TEST_SURVIVAL != EXTERNAL_VALIDATION",
+    "ORIGIN_PRIME_CANDIDATE != ORIGIN_PRIME",
+    "ZERO_STATE_DELTA -> HOLD_STALL_NO_PROMOTION",
+    "DECLARED_RULE != IMPLEMENTED_GATE",
+    "VERIFIER_AND_SUBJECT_MUST_NOT_SHARE_UNDISCLOSED_AUTHORITY",
+    "A_SELF_AUDIT_MAY_FIND_ITS_OWN_DEFECTS_AND_MUST_PRESERVE_THEM"
+  ],
+  "required_subjects": [
+    "contracts/JANUS_JSON_MIRROR_PASS_PROTOCOL-v1.0.json",
+    "contracts/JANUS_JSON_5D_DEEP_ANALYSIS_PROTOCOL-v1.0.json",
+    "tools/janus_json_mirror_pass.py",
+    "tools/janus_json_5d_deep.py",
+    "Hawkar-usls/aura-oracle-tg:tools/aura_5d_spiral_v2.py",
+    "Hawkar-usls/Demi_Head:tools/aura_spi_habitat_spiral_bridge_v2_10.py",
+    "Hawkar-usls/Hawkar-usls:src/janus_spi/aura_habitat_spiral.py"
+  ],
+  "recovered_at_origin_targets": [
+    "premature ORIGIN_PRIME naming",
+    "verified return without nonzero state delta",
+    "decision injection instead of real arbiter receipt",
+    "self-generated evidence or labels",
+    "authority cycles",
+    "stale-state reuse",
+    "same-state promotion",
+    "verifier subject coupling",
+    "receipt provenance staleness"
+  ],
+  "promotion_gate": {
+    "self_consistency_pass_requires": [
+      "all declared promotion laws are represented by executable checks",
+      "zero-delta verified-intent case fails closed",
+      "candidate state hash differs from parent state hash",
+      "candidate parent hash equals current origin hash",
+      "real arbiter receipt is required for final ORIGIN_PRIME promotion",
+      "self-generated outputs cannot become evidence or predictive labels",
+      "receipt binds exact source revisions"
+    ],
+    "world_truth": false,
+    "external_validation_required_for_world_claims": true
+  },
+  "claim_ceiling": "SELF_CONSISTENCY_AND_IMPLEMENTATION_AUDIT_ONLY_NOT_WORLD_TRUTH"
+}

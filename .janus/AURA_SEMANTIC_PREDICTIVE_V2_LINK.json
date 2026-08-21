@@ -1,0 +1,23 @@
+{
+  "schema": "janus.terminal.aura_semantic_predictive.link.v2",
+  "terminal": "Hawkar-usls/-Terminal-for-Janus",
+  "aura": "Hawkar-usls/aura-oracle-tg",
+  "aura_contract": "contracts/AURA_ORACLE_SEMANTIC_PREDICTIVE_SPIRAL_V2.json",
+  "aura_primary_peer": "tools/aura_habitat_spiral_peer_v2.py",
+  "capabilities": [
+    "JSON_FIRST_INTERCHANGE",
+    "SPIRAL_5D",
+    "META_REGISTRY_READ_INDEX",
+    "PREDICTIVE_INPUT",
+    "SEMANTIC_RETRIEVAL",
+    "INFORMATION_GAIN_QUESTIONING",
+    "FORECAST_PRIORS"
+  ],
+  "route": "HAWKAR_INTENT -> TERMINAL -> AURA_V2 -> HRAIN/INAIHR -> DEMIHEAD -> HABITAT -> ORIGIN_PRIME_CANDIDATE",
+  "spiral_not_circle": true,
+  "position_may_repeat_but_state_must_advance": true,
+  "registry_write_through_aura": false,
+  "aura_command_authority": false,
+  "aura_predictive_label_authority": false,
+  "world_truth_authority": false
+}

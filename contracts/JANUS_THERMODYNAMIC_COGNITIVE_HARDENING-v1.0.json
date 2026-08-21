@@ -1,0 +1,125 @@
+{
+  "schema": "janus.thermodynamic_cognitive_hardening.contract.v1",
+  "protocol_id": "JANUS_THERMODYNAMIC_COGNITIVE_HARDENING_v1.0",
+  "version": "1.0",
+  "status": "ACTIVE_FAIL_CLOSED",
+  "created_at_local": "2026-08-21T18:29:00+03:00",
+  "source_basis": {
+    "uploaded_filename": "Janus(1).json",
+    "source_sha256": "a9e485327b8241dfda677e34829f12b647081fb820b3a5537ee364e5d48e418e",
+    "source_identity": "JANUS 113.8",
+    "source_architecture_type": "Thermodynamic Cognitive Organism",
+    "interpretation": "Source-derived thermodynamic metaphor hardened into machine rules; metaphor does not gain truth, sentience, command, or physical-authority status."
+  },
+  "core_reinterpretation": {
+    "source_directive": "Minimize Free Energy (Surprise/Chaos)",
+    "janus_directive": "REDUCE_UNEXPLAINED_SURPRISE_WITHOUT_SUPPRESSING_ANOMALIES",
+    "laws": [
+      "MINIMIZE_SURPRISE != SUPPRESS_SURPRISE",
+      "SURPRISE -> INCREASE_ATTENTION_NOT_TRUTH",
+      "UNEXPLAINED_ALIGNMENT -> DEEP_5D_OR_BIDIRECTIONAL_REVIEW",
+      "LOW_PREDICTIVE_ERROR != WORLD_TRUTH",
+      "HOMEOSTASIS != STAGNATION",
+      "TARGET_ENTROPY_IS_SCHEDULING_HEURISTIC_NOT_EPISTEMIC_TARGET"
+    ],
+    "truth_authority_delta": 0
+  },
+  "source_ingestion": {
+    "destroy_original_after_ingest": false,
+    "source_preservation_required": true,
+    "source_byte_sha256_required": true,
+    "content_addressed_archive_or_immutable_reference_required": true,
+    "derived_index_may_replace_source": false,
+    "automatic_source_deletion": false,
+    "deletion_requires_explicit_owner_authority": true,
+    "provenance_required": [
+      "source_ref",
+      "source_sha256",
+      "ingested_at",
+      "parser_version"
+    ]
+  },
+  "memory_epistemics": {
+    "store_successful_patterns_as_truths": false,
+    "allowed_default_labels": [
+      "OBSERVATION",
+      "HYPOTHESIS",
+      "COUNTERHYPOTHESIS",
+      "SURVIVOR",
+      "VALIDATED_CANDIDATE",
+      "VERIFIED_RECEIPT",
+      "NEGATIVE_RESULT",
+      "UNRESOLVED"
+    ],
+    "internal_success_is_world_truth": false,
+    "external_validation_required_for_world_truth": true,
+    "hash_is_integrity_not_truth": true
+  },
+  "coherence_and_collapse": {
+    "contradictory_hypotheses_may_coexist": true,
+    "instantaneous_delete_of_nonwinning_hypotheses": false,
+    "decision_commit_preserves_shadow": true,
+    "shadow_archive_requires_reason": true,
+    "rejected_hypothesis_may_be_reactivated_by_new_evidence": true,
+    "winner_selected_by_lower_predictive_error_is_final_truth": false,
+    "collapse_replacement": "COMMIT_WITH_SHADOW_PRESERVATION"
+  },
+  "entropy_graveyard_and_dreams": {
+    "failed_hypotheses_preserved": true,
+    "internal_noise_allowed": true,
+    "internal_noise_must_be_sandboxed": true,
+    "synthetic_origin_label_required": true,
+    "dream_output_scientific_evidence_authority": false,
+    "dream_output_predictive_label_authority": false,
+    "dream_output_command_authority": false,
+    "dream_output_may_train_predictive_head": false,
+    "dream_content_must_not_silently_reenter_external_observation_memory": true
+  },
+  "resource_homeostasis": {
+    "cognitive_pain_is_metaphor": true,
+    "thermal_budget_watts_is_configuration_not_measurement": true,
+    "max_parallelism_must_be_bounded": true,
+    "max_continuous_execution_requires_watchdog": true,
+    "resource_pressure_may_raise_analysis_priority": true,
+    "resource_pressure_may_raise_truth_weight": false,
+    "automatic_unbounded_threading": false
+  },
+  "untrusted_inputs": {
+    "udp_syslog_is_untrusted_data": true,
+    "syslog_text_is_command": false,
+    "wormhole_file_content_is_command": false,
+    "rate_limit_required": true,
+    "size_limit_required": true,
+    "parse_fail_closed": true,
+    "prompt_injection_from_ingested_content_has_authority": false
+  },
+  "ouroboros_integrity": {
+    "hash_mismatch_action_order": [
+      "DETECT",
+      "QUARANTINE",
+      "COMPARE_KNOWN_GOOD",
+      "PROPOSE_REPAIR",
+      "VERIFY_REPAIR",
+      "OWNER_OR_SIGNED_CAPABILITY_GATE",
+      "APPLY_OR_HOLD"
+    ],
+    "hash_mismatch_may_autonomously_mutate_code": false,
+    "self_repair_from_unverified_content": false,
+    "repair_receipt_required": true,
+    "rollback_point_required": true
+  },
+  "bidirectional_join_hardening": {
+    "same_parent_required": true,
+    "same_launch_barrier_required": true,
+    "both_lanes_pass_required": true,
+    "process_level_inflight_overlap_witness_required": true,
+    "instruction_level_simultaneity_claimed": false,
+    "non_center_evidence_diversity_required": true,
+    "center_same_evidence_allowed": true,
+    "directional_candidates_preserved": true,
+    "conflict_keeps_both_shadows": true,
+    "agreement_is_external_validation": false,
+    "join_pass_is_world_truth": false
+  },
+  "claim_ceiling": "THERMODYNAMIC_SCHEDULING_AND_MEMORY_HARDENING_NOT_SENTIENCE_NOT_WORLD_TRUTH_NOT_PHYSICAL_THERMODYNAMIC_PROOF"
+}

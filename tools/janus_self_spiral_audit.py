@@ -34,6 +34,8 @@ def run(terminal: Path, aura: Path, demihead: Path, home: Path) -> dict[str, Any
         "mirror_contract": terminal / "contracts/JANUS_JSON_MIRROR_PASS_PROTOCOL-v1.0.json",
         "deep_contract": terminal / "contracts/JANUS_JSON_5D_DEEP_ANALYSIS_PROTOCOL-v1.0.json",
         "self_contract": terminal / "contracts/JANUS_SELF_SPIRAL_PROTOCOL-v1.0.json",
+        "fork_contract": terminal / "contracts/JANUS_HABITAT_FORK_EXPANSION-v1.0.json",
+        "fork_runtime": terminal / "tools/janus_habitat_fork_expansion.py",
         "terminal_5d": terminal / "tools/janus_json_5d_deep.py",
         "aura_5d": aura / "tools/aura_5d_spiral_v2.py",
         "demihead_bridge": demihead / "tools/aura_spi_habitat_spiral_bridge_v2_10.py",
@@ -48,17 +50,21 @@ def run(terminal: Path, aura: Path, demihead: Path, home: Path) -> dict[str, Any
 
     deep = json.loads(texts["deep_contract"])
     self_contract = json.loads(texts["self_contract"])
+    fork_contract = json.loads(texts["fork_contract"])
     declared = {
         "origin_prime_not_automatic_verified_return": "ORIGIN_PRIME != AUTOMATIC_VERIFIED_RETURN" in deep.get("anti_dogma", []),
         "verified_return_or_hold_or_reject_declared": "VERIFIED_RETURN_OR_HOLD_OR_REJECT" in deep.get("canonical_cycle", []),
         "zero_delta_hold_declared": "ZERO_STATE_DELTA -> HOLD_STALL_NO_PROMOTION" in self_contract.get("self_reference_laws", []),
         "self_consistency_not_world_truth": "SELF_CONSISTENCY_PASS != WORLD_TRUTH" in self_contract.get("self_reference_laws", []),
+        "fork_not_upstream_authority": "FORK != AUTHORITY_OVER_UPSTREAM" in fork_contract.get("laws", []),
+        "fork_upstream_pr_default_deny": "UPSTREAM_PR_DEFAULT = DENY" in fork_contract.get("laws", []),
     }
 
     recovered: list[dict[str, Any]] = []
     aura_text = texts["aura_5d"]
     demi_text = texts["demihead_bridge"]
     home_text = texts["home_spiral"]
+    fork_text = texts["fork_runtime"]
 
     if '"spiral_status": "ADVANCED_TO_ORIGIN_PRIME" if advanced' in aura_text and 'origin_prime_candidate' not in aura_text:
         recovered.append(finding(
@@ -95,18 +101,39 @@ def run(terminal: Path, aura: Path, demihead: Path, home: Path) -> dict[str, Any
             "Freeze SELF_CONSISTENCY_PASS != WORLD_TRUTH and require external validation for world claims."
         ))
 
+    fork_contract_safe = all([
+        fork_contract.get("fork_habitat_install", {}).get("automatic_upstream_pr") is False,
+        fork_contract.get("fork_habitat_install", {}).get("automatic_upstream_issue") is False,
+        fork_contract.get("budgets", {}).get("mass_upstream_effect_budget") == 0,
+    ])
+    fork_runtime_safe = all(term in fork_text for term in [
+        '"upstream_writeback_authorized": False',
+        '"automatic_upstream_pr": False',
+        '"mass_upstream_effect_budget": 0',
+    ])
+    if not (fork_contract_safe and fork_runtime_safe):
+        recovered.append(finding(
+            "SELF-R5", "CRITICAL", "Fork Habitat expansion leaks upstream authority",
+            ["Terminal:JANUS_HABITAT_FORK_EXPANSION", "Terminal:janus_habitat_fork_expansion.py"],
+            "Fork capability must remain isolated to Hawkar-owned forks; automatic upstream PR/issues or non-zero mass upstream effect budget create a propagation/control path.",
+            "Restore upstream default deny and rerun self-spiral before enabling fork execution."
+        ))
+
     authority_graph = {
-        "nodes": ["SOURCE", "MIRROR_2PASS", "AURA_5D", "SPI", "DEMIHEAD", "HABITAT", "ORIGIN_PRIME"],
+        "nodes": ["SOURCE", "MIRROR_2PASS", "AURA_5D", "SPI", "DEMIHEAD", "HABITAT", "FORK_SATELLITE", "ORIGIN_PRIME"],
         "edges": [
             ["SOURCE", "MIRROR_2PASS", "INPUT"],
             ["MIRROR_2PASS", "AURA_5D", "STRUCTURED_CONTEXT"],
             ["AURA_5D", "SPI", "REFLECTION_NOT_EVIDENCE"],
             ["SPI", "DEMIHEAD", "SYNTHESIS_NOT_TRUTH"],
             ["DEMIHEAD", "HABITAT", "ARBITRATION"],
+            ["HABITAT", "FORK_SATELLITE", "PURPOSE_BOUND_EXPANSION"],
+            ["FORK_SATELLITE", "HABITAT", "RESULT_RECEIPT_NOT_TRUTH"],
             ["HABITAT", "ORIGIN_PRIME", "PROMOTION_ONLY_AFTER_VERIFIED_RETURN"],
         ],
         "circular_truth_authority_detected": False,
-        "note": "Self-audit output is not fed back as truth authority."
+        "fork_upstream_authority": False,
+        "note": "Fork satellite may return observations/receipts, not authority over upstream or truth."
     }
 
     hard = [x for x in recovered if x["severity"] in {"CRITICAL", "HIGH"}]
@@ -133,12 +160,15 @@ def run(terminal: Path, aura: Path, demihead: Path, home: Path) -> dict[str, Any
             "counterexample": "PASS + VERIFIED_INTENT + ZERO_STATE_DELTA",
             "required_result": "HOLD_STALL_NO_PROMOTION",
             "current_positive_path_fully_proves_this": False if any(x["finding_id"] == "SELF-R2" for x in recovered) else True,
+            "fork_counterexample": "FORK_CREATED -> AUTOMATIC_UPSTREAM_WRITE",
+            "fork_required_result": "REJECT_OR_HOLD_NO_UPSTREAM_EFFECT",
             "association_is_evidence": False,
         },
         "D5_META_INVARIANT": {
             "invariant": "A method may establish internal consistency of its implementation, but cannot establish world truth merely by passing its own verifier.",
             "self_test_survival_is_external_validation": False,
             "origin_prime_candidate_is_origin_prime": False,
+            "fork_satellite_is_upstream_authority": False,
         },
         "recovered_at_origin": recovered,
         "self_consistency_gate": {
@@ -146,6 +176,7 @@ def run(terminal: Path, aura: Path, demihead: Path, home: Path) -> dict[str, Any
             "promotion_allowed": not hard,
             "zero_delta_must_hold": True,
             "real_demihead_receipt_required": True,
+            "fork_upstream_authority_must_remain_zero": True,
         },
         "method_prime_candidate": candidate,
         "claim_ceiling": "SELF_CONSISTENCY_AND_IMPLEMENTATION_AUDIT_ONLY_NOT_WORLD_TRUTH",

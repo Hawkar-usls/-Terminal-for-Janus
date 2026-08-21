@@ -1,28 +1,34 @@
-name: JANUS JSON Mirror Pass
+name: JANUS JSON Mirror + 5D Deep Analysis
 
 on:
   push:
     paths:
       - 'contracts/JANUS_JSON_MIRROR_PASS_PROTOCOL-v1.0.json'
+      - 'contracts/JANUS_JSON_5D_DEEP_ANALYSIS_PROTOCOL-v1.0.json'
       - 'config/JANUS_JSON_INTERCHANGE.json'
       - 'tools/janus_json_mirror_pass.py'
       - 'tools/janus_json_router.py'
+      - 'tools/janus_json_5d_deep.py'
       - 'tests/test_janus_json_mirror_pass.py'
+      - 'tests/test_janus_json_5d_deep.py'
       - '.github/workflows/janus-json-mirror-pass.yml'
   pull_request:
     paths:
       - 'contracts/JANUS_JSON_MIRROR_PASS_PROTOCOL-v1.0.json'
+      - 'contracts/JANUS_JSON_5D_DEEP_ANALYSIS_PROTOCOL-v1.0.json'
       - 'config/JANUS_JSON_INTERCHANGE.json'
       - 'tools/janus_json_mirror_pass.py'
       - 'tools/janus_json_router.py'
+      - 'tools/janus_json_5d_deep.py'
       - 'tests/test_janus_json_mirror_pass.py'
+      - 'tests/test_janus_json_5d_deep.py'
       - '.github/workflows/janus-json-mirror-pass.yml'
 
 permissions:
   contents: read
 
 jobs:
-  mirror-pass:
+  mirror-and-deep:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -30,10 +36,11 @@ jobs:
         with:
           python-version: '3.11'
       - name: Compile reference engines
-        run: python -m py_compile tools/janus_json_mirror_pass.py tools/janus_json_router.py
-      - name: Run mirror-pass and router tests
-        run: python -m unittest -v tests/test_janus_json_mirror_pass.py
+        run: python -m py_compile tools/janus_json_mirror_pass.py tools/janus_json_router.py tools/janus_json_5d_deep.py
+      - name: Run mirror-pass router and 5D graph tests
+        run: python -m unittest -v tests/test_janus_json_mirror_pass.py tests/test_janus_json_5d_deep.py
       - name: Validate canonical JSON contracts
         run: |
           python -m json.tool contracts/JANUS_JSON_MIRROR_PASS_PROTOCOL-v1.0.json > /dev/null
+          python -m json.tool contracts/JANUS_JSON_5D_DEEP_ANALYSIS_PROTOCOL-v1.0.json > /dev/null
           python -m json.tool config/JANUS_JSON_INTERCHANGE.json > /dev/null

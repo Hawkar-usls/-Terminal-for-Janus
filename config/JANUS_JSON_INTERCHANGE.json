@@ -1,12 +1,13 @@
 {
   "schema": "janus.terminal.json_interchange.v1",
-  "interchange_id": "JANUS_JSON_INTERCHANGE_v1.1",
+  "interchange_id": "JANUS_JSON_INTERCHANGE_v1.2",
   "status": "ACTIVE_REFERENCE_PROTOCOL",
   "primary_format": "JSON",
   "encoding": "UTF-8",
   "protocols": {
     "standard": "contracts/JANUS_JSON_MIRROR_PASS_PROTOCOL-v1.0.json",
-    "deep": "contracts/JANUS_JSON_5D_DEEP_ANALYSIS_PROTOCOL-v1.0.json"
+    "deep": "contracts/JANUS_JSON_5D_DEEP_ANALYSIS_PROTOCOL-v1.0.json",
+    "unexplained_alignment": "Hawkar-usls/janus-meta-registry:data/JANUS-UNEXPLAINED-ALIGNMENT-PRINCIPLE-2026-08-21-v1.0.json"
   },
   "analysis_modes": {
     "STANDARD": {
@@ -45,6 +46,32 @@
       "raw_private_chain_of_thought_storage": false
     }
   },
+  "event_escalation_rules": {
+    "UNEXPLAINED_ALIGNMENT": {
+      "default_status": "INTEREST_ELEVATED",
+      "force_analysis_mode": "DEEP",
+      "preferred_engine": "DEEP_TRANSCEPTION_5D",
+      "increase_analysis_budget": true,
+      "increase_truth_weight": false,
+      "required_checks": [
+        "BASE_RATE",
+        "ALTERNATIVE_EXPLANATIONS",
+        "SOURCE_INDEPENDENCE",
+        "SELECTION_BIAS",
+        "MULTIPLE_COMPARISONS",
+        "MEASUREMENT_ERROR",
+        "REPETITION",
+        "WITHHELD_OR_PRE_REGISTERED_PREDICTION_IF_AVAILABLE"
+      ],
+      "required_output": [
+        "RECOVERED_AT_ORIGIN",
+        "NULL_OR_BASE_RATE_EXPLANATION",
+        "CAUSAL_CANDIDATE_IF_ANY",
+        "NEXT_DISCRIMINATING_GATE"
+      ],
+      "forbidden_shortcut": "OBSERVED_ALIGNMENT -> CAUSAL_TRUTH"
+    }
+  },
   "participants": {
     "terminal": {
       "repository": "Hawkar-usls/-Terminal-for-Janus",
@@ -73,20 +100,23 @@
       "repository": "Hawkar-usls/aura-oracle-tg",
       "role": "SYMBOLIC_REFLECTION_PEER",
       "json_required_for_peer_io": true,
-      "reverse_findings_are_evidence": false
+      "reverse_findings_are_evidence": false,
+      "unexplained_alignment_interest_escalation": true
     },
     "demihead": {
       "repository": "Hawkar-usls/Demi_Head",
       "role": "INTENT_BOUND_ARBITER",
       "json_required_for_arbitration_packets": true,
       "intent_id_must_survive_all_axes": true,
-      "must_preserve_hrain_inaihr_disagreement": true
+      "must_preserve_hrain_inaihr_disagreement": true,
+      "must_block_alignment_to_causality_shortcut": true
     },
     "habitat": {
       "repository": "Hawkar-usls/Janus_Genesis",
       "branch": "janus/habitat",
       "role": "CONTINUITY_MEMORY_BUS",
-      "preferred_memory_record": "JSON_OR_JSONL"
+      "preferred_memory_record": "JSON_OR_JSONL",
+      "preserve_unresolved_alignment_history": true
     }
   },
   "graph_patch_contract": {
@@ -138,6 +168,9 @@
     "MIRROR_PASS_OUTPUT != WORLD_TRUTH",
     "5D_GRAPH_OUTPUT != WORLD_TRUTH",
     "ASSOCIATION != EVIDENCE",
-    "BOTH_HEMISPHERES_AGREE != TRUTH"
+    "BOTH_HEMISPHERES_AGREE != TRUTH",
+    "COINCIDENCE != CAUSALITY",
+    "COINCIDENCE != AUTOMATIC_DISMISSAL",
+    "UNEXPLAINED_ALIGNMENT -> INCREASE_ATTENTION_NOT_TRUTH"
   ]
 }

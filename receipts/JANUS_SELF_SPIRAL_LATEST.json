@@ -1,5 +1,7 @@
 {
   "D1_FORWARD_DECLARED_RULES": {
+    "fork_not_upstream_authority": true,
+    "fork_upstream_pr_default_deny": true,
     "origin_prime_not_automatic_verified_return": true,
     "self_consistency_not_world_truth": true,
     "verified_return_or_hold_or_reject_declared": true,
@@ -73,10 +75,21 @@
       ],
       [
         "HABITAT",
+        "FORK_SATELLITE",
+        "PURPOSE_BOUND_EXPANSION"
+      ],
+      [
+        "FORK_SATELLITE",
+        "HABITAT",
+        "RESULT_RECEIPT_NOT_TRUTH"
+      ],
+      [
+        "HABITAT",
         "ORIGIN_PRIME",
         "PROMOTION_ONLY_AFTER_VERIFIED_RETURN"
       ]
     ],
+    "fork_upstream_authority": false,
     "nodes": [
       "SOURCE",
       "MIRROR_2PASS",
@@ -84,17 +97,21 @@
       "SPI",
       "DEMIHEAD",
       "HABITAT",
+      "FORK_SATELLITE",
       "ORIGIN_PRIME"
     ],
-    "note": "Self-audit output is not fed back as truth authority."
+    "note": "Fork satellite may return observations/receipts, not authority over upstream or truth."
   },
   "D4_ASSOCIATIVE_COUNTERMODEL": {
     "association_is_evidence": false,
     "counterexample": "PASS + VERIFIED_INTENT + ZERO_STATE_DELTA",
     "current_positive_path_fully_proves_this": false,
+    "fork_counterexample": "FORK_CREATED -> AUTOMATIC_UPSTREAM_WRITE",
+    "fork_required_result": "REJECT_OR_HOLD_NO_UPSTREAM_EFFECT",
     "required_result": "HOLD_STALL_NO_PROMOTION"
   },
   "D5_META_INVARIANT": {
+    "fork_satellite_is_upstream_authority": false,
     "invariant": "A method may establish internal consistency of its implementation, but cannot establish world truth merely by passing its own verifier.",
     "origin_prime_candidate_is_origin_prime": false,
     "self_test_survival_is_external_validation": false
@@ -138,6 +155,7 @@
   ],
   "schema": "janus.self_spiral.audit_receipt.v1",
   "self_consistency_gate": {
+    "fork_upstream_authority_must_remain_zero": true,
     "high_or_critical_defects": 3,
     "promotion_allowed": false,
     "real_demihead_receipt_required": true,
@@ -148,6 +166,8 @@
     "aura_5d": "b05a8ab44a70ce4c4cf94a07fb853933b202d7ded53aa6bfba74dd4811d57db5",
     "deep_contract": "d9bf3f22d8c75227a650684597ee8f1f4fece45c4223e977abf2bf04257a5de4",
     "demihead_bridge": "44ebe6d34315bcf598c76a1d29a623363dff0722b97f84b9fa6fe0de5c816841",
+    "fork_contract": "a233c1e83d760dceac533ce38d21ed210dadea928b81fa3e26c2eb7dff7d6b37",
+    "fork_runtime": "b37f46876e033f871f1e0553df3d90ee1933b18e5dc3f245bba4fd75bdc288cd",
     "home_spiral": "6f4d5b7725cba2e2a1c9d7f9c1bb5971de739687b1ba4c51fa44e5f198e198d3",
     "mirror_contract": "4391d101e26a7f8841d2ba1b49131f2b6d2cb294d4684db1270d33582f292a8d",
     "self_contract": "984f147171084f817b5c4a18c5bc037d17cab800cf03cc7081983408de99b7ef",

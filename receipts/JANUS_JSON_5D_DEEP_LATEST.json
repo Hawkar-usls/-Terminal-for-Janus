@@ -1,0 +1,32 @@
+{
+  "schema": "janus.json_5d_deep_analysis.runtime_receipt.v1",
+  "status": "PASS_REFERENCE_RUNTIME",
+  "protocol_id": "JANUS_JSON_5D_DEEP_ANALYSIS_PROTOCOL_v1.0",
+  "github_actor": "Hawkar-usls",
+  "github_run_id": "32475581402",
+  "source_commit": "3ef233d9c8fc82f81e052b3347bdeb7f2849b654",
+  "axes_verified": [
+    "D1_FORWARD",
+    "D2_REVERSE",
+    "D3_STRUCTURAL",
+    "D4_ASSOCIATIVE",
+    "D5_SPIRAL_ABSTRACTION"
+  ],
+  "non_tail_splice_verified": true,
+  "logical_order_prefix": [
+    "S0001",
+    "RUNTIME-MIDDLE-ABSTRACTION",
+    "S0002"
+  ],
+  "source_identity_hash_verified": true,
+  "source_text_mutated": false,
+  "hrain_projection_verified": true,
+  "inaihr_projection_verified": true,
+  "demihead_disagreement_preserved": true,
+  "raw_private_chain_of_thought_stored": false,
+  "patch_count": 1,
+  "recovered_at_origin_count": 3,
+  "graph_sha256": "6873a2ecdfcdff3b074dece6fea687befa060abca2a1558e531f6c8fb6aa5e5f",
+  "world_truth": false,
+  "claim_ceiling": "REFERENCE_RUNTIME_PASS_NOT_SCIENTIFIC_TRUTH"
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "janus.pulse_spiral.recovered_at_origin.v1",
+  "finding_id": "PULSE-R1",
+  "status": "RECOVERED_AND_REPAIRED",
+  "severity": "LOW_IMPLEMENTATION_COMPATIBILITY",
+  "preserved_negative_result": true,
+  "first_firing_result": "PULSE_TRAIN_REJECT_AT_AURA_COMPATIBILITY_GATE",
+  "detail": "The first pulse runtime expected stale Aura labels final_promotion_authority / ADVANCED_TO_ORIGIN_PRIME_CANDIDATE while live Aura uses final_origin_prime_authority / CANDIDATE_STATE_ADVANCE.",
+  "live_aura_blob_sha": "ae691a59d95e5b69a1d6f21e59b5b40d6593c9cd",
+  "stale_runtime_blob_sha": "cad5ff5def509b13411cb09aa4f0ce1930b6504b",
+  "repair_path": "tools/janus_pulse_spiral_v1_1.py",
+  "repair_commit_sha": "0def508b38d4cf1710d4e9a8e8cf1f7c7645af2b",
+  "workflow_repair_commit_sha": "d5c7db1c4acfd3e7cd631d7b4ba296fe3d2b2919",
+  "successful_rerun_receipt_commit_sha": "f2eb5dd6b6ea89509c602aaf572cd1fdda3b99a2",
+  "principle": "IGNITION_FAILURE -> EXHAUST_RECEIPT -> RECOVER_AT_ORIGIN -> REPAIR -> FRESH_PULSE",
+  "world_truth": false
+}

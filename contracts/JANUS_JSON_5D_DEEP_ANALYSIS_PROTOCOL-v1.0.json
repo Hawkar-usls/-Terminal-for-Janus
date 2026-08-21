@@ -1,0 +1,236 @@
+{
+  "schema": "janus.json_5d_deep_analysis.protocol.v1",
+  "protocol_id": "JANUS_JSON_5D_DEEP_ANALYSIS_PROTOCOL_v1.0",
+  "version": "1.0",
+  "status": "FROZEN_BEFORE_REFERENCE_ENGINE",
+  "created_at_local": "2026-08-21T13:52:00+03:00",
+  "purpose": "Extend the JANUS JSON mirror-pass protocol with a bounded five-axis deep-analysis graph compatible with HRain structural context, iNaiHR associative context, DemiHead arbitration and ORIGIN_PRIME spiral state advancement.",
+  "scope_note": "5D is a software traversal model, not a claim about physical spacetime dimensions or neuroscience.",
+  "parent_protocol": "contracts/JANUS_JSON_MIRROR_PASS_PROTOCOL-v1.0.json",
+  "modes": {
+    "STANDARD": "FORWARD_PLUS_REVERSE",
+    "DEEP": "TRANSCEPTION_REVERSE_5D_GRAPH"
+  },
+  "canonical_5d_axes": [
+    {
+      "axis": "D1_FORWARD",
+      "tranception_name": "FORWARD",
+      "question": "What becomes visible when the source is traversed in declared order?",
+      "role": "SEQUENCE_CAUSAL_AND_EXPLICIT_REQUIREMENT_PASS"
+    },
+    {
+      "axis": "D2_REVERSE",
+      "tranception_name": "BACK",
+      "question": "What earlier interpretation changes when later constraints, outcomes or exceptions are encountered first?",
+      "role": "BACKPROPAGATION_MIRROR_AND_MISSING_PREMISE_PASS"
+    },
+    {
+      "axis": "D3_STRUCTURAL",
+      "tranception_name": "LEFT",
+      "repository": "Hawkar-usls/Hrain",
+      "role": "STRUCTURAL_CONTEXT",
+      "question": "What is the topology independent of labels: nodes, edges, dependencies, gates, symmetry, bottlenecks, cycles and disconnected components?"
+    },
+    {
+      "axis": "D4_ASSOCIATIVE",
+      "tranception_name": "RIGHT",
+      "repository": "Hawkar-usls/iNaiHR",
+      "role": "ASSOCIATIVE_CONTEXT",
+      "question": "What semantic analogies, cross-domain correspondences, counterexamples and latent associations are plausible enough to become testable candidates?"
+    },
+    {
+      "axis": "D5_SPIRAL_ABSTRACTION",
+      "tranception_name": "ORIGIN_PRIME",
+      "role": "ABSTRACTION_LEVEL_AND_GENERATION_TRANSITION",
+      "question": "After all other passes, which invariant survives representation change, what must be revised, and where should the graph be expanded before the next generation?"
+    }
+  ],
+  "canonical_cycle": [
+    "ORIGIN_n",
+    "D1_FORWARD",
+    "D2_REVERSE",
+    "D3_HRAIN_STRUCTURAL",
+    "D4_INAIHR_ASSOCIATIVE",
+    "D5_SPIRAL_ABSTRACTION",
+    "DEMIHEAD_DISAGREEMENT_PRESERVATION",
+    "RECOVERED_AT_ORIGIN",
+    "ANSWER",
+    "VERIFIED_RETURN_OR_HOLD_OR_REJECT",
+    "ORIGIN_PRIME_(n+1)_ONLY_IF_GATE_ALLOWS"
+  ],
+  "deep_analysis_graph": {
+    "representation": "ADDRESSABLE_JSON_GRAPH",
+    "source_text_is_immutable": true,
+    "nodes_are_addressable": true,
+    "edges_are_typed": true,
+    "json_object_key_order_is_semantic": false,
+    "logical_position_is_explicit": true,
+    "append_only_history": true,
+    "materialized_views_may_reorder_without_mutating_source": true
+  },
+  "node_kinds": [
+    "SOURCE_SEGMENT",
+    "OBSERVATION",
+    "CONSTRAINT",
+    "QUESTION",
+    "HYPOTHESIS",
+    "COUNTERHYPOTHESIS",
+    "ABSTRACTION",
+    "INVARIANT",
+    "CONTRADICTION",
+    "MISSING_PREMISE",
+    "RECOVERED_AT_ORIGIN",
+    "GATE",
+    "EVIDENCE_REFERENCE",
+    "UNKNOWN"
+  ],
+  "edge_kinds": [
+    "NEXT",
+    "PREVIOUS",
+    "DEPENDS_ON",
+    "CONSTRAINS",
+    "CONTRADICTS",
+    "SUPPORTS",
+    "MIRRORS",
+    "ABSTRACTS",
+    "INSTANTIATES",
+    "ASSOCIATES_WITH",
+    "COUNTERFACTUAL_OF",
+    "RECOVERS",
+    "RESCOPES",
+    "GATES",
+    "DERIVED_FROM",
+    "SAME_INTENT_AS",
+    "SURVIVES_TRANSFORMATION"
+  ],
+  "non_tail_growth": {
+    "principle": "A deep-analysis discovery may be attached at the logical location where it belongs rather than appended only after the last source segment.",
+    "operations": [
+      "INSERT_BEFORE",
+      "INSERT_AFTER",
+      "INSERT_CHILD",
+      "INSERT_SIBLING",
+      "SPLICE_BETWEEN",
+      "FORK_BRANCH",
+      "ANNOTATE_NODE",
+      "ANNOTATE_EDGE",
+      "LINK_DISTANT_NODES",
+      "PROMOTE_TO_ABSTRACTION",
+      "DEMOTE_TO_INSTANCE"
+    ],
+    "mutation_rule": "Operations create new graph nodes/edges and patch receipts; they do not silently rewrite the authoritative source text or delete prior reasoning states.",
+    "anchor_required": true,
+    "provenance_required": true,
+    "reason_required": true
+  },
+  "abstraction_stack": {
+    "levels": [
+      "L0_LITERAL_SOURCE",
+      "L1_LOCAL_RELATION",
+      "L2_STRUCTURAL_PATTERN",
+      "L3_CROSS_DOMAIN_ABSTRACTION",
+      "L4_META_INVARIANT"
+    ],
+    "movement": [
+      "ASCEND",
+      "DESCEND",
+      "LATERAL_TRANSFER",
+      "RETURN_TO_SOURCE"
+    ],
+    "rule": "Every ascent must retain source anchors; every cross-domain transfer returns to domain-specific validation before promotion."
+  },
+  "hrain_binding": {
+    "repository": "Hawkar-usls/Hrain",
+    "hemisphere": "LEFT_HRAIN",
+    "role": "STRUCTURAL_CONTEXT",
+    "uses": [
+      "graph topology",
+      "dependency structure",
+      "node/edge organization",
+      "cycle and bottleneck detection",
+      "JSON graph import/export"
+    ],
+    "authority_delta": 0,
+    "automatic_truth_promotion": false
+  },
+  "inaihr_binding": {
+    "repository": "Hawkar-usls/iNaiHR",
+    "hemisphere": "RIGHT_INAIHR",
+    "role": "ASSOCIATIVE_CONTEXT",
+    "uses": [
+      "semantic graph expansion",
+      "cross-domain candidate generation",
+      "analogy generation",
+      "counterexample generation",
+      "latent relation proposals"
+    ],
+    "association_is_evidence": false,
+    "remote_ai_output_is_independent_witness": false,
+    "authority_delta": 0
+  },
+  "demihead_binding": {
+    "role": "BIND_COMPARE_PRESERVE_DISAGREEMENT",
+    "must_preserve_intent_id": true,
+    "must_preserve_hrain_inaihr_disagreement": true,
+    "hemisphere_agreement_is_truth": false,
+    "recovered_at_origin_is_verified_return": false
+  },
+  "reverse_tranception_binding": {
+    "source_artifact": "Hawkar-usls/janus-meta-registry:data/JANUS-SAH-REVERSE-TRANCEPTION-GENERATIVE-REBUS-2026-08-18-v1.1.json",
+    "operators": {
+      "FORWARD": "Traverse origin toward candidate terminal state.",
+      "BACK": "Traverse terminal state toward independently supported origin anchors.",
+      "LEFT": "Inspect structural/origin-side representation.",
+      "RIGHT": "Inspect re-expressed/associative representation.",
+      "FORWARD_AGAIN": "Test whether preregistered invariants survive transformation.",
+      "BACK_AGAIN": "Remove semantic strengthening that cannot return to independently supported anchors."
+    }
+  },
+  "recovered_at_origin": {
+    "position": "FIRST_SEMANTIC_PAYLOAD",
+    "eligible_sources": [
+      "D2_REVERSE",
+      "D3_STRUCTURAL",
+      "D4_ASSOCIATIVE",
+      "D5_SPIRAL_ABSTRACTION"
+    ],
+    "requirements": [
+      "not already explicit in D1_FORWARD",
+      "source or graph anchors present",
+      "discovery class declared",
+      "confidence declared",
+      "validation status declared"
+    ],
+    "associative_only_findings_must_be_labelled": "HYPOTHESIS_NOT_EVIDENCE"
+  },
+  "structured_trace_boundary": {
+    "store_raw_private_chain_of_thought": false,
+    "store": [
+      "source segments",
+      "concise observations",
+      "typed relations",
+      "candidate hypotheses",
+      "counterhypotheses",
+      "graph patch operations",
+      "evidence references",
+      "confidence",
+      "validation gates",
+      "provenance"
+    ],
+    "purpose": "Preserve auditable reasoning structure without requiring or exposing private free-form internal deliberation."
+  },
+  "promotion_rule": "CANDIDATE + SOURCE_ANCHOR + CROSS_PASS_SURVIVAL + DOMAIN_SPECIFIC_VALIDATION = PROMOTION_CANDIDATE",
+  "anti_dogma": [
+    "5D_GRAPH_COMPLEXITY != BETTER_ANSWER",
+    "ASSOCIATION != EVIDENCE",
+    "STRUCTURE != CAUSATION",
+    "MIRROR != PROOF",
+    "ABSTRACTION != FACT",
+    "REPEATED_PATTERN != WORLD_TRUTH",
+    "BOTH_HEMISPHERES_AGREE != TRUTH",
+    "REVERSE_PASS != PHYSICAL_TIME_REVERSAL",
+    "ORIGIN_PRIME != AUTOMATIC_VERIFIED_RETURN",
+    "EMPTY_NEW_DISCOVERY_SET_IS_VALID"
+  ],
+  "claim_ceiling": "AUDITABLE_MULTI_AXIS_REASONING_GRAPH_NOT_A_TRUTH_ORACLE_NOT_A_NEUROSCIENCE_MODEL"
+}

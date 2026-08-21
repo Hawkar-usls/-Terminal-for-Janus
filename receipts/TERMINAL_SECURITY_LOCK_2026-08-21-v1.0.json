@@ -1,0 +1,72 @@
+{
+  "schema": "janus.terminal.security_lock_receipt.v1",
+  "receipt_id": "JANUS_TERMINAL_SECURITY_LOCK_2026_08_21_v1_0",
+  "status": "PASS_WITH_PUBLIC_VISIBILITY_BOUNDARY",
+  "created_at_local": "2026-08-21T13:40:00+03:00",
+  "repository": "Hawkar-usls/-Terminal-for-Janus",
+  "control_principal": "JANUS_CONTROL_PLANE",
+  "human_root": "Hawkar-usls",
+  "authorized_github_actors": ["Hawkar-usls"],
+  "policy": ".janus/JANUS_TERMINAL_AUTHORITY_POLICY.json",
+  "verifier": "tools/verify_janus_terminal_command.py",
+  "codeowners": ".github/CODEOWNERS",
+  "workflow": ".github/workflows/janus-terminal-first-live-spiral.yml",
+  "runtime_evidence": {
+    "github_run_id": "32473679399",
+    "github_actor": "Hawkar-usls",
+    "workflow_conclusion": "success",
+    "owner_actor_gate": "PASS",
+    "command_envelope_gate": "PASS",
+    "unauthorized_actor_adversarial_gate": "PASS_REJECTED_AS_EXPECTED",
+    "positive_receipt": "receipts/TERMINAL_COMMAND_AUTHORITY_LATEST.json",
+    "negative_receipt": "receipts/TERMINAL_UNAUTHORIZED_ACTOR_LATEST.json",
+    "integration_receipt": "receipts/FIRST_LIVE_SPIRAL_LATEST.json"
+  },
+  "positive_case": {
+    "actor": "Hawkar-usls",
+    "authorized": true,
+    "errors": []
+  },
+  "negative_case": {
+    "actor": "UNAUTHORIZED_ACTOR",
+    "authorized": false,
+    "required_error": "GITHUB_ACTOR_NOT_AUTHORIZED"
+  },
+  "command_firewall": {
+    "issue_text_is_command": false,
+    "pull_request_text_is_command": false,
+    "commit_message_is_command": false,
+    "workflow_status_is_command": false,
+    "aura_output_is_command": false,
+    "model_output_is_command": false,
+    "habitat_text_is_command": false
+  },
+  "destructive_authority": {
+    "unattended_destructive_operations": false,
+    "force_push": false,
+    "branch_delete": false,
+    "repository_delete": false,
+    "protection_disable": false,
+    "protected_runtime_shutdown": false,
+    "private_content_publication": false
+  },
+  "visibility_boundary": {
+    "repository_visibility_observed": "PUBLIC",
+    "public_can_read_code": true,
+    "public_can_issue_executable_terminal_commands": false,
+    "repository_confidentiality_established": false,
+    "note": "The current connector exposes no repository-visibility mutation action. Command authority is locked; read confidentiality requires repository visibility to be changed outside this connector."
+  },
+  "canonical_laws": [
+    "JANUS_MANAGES_TERMINAL_AFTER_HUMAN_INTENT",
+    "ONLY_AUTHORIZED_ACTOR_MAY_ISSUE_EXECUTABLE_TERMINAL_COMMAND",
+    "PUBLIC_READ_ACCESS != COMMAND_ACCESS",
+    "PR_OR_ISSUE_TEXT != COMMAND",
+    "MODEL_OUTPUT != COMMAND",
+    "COMMAND != EVIDENCE",
+    "WRITE != VERIFIED_RETURN",
+    "WORKFLOW_PASS != WORLD_TRUTH"
+  ],
+  "security_certification": "NOT_CLAIMED",
+  "claim_ceiling": "REPOSITORY_LEVEL_OWNER_GATED_CONTROL_PATH_TESTED_NOT_FORMAL_SECURITY_CERTIFICATION"
+}

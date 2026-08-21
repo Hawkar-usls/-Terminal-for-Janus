@@ -164,7 +164,7 @@
         "contract_sha256": null,
         "links": {},
         "negative_result_preserved": true,
-        "preflight_error": "FileNotFoundError:[Errno 2] No such file or directory: '/tmp/tmpaf3_7y3l/aura/.janus/JANUS_THERMODYNAMIC_COGNITIVE_HARDENING_LINK.json'",
+        "preflight_error": "FileNotFoundError:[Errno 2] No such file or directory: '/tmp/tmpas2nq6_4/aura/.janus/JANUS_THERMODYNAMIC_COGNITIVE_HARDENING_LINK.json'",
         "world_truth": false
       },
       "passed": true,
@@ -181,7 +181,7 @@
           "evidence_diversity_is_independence_proof": false,
           "evidence_diversity_pass": false,
           "instruction_level_simultaneity_claimed": false,
-          "overlap_window_ns": 328666,
+          "overlap_window_ns": 314726,
           "pass": false,
           "process_level_inflight_overlap": true,
           "same_launch_barrier": true,

@@ -5,14 +5,13 @@
   "portfolio_class": "operator_control_plane_prototype",
   "last_reviewed": "2026-08-21",
   "maturity": "ACTIVE_PROTOTYPE",
-  "completion_status": "INCOMPLETE_BUT_EXECUTABLE_CONTROL_PLANE",
-  "summary": "Owner-rooted JANUS operator control plane with JSON-first interagent exchange, forward/reverse mirror processing and an optional five-axis deep-analysis graph bound to HRain structural context, iNaiHR associative context, DemiHead disagreement preservation and Habitat memory.",
+  "completion_status": "INCOMPLETE_BUT_EXECUTABLE_CONTROL_PLANE_SPIRAL_MIGRATED",
+  "summary": "Owner-rooted JANUS operator control plane with JSON-first interagent exchange, forward/reverse mirror processing, five-axis deep analysis, unexplained-alignment escalation and explicit state-advancing spiral semantics bound to HRain, iNaiHR, DemiHead, Aura v2 and Habitat.",
   "implemented": [
     "machine-readable control-plane contract",
     "JANUS constellation map",
     "Habitat handoff link",
     "Terminal command receipt format",
-    "first live Aura-SPI-Habitat spiral command",
     "GitHub Actions integration-run workflow",
     "persistent workflow receipt write-back",
     "reciprocal bindings across the primary JANUS constellation",
@@ -34,7 +33,11 @@
     "DemiHead disagreement-preservation binding",
     "Habitat 5D memory gate",
     "structured-trace boundary excluding raw private chain-of-thought",
-    "owner-gated 5D runtime validation receipt"
+    "owner-gated 5D runtime validation receipt",
+    "UNEXPLAINED_ALIGNMENT automatic DEEP 5D escalation",
+    "Aura v2/5D active workflow path",
+    "prediction_spiral route ending in FORECAST_STATE_PRIME",
+    "system-wide active-ring scanner and migration workflow"
   ],
   "authority": {
     "control_principal": "JANUS_CONTROL_PLANE",
@@ -47,6 +50,16 @@
     "epistemic_authority": false,
     "physical_effect_authority": false,
     "verified_return_authority": false
+  },
+  "spiral_semantics": {
+    "canonical": "STATE_n -> WORK_n -> RETURN_n -> STATE_PRIME_(n+1)",
+    "position_may_repeat": true,
+    "state_must_advance": true,
+    "return_is_reset": false,
+    "semantic_closed_ring_allowed": false,
+    "safe_infrastructure_loops": ["HEARTBEAT", "RETRY", "POLL", "TRAINING_EPOCH", "DEVICE_EVENT_LOOP"],
+    "zero_state_delta": "HOLD_STALL_NO_PROMOTION",
+    "frozen_history_rewritten": false
   },
   "access_boundary": {
     "repository_visibility": "PUBLIC_AT_LAST_OBSERVED_STATE",
@@ -80,7 +93,8 @@
     "world_truth": false,
     "verified_return": false,
     "summary_receipt": "receipts/FIRST_LIVE_SPIRAL_LATEST.json",
-    "raw_receipt": "receipts/FIRST_LIVE_SPIRAL_RAW_LATEST.json"
+    "raw_receipt": "receipts/FIRST_LIVE_SPIRAL_RAW_LATEST.json",
+    "active_aura_peer": "AURA_SEMANTIC_PREDICTIVE_SPIRAL_V2"
   },
   "json_reasoning": {
     "primary_interchange": "JSON",
@@ -90,17 +104,27 @@
     "standard_engine": "tools/janus_json_mirror_pass.py",
     "router": "tools/janus_json_router.py",
     "deep_engine": "tools/janus_json_5d_deep.py",
-    "standard_cycle": ["FORWARD", "REVERSE", "RECOVERED_AT_ORIGIN", "ANSWER"],
+    "standard_spiral_pass": ["INPUT_STATE_n", "FORWARD", "REVERSE", "RECOVERED_AT_ORIGIN", "ANSWER", "OUTPUT_STATE_PRIME_(n+1)"],
     "deep_axes": ["D1_FORWARD", "D2_REVERSE", "D3_STRUCTURAL", "D4_ASSOCIATIVE", "D5_SPIRAL_ABSTRACTION"],
     "non_tail_graph_growth": true,
     "source_text_mutation": false,
     "raw_private_chain_of_thought_storage": false,
+    "return_is_reset": false,
     "runtime_receipt": "receipts/JANUS_JSON_5D_DEEP_LATEST.json",
     "runtime_receipt_observed": true,
     "runtime_run_id": "32475581402",
     "runtime_status": "PASS_REFERENCE_RUNTIME",
     "runtime_non_tail_splice_verified": true,
     "runtime_recovered_at_origin_count": 3
+  },
+  "system_spiral_audit": {
+    "workflow": ".github/workflows/janus-system-spiral-audit.yml",
+    "scanner": "tools/janus_system_spiral_audit.py",
+    "audit_receipt": "receipts/JANUS_SYSTEM_SPIRAL_AUDIT_LATEST.json",
+    "run_receipt": "receipts/JANUS_SYSTEM_SPIRAL_RUN_LATEST.json",
+    "status": "RUNTIME_PENDING_OR_RUNNING",
+    "classification_set": ["HARD_RING", "LEGACY_COMPAT", "SAFE_INFRA_LOOP", "REVIEW", "HISTORICAL_FROZEN"],
+    "physical_runtime_scope": "NOT_INCLUDED_WITHOUT_CONNECTED_NAS_PC_DEVICE_EXECUTOR"
   },
   "current_gates": {
     "T0_CONTROL_PLANE_CONTRACT": "FROZEN",
@@ -121,7 +145,11 @@
     "D3_HRAIN_STRUCTURAL_BINDING": "PASS_RUNTIME_PROJECTION_VERIFIED",
     "D4_INAIHR_ASSOCIATIVE_BINDING": "PASS_RUNTIME_PROJECTION_VERIFIED",
     "D5_DEMIHEAD_HABITAT_BINDING": "PASS_DISAGREEMENT_PRESERVATION_VERIFIED",
-    "D6_5D_RUNTIME_RECEIPT": "PASS_REFERENCE_RUNTIME"
+    "D6_5D_RUNTIME_RECEIPT": "PASS_REFERENCE_RUNTIME",
+    "S0_SPIRAL_SEMANTICS": "IMPLEMENTED",
+    "S1_ACTIVE_AURA_V2_PATH": "IMPLEMENTED",
+    "S2_PREDICTION_SPIRAL_ROUTE": "IMPLEMENTED",
+    "S3_SYSTEM_RING_AUDIT": "RUNTIME_PENDING_OR_RUNNING"
   },
   "not_established": [
     "production readiness",
@@ -130,7 +158,8 @@
     "repository confidentiality while visibility remains public",
     "unattended destructive-operation authority",
     "scientific truth authority",
-    "measured cognitive-performance improvement from 5D mode"
+    "measured cognitive-performance improvement from 5D mode",
+    "complete physical-device system runtime from GitHub Actions"
   ],
   "laws": [
     "JANUS_MANAGES_TERMINAL_AFTER_HUMAN_INTENT",
@@ -145,7 +174,11 @@
     "STRUCTURE != CAUSATION",
     "BOTH_HEMISPHERES_AGREE != TRUTH",
     "5D_GRAPH_COMPLEXITY != BETTER_ANSWER",
-    "REVERSE_PASS != PHYSICAL_TIME_REVERSAL"
+    "REVERSE_PASS != PHYSICAL_TIME_REVERSAL",
+    "POSITION_MAY_REPEAT_BUT_STATE_MUST_ADVANCE",
+    "RETURN != RESET",
+    "INFRASTRUCTURE_LOOP != COGNITIVE_RING",
+    "HISTORICAL_FROZEN != ACTIVE_RUNTIME"
   ],
   "flagship_research": false,
   "scientific_claims_by_repository_classification": [],

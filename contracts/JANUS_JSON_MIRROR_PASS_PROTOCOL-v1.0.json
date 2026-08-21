@@ -1,0 +1,152 @@
+{
+  "schema": "janus.json_mirror_pass.protocol.v1",
+  "protocol_id": "JANUS_JSON_MIRROR_PASS_PROTOCOL_v1.0",
+  "version": "1.0",
+  "status": "FROZEN_BEFORE_REFERENCE_ENGINE",
+  "created_at_local": "2026-08-21T13:52:00+03:00",
+  "purpose": "Make canonical JSON the primary JANUS interchange format and require every reasoning response to traverse source text forward and backward before emitting the answer, with reverse-only recoveries surfaced first at the origin.",
+  "canonical_equation": "INPUT_JSON -> FORWARD_PASS_0_TO_N -> REVERSE_PASS_N_TO_0 -> DELTA(REVERSE_MINUS_FORWARD) -> RECOVERED_AT_ORIGIN -> ANSWER_JSON",
+  "core_laws": [
+    "JSON_IS_PRIMARY_INTERCHANGE_FORMAT",
+    "FORWARD_PASS_PRECEDES_REVERSE_PASS",
+    "REVERSE_PASS_MUST_REVISIT_THE_SAME_SOURCE_NOT_A_PARAPHRASED_SUBSTITUTE",
+    "REVERSE_DISCOVERY_MUST_BE_TRACEABLE_TO_SOURCE_SEGMENTS",
+    "RECOVERED_AT_ORIGIN_MUST_PRECEDE_MAIN_ANSWER",
+    "REVERSE_PASS != LICENSE_TO_INVENT_HIDDEN_MEANING",
+    "MISSING_IN_FORWARD_AND_SUPPORTED_IN_REVERSE = RECOVERED_AT_ORIGIN_CANDIDATE",
+    "UNSUPPORTED_ASSOCIATION != RECOVERY",
+    "CONTRADICTION_FOUND_ON_REVERSE_MUST_REMAIN_VISIBLE",
+    "UNKNOWN != FALSE",
+    "EMPTY_DELTA_IS_VALID"
+  ],
+  "input_envelope": {
+    "schema": "janus.mirror.input.v1",
+    "required_fields": [
+      "message_id",
+      "created_at",
+      "source",
+      "text"
+    ],
+    "optional_fields": [
+      "task",
+      "context_refs",
+      "intent_id",
+      "session_id",
+      "generation",
+      "metadata"
+    ],
+    "text_is_authoritative_source": true,
+    "context_may_extend_but_not_silently_replace_text": true
+  },
+  "segmentation": {
+    "unit": "ORDERED_SOURCE_SEGMENT",
+    "stable_ids": "S0001..SNNNN",
+    "preserve_original_order": true,
+    "preserve_original_text": true,
+    "forward_order": "S0001_TO_SNNNN",
+    "reverse_order": "SNNNN_TO_S0001"
+  },
+  "forward_pass": {
+    "goal": "Build the first explicit model from beginning to end.",
+    "must_record": [
+      "claims",
+      "questions",
+      "constraints",
+      "negations",
+      "requirements",
+      "dependencies",
+      "uncertainties",
+      "candidate_relations"
+    ],
+    "output_key": "forward_pass"
+  },
+  "reverse_pass": {
+    "goal": "Traverse the exact same source from end to beginning and test how later constraints, conclusions, exceptions and dependencies alter interpretation of earlier segments.",
+    "must_test": [
+      "LATE_CONSTRAINT_APPLIES_TO_EARLIER_REQUEST",
+      "CONCLUSION_REVEALS_MISSING_PREMISE",
+      "EXCEPTION_RESCOPES_EARLIER_RULE",
+      "NEGATION_REVERSES_EARLIER_ASSUMPTION",
+      "DEPENDENCY_ONLY_VISIBLE_FROM_OUTCOME_BACKWARD",
+      "MIRROR_OR_RECIPROCAL_RELATION",
+      "UNRESOLVED_REFERENCE",
+      "CONTRADICTION_OR_SCOPE_COLLISION"
+    ],
+    "output_key": "reverse_pass"
+  },
+  "delta_rule": {
+    "definition": "A recovery is an observation or relation supported by one or more source segment ids that was absent from the forward-pass observation set and appears during the reverse traversal.",
+    "set_expression": "RECOVERED_AT_ORIGIN = SUPPORTED(REVERSE_FINDINGS - FORWARD_FINDINGS)",
+    "deduplicate": true,
+    "source_segment_ids_required": true,
+    "confidence_required": true,
+    "allowed_confidence": [
+      "HIGH",
+      "MEDIUM",
+      "LOW"
+    ],
+    "low_confidence_must_be_marked_hypothesis": true
+  },
+  "output_envelope_order": [
+    "schema",
+    "message_id",
+    "recovered_at_origin",
+    "answer",
+    "forward_pass",
+    "reverse_pass",
+    "provenance",
+    "integrity"
+  ],
+  "recovered_at_origin": {
+    "must_be_first_semantic_payload": true,
+    "human_renderer_position": "BEFORE_MAIN_ANSWER",
+    "empty_value": [],
+    "item_schema": {
+      "required": [
+        "recovery_id",
+        "finding",
+        "source_segment_ids",
+        "confidence",
+        "reason_forward_missed_it"
+      ]
+    }
+  },
+  "answer": {
+    "generated_only_after_both_passes": true,
+    "must_consume_recovered_at_origin": true,
+    "must_not_hide_forward_reverse_conflict": true,
+    "may_be_human_text_or_structured_payload": true
+  },
+  "agent_interchange": {
+    "canonical_serialization": "UTF-8 JSON",
+    "canonicalization_for_hash": "SORT_KEYS_COMPACT_UTF8",
+    "freeform_text_between_agents_default": "DENY",
+    "freeform_text_must_be_wrapped_in_json_field": true,
+    "binary_or_large_artifacts": "REFERENCE_BY_URI_OR_HASH_NOT_INLINE_BY_DEFAULT",
+    "transport_independent": true
+  },
+  "janus_spiral_relation": {
+    "forward_pass": "EXPERIENCE_n",
+    "reverse_pass": "RETURN_n",
+    "delta": "WHAT_THE_RETURN_REVEALED",
+    "recovered_at_origin": "ORIGIN_PRIME_INPUT",
+    "rule": "RETURN_TO_ORIGIN_MAY_REPEAT_POSITION_BUT_MUST_ADVANCE_STATE"
+  },
+  "demihead_compatibility": {
+    "intent_id_must_remain_identical_across_passes": true,
+    "reverse_pass_may_not_replace_primary_intent": true,
+    "model_output_is_evidence": false,
+    "recovered_finding_is_world_truth": false,
+    "verified_return_still_requires_relevant_gate": true
+  },
+  "failure_states": [
+    "SOURCE_CHANGED_BETWEEN_PASSES",
+    "INTENT_SPLIT",
+    "UNTRACEABLE_REVERSE_FINDING",
+    "RECOVERY_DUPLICATES_FORWARD_FINDING",
+    "ANSWER_EMITTED_BEFORE_REVERSE_PASS",
+    "NON_JSON_INTERAGENT_PAYLOAD",
+    "HASH_MISMATCH"
+  ],
+  "claim_ceiling": "REASONING_AND_INTERCHANGE_PROTOCOL_NOT_A_TRUTH_ORACLE"
+}

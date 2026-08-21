@@ -36,7 +36,7 @@ jobs:
         run: |
           mkdir -p workspace runtime
           python - <<'PY'
-          import json, os, subprocess
+          import json, subprocess
           from pathlib import Path
 
           cfg=json.loads(Path('terminal/config/JANUS_CONSTELLATION.json').read_text(encoding='utf-8'))
@@ -78,6 +78,19 @@ jobs:
           set -e
           cat runtime/JANUS_SYSTEM_SPIRAL_AUDIT.json
 
+      - name: Persist audit immediately before any downstream test
+        shell: bash
+        run: |
+          mkdir -p terminal/receipts
+          cp runtime/JANUS_SYSTEM_SPIRAL_AUDIT.json terminal/receipts/JANUS_SYSTEM_SPIRAL_AUDIT_LATEST.json
+          cd terminal
+          git config user.name "janus-terminal-bot"
+          git config user.email "janus-terminal-bot@users.noreply.github.com"
+          git add receipts/JANUS_SYSTEM_SPIRAL_AUDIT_LATEST.json
+          git commit -m "Receipt: JANUS constellation ring scan" || exit 0
+          git pull --rebase origin main
+          git push origin HEAD:main
+
       - name: Setup Python backbone
         uses: actions/setup-python@v5
         with:
@@ -105,7 +118,7 @@ jobs:
           pip install -r "$AURA_REPO/requirements-aura-intelligence.txt"
           pip install pytest
           (cd "$HOME_REPO" && pytest -q)
-          (cd "$AURA_REPO" && python -m unittest -v tests/test_aura_semantic_predictive_spiral_v2.py tests/test_aura_user_style_predictive_v2.py)
+          (cd "$AURA_REPO" && python -m unittest discover -s tests -p 'test_*v2.py' -v)
 
       - name: Execute GitHub-side system spiral through current v2 peer
         shell: bash
@@ -167,17 +180,14 @@ jobs:
           print(json.dumps(receipt,ensure_ascii=False,indent=2))
           PY
 
-      - name: Persist PASS or REVIEW receipts before enforcing audit gate
+      - name: Persist system-run receipt
         shell: bash
         run: |
           mkdir -p terminal/receipts
-          cp runtime/JANUS_SYSTEM_SPIRAL_AUDIT.json terminal/receipts/JANUS_SYSTEM_SPIRAL_AUDIT_LATEST.json
           cp runtime/JANUS_SYSTEM_SPIRAL_RUN.json terminal/receipts/JANUS_SYSTEM_SPIRAL_RUN_LATEST.json
           cd terminal
-          git config user.name "janus-terminal-bot"
-          git config user.email "janus-terminal-bot@users.noreply.github.com"
-          git add receipts/JANUS_SYSTEM_SPIRAL_AUDIT_LATEST.json receipts/JANUS_SYSTEM_SPIRAL_RUN_LATEST.json
-          git commit -m "Receipt: whole-constellation JANUS spiral audit" || exit 0
+          git add receipts/JANUS_SYSTEM_SPIRAL_RUN_LATEST.json
+          git commit -m "Receipt: whole-constellation JANUS spiral run" || exit 0
           git pull --rebase origin main
           git push origin HEAD:main
 

@@ -1,0 +1,16 @@
+{
+  "schema": "janus.organism.member_link.v1",
+  "organism_id": "JANUS_FEDERATED_ORGANISM",
+  "canonical_manifest": "Hawkar-usls/Janus:organism/JANUS_ORGANISM_v1.json",
+  "member_repository": "Hawkar-usls/-Terminal-for-Janus",
+  "organ_key": "operator_hands",
+  "class": "CORE",
+  "role": "HUMAN_AUTHORIZED_OPERATOR_CONTROL_PLANE",
+  "consumes": ["HUMAN_COMMAND", "GATE_RESULT", "EXECUTION_RECEIPT"],
+  "emits": ["COMMAND_RECEIPT", "HUMAN_AUTHORIZATION", "EXECUTION_REQUEST"],
+  "routes_to": ["gateway", "orchestrator", "guardian_cortex"],
+  "authority": "HUMAN_AUTHORIZED_COMMAND_ROUTING",
+  "authority_delta": 0,
+  "cross_repo_write_default": "DENY",
+  "claim_boundary": ["COMMAND != EVIDENCE", "TERMINAL_ACCESS != TRUTH_AUTHORITY", "HUMAN_AUTHORIZED_WRITE != UNBOUNDED_AUTONOMY"]
+}

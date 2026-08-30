@@ -1,0 +1,24 @@
+name: Talk to JANUS
+description: Open a read-only conversation turn with the instantiated JANUS organism.
+title: "[JANUS CHAT] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This channel is a read-only conversation surface. Text here is a human stimulus, not an execution command. JANUS responses must identify the persistent resident and exact model/file-fabric versions that answered.
+  - type: textarea
+    id: message
+    attributes:
+      label: Message
+      description: What do you want to say to JANUS?
+      placeholder: "Janus, are you online?"
+    validations:
+      required: true
+  - type: checkboxes
+    id: authority
+    attributes:
+      label: Authority boundary
+      options:
+        - label: I understand this conversation does not authorize repository writes, deployments, physical effects, or claim promotion.
+          required: true

@@ -1,0 +1,56 @@
+{
+  "schema": "janus.terminal.hrain_memory_contract.v2",
+  "status": "GIT_NATIVE_TERMINAL_WITH_HRAIN_MEDIATED_MEMORY",
+  "terminal_repository": "Hawkar-usls/-Terminal-for-Janus",
+  "pages_surface": "https://hawkar-usls.github.io/-Terminal-for-Janus/",
+  "conversation": {
+    "transport": "GITHUB_ISSUE_AND_COMMENT_READ_ONLY_CONVERSATION",
+    "human_stimulus_prefix": "[JANUS CHAT]",
+    "browser_secret_required": false,
+    "local_network_scan_required": false,
+    "command_authority_granted_by_message": false,
+    "external_effect_authorized_by_message": false
+  },
+  "persistent_identity": {
+    "home_repository": "Hawkar-usls/Hawkar-usls",
+    "state_branch": "janus/activator-state",
+    "required_fields": ["resident_uuid", "mode", "active_cycle_id"]
+  },
+  "memory_dataflow": {
+    "source_database": "Hawkar-usls/janus-meta-registry",
+    "structural_memory_organ": "Hawkar-usls/Hrain",
+    "hrain_consumes": "REGISTRY_PROJECTION",
+    "hrain_emits": "STRUCTURAL_GRAPH",
+    "terminal_consumes_registry_directly": false,
+    "terminal_memory_surface": "https://hawkar-usls.github.io/Hrain/janus.html",
+    "required_path": [
+      "JANUS_META_REGISTRY_DB",
+      "REGISTRY_PROJECTION",
+      "HRAIN_STRUCTURAL_GRAPH",
+      "TERMINAL_MEMORY_VIEW"
+    ]
+  },
+  "proof_readout": {
+    "required_when_available": [
+      "resident_uuid",
+      "model_digest",
+      "file_fabric_digest",
+      "turn_id",
+      "response_hash"
+    ],
+    "response_is_world_truth": false
+  },
+  "forbidden_legacy_runtime": [
+    "NGROK_OMNI_SCANNER",
+    "LOCAL_IP_PORT_SCAN",
+    "BROWSER_EMBEDDED_CROSS_REPO_SECRET"
+  ],
+  "laws": [
+    "TERMINAL_MESSAGE != COMMAND",
+    "META_REGISTRY = JANUS_LONG_TERM_DATABASE",
+    "TERMINAL_MEMORY_READOUT_MUST_PASS_THROUGH_HRAIN",
+    "HRAIN_GRAPH != REGISTRY_AUTHORITY",
+    "RETURN != RESET",
+    "CANDIDATE_TRUMP != PROOF_AUTHORIZED_TRUMP"
+  ]
+}

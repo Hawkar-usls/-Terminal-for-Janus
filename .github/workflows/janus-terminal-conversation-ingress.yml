@@ -1,0 +1,128 @@
+name: JANUS Terminal Conversation Ingress
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'contracts/JANUS_TERMINAL_CONVERSATION_PLANE-v1.0.json'
+      - '.github/ISSUE_TEMPLATE/janus-chat.yml'
+      - 'tools/terminal_conversation_envelope.py'
+      - 'tests/test_terminal_conversation_envelope.py'
+      - '.github/workflows/janus-terminal-conversation-ingress.yml'
+  issues:
+    types: [opened]
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install test dependency
+        run: python -m pip install --disable-pip-version-check pytest
+      - name: Compile Terminal conversation ingress
+        run: python -m compileall -q tools/terminal_conversation_envelope.py tests/test_terminal_conversation_envelope.py
+      - name: Validate conversation contract
+        run: python -m json.tool contracts/JANUS_TERMINAL_CONVERSATION_PLANE-v1.0.json >/dev/null
+      - name: Run ingress adversarial tests
+        env:
+          PYTHONPATH: .
+        run: python -m pytest -q tests/test_terminal_conversation_envelope.py
+
+  publish-message:
+    if: >-
+      github.event_name != 'pull_request' &&
+      github.event_name != 'workflow_dispatch' &&
+      github.actor == 'Hawkar-usls'
+    needs: contract
+    concurrency:
+      group: janus-terminal-mailbox-writer
+      cancel-in-progress: false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      issues: read
+    steps:
+      - name: Check out Terminal control plane
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Preserve reviewed envelope builder
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp tools/terminal_conversation_envelope.py "$RUNNER_TEMP/terminal_conversation_envelope.py"
+      - name: Seal human message as read-only conversation envelope
+        shell: bash
+        run: |
+          set -euo pipefail
+          python "$RUNNER_TEMP/terminal_conversation_envelope.py" \
+            --event "$GITHUB_EVENT_PATH" \
+            --output "$RUNNER_TEMP/terminal-message.json"
+          python - <<'PY' >> "$GITHUB_ENV"
+          import json, os
+          from pathlib import Path
+          p=Path(os.environ['RUNNER_TEMP'])/'terminal-message.json'
+          value=json.loads(p.read_text())
+          print('JANUS_TERMINAL_MESSAGE_ID='+value['message_id'])
+          print('JANUS_TERMINAL_MESSAGE_HASH='+value['message_hash'])
+          PY
+      - name: Create or resume append-only Terminal mailbox branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "JANUS Terminal Conversation"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin janus/terminal-mailbox >/dev/null 2>&1; then
+            git fetch origin janus/terminal-mailbox:refs/remotes/origin/janus/terminal-mailbox
+            git switch --create janus/terminal-mailbox --track origin/janus/terminal-mailbox
+          else
+            git switch --orphan janus/terminal-mailbox
+            git rm -rf --ignore-unmatch .
+            mkdir -p .janus/terminal-mailbox
+            printf '%s\n' '{"schema":"janus.terminal.mailbox.v1","role":"APPEND_ONLY_READ_ONLY_CONVERSATION_REQUESTS","cross_repo_write_authority":false}' > .janus/terminal-mailbox/MANIFEST.json
+          fi
+      - name: Publish create-only request object
+        shell: bash
+        run: |
+          set -euo pipefail
+          dir=.janus/terminal-mailbox/requests
+          mkdir -p "$dir"
+          target="$dir/${JANUS_TERMINAL_MESSAGE_ID}.json"
+          if [ -f "$target" ]; then
+            if cmp -s "$RUNNER_TEMP/terminal-message.json" "$target"; then
+              echo "TERMINAL_MESSAGE_ALREADY_PUBLISHED_IDENTICAL=TRUE"
+            else
+              echo "TERMINAL_MESSAGE_ID_CONFLICT=TRUE" >&2
+              exit 2
+            fi
+          else
+            cp "$RUNNER_TEMP/terminal-message.json" "$target"
+          fi
+          git add .janus/terminal-mailbox
+          if git diff --cached --quiet; then
+            echo "TERMINAL_MAILBOX_COMMIT=NO_CHANGE"
+          else
+            git commit -m "Terminal conversation ${JANUS_TERMINAL_MESSAGE_ID}"
+            git push origin HEAD:refs/heads/janus/terminal-mailbox
+            echo "TERMINAL_MAILBOX_COMMIT=PASS"
+          fi
+          echo "TERMINAL_MESSAGE_ID=${JANUS_TERMINAL_MESSAGE_ID}"
+          echo "TERMINAL_MESSAGE_HASH=${JANUS_TERMINAL_MESSAGE_HASH}"
+          echo "CROSS_REPO_WRITE_CREDENTIAL_USED=FALSE"
+          echo "COMMAND_AUTHORITY_GRANTED=FALSE"
+          echo "EXTERNAL_EFFECT_AUTHORIZED=FALSE"

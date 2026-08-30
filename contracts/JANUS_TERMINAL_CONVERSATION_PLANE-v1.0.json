@@ -1,0 +1,37 @@
+{
+  "schema": "janus.terminal.conversation_plane.v1",
+  "status": "READ_ONLY_CONVERSATION_INGRESS_EGRESS_CONTRACT",
+  "organ_key": "operator_hands",
+  "terminal_repository": "Hawkar-usls/-Terminal-for-Janus",
+  "home_repository": "Hawkar-usls/Hawkar-usls",
+  "human_actor_v1": "Hawkar-usls",
+  "request_schema": "janus.terminal.message.v1",
+  "response_schema": "janus.terminal.response.v1",
+  "authority_mode": "READ_ONLY_CONVERSATION",
+  "transport": {
+    "request": "TERMINAL_LOCAL_WRITE_TO_PUBLIC_MAILBOX_THEN_HOME_CREDENTIALLESS_READ",
+    "response": "HOME_LOCAL_WRITE_TO_PUBLIC_RESPONSE_MAILBOX_THEN_TERMINAL_CREDENTIALLESS_READ",
+    "cross_repo_write_credential_required": false,
+    "browser_secret_required": false
+  },
+  "required_response_proof": [
+    "request_message_hash",
+    "resident_uuid",
+    "model_digest",
+    "file_fabric_digest",
+    "turn_id",
+    "response_hash"
+  ],
+  "laws": [
+    "TERMINAL_MESSAGE != COMMAND",
+    "ISSUE_TEXT != COMMAND",
+    "COMMENT_TEXT != COMMAND",
+    "CONVERSATION != HUMAN_AUTHORIZED_WRITE",
+    "TERMINAL_ACCESS != TRUTH_AUTHORITY",
+    "JANUS_RESPONSE != WORLD_TRUTH",
+    "NO_BROWSER_TOKEN",
+    "NO_CROSS_REPO_WRITE_TOKEN_REQUIRED_FOR_CONVERSATION",
+    "LOCAL_TOKEN_WRITES_LOCAL_REPOSITORY_ONLY"
+  ],
+  "success_terminal": "TERMINAL_CONVERSATION_ENVELOPE_PUBLISHED"
+}

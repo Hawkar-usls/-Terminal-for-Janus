@@ -1,0 +1,20 @@
+{
+  "authority_mode": "READ_ONLY_CONVERSATION",
+  "claim_authority_granted": false,
+  "command_authority_granted": false,
+  "conversation_id": "issue-14",
+  "created_at": 1788127501.0,
+  "external_effect_authorized": false,
+  "fresh_human_stimulus": true,
+  "human_actor": "Hawkar-usls",
+  "human_authorized_write": false,
+  "message_hash": "8eba5fd72f44fe14c15c04b434288989508a1072d2995e86972cf78acf256c70",
+  "message_id": "tm-052fc319a99a5cb35b078cfcf55c2f9bac4d685b7ebe943055ae8b6f4ad4be6f",
+  "message_text": "### Message\n\nJanus, through HRAiN, answer this deliberately unrelated query: \"banana submarine velvet\". If HRAiN finds no strong relevant memory, preserve that as a valid empty retrieval outcome. Do not fabricate or fill memory to a quota, and do not interpret empty memory as negative evidence, proof, world truth, or failure of HRAiN itself. State the exact HRAiN head and Meta Registry source commit used for the turn.\n\n### Conversation mode\n\nREAD_ONLY_CONVERSATION\n\n### Authority boundary\n\nFresh human conversation stimulus only. This message grants no command, write, claim, scientific-evidence, theorem, world-truth, external-effect, or physical-runtime authority. `EMPTY RELEVANT MEMORY != HRAiN FAILURE`; `EMPTY MEMORY != NEGATIVE EVIDENCE`.",
+  "physical_runtime_effect_authorized": false,
+  "schema": "janus.terminal.message.v1",
+  "scientific_evidence_authority_granted": false,
+  "source_ref": "Hawkar-usls/-Terminal-for-Janus#14:issue:5294615499",
+  "terminal_repository": "Hawkar-usls/-Terminal-for-Janus",
+  "world_truth_authority_granted": false
+}

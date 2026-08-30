@@ -1,13 +1,15 @@
 {
   "schema": "janus.terminal.conversation_plane.v1",
-  "status": "READ_ONLY_CONVERSATION_INGRESS_EGRESS_CONTRACT",
+  "status": "READ_ONLY_CONVERSATION_INGRESS_EGRESS_WITH_HRAIN_MEMORY_PROOF",
   "organ_key": "operator_hands",
   "terminal_repository": "Hawkar-usls/-Terminal-for-Janus",
   "home_repository": "Hawkar-usls/Hawkar-usls",
+  "hrain_repository": "Hawkar-usls/Hrain",
   "human_actor_v1": "Hawkar-usls",
   "request_schema": "janus.terminal.message.v1",
   "response_schema": "janus.terminal.response.v1",
   "authority_mode": "READ_ONLY_CONVERSATION",
+  "memory_path": "META_REGISTRY_DB -> HRAIN -> JANUS -> TERMINAL",
   "transport": {
     "request": "TERMINAL_LOCAL_WRITE_TO_PUBLIC_MAILBOX_THEN_HOME_CREDENTIALLESS_READ",
     "response": "HOME_LOCAL_WRITE_TO_PUBLIC_RESPONSE_MAILBOX_THEN_TERMINAL_CREDENTIALLESS_READ",
@@ -22,6 +24,28 @@
     "turn_id",
     "response_hash"
   ],
+  "memory_bound_response_proof": {
+    "response_mode": "MODEL_BOUND_HRAIN_MEMORY_CONVERSATION_PROOF",
+    "identity_extension": "hrain_context_hash",
+    "required": [
+      "hrain_context_bound",
+      "hrain_context_receipt_hash",
+      "hrain_context_hash",
+      "hrain_locked_head_sha",
+      "memory_source_commit",
+      "memory_selected_count",
+      "memory_selected_paths",
+      "memory_path",
+      "memory_retrieval_executed_by",
+      "meta_registry_access_performed_by_home",
+      "memory_content_is_command",
+      "memory_context_is_evidence",
+      "memory_grants_authority"
+    ],
+    "backward_compatible_with_legacy_responses": true,
+    "terminal_must_display_memory_provenance": true,
+    "memory_content_display_required": false
+  },
   "laws": [
     "TERMINAL_MESSAGE != COMMAND",
     "ISSUE_TEXT != COMMAND",
@@ -29,6 +53,12 @@
     "CONVERSATION != HUMAN_AUTHORIZED_WRITE",
     "TERMINAL_ACCESS != TRUTH_AUTHORITY",
     "JANUS_RESPONSE != WORLD_TRUTH",
+    "MEMORY_CONTENT != COMMAND",
+    "MEMORY_CONTEXT != EVIDENCE",
+    "MEMORY_PROVENANCE != MEMORY_AUTHORITY",
+    "HRAIN_CONTEXT_HASH_IS_RESPONSE_IDENTITY_FOR_MEMORY_BOUND_TURNS",
+    "TERMINAL_EGRESS_MUST_VERIFY_HRAIN_MEMORY_PROOF_BEFORE_RELAY",
+    "TERMINAL_EGRESS_MUST_REMAIN_BACKWARD_COMPATIBLE_WITH_LEGACY_SEALED_RESPONSES",
     "NO_BROWSER_TOKEN",
     "NO_CROSS_REPO_WRITE_TOKEN_REQUIRED_FOR_CONVERSATION",
     "LOCAL_TOKEN_WRITES_LOCAL_REPOSITORY_ONLY"

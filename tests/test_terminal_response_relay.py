@@ -2,7 +2,13 @@ from __future__ import annotations
 
 import copy
 
-from tools.terminal_response_relay import canonical_hash, markdown, verify_response
+from tools.terminal_response_relay import (
+    HRAIN_MEMORY_PATH,
+    HRAIN_MEMORY_RESPONSE_MODE,
+    canonical_hash,
+    markdown,
+    verify_response,
+)
 
 
 def response():
@@ -51,7 +57,49 @@ def response():
     return body
 
 
-def test_valid_response_is_admitted_for_local_terminal_relay():
+def hrain_response():
+    body = response()
+    body.pop("response_hash")
+    body.update({
+        "response_mode": HRAIN_MEMORY_RESPONSE_MODE,
+        "response_text": "JANUS ONLINE. HRAiN memory is bound.",
+        "hrain_context_bound": True,
+        "hrain_context_receipt_hash": "6" * 64,
+        "hrain_context_hash": "7" * 64,
+        "hrain_locked_head_sha": "8" * 40,
+        "memory_source_commit": "9" * 40,
+        "memory_selected_count": 2,
+        "memory_selected_paths": [
+            "data/JANUS-TRUMP.json",
+            "data/JANUS-HRAIN-FULL-MEMORY-CONTRACT-v1.0.json",
+        ],
+        "memory_path": HRAIN_MEMORY_PATH,
+        "memory_retrieval_executed_by": "Hawkar-usls/Hrain",
+        "meta_registry_access_performed_by_home": False,
+        "memory_content_is_command": False,
+        "memory_context_is_evidence": False,
+        "memory_grants_authority": False,
+    })
+    body["response_id"] = "tr-" + canonical_hash({
+        "request_message_hash": body["request_message_hash"],
+        "resident_uuid": body["resident_uuid"],
+        "model_digest": body["model_digest"],
+        "file_fabric_digest": body["file_fabric_digest"],
+        "turn_id": body["turn_id"],
+        "response_mode": body["response_mode"],
+        "hrain_context_hash": body["hrain_context_hash"],
+    })
+    body["response_hash"] = canonical_hash(body)
+    return body
+
+
+def reseal(value):
+    body = {k: v for k, v in value.items() if k != "response_hash"}
+    value["response_hash"] = canonical_hash(body)
+    return value
+
+
+def test_legacy_response_remains_admitted_for_local_terminal_relay():
     value = response()
     assert verify_response(value)
     text = markdown(value)
@@ -61,6 +109,38 @@ def test_valid_response_is_admitted_for_local_terminal_relay():
     assert value["file_fabric_digest"] in text
     assert value["turn_id"] in text
     assert f"JANUS_RESPONSE_ID:{value['response_id']}" in text
+    assert "HRAiN memory provenance" not in text
+
+
+def test_hrain_bound_response_is_admitted_and_provenanced():
+    value = hrain_response()
+    assert verify_response(value)
+    text = markdown(value)
+    assert "HRAiN memory provenance" in text
+    assert value["hrain_locked_head_sha"] in text
+    assert value["memory_source_commit"] in text
+    assert value["hrain_context_hash"] in text
+    assert value["hrain_context_receipt_hash"] in text
+    assert "selected_memory_count: `2`" in text
+    assert "memory context is evidence: `false`" in text
+    assert "memory grants authority: `false`" in text
+    for path in value["memory_selected_paths"]:
+        assert path in text
+
+
+def test_hrain_response_identity_must_include_context_hash():
+    value = hrain_response()
+    body = {k: v for k, v in value.items() if k not in {"response_hash", "response_id"}}
+    value["response_id"] = "tr-" + canonical_hash({
+        "request_message_hash": body["request_message_hash"],
+        "resident_uuid": body["resident_uuid"],
+        "model_digest": body["model_digest"],
+        "file_fabric_digest": body["file_fabric_digest"],
+        "turn_id": body["turn_id"],
+        "response_mode": body["response_mode"],
+    })
+    reseal(value)
+    assert verify_response(value) is False
 
 
 def test_tampered_response_never_reaches_terminal_issue():
@@ -71,16 +151,63 @@ def test_tampered_response_never_reaches_terminal_issue():
 
 
 def test_response_cannot_relay_effect_authority():
-    value = response()
-    bad = copy.deepcopy(value)
+    bad = copy.deepcopy(response())
     bad["external_effect_authorized"] = True
-    bad["response_hash"] = canonical_hash({k: v for k, v in bad.items() if k != "response_hash"})
+    reseal(bad)
+    assert verify_response(bad) is False
+
+
+def test_hrain_memory_cannot_relay_authority_escalation():
+    bad = copy.deepcopy(hrain_response())
+    bad["memory_grants_authority"] = True
+    reseal(bad)
+    assert verify_response(bad) is False
+
+
+def test_hrain_memory_cannot_become_command():
+    bad = copy.deepcopy(hrain_response())
+    bad["memory_content_is_command"] = True
+    reseal(bad)
+    assert verify_response(bad) is False
+
+
+def test_hrain_memory_cannot_become_evidence():
+    bad = copy.deepcopy(hrain_response())
+    bad["memory_context_is_evidence"] = True
+    reseal(bad)
+    assert verify_response(bad) is False
+
+
+def test_hrain_source_commit_tamper_is_rejected_even_when_resealed():
+    bad = copy.deepcopy(hrain_response())
+    bad["memory_source_commit"] = "not-a-commit"
+    reseal(bad)
+    assert verify_response(bad) is False
+
+
+def test_hrain_selected_memory_count_must_match_paths():
+    bad = copy.deepcopy(hrain_response())
+    bad["memory_selected_count"] = 3
+    reseal(bad)
+    assert verify_response(bad) is False
+
+
+def test_hrain_memory_path_cannot_bypass_hrain():
+    bad = copy.deepcopy(hrain_response())
+    bad["memory_path"] = "META_REGISTRY_DB -> TERMINAL"
+    reseal(bad)
+    assert verify_response(bad) is False
+
+
+def test_hrain_home_direct_registry_access_claim_is_rejected():
+    bad = copy.deepcopy(hrain_response())
+    bad["meta_registry_access_performed_by_home"] = True
+    reseal(bad)
     assert verify_response(bad) is False
 
 
 def test_non_issue_conversation_id_is_rejected():
-    value = response()
-    bad = copy.deepcopy(value)
+    bad = copy.deepcopy(response())
     bad["conversation_id"] = "freeform-channel"
-    bad["response_hash"] = canonical_hash({k: v for k, v in bad.items() if k != "response_hash"})
+    reseal(bad)
     assert verify_response(bad) is False

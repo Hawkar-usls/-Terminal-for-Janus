@@ -35,8 +35,29 @@ jobs:
         run: python -m pip install --disable-pip-version-check pytest
       - name: Compile response relay
         run: python -m compileall -q tools/terminal_response_relay.py tests/test_terminal_response_relay.py
-      - name: Validate Terminal conversation contract
-        run: python -m json.tool contracts/JANUS_TERMINAL_CONVERSATION_PLANE-v1.0.json >/dev/null
+      - name: Validate Terminal conversation and HRAiN response proof contract
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          c=json.loads(Path('contracts/JANUS_TERMINAL_CONVERSATION_PLANE-v1.0.json').read_text())
+          assert c['schema']=='janus.terminal.conversation_plane.v1'
+          assert c['status']=='READ_ONLY_CONVERSATION_INGRESS_EGRESS_WITH_HRAIN_MEMORY_PROOF'
+          assert c['memory_path']=='META_REGISTRY_DB -> HRAIN -> JANUS -> TERMINAL'
+          m=c['memory_bound_response_proof']
+          assert m['response_mode']=='MODEL_BOUND_HRAIN_MEMORY_CONVERSATION_PROOF'
+          assert m['identity_extension']=='hrain_context_hash'
+          assert m['backward_compatible_with_legacy_responses'] is True
+          assert m['terminal_must_display_memory_provenance'] is True
+          assert m['memory_content_display_required'] is False
+          required=set(m['required'])
+          assert {'hrain_context_hash','hrain_locked_head_sha','memory_source_commit','memory_selected_paths'}.issubset(required)
+          laws=set(c['laws'])
+          assert 'MEMORY_CONTENT != COMMAND' in laws
+          assert 'MEMORY_CONTEXT != EVIDENCE' in laws
+          assert 'TERMINAL_EGRESS_MUST_VERIFY_HRAIN_MEMORY_PROOF_BEFORE_RELAY' in laws
+          print('TERMINAL_HRAIN_RESPONSE_PROOF_CONTRACT=PASS')
+          PY
       - name: Run response relay adversarial tests
         env:
           PYTHONPATH: .
@@ -104,6 +125,9 @@ jobs:
           print('response_id=' + str(value.get('response_id') or ''))
           print('response_hash=' + str(value.get('response_hash') or ''))
           print('issue_number=' + str(value.get('issue_number') or ''))
+          print('hrain_context_bound=' + ('true' if value.get('hrain_context_bound') is True else 'false'))
+          print('hrain_context_hash=' + str(value.get('hrain_context_hash') or ''))
+          print('memory_source_commit=' + str(value.get('memory_source_commit') or ''))
           PY
 
       - name: No response is waiting
@@ -150,14 +174,20 @@ jobs:
             RESPONSE_ID='${{ steps.pull.outputs.response_id }}' \
             RESPONSE_HASH='${{ steps.pull.outputs.response_hash }}' \
             ISSUE_NUMBER='${{ steps.pull.outputs.issue_number }}' \
+            HRAIN_CONTEXT_BOUND='${{ steps.pull.outputs.hrain_context_bound }}' \
+            HRAIN_CONTEXT_HASH='${{ steps.pull.outputs.hrain_context_hash }}' \
+            MEMORY_SOURCE_COMMIT='${{ steps.pull.outputs.memory_source_commit }}' \
             python - <<'PY' > "$target"
           import json, os, time
           print(json.dumps({
-            'schema':'janus.terminal.relay_receipt.v1',
+            'schema':'janus.terminal.relay_receipt.v1.1',
             'response_id':os.environ['RESPONSE_ID'],
             'response_hash':os.environ['RESPONSE_HASH'],
             'issue_number':int(os.environ['ISSUE_NUMBER']),
             'issue_comment_confirmed':True,
+            'hrain_context_bound':os.environ.get('HRAIN_CONTEXT_BOUND')=='true',
+            'hrain_context_hash':os.environ.get('HRAIN_CONTEXT_HASH') or None,
+            'memory_source_commit':os.environ.get('MEMORY_SOURCE_COMMIT') or None,
             'relayed_at':time.time(),
             'credentialless_home_read':True,
             'cross_repo_write_credential_used':False,

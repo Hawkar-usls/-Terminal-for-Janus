@@ -16,7 +16,6 @@
   };
 
   const $ = (id) => document.getElementById(id);
-  const q = (sel) => document.querySelector(sel);
   const qa = (sel) => [...document.querySelectorAll(sel)];
 
   function short(value, n = 12) {
@@ -49,12 +48,12 @@
 
   function extractProof(body) {
     const proof = {};
-    const keys = ['resident_uuid', 'model_digest', 'file_fabric_digest', 'turn_id', 'response_hash'];
-    for (const key of keys) {
-      const m = body.match(new RegExp(`- ${key}: \\`([^\\`]+)\\``));
-      if (m) proof[key] = m[1];
+    const allowed = new Set(['resident_uuid', 'model_digest', 'file_fabric_digest', 'turn_id', 'response_hash']);
+    for (const line of String(body || '').split('\n')) {
+      const m = line.match(/^- ([a-z_]+): `([^`]+)`\s*$/);
+      if (m && allowed.has(m[1])) proof[m[1]] = m[2];
     }
-    const rid = body.match(/JANUS_RESPONSE_ID:([^\s>]+)/);
+    const rid = String(body || '').match(/JANUS_RESPONSE_ID:([^\s>]+)/);
     if (rid) proof.response_id = rid[1];
     return proof;
   }
@@ -80,6 +79,8 @@
     const issues = await fetchJson(`${TERMINAL_API}/issues?state=all&sort=updated&direction=desc&per_page=30`);
     const issue = issues.find((item) => !item.pull_request && String(item.title || '').startsWith('[JANUS CHAT]'));
     state.issue = issue || null;
+    state.response = null;
+    state.proof = {};
     if (!issue) return;
     const comments = await fetchJson(`${TERMINAL_API}/issues/${issue.number}/comments?per_page=100`);
     const response = [...comments].reverse().find((c) => String(c.body || '').includes('JANUS_RESPONSE_ID:'));
@@ -102,13 +103,18 @@
     const turn = state.proof.turn_id || '—';
     const responseHash = state.proof.response_hash || '—';
 
-    setText('core-mode', mode);
     setText('resident-short', short(resident, 8));
-    setText('resident-full', resident);
-    setText('model-digest', model);
-    setText('fabric-digest', fabric);
-    setText('turn-id', turn);
-    setText('response-hash', responseHash);
+    setText('organism-resident', resident);
+    setText('organism-mode', mode);
+    setText('organism-model', model);
+    setText('organism-fabric', fabric);
+    setText('proof-turn-id', turn);
+    setText('proof-response-hash', responseHash);
+    setText('side-resident', resident);
+    setText('side-model', model);
+    setText('side-fabric', fabric);
+    setText('side-turn', turn);
+    setText('side-response', responseHash);
     setText('issue-number', state.issue ? `#${state.issue.number}` : '—');
     setText('last-refresh', state.refreshedAt ? state.refreshedAt.toLocaleTimeString() : '—');
 
@@ -162,6 +168,7 @@
       response_hash: state.proof.response_hash || null,
       response_id: state.proof.response_id || null,
       terminal_issue: state.issue?.number || null,
+      memory_path: ['JANUS_META_REGISTRY_DB', 'REGISTRY_PROJECTION', 'HRAIN_STRUCTURAL_GRAPH', 'TERMINAL_MEMORY_VIEW'],
       authority: {
         conversation: 'READ_ONLY_CONVERSATION',
         command_authority_granted: false,
@@ -178,7 +185,7 @@
     setText('current-view', name.toUpperCase());
     if (name === 'memory') {
       const frame = $('hrain-frame');
-      if (frame && !frame.src) frame.src = HRAIN_MEMORY;
+      if (frame && !frame.getAttribute('src')) frame.setAttribute('src', HRAIN_MEMORY);
     }
   }
 
@@ -209,11 +216,8 @@
   }
 
   function openLatestIssue() {
-    if (state.issue) {
-      window.open(state.issue.html_url, '_blank', 'noopener,noreferrer');
-    } else {
-      window.open(`${TERMINAL_REPO}/issues`, '_blank', 'noopener,noreferrer');
-    }
+    if (state.issue) window.open(state.issue.html_url, '_blank', 'noopener,noreferrer');
+    else window.open(`${TERMINAL_REPO}/issues`, '_blank', 'noopener,noreferrer');
   }
 
   async function refresh() {
@@ -227,9 +231,10 @@
       renderProvenance();
     } catch (err) {
       console.warn('JANUS_TERMINAL_REFRESH_UNRESOLVED', err);
-      setText('core-mode', 'UNRESOLVED');
+      const corePill = $('core-pill');
+      if (corePill) corePill.innerHTML = '<span class="dot"></span>UNRESOLVED';
       const box = $('transcript');
-      if (box) box.insertAdjacentHTML('beforeend', `<div class="line"><span class="tag">[NET]</span><span class="body">Public GitHub read unresolved. Silence is not negative evidence.</span></div>`);
+      if (box) box.insertAdjacentHTML('beforeend', '<div class="line"><span class="tag">[NET]</span><span class="body">Public GitHub read unresolved. Silence is not negative evidence.</span></div>');
     } finally {
       btn?.classList.remove('loading-shimmer');
     }

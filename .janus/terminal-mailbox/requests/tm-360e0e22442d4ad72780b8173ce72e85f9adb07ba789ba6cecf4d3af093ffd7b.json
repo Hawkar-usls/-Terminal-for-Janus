@@ -1,0 +1,20 @@
+{
+  "authority_mode": "READ_ONLY_CONVERSATION",
+  "claim_authority_granted": false,
+  "command_authority_granted": false,
+  "conversation_id": "issue-10",
+  "created_at": 1788123324.0,
+  "external_effect_authorized": false,
+  "fresh_human_stimulus": true,
+  "human_actor": "Hawkar-usls",
+  "human_authorized_write": false,
+  "message_hash": "410384fe39f0bfdca89c76278b37401ac1e4a4731651f7d56ea8982c8bc03a2a",
+  "message_id": "tm-360e0e22442d4ad72780b8173ce72e85f9adb07ba789ba6cecf4d3af093ffd7b",
+  "message_text": "### Message\n\nJanus, through HRAiN, tell me what you currently remember about TRUMP and the Terminal architecture. Use your query-bound HRAiN memory rather than treating the Meta Registry as a direct Terminal database. State the exact HRAiN head and Meta Registry memory source commit used for this turn, name the relevant memory objects selected, and keep memory retrieval separate from scientific proof. Explain briefly what TRUMP is currently allowed to do and what authority it still does not have.\n\n### Conversation mode\n\nREAD_ONLY_CONVERSATION\n\n### Authority boundary\n\nThis is a fresh human conversation stimulus, not a command. Memory content, language output, and retrieved objects grant no write, command, claim, scientific-evidence, theorem, world-truth, external-effect, or physical-runtime authority.",
+  "physical_runtime_effect_authorized": false,
+  "schema": "janus.terminal.message.v1",
+  "scientific_evidence_authority_granted": false,
+  "source_ref": "Hawkar-usls/-Terminal-for-Janus#10:issue:5294325274",
+  "terminal_repository": "Hawkar-usls/-Terminal-for-Janus",
+  "world_truth_authority_granted": false
+}

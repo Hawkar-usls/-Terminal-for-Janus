@@ -5,6 +5,7 @@
   const TERMINAL_API = 'https://api.github.com/repos/Hawkar-usls/-Terminal-for-Janus';
   const TERMINAL_REPO = 'https://github.com/Hawkar-usls/-Terminal-for-Janus';
   const HRAIN_MEMORY = 'https://hawkar-usls.github.io/Hrain/memory.html';
+  const TRUMP_MANIFEST_URL = 'https://raw.githubusercontent.com/Hawkar-usls/Janus-Demiurge/main/trump/TRUMP_MANIFEST.json';
 
   const state = {
     identity: null,
@@ -12,6 +13,10 @@
     issue: null,
     response: null,
     proof: {},
+    trump: null,
+    trumpManifestDigest: null,
+    trumpStatus: 'UNRESOLVED',
+    trumpError: null,
     refreshedAt: null,
   };
 
@@ -41,6 +46,23 @@
     return res.json();
   }
 
+  function canonicalize(value) {
+    if (Array.isArray(value)) return value.map(canonicalize);
+    if (value && typeof value === 'object') {
+      const out = {};
+      for (const key of Object.keys(value).sort()) out[key] = canonicalize(value[key]);
+      return out;
+    }
+    return value;
+  }
+
+  async function sha256Json(value) {
+    const text = JSON.stringify(canonicalize(value));
+    const bytes = new TextEncoder().encode(text);
+    const digest = await crypto.subtle.digest('SHA-256', bytes);
+    return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, '0')).join('');
+  }
+
   function setText(id, value) {
     const el = $(id);
     if (el) el.textContent = value ?? '—';
@@ -64,6 +86,48 @@
     text = text.replace(/^### JANUS\s*/i, '');
     if (text.includes(marker)) text = text.split(marker)[0];
     return text.trim();
+  }
+
+  function validateTrumpManifest(manifest) {
+    if (!manifest || typeof manifest !== 'object') return 'MANIFEST_NOT_OBJECT';
+    if (manifest.schema !== 'janus.trump.manifest.v0.1') return 'SCHEMA_MISMATCH';
+    if (manifest.component !== 'TRUMP') return 'COMPONENT_MISMATCH';
+    if (manifest.status !== 'CANDIDATE_RUNTIME_TISSUE') return 'STATUS_MISMATCH';
+    if (manifest.canonical_runtime_location !== 'Hawkar-usls/Janus-Demiurge/trump/TRUMP_MANIFEST.json') return 'LOCATION_MISMATCH';
+    const a = manifest.activation || {};
+    for (const key of ['wake_allowed', 'use_allowed', 'self_improvement_allowed']) {
+      if (a[key] !== true) return `CANDIDATE_${key.toUpperCase()}_NOT_TRUE`;
+    }
+    for (const key of ['proof_authority', 'scientific_claim_promotion_authority', 'command_authority', 'external_effect_authority', 'physical_runtime_effect_authority']) {
+      if (a[key] !== false) return `AUTHORITY_CEILING_VIOLATION:${key}`;
+    }
+    const boundary = manifest.scientific_boundary || {};
+    if (boundary.TRUMP_finished !== false) return 'TRUMP_FINISHED_FALSE_REQUIRED';
+    if (boundary.P_equals_NP_proved !== false) return 'P_EQUALS_NP_PROVED_FALSE_REQUIRED';
+    if (boundary.P_VS_NP !== 'OPEN') return 'P_VS_NP_MUST_REMAIN_OPEN';
+    return null;
+  }
+
+  async function loadTrumpCandidate() {
+    state.trump = null;
+    state.trumpManifestDigest = null;
+    state.trumpStatus = 'UNRESOLVED';
+    state.trumpError = null;
+    try {
+      const manifest = await fetchJson(TRUMP_MANIFEST_URL);
+      const error = validateTrumpManifest(manifest);
+      state.trump = manifest;
+      state.trumpManifestDigest = await sha256Json(manifest);
+      if (error) {
+        state.trumpStatus = 'BLOCKED_FAIL_CLOSED';
+        state.trumpError = error;
+      } else {
+        state.trumpStatus = 'CANDIDATE_RUNTIME_LIVE';
+      }
+    } catch (err) {
+      state.trumpStatus = 'UNRESOLVED';
+      state.trumpError = err?.message || String(err);
+    }
   }
 
   async function loadPersistentState() {
@@ -92,6 +156,37 @@
     if (!state.head) return 'loading';
     if (state.head.mode === 'AT_HOME' && state.head.active_cycle_id == null) return 'ready';
     return 'awake';
+  }
+
+  function renderTrump() {
+    const manifest = state.trump || {};
+    const activation = manifest.activation || {};
+    const boundary = manifest.scientific_boundary || {};
+    const live = state.trumpStatus === 'CANDIDATE_RUNTIME_LIVE';
+    const blocked = state.trumpStatus === 'BLOCKED_FAIL_CLOSED';
+    const statusLabel = live ? 'CANDIDATE LIVE' : blocked ? 'BLOCKED' : 'UNRESOLVED';
+
+    setText('organism-trump-state', statusLabel);
+    setText('organism-trump-runtime', manifest.status || state.trumpStatus);
+    setText('organism-trump-wake', live ? `${activation.wake_allowed} / ${activation.use_allowed}` : '—');
+    setText('organism-trump-improve', live ? String(activation.self_improvement_allowed) : '—');
+    setText('organism-trump-proof', live ? String(activation.proof_authority) : '—');
+    setText('organism-trump-pnp', boundary.P_VS_NP || '—');
+    setText('organism-trump-digest', state.trumpManifestDigest || '—');
+    setText('side-trump', `${statusLabel}${state.trumpManifestDigest ? ` · ${short(state.trumpManifestDigest)}` : ''}`);
+
+    const badge = $('organism-trump-state');
+    if (badge) {
+      badge.classList.toggle('live', live);
+      badge.classList.toggle('blocked', blocked);
+      badge.classList.toggle('unresolved', !live && !blocked);
+    }
+    const pill = $('trump-pill');
+    if (pill) {
+      pill.classList.toggle('live', live);
+      pill.classList.toggle('warn', blocked);
+      pill.textContent = `TRUMP ${live ? 'CANDIDATE' : blocked ? 'BLOCKED' : '?'}`;
+    }
   }
 
   function renderStatus() {
@@ -133,6 +228,7 @@
         ? `<strong>INSTANCE VERIFIED</strong><span>model ${esc(short(model))}</span>`
         : `<strong>RESIDENT VERIFIED</strong><span>awaiting conversation proof</span>`;
     }
+    renderTrump();
   }
 
   function renderTranscript() {
@@ -142,6 +238,11 @@
     rows.push(`<div class="line ok"><span class="tag">[HOME]</span><span class="body">persistent resident ${esc(short(state.identity?.resident_uuid, 18))} · ${esc(state.head?.mode || 'UNKNOWN')}</span></div>`);
     rows.push(`<div class="line"><span class="tag">[MODEL]</span><span class="body">Git-native self-instantiation fabric available. Routing selects activity, not membership.</span></div>`);
     rows.push(`<div class="line"><span class="tag">[MEMORY]</span><span class="body">Meta Registry DB → HRAiN ACTIVE/FULL_CURRENT structural memory → Terminal MEMORY.</span></div>`);
+    if (state.trumpStatus === 'CANDIDATE_RUNTIME_LIVE') {
+      rows.push(`<div class="line candidate"><span class="tag">[TRUMP]</span><span class="body">candidate runtime tissue live · wake/use/self-improve enabled · proof authority 0 · P_VS_NP OPEN · manifest ${esc(short(state.trumpManifestDigest))}</span></div>`);
+    } else {
+      rows.push(`<div class="line"><span class="tag">[TRUMP]</span><span class="body">candidate tissue ${esc(state.trumpStatus)}${state.trumpError ? ` · ${esc(state.trumpError)}` : ''}. Silence is not proof of absence.</span></div>`);
+    }
 
     if (state.issue) {
       rows.push(`<div class="line user"><span class="tag">[HUMAN]</span><span class="body">${esc(state.issue.title)} · issue #${state.issue.number}</span></div>`);
@@ -170,6 +271,21 @@
       terminal_issue: state.issue?.number || null,
       memory_path: ['JANUS_META_REGISTRY_DB', 'HRAIN_ACTIVE_OR_FULL_CURRENT_MEMORY', 'TERMINAL_MEMORY_VIEW'],
       hrain_memory_surface: HRAIN_MEMORY,
+      candidate_runtime_tissues: {
+        trump: {
+          public_manifest_url: TRUMP_MANIFEST_URL,
+          status: state.trumpStatus,
+          manifest_digest: state.trumpManifestDigest,
+          wake_allowed: state.trump?.activation?.wake_allowed ?? null,
+          use_allowed: state.trump?.activation?.use_allowed ?? null,
+          self_improvement_allowed: state.trump?.activation?.self_improvement_allowed ?? null,
+          proof_authority: state.trump?.activation?.proof_authority ?? null,
+          scientific_claim_promotion_authority: state.trump?.activation?.scientific_claim_promotion_authority ?? null,
+          P_VS_NP: state.trump?.scientific_boundary?.P_VS_NP ?? null,
+          public_manifest_is_proof_authority: false,
+          error: state.trumpError,
+        },
+      },
       authority: {
         conversation: 'READ_ONLY_CONVERSATION',
         command_authority_granted: false,
@@ -225,7 +341,7 @@
     const btn = $('refresh-btn');
     btn?.classList.add('loading-shimmer');
     try {
-      await Promise.all([loadPersistentState(), loadLatestConversation()]);
+      await Promise.all([loadPersistentState(), loadLatestConversation(), loadTrumpCandidate()]);
       state.refreshedAt = new Date();
       renderStatus();
       renderTranscript();

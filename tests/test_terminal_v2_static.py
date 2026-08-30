@@ -57,8 +57,42 @@ def test_html_has_no_duplicate_ids():
     assert duplicates == []
 
 
-def test_terminal_v2_contract_is_fail_closed():
+def test_terminal_v22_reads_trump_runtime_status_without_treating_it_as_proof():
+    html = (ROOT / "index.html").read_text(encoding="utf-8")
+    js = (ROOT / "assets/terminal-v2.js").read_text(encoding="utf-8")
+    url = "https://raw.githubusercontent.com/Hawkar-usls/Janus-Demiurge/main/trump/TRUMP_MANIFEST.json"
+    assert url in js
+    assert "CANDIDATE_RUNTIME_TISSUE" in js
+    assert "CANDIDATE_RUNTIME_LIVE" in js
+    assert "proof_authority" in js
+    assert "scientific_claim_promotion_authority" in js
+    assert "public_manifest_is_proof_authority: false" in js
+    assert "P_VS_NP" in js
+    for element_id in (
+        "trump-pill",
+        "organism-trump-state",
+        "organism-trump-runtime",
+        "organism-trump-wake",
+        "organism-trump-improve",
+        "organism-trump-proof",
+        "organism-trump-pnp",
+        "organism-trump-digest",
+        "side-trump",
+    ):
+        assert f'id="{element_id}"' in html
+
+
+def test_trump_failure_is_unresolved_or_blocked_not_silent_success():
+    js = (ROOT / "assets/terminal-v2.js").read_text(encoding="utf-8")
+    assert "BLOCKED_FAIL_CLOSED" in js
+    assert "UNRESOLVED" in js
+    assert "Silence is not proof of absence" in js
+    assert "AUTHORITY_CEILING_VIOLATION" in js
+
+
+def test_terminal_v22_contract_is_fail_closed():
     contract = json.loads((ROOT / ".janus/TERMINAL_V2_HRAIN_MEMORY_CONTRACT.json").read_text(encoding="utf-8"))
+    assert contract["schema"] == "janus.terminal.hrain_memory_contract.v2.2"
     memory = contract["memory_dataflow"]
     assert memory["source_database"] == "Hawkar-usls/janus-meta-registry"
     assert memory["structural_memory_organ"] == "Hawkar-usls/Hrain"
@@ -66,8 +100,20 @@ def test_terminal_v2_contract_is_fail_closed():
     assert memory["terminal_memory_surface"] == "https://hawkar-usls.github.io/Hrain/memory.html"
     assert memory["historical_lineage_included"] is False
     assert "FULL_CURRENT_MEMORY_MANIFEST" in memory["hrain_consumes"]
+    candidate = contract["candidate_tissue_readout"]
+    assert candidate["component"] == "TRUMP"
+    assert candidate["source_repository"] == "Hawkar-usls/Janus-Demiurge"
+    assert candidate["manifest_path"] == "trump/TRUMP_MANIFEST.json"
+    assert candidate["wake_allowed"] is True
+    assert candidate["use_allowed"] is True
+    assert candidate["self_improvement_allowed"] is True
+    assert candidate["proof_authority"] is False
+    assert candidate["scientific_claim_promotion_authority"] is False
+    assert candidate["public_manifest_is_proof_authority"] is False
+    assert candidate["P_VS_NP"] == "OPEN"
     assert contract["conversation"]["browser_secret_required"] is False
     assert contract["conversation"]["local_network_scan_required"] is False
     assert contract["conversation"]["command_authority_granted_by_message"] is False
     assert "FULL_CURRENT != COMPLETE_GIT_HISTORY" in contract["laws"]
     assert "CANDIDATE_TRUMP != PROOF_AUTHORIZED_TRUMP" in contract["laws"]
+    assert "TRUMP_WAKE != THEOREM_AUTHORITY" in contract["laws"]

@@ -21,7 +21,7 @@
     <div class="path mono">HOME / <b id="current-view">CONSOLE</b></div>
     <div class="top-proof">
       <span class="pill">RESIDENT <span id="resident-short">…</span></span>
-      <span id="core-pill" class="pill"><span class="dot"></span><span id="core-mode">LOADING</span></span>
+      <span id="core-pill" class="pill"><span class="dot"></span>LOADING</span>
     </div>
   </header>
 
@@ -78,22 +78,10 @@
 
       <section id="view-organism" class="view cards-view">
         <div class="cards-grid">
-          <article class="card">
-            <h3>Persistent identity</h3>
-            <div id="resident-full" class="datum big">resolving…</div>
-          </article>
-          <article class="card">
-            <h3>Lifecycle</h3>
-            <div id="core-mode" class="datum big">resolving…</div>
-          </article>
-          <article class="card wide">
-            <h3>Model digest</h3>
-            <div id="model-digest" class="datum">—</div>
-          </article>
-          <article class="card wide">
-            <h3>Polyglot file-fabric digest</h3>
-            <div id="fabric-digest" class="datum">—</div>
-          </article>
+          <article class="card"><h3>Persistent identity</h3><div id="organism-resident" class="datum big">resolving…</div></article>
+          <article class="card"><h3>Lifecycle</h3><div id="organism-mode" class="datum big">resolving…</div></article>
+          <article class="card wide"><h3>Model digest</h3><div id="organism-model" class="datum">—</div></article>
+          <article class="card wide"><h3>Polyglot file-fabric digest</h3><div id="organism-fabric" class="datum">—</div></article>
           <article class="card wide">
             <h3>Organism laws</h3>
             <div class="law">ROUTING SELECTS ACTIVITY, NOT MEMBERSHIP</div>
@@ -107,37 +95,22 @@
 
       <section id="view-provenance" class="view cards-view">
         <div class="cards-grid">
-          <article class="card">
-            <h3>Last Terminal issue</h3>
-            <div id="issue-number" class="datum big">—</div>
-          </article>
-          <article class="card">
-            <h3>Last refresh</h3>
-            <div id="last-refresh" class="datum big">—</div>
-          </article>
-          <article class="card wide">
-            <h3>Turn ID</h3>
-            <div id="turn-id" class="datum">—</div>
-          </article>
-          <article class="card wide">
-            <h3>Response hash</h3>
-            <div id="response-hash" class="datum">—</div>
-          </article>
-          <article class="card wide">
-            <h3>Sealed public readout</h3>
-            <pre id="provenance-json" class="datum">resolving…</pre>
-          </article>
+          <article class="card"><h3>Last Terminal issue</h3><div id="issue-number" class="datum big">—</div></article>
+          <article class="card"><h3>Last refresh</h3><div id="last-refresh" class="datum big">—</div></article>
+          <article class="card wide"><h3>Turn ID</h3><div id="proof-turn-id" class="datum">—</div></article>
+          <article class="card wide"><h3>Response hash</h3><div id="proof-response-hash" class="datum">—</div></article>
+          <article class="card wide"><h3>Sealed public readout</h3><pre id="provenance-json" class="datum">resolving…</pre></article>
         </div>
       </section>
     </main>
 
     <aside class="inspector">
       <h2>INSTANCE PROOF</h2>
-      <div class="metric"><label>resident_uuid</label><div id="resident-full" class="good">resolving…</div></div>
-      <div class="metric"><label>model_digest</label><div id="model-digest">—</div></div>
-      <div class="metric"><label>file_fabric_digest</label><div id="fabric-digest">—</div></div>
-      <div class="metric"><label>turn_id</label><div id="turn-id">—</div></div>
-      <div class="metric"><label>response_hash</label><div id="response-hash">—</div></div>
+      <div class="metric"><label>resident_uuid</label><div id="side-resident" class="good">resolving…</div></div>
+      <div class="metric"><label>model_digest</label><div id="side-model">—</div></div>
+      <div class="metric"><label>file_fabric_digest</label><div id="side-fabric">—</div></div>
+      <div class="metric"><label>turn_id</label><div id="side-turn">—</div></div>
+      <div class="metric"><label>response_hash</label><div id="side-response">—</div></div>
       <div class="route">
         <div class="route-title">MEMORY DATAFLOW</div>
         <div class="route-step"><b>01</b> Meta Registry / DB</div>

@@ -1,6 +1,6 @@
 {
-  "schema": "janus.terminal.hrain_memory_contract.v2.1",
-  "status": "GIT_NATIVE_TERMINAL_WITH_HRAIN_MEDIATED_ACTIVE_AND_FULL_CURRENT_MEMORY",
+  "schema": "janus.terminal.hrain_memory_contract.v2.2",
+  "status": "GIT_NATIVE_TERMINAL_WITH_HRAIN_MEMORY_AND_CANDIDATE_TISSUE_READOUT",
   "terminal_repository": "Hawkar-usls/-Terminal-for-Janus",
   "pages_surface": "https://hawkar-usls.github.io/-Terminal-for-Janus/",
   "conversation": {
@@ -32,6 +32,26 @@
       "TERMINAL_MEMORY_VIEW"
     ]
   },
+  "candidate_tissue_readout": {
+    "component": "TRUMP",
+    "source_repository": "Hawkar-usls/Janus-Demiurge",
+    "manifest_path": "trump/TRUMP_MANIFEST.json",
+    "public_manifest_url": "https://raw.githubusercontent.com/Hawkar-usls/Janus-Demiurge/main/trump/TRUMP_MANIFEST.json",
+    "terminal_reads_candidate_manifest_directly": true,
+    "reason": "organ runtime status is not Meta Registry memory and does not bypass HRAiN memory mediation",
+    "expected_status": "CANDIDATE_RUNTIME_TISSUE",
+    "wake_allowed": true,
+    "use_allowed": true,
+    "self_improvement_allowed": true,
+    "proof_authority": false,
+    "scientific_claim_promotion_authority": false,
+    "command_authority": false,
+    "external_effect_authority": false,
+    "physical_runtime_effect_authority": false,
+    "P_VS_NP": "OPEN",
+    "public_manifest_is_proof_authority": false,
+    "ui_failure_semantics": "UNRESOLVED_NOT_NEGATIVE_EVIDENCE"
+  },
   "proof_readout": {
     "required_when_available": [
       "resident_uuid",
@@ -55,7 +75,9 @@
     "FULL_CURRENT != COMPLETE_GIT_HISTORY",
     "HRAIN_GRAPH != REGISTRY_AUTHORITY",
     "CATALOG_PRESENCE != SCIENTIFIC_VALIDITY",
-    "RETURN != RESET",
-    "CANDIDATE_TRUMP != PROOF_AUTHORIZED_TRUMP"
+    "CANDIDATE_TRUMP != PROOF_AUTHORIZED_TRUMP",
+    "TRUMP_WAKE != THEOREM_AUTHORITY",
+    "TRUMP_PUBLIC_MANIFEST != PROOF_AUTHORITY",
+    "RETURN != RESET"
   ]
 }

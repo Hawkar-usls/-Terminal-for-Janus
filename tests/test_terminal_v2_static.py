@@ -27,9 +27,9 @@ def test_terminal_v2_replaces_legacy_port_scanner():
         assert forbidden not in combined
 
 
-def test_terminal_memory_is_hrain_mediated_not_direct_registry_fetch():
+def test_terminal_memory_is_full_hrain_mediated_not_direct_registry_fetch():
     js = (ROOT / "assets/terminal-v2.js").read_text(encoding="utf-8")
-    assert "https://hawkar-usls.github.io/Hrain/janus.html" in js
+    assert "https://hawkar-usls.github.io/Hrain/memory.html" in js
     assert "https://hawkar-usls.github.io/janus-meta-registry/" not in js
     assert "raw.githubusercontent.com/Hawkar-usls/janus-meta-registry" not in js
 
@@ -59,10 +59,15 @@ def test_html_has_no_duplicate_ids():
 
 def test_terminal_v2_contract_is_fail_closed():
     contract = json.loads((ROOT / ".janus/TERMINAL_V2_HRAIN_MEMORY_CONTRACT.json").read_text(encoding="utf-8"))
-    assert contract["memory_dataflow"]["source_database"] == "Hawkar-usls/janus-meta-registry"
-    assert contract["memory_dataflow"]["structural_memory_organ"] == "Hawkar-usls/Hrain"
-    assert contract["memory_dataflow"]["terminal_consumes_registry_directly"] is False
+    memory = contract["memory_dataflow"]
+    assert memory["source_database"] == "Hawkar-usls/janus-meta-registry"
+    assert memory["structural_memory_organ"] == "Hawkar-usls/Hrain"
+    assert memory["terminal_consumes_registry_directly"] is False
+    assert memory["terminal_memory_surface"] == "https://hawkar-usls.github.io/Hrain/memory.html"
+    assert memory["historical_lineage_included"] is False
+    assert "FULL_CURRENT_MEMORY_MANIFEST" in memory["hrain_consumes"]
     assert contract["conversation"]["browser_secret_required"] is False
     assert contract["conversation"]["local_network_scan_required"] is False
     assert contract["conversation"]["command_authority_granted_by_message"] is False
+    assert "FULL_CURRENT != COMPLETE_GIT_HISTORY" in contract["laws"]
     assert "CANDIDATE_TRUMP != PROOF_AUTHORIZED_TRUMP" in contract["laws"]

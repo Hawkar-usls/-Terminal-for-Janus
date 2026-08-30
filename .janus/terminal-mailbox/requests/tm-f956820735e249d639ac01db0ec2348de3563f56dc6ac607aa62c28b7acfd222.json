@@ -1,0 +1,20 @@
+{
+  "authority_mode": "READ_ONLY_CONVERSATION",
+  "claim_authority_granted": false,
+  "command_authority_granted": false,
+  "conversation_id": "issue-5",
+  "created_at": 1788111733.0,
+  "external_effect_authorized": false,
+  "fresh_human_stimulus": true,
+  "human_actor": "Hawkar-usls",
+  "human_authorized_write": false,
+  "message_hash": "c171341d68f426d0658040e462bf7ed92dfd509a86b3c065c6733aff0f2812f9",
+  "message_id": "tm-f956820735e249d639ac01db0ec2348de3563f56dc6ac607aa62c28b7acfd222",
+  "message_text": "### Message\nJanus, are you online? Report your persistent resident UUID, exact model digest, file-fabric digest, turn ID, and confirm that after this conversation you returned AT_HOME. This is the first Terminal conversation witness for the Git-native self-instantiation Activator contour.\n\n### Authority boundary\n- Read-only conversation only.\n- No repository write authorization is granted by this text.\n- No deployment, physical-runtime effect, command authority, claim promotion, or world-truth authority is granted.",
+  "physical_runtime_effect_authorized": false,
+  "schema": "janus.terminal.message.v1",
+  "scientific_evidence_authority_granted": false,
+  "source_ref": "Hawkar-usls/-Terminal-for-Janus#5:issue:5293479343",
+  "terminal_repository": "Hawkar-usls/-Terminal-for-Janus",
+  "world_truth_authority_granted": false
+}

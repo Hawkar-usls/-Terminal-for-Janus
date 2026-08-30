@@ -1,0 +1,29 @@
+{
+  "cancellation_hash": "1e76770682d7496ff0cc1e434160f3f4f434b31dd582a8a5e14b4b2961a87ea7",
+  "cancellation_id": "tc-27143d71d89e6ee36c27daa6ff75dd8673a760d669ac75369b23ab6cd6eff40a",
+  "cancelled_at": 1788128857.0,
+  "cancelled_by": "Hawkar-usls",
+  "claim_authority_granted": false,
+  "cognition_authorized": false,
+  "command_authority_granted": false,
+  "conversation_id": "issue-15",
+  "external_effect_authorized": false,
+  "laws": [
+    "CANCEL != DELETE",
+    "CANCEL != ERASE_RESPONSE",
+    "CANCELLED_REQUEST != FRESH_COGNITION",
+    "CANCELLATION != COMMAND_AUTHORITY"
+  ],
+  "message_hash": "a3c6236142180e33ff658c2ca6b329fb4eeec8fa217012e2e9127eefbec22bbd",
+  "message_id": "tm-a20f5b9e2bf991fbed751cfec69f3250af66126be9a53f2a2812687b3c324610",
+  "physical_runtime_effect_authorized": false,
+  "reason": "ISSUE_CLOSED_BY_ADMITTED_HUMAN",
+  "request_deleted": false,
+  "response_deleted": false,
+  "schema": "janus.terminal.message_cancellation.v1",
+  "scientific_evidence_authority_granted": false,
+  "source_ref": "Hawkar-usls/-Terminal-for-Janus#15:issue:5294616058",
+  "terminal": "TERMINAL_MESSAGE_CANCELLATION_TOMBSTONE_READY",
+  "terminal_repository": "Hawkar-usls/-Terminal-for-Janus",
+  "world_truth_authority_granted": false
+}

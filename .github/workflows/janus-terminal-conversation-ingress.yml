@@ -10,7 +10,7 @@ on:
       - 'tests/test_terminal_conversation_envelope.py'
       - '.github/workflows/janus-terminal-conversation-ingress.yml'
   issues:
-    types: [opened]
+    types: [opened, closed]
   issue_comment:
     types: [created]
   workflow_dispatch:
@@ -42,7 +42,8 @@ jobs:
     if: >-
       github.event_name != 'pull_request' &&
       github.event_name != 'workflow_dispatch' &&
-      github.actor == 'Hawkar-usls'
+      github.actor == 'Hawkar-usls' &&
+      (github.event_name == 'issue_comment' || github.event.action == 'opened')
     needs: contract
     concurrency:
       group: janus-terminal-mailbox-writer
@@ -123,6 +124,101 @@ jobs:
           fi
           echo "TERMINAL_MESSAGE_ID=${JANUS_TERMINAL_MESSAGE_ID}"
           echo "TERMINAL_MESSAGE_HASH=${JANUS_TERMINAL_MESSAGE_HASH}"
+          echo "CROSS_REPO_WRITE_CREDENTIAL_USED=FALSE"
+          echo "COMMAND_AUTHORITY_GRANTED=FALSE"
+          echo "EXTERNAL_EFFECT_AUTHORIZED=FALSE"
+
+  publish-cancellation:
+    if: >-
+      github.event_name == 'issues' &&
+      github.event.action == 'closed' &&
+      github.actor == 'Hawkar-usls'
+    needs: contract
+    concurrency:
+      group: janus-terminal-mailbox-writer
+      cancel-in-progress: false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      issues: read
+    steps:
+      - name: Check out Terminal control plane
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Preserve reviewed cancellation builder
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp tools/terminal_conversation_envelope.py "$RUNNER_TEMP/terminal_conversation_envelope.py"
+      - name: Seal issue close as cancellation tombstone
+        shell: bash
+        run: |
+          set -euo pipefail
+          python "$RUNNER_TEMP/terminal_conversation_envelope.py" \
+            --mode cancellation \
+            --event "$GITHUB_EVENT_PATH" \
+            --output "$RUNNER_TEMP/terminal-cancellation.json"
+          python - <<'PY' >> "$GITHUB_ENV"
+          import json, os
+          from pathlib import Path
+          p=Path(os.environ['RUNNER_TEMP'])/'terminal-cancellation.json'
+          value=json.loads(p.read_text())
+          print('JANUS_TERMINAL_MESSAGE_ID='+value['message_id'])
+          print('JANUS_TERMINAL_MESSAGE_HASH='+value['message_hash'])
+          print('JANUS_TERMINAL_CANCELLATION_ID='+value['cancellation_id'])
+          print('JANUS_TERMINAL_CANCELLATION_HASH='+value['cancellation_hash'])
+          PY
+      - name: Resume append-only Terminal mailbox branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "JANUS Terminal Conversation"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin janus/terminal-mailbox:refs/remotes/origin/janus/terminal-mailbox
+          git switch --create janus/terminal-mailbox --track origin/janus/terminal-mailbox
+      - name: Verify original request exists and publish create-only tombstone
+        shell: bash
+        run: |
+          set -euo pipefail
+          request=".janus/terminal-mailbox/requests/${JANUS_TERMINAL_MESSAGE_ID}.json"
+          test -f "$request"
+          python - <<'PY'
+          import json, os
+          request=json.load(open(f".janus/terminal-mailbox/requests/{os.environ['JANUS_TERMINAL_MESSAGE_ID']}.json"))
+          cancellation=json.load(open(os.path.join(os.environ['RUNNER_TEMP'],'terminal-cancellation.json')))
+          assert request['message_id'] == cancellation['message_id']
+          assert request['message_hash'] == cancellation['message_hash']
+          print('CANCELLATION_ORIGINAL_MESSAGE_BINDING=PASS')
+          PY
+          dir=.janus/terminal-mailbox/cancellations
+          mkdir -p "$dir"
+          target="$dir/${JANUS_TERMINAL_MESSAGE_ID}.json"
+          if [ -f "$target" ]; then
+            if cmp -s "$RUNNER_TEMP/terminal-cancellation.json" "$target"; then
+              echo "TERMINAL_CANCELLATION_ALREADY_PUBLISHED_IDENTICAL=TRUE"
+            else
+              echo "TERMINAL_CANCELLATION_ID_CONFLICT=TRUE" >&2
+              exit 2
+            fi
+          else
+            cp "$RUNNER_TEMP/terminal-cancellation.json" "$target"
+          fi
+          git add .janus/terminal-mailbox
+          if git diff --cached --quiet; then
+            echo "TERMINAL_CANCELLATION_COMMIT=NO_CHANGE"
+          else
+            git commit -m "Terminal cancellation ${JANUS_TERMINAL_MESSAGE_ID}"
+            git push origin HEAD:refs/heads/janus/terminal-mailbox
+            echo "TERMINAL_CANCELLATION_COMMIT=PASS"
+          fi
+          echo "CANCEL_DELETE_PERFORMED=FALSE"
+          echo "CANCELLED_REQUEST_FRESH_COGNITION=FALSE"
           echo "CROSS_REPO_WRITE_CREDENTIAL_USED=FALSE"
           echo "COMMAND_AUTHORITY_GRANTED=FALSE"
           echo "EXTERNAL_EFFECT_AUTHORIZED=FALSE"

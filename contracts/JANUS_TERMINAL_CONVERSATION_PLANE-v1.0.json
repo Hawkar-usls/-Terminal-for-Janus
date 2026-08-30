@@ -1,6 +1,6 @@
 {
   "schema": "janus.terminal.conversation_plane.v1",
-  "status": "READ_ONLY_CONVERSATION_INGRESS_EGRESS_WITH_HRAIN_MEMORY_PROOF_AND_APPEND_ONLY_CANCELLATION",
+  "status": "READ_ONLY_CONVERSATION_INGRESS_EGRESS_WITH_HRAIN_MEMORY_PROOF",
   "organ_key": "operator_hands",
   "terminal_repository": "Hawkar-usls/-Terminal-for-Janus",
   "home_repository": "Hawkar-usls/Hawkar-usls",

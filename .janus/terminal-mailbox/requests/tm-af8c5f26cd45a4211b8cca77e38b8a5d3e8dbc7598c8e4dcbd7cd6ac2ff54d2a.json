@@ -1,0 +1,20 @@
+{
+  "authority_mode": "READ_ONLY_CONVERSATION",
+  "claim_authority_granted": false,
+  "command_authority_granted": false,
+  "conversation_id": "issue-17",
+  "created_at": 1788129304.0,
+  "external_effect_authorized": false,
+  "fresh_human_stimulus": true,
+  "human_actor": "Hawkar-usls",
+  "human_authorized_write": false,
+  "message_hash": "9358c65eaf5f5eeeebefc81fb6462c277ae005899b3e87e7c3ef9952e8fd9160",
+  "message_id": "tm-af8c5f26cd45a4211b8cca77e38b8a5d3e8dbc7598c8e4dcbd7cd6ac2ff54d2a",
+  "message_text": "banana submarine velvet",
+  "physical_runtime_effect_authorized": false,
+  "schema": "janus.terminal.message.v1",
+  "scientific_evidence_authority_granted": false,
+  "source_ref": "Hawkar-usls/-Terminal-for-Janus#17:issue:5294739388",
+  "terminal_repository": "Hawkar-usls/-Terminal-for-Janus",
+  "world_truth_authority_granted": false
+}

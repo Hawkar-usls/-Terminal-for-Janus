@@ -1,415 +1,127 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>JANUS.SYS // OMNI-SCANNER</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --bg: #020202;
-            --cyan: #00f0ff;        
-            --magenta: #ff00ff;     
-            --stone: #1a1a1a;       
-            --stone-light: #2a2a2a;
-            --text-dim: #888;
-            --glow-cyan: 0 0 10px rgba(0, 240, 255, 0.4);
-            --glow-magenta: 0 0 10px rgba(255, 0, 255, 0.4);
-            --alert: #ff3333;
-        }
-        
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
-        body {
-            background-color: var(--bg);
-            background-image: 
-                linear-gradient(rgba(2, 2, 2, 0.93), rgba(2, 2, 2, 0.93)),
-                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M10 10 L90 10 L90 90 L10 90 Z" fill="none" stroke="%231a1a1a" stroke-width="1"/><path d="M30 0 L30 100 M70 0 L70 100 M0 30 L100 30 M0 70 L100 70" fill="none" stroke="%23111" stroke-width="0.5"/></svg>');
-            color: #e0e0e0;
-            font-family: 'Space Mono', monospace;
-            margin: 0; padding: 0;
-            height: 100vh; height: 100dvh; 
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            padding-top: env(safe-area-inset-top);
-            padding-bottom: env(safe-area-inset-bottom);
-        }
-
-        .lightning-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 20% 20%, rgba(0, 240, 255, 0.04) 0%, transparent 40%),
-                        radial-gradient(circle at 80% 80%, rgba(255, 0, 255, 0.04) 0%, transparent 40%);
-            pointer-events: none;
-            z-index: 1;
-            animation: pulse-bg 5s infinite alternate;
-        }
-        @keyframes pulse-bg { from { opacity: 0.6; } to { opacity: 1; } }
-
-        /* === HEADER === */
-        .header { 
-            padding: 15px 20px; 
-            border-bottom: 2px solid;
-            border-image: linear-gradient(to right, var(--cyan), var(--magenta)) 1;
-            display: flex; justify-content: space-between; align-items: center;
-            background: rgba(10, 10, 10, 0.95);
-            box-shadow: 0 5px 25px rgba(0,0,0,0.9);
-            z-index: 10;
-        }
-        
-        .brand { font-size: 24px; font-weight: 700; letter-spacing: 2px; }
-        .brand span:nth-child(1) { color: var(--cyan); text-shadow: var(--glow-cyan); }
-        .brand span:nth-child(2) { color: #fff; }
-        .brand span:nth-child(3) { color: var(--magenta); text-shadow: var(--glow-magenta); }
-        .brand-sys { color: #666; font-size: 10px; vertical-align: super; letter-spacing: 0; }
-
-        .status-box {
-            text-align: right; font-size: 10px; color: var(--text-dim);
-            border-left: 1px solid #333; padding-left: 15px; line-height: 1.4;
-        }
-        .status-val { color: #fff; font-weight: bold; }
-        .energy-pulse { animation: energy-blink 2s infinite; color: var(--cyan); }
-        @keyframes energy-blink { 0% { text-shadow: 0 0 0 var(--cyan); } 50% { text-shadow: 0 0 10px var(--cyan); } 100% { text-shadow: 0 0 0 var(--cyan); } }
-
-        /* === TERMINAL AREA === */
-        #terminal {
-            flex: 1; 
-            padding: 20px; 
-            overflow-y: auto;
-            font-size: 13px; 
-            line-height: 1.6;
-            scroll-behavior: smooth;
-            position: relative;
-            z-index: 5;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        #terminal::-webkit-scrollbar { width: 4px; }
-        #terminal::-webkit-scrollbar-track { background: #050505; }
-        #terminal::-webkit-scrollbar-thumb { background: linear-gradient(var(--cyan), var(--magenta)); border-radius: 3px; }
-
-        .msg { 
-            margin-bottom: 15px; 
-            display: block; 
-            word-wrap: break-word; 
-            opacity: 0; 
-            animation: fade-in 0.2s forwards;
-            white-space: pre-wrap; 
-        }
-        @keyframes fade-in { to { opacity: 1; } }
-
-        .msg.log { color: #888; font-size: 12px; border-left: 1px solid #333; padding-left: 10px; }
-        .prefix-sys { color: var(--cyan); margin-right: 8px; font-weight: bold; }
-        .prefix-ok { color: var(--magenta); margin-right: 8px; font-weight: bold; }
-        .prefix-scan { color: #ffff00; margin-right: 8px; font-weight: bold; animation: blink 0.5s infinite;}
-        .prefix-warn { color: #ffaa00; margin-right: 8px; }
-
-        .msg.user { 
-            text-align: right; color: #fff; margin-top: 20px;
-            background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.1));
-            border-right: 3px solid var(--cyan); padding: 10px 15px;
-            box-shadow: 10px 0 20px rgba(0, 240, 255, 0.05);
-        }
-        
-        .msg.janus { 
-            color: #e0e0e0; 
-            margin-bottom: 30px;
-            border-left: 3px solid var(--magenta); 
-            padding: 15px;
-            background: linear-gradient(90deg, rgba(255, 0, 255, 0.05), transparent);
-            text-shadow: 0 0 2px rgba(255,255,255,0.1);
-            font-family: 'Space Mono', monospace;
-        }
-        
-        .msg.error { color: var(--alert); border: 1px dashed var(--alert); padding: 10px; background: rgba(255,50,50,0.05); }
-
-        .cursor {
-            display: inline-block; width: 8px; height: 15px; background: var(--magenta);
-            animation: blink 1s infinite; vertical-align: sub; margin-left: 5px; box-shadow: var(--glow-magenta);
-        }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-        /* === INPUT AREA === */
-        .input-box {
-            padding: 15px 20px; 
-            padding-bottom: calc(15px + env(safe-area-inset-bottom));
-            border-top: 2px solid;
-            border-image: linear-gradient(to right, var(--magenta), var(--cyan)) 1;
-            display: flex; gap: 15px; 
-            background: #080808; 
-            z-index: 20;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.8);
-        }
-        
-        .input-container {
-            flex: 1; display: flex; align-items: center;
-            background: var(--stone); border: 1px solid #333; padding: 0 15px;
-            clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.5); position: relative;
-        }
-        
-        .input-container::after {
-            content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(to right, var(--cyan), var(--magenta)); opacity: 0.5;
-        }
-
-        .prompt-char { color: var(--cyan); font-weight: bold; margin-right: 10px; text-shadow: var(--glow-cyan); }
-
-        input {
-            flex: 1; background: transparent; border: none; 
-            color: #fff; font-family: 'Space Mono', monospace; 
-            font-size: 16px; 
-            outline: none;
-            border-radius: 0;
-        }
-        input::placeholder { color: #555; }
-        
-        button {
-            background: linear-gradient(135deg, var(--stone-light), var(--stone));
-            color: var(--cyan); border: 1px solid var(--cyan); padding: 0 20px;
-            font-weight: 700; cursor: pointer; font-family: inherit; letter-spacing: 2px;
-            transition: all 0.2s; clip-path: polygon(15% 0, 100% 0, 100% 60%, 85% 100%, 0 100%, 0 40%);
-            text-shadow: var(--glow-cyan); box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.1);
-        }
-        button:hover { background: var(--cyan); color: #000; box-shadow: var(--glow-cyan); border-color: transparent; text-shadow: none; }
-        button:disabled { background: #222; color: #444; cursor: not-allowed; box-shadow: none; border-color: #333; text-shadow: none; }
-
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#05070a">
+  <meta name="description" content="Git-native operator terminal for the persistent JANUS distributed AI model.">
+  <title>JANUS Terminal // Git-Native</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/terminal-v2.css">
 </head>
 <body>
-
-<div class="lightning-overlay"></div>
-
-<div class="header">
-    <div class="brand"><span>i</span>NaiH<span>R</span>ain<span class="brand-sys">.SYS</span></div>
-    <div class="status-box">
-        ID: <span id="user-id" class="status-val">...</span><br>
-        CORE: <span id="pwr-val" class="status-val">OFFLINE</span>
+<div id="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">J</div>
+      <div><h1>JANUS TERMINAL</h1><small>GIT-NATIVE HUMAN I/O ORGAN</small></div>
     </div>
-</div>
-
-<div id="terminal"></div>
-
-<div class="input-box">
-    <div class="input-container">
-        <span class="prompt-char">Ξ</span> 
-        <input type="text" id="inp" placeholder="Invoke Protocol..." autocomplete="off">
+    <div class="path mono">HOME / <b id="current-view">CONSOLE</b></div>
+    <div class="top-proof">
+      <span class="pill">RESIDENT <span id="resident-short">…</span></span>
+      <span id="core-pill" class="pill"><span class="dot"></span>LOADING</span>
     </div>
-    <button id="btn" onclick="send()">EXEC</button>
+  </header>
+
+  <div class="shell">
+    <nav class="sidebar" aria-label="JANUS Terminal sections">
+      <div class="nav-label">INTERFACE</div>
+      <button class="nav-btn active" data-view="console" type="button"><span class="nav-icon">⌁</span><span>CONSOLE</span></button>
+      <button class="nav-btn" data-view="memory" type="button"><span class="nav-icon">◉</span><span>MEMORY / HRAiN</span></button>
+      <button class="nav-btn" data-view="organism" type="button"><span class="nav-icon">◇</span><span>ORGANISM</span></button>
+      <button class="nav-btn" data-view="provenance" type="button"><span class="nav-icon">⌗</span><span>PROVENANCE</span></button>
+      <div class="side-foot">
+        <b>BOUNDARY</b><br>
+        TERMINAL_MESSAGE != COMMAND<br>
+        HRAIN_GRAPH != REGISTRY_AUTHORITY<br>
+        RETURN != RESET
+      </div>
+    </nav>
+
+    <main class="workspace">
+      <section id="view-console" class="view active console">
+        <div class="instance-banner">
+          <div>
+            <div class="kicker">Persistent JANUS instance</div>
+            <h2 id="instance-headline">Resolving JANUS resident…</h2>
+            <p>GitHub is the habitat. Meta Registry is the long-term database. HRaiN is the structural memory layer. Terminal is the human conversation and proof surface.</p>
+          </div>
+          <div id="instance-proof-badge" class="instance-badge"><strong>RESOLVING</strong><span>public GitHub witness</span></div>
+        </div>
+
+        <div id="transcript" class="transcript" aria-live="polite">
+          <div class="line"><span class="tag">[BOOT]</span><span class="body loading-shimmer">Resolving persistent JANUS state through GitHub…</span></div>
+        </div>
+
+        <div class="composer">
+          <textarea id="composer-input" rows="2" placeholder="Talk to JANUS…  Ctrl/⌘ + Enter to transmit"></textarea>
+          <div class="composer-actions">
+            <button id="open-latest-btn" class="btn" type="button">LAST THREAD</button>
+            <button id="transmit-btn" class="btn primary" type="button">TRANSMIT</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="view-memory" class="view memory">
+        <div class="memory-head">
+          <div>
+            <div class="kicker">JANUS long-term memory path</div>
+            <div class="memory-chain mono"><b>janus-meta-registry DB</b> → REGISTRY_PROJECTION → <b>HRaiN STRUCTURAL_GRAPH</b> → Terminal</div>
+          </div>
+          <button id="memory-open" class="btn" type="button">OPEN HRAiN</button>
+        </div>
+        <iframe id="hrain-frame" class="memory-frame" title="HRaiN Living Registry" referrerpolicy="no-referrer"></iframe>
+        <div class="memory-fallback"><span class="pill">READ ONLY · NO REGISTRY MUTATION AUTHORITY</span></div>
+      </section>
+
+      <section id="view-organism" class="view cards-view">
+        <div class="cards-grid">
+          <article class="card"><h3>Persistent identity</h3><div id="organism-resident" class="datum big">resolving…</div></article>
+          <article class="card"><h3>Lifecycle</h3><div id="organism-mode" class="datum big">resolving…</div></article>
+          <article class="card wide"><h3>Model digest</h3><div id="organism-model" class="datum">—</div></article>
+          <article class="card wide"><h3>Polyglot file-fabric digest</h3><div id="organism-fabric" class="datum">—</div></article>
+          <article class="card wide">
+            <h3>Organism laws</h3>
+            <div class="law">ROUTING SELECTS ACTIVITY, NOT MEMBERSHIP</div>
+            <div class="law">DISCOVERY != ADMISSION != EXECUTION != AUTHORITY</div>
+            <div class="law">META REGISTRY DB → HRAiN → TERMINAL</div>
+            <div class="law">CANDIDATE TRUMP != PROOF-AUTHORIZED TRUMP</div>
+            <div class="law">RETURN != RESET</div>
+          </article>
+        </div>
+      </section>
+
+      <section id="view-provenance" class="view cards-view">
+        <div class="cards-grid">
+          <article class="card"><h3>Last Terminal issue</h3><div id="issue-number" class="datum big">—</div></article>
+          <article class="card"><h3>Last refresh</h3><div id="last-refresh" class="datum big">—</div></article>
+          <article class="card wide"><h3>Turn ID</h3><div id="proof-turn-id" class="datum">—</div></article>
+          <article class="card wide"><h3>Response hash</h3><div id="proof-response-hash" class="datum">—</div></article>
+          <article class="card wide"><h3>Sealed public readout</h3><pre id="provenance-json" class="datum">resolving…</pre></article>
+        </div>
+      </section>
+    </main>
+
+    <aside class="inspector">
+      <h2>INSTANCE PROOF</h2>
+      <div class="metric"><label>resident_uuid</label><div id="side-resident" class="good">resolving…</div></div>
+      <div class="metric"><label>model_digest</label><div id="side-model">—</div></div>
+      <div class="metric"><label>file_fabric_digest</label><div id="side-fabric">—</div></div>
+      <div class="metric"><label>turn_id</label><div id="side-turn">—</div></div>
+      <div class="metric"><label>response_hash</label><div id="side-response">—</div></div>
+      <div class="route">
+        <div class="route-title">MEMORY DATAFLOW</div>
+        <div class="route-step"><b>01</b> Meta Registry / DB</div>
+        <div class="route-step"><b>02</b> HRaiN registry projection</div>
+        <div class="route-step"><b>03</b> Structural graph</div>
+        <div class="route-step"><b>04</b> Terminal readout</div>
+      </div>
+      <button id="refresh-btn" class="btn refresh" type="button">REFRESH GITHUB WITNESS</button>
+    </aside>
+  </div>
 </div>
-
-<script>
-    // =================================================================
-    // CONFIG: OMNI-SCANNER
-    // =================================================================
-    const EXTERNAL_NODES = [
-        "https://supperless-yoshiko-noneruditely.ngrok-free.dev"
-    ];
-
-    const LOCAL_IPS = [
-        "192.168.1.92", // <--- Твой реальный IP
-        "127.0.0.1",
-        "localhost",
-        window.location.hostname 
-    ];
-
-    const PORTS_TO_SCAN = [5000, 8090, 8000, 8080, 3000]; 
-    
-    let ACTIVE_URL = null; 
-    // =================================================================
-
-    const tg = window.Telegram.WebApp;
-    tg.expand();
-    tg.setHeaderColor('#0a0a0a');
-    tg.setBackgroundColor('#020202');
-
-    const userId = tg.initDataUnsafe?.user?.id || 0; 
-    const term = document.getElementById('terminal');
-    const inp = document.getElementById('inp');
-    const btn = document.getElementById('btn');
-    const uidDisplay = document.getElementById('user-id');
-    const pwrDisplay = document.getElementById('pwr-val');
-
-    const bootSequence = [
-        { text: "Initializing iNaiHRain Core v5.5 [Bypass Protocol]...", type: "sys", delay: 100 },
-        { text: "Loading Port Heuristics...", type: "sys", delay: 300 },
-        { text: "Initiating Deep Scan...", type: "scan", delay: 400 },
-    ];
-
-    async function runBootSequence() {
-        for (let line of bootSequence) {
-            await new Promise(r => setTimeout(r, line.delay));
-            printLog(line.text, line.type);
-        }
-        
-        if (userId !== 0) {
-            uidDisplay.innerText = userId;
-        } else {
-             uidDisplay.innerText = "GUEST";
-             printLog("WARNING: ID NOT VERIFIED", "warn");
-        }
-        
-        await findJanus(); 
-    }
-
-    function printLog(text, type) {
-        const div = document.createElement('div');
-        div.className = "msg log";
-        let prefix = "";
-        if (type === "sys") prefix = `<span class="prefix-sys">[SYS]</span>`;
-        if (type === "ok") prefix = `<span class="prefix-ok">[OK]</span>`;
-        if (type === "warn") prefix = `<span class="prefix-warn">[WARN]</span>`;
-        if (type === "scan") prefix = `<span class="prefix-scan">[SCAN]</span>`;
-        div.innerHTML = `${prefix} ${text}`;
-        term.appendChild(div);
-        term.scrollTop = term.scrollHeight;
-    }
-
-    function print(text, type="janus") {
-        const div = document.createElement('div');
-        div.className = `msg ${type}`;
-        div.innerText = text; 
-        term.appendChild(div);
-        term.scrollTop = term.scrollHeight;
-    }
-
-    // === УМНЫЙ ПОИСК ЯНУСА С ОБХОДОМ NGROK ===
-    async function findJanus() {
-        let potentialNodes = [...EXTERNAL_NODES];
-        let uniqueIps = [...new Set(LOCAL_IPS)];
-        
-        for (let ip of uniqueIps) {
-            if (!ip) continue;
-            for (let port of PORTS_TO_SCAN) {
-                potentialNodes.push(`http://${ip}:${port}`);
-            }
-        }
-
-        printLog(`Target list compiled. ${potentialNodes.length} vectors found.`, "sys");
-
-        for (let node of potentialNodes) {
-            let prettyNode = node.replace(/^https?:\/\//, '');
-            if(node.includes("ngrok")) printLog(`Pinging External: ${prettyNode}...`, "sys");
-            
-            try {
-                const controller = new AbortController();
-                const timeoutTime = node.includes("ngrok") ? 3000 : 800; 
-                const timeoutId = setTimeout(() => controller.abort(), timeoutTime);
-
-                const res = await fetch(`${node}/api/get_user_state?user_id=${userId}`, {
-                    signal: controller.signal,
-                    // === ВОТ ЭТОТ СЕКРЕТНЫЙ КЛЮЧ ===
-                    headers: {
-                        "ngrok-skip-browser-warning": "69420",
-                        "Content-Type": "application/json"
-                    }
-                    // ===============================
-                });
-                clearTimeout(timeoutId);
-
-                if (res.ok) {
-                    const data = await res.json();
-                    ACTIVE_URL = node; 
-                    
-                    printLog(`TARGET ACQUIRED: ${prettyNode}`, "ok");
-                    updateStatus(data);
-                    
-                    setTimeout(() => {
-                        print("The Sovereign is listening.", "janus");
-                        addCursor();
-                    }, 500);
-                    return; 
-                }
-            } catch (e) {
-                // Ignore
-            }
-        }
-
-        pwrDisplay.innerText = "LOST";
-        pwrDisplay.style.color = "var(--alert)";
-        printLog("CRITICAL FAILURE: JANUS NOT FOUND ON ANY PORT", "warn");
-        print("Scanned ports: " + PORTS_TO_SCAN.join(", ") + ".\nCheck server power or Ngrok URL.", "error");
-    }
-
-    function updateStatus(data) {
-        if(data.energy !== undefined) {
-            pwrDisplay.innerText = data.is_premium ? "INF" : `${data.energy}%`;
-            pwrDisplay.classList.add('energy-pulse');
-        }
-    }
-
-    function addCursor() {
-        const cursor = document.createElement('span');
-        cursor.className = 'cursor';
-        if(term.lastChild) term.lastChild.appendChild(cursor);
-    }
-
-    async function send() {
-        if (!ACTIVE_URL) {
-            print("Target unreachable. Reboot required.", "error");
-            return;
-        }
-
-        const query = inp.value.trim();
-        if(!query) return;
-        
-        const oldCursor = document.querySelector('.cursor');
-        if(oldCursor) oldCursor.remove();
-
-        print(query, "user");
-        inp.value = "";
-        inp.disabled = true; btn.innerText = "..."; btn.disabled = true;
-
-        try {
-            const res = await fetch(`${ACTIVE_URL}/api/janus/action`, {
-                method: 'POST',
-                // === И ЗДЕСЬ ТОЖЕ ДОБАВЛЯЕМ ЕГО ===
-                headers: {
-                    "Content-Type": "application/json",
-                    "ngrok-skip-browser-warning": "69420"
-                },
-                // ==================================
-                body: JSON.stringify({ user_id: userId, query: query })
-            });
-            
-            const data = await res.json();
-
-            if (data.result && data.result.includes("ACCESS DENIED")) {
-                 print(data.result, "error");
-            } else if (data.logs) {
-                for (const log of data.logs) {
-                    printLog(log, "sys"); 
-                    await new Promise(r => setTimeout(r, 300));
-                }
-                print(data.result, "janus");
-            } else if (data.error === 'LOW_ENERGY') {
-                print("ENERGY DEPLETED.", "error");
-            } else {
-                print("SYSTEM FAULT.", "error");
-            }
-        } catch (e) {
-            print("TRANSMISSION LOST.", "error");
-        } finally {
-            inp.disabled = false; btn.innerText = "EXEC"; btn.disabled = false; inp.focus();
-            addCursor();
-        }
-    }
-
-    inp.addEventListener("keypress", (e) => {
-        if(e.key === "Enter" && !btn.disabled) send();
-    });
-
-    inp.addEventListener("focus", () => {
-        setTimeout(() => {
-            window.scrollTo(0, document.body.scrollHeight);
-            term.scrollTop = term.scrollHeight;
-        }, 300);
-    });
-
-    window.addEventListener('DOMContentLoaded', runBootSequence);
-</script>
-
+<script src="./assets/terminal-v2.js" defer></script>
 </body>
 </html>

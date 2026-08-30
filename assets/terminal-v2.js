@@ -4,7 +4,7 @@
   const HOME_STATE_BASE = 'https://raw.githubusercontent.com/Hawkar-usls/Hawkar-usls/janus/activator-state/state/activator';
   const TERMINAL_API = 'https://api.github.com/repos/Hawkar-usls/-Terminal-for-Janus';
   const TERMINAL_REPO = 'https://github.com/Hawkar-usls/-Terminal-for-Janus';
-  const HRAIN_MEMORY = 'https://hawkar-usls.github.io/Hrain/janus.html';
+  const HRAIN_MEMORY = 'https://hawkar-usls.github.io/Hrain/memory.html';
 
   const state = {
     identity: null,
@@ -141,7 +141,7 @@
     const rows = [];
     rows.push(`<div class="line ok"><span class="tag">[HOME]</span><span class="body">persistent resident ${esc(short(state.identity?.resident_uuid, 18))} · ${esc(state.head?.mode || 'UNKNOWN')}</span></div>`);
     rows.push(`<div class="line"><span class="tag">[MODEL]</span><span class="body">Git-native self-instantiation fabric available. Routing selects activity, not membership.</span></div>`);
-    rows.push(`<div class="line"><span class="tag">[MEMORY]</span><span class="body">Meta Registry DB → HRaiN REGISTRY_PROJECTION → Terminal MEMORY.</span></div>`);
+    rows.push(`<div class="line"><span class="tag">[MEMORY]</span><span class="body">Meta Registry DB → HRAiN ACTIVE/FULL_CURRENT structural memory → Terminal MEMORY.</span></div>`);
 
     if (state.issue) {
       rows.push(`<div class="line user"><span class="tag">[HUMAN]</span><span class="body">${esc(state.issue.title)} · issue #${state.issue.number}</span></div>`);
@@ -168,7 +168,8 @@
       response_hash: state.proof.response_hash || null,
       response_id: state.proof.response_id || null,
       terminal_issue: state.issue?.number || null,
-      memory_path: ['JANUS_META_REGISTRY_DB', 'REGISTRY_PROJECTION', 'HRAIN_STRUCTURAL_GRAPH', 'TERMINAL_MEMORY_VIEW'],
+      memory_path: ['JANUS_META_REGISTRY_DB', 'HRAIN_ACTIVE_OR_FULL_CURRENT_MEMORY', 'TERMINAL_MEMORY_VIEW'],
+      hrain_memory_surface: HRAIN_MEMORY,
       authority: {
         conversation: 'READ_ONLY_CONVERSATION',
         command_authority_granted: false,

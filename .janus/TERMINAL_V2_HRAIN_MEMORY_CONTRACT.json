@@ -1,6 +1,6 @@
 {
-  "schema": "janus.terminal.hrain_memory_contract.v2",
-  "status": "GIT_NATIVE_TERMINAL_WITH_HRAIN_MEDIATED_MEMORY",
+  "schema": "janus.terminal.hrain_memory_contract.v2.1",
+  "status": "GIT_NATIVE_TERMINAL_WITH_HRAIN_MEDIATED_ACTIVE_AND_FULL_CURRENT_MEMORY",
   "terminal_repository": "Hawkar-usls/-Terminal-for-Janus",
   "pages_surface": "https://hawkar-usls.github.io/-Terminal-for-Janus/",
   "conversation": {
@@ -19,14 +19,16 @@
   "memory_dataflow": {
     "source_database": "Hawkar-usls/janus-meta-registry",
     "structural_memory_organ": "Hawkar-usls/Hrain",
-    "hrain_consumes": "REGISTRY_PROJECTION",
-    "hrain_emits": "STRUCTURAL_GRAPH",
+    "hrain_consumes": ["REGISTRY_PROJECTION", "FULL_CURRENT_MEMORY_MANIFEST"],
+    "hrain_emits": ["STRUCTURAL_GRAPH", "VERIFIED_MEMORY_CATALOG_VIEW"],
     "terminal_consumes_registry_directly": false,
-    "terminal_memory_surface": "https://hawkar-usls.github.io/Hrain/janus.html",
+    "terminal_memory_surface": "https://hawkar-usls.github.io/Hrain/memory.html",
+    "active_memory_surface": "https://hawkar-usls.github.io/Hrain/janus.html",
+    "full_current_catalog": "Hawkar-usls/janus-meta-registry/assets/hrain-full-memory/manifest.json",
+    "historical_lineage_included": false,
     "required_path": [
       "JANUS_META_REGISTRY_DB",
-      "REGISTRY_PROJECTION",
-      "HRAIN_STRUCTURAL_GRAPH",
+      "HRAIN_ACTIVE_OR_FULL_CURRENT_MEMORY",
       "TERMINAL_MEMORY_VIEW"
     ]
   },
@@ -43,13 +45,16 @@
   "forbidden_legacy_runtime": [
     "NGROK_OMNI_SCANNER",
     "LOCAL_IP_PORT_SCAN",
-    "BROWSER_EMBEDDED_CROSS_REPO_SECRET"
+    "BROWSER_EMBEDDED_CROSS_REPO_SECRET",
+    "DIRECT_TERMINAL_META_REGISTRY_BYPASS"
   ],
   "laws": [
     "TERMINAL_MESSAGE != COMMAND",
     "META_REGISTRY = JANUS_LONG_TERM_DATABASE",
     "TERMINAL_MEMORY_READOUT_MUST_PASS_THROUGH_HRAIN",
+    "FULL_CURRENT != COMPLETE_GIT_HISTORY",
     "HRAIN_GRAPH != REGISTRY_AUTHORITY",
+    "CATALOG_PRESENCE != SCIENTIFIC_VALIDITY",
     "RETURN != RESET",
     "CANDIDATE_TRUMP != PROOF_AUTHORIZED_TRUMP"
   ]

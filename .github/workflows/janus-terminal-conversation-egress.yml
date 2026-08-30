@@ -1,0 +1,191 @@
+name: JANUS Terminal Conversation Egress
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'contracts/JANUS_TERMINAL_CONVERSATION_PLANE-v1.0.json'
+      - 'tools/terminal_response_relay.py'
+      - 'tests/test_terminal_response_relay.py'
+      - '.github/workflows/janus-terminal-conversation-egress.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'contracts/JANUS_TERMINAL_CONVERSATION_PLANE-v1.0.json'
+      - 'tools/terminal_response_relay.py'
+      - 'tests/test_terminal_response_relay.py'
+      - '.github/workflows/janus-terminal-conversation-egress.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '*/5 * * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install test dependency
+        run: python -m pip install --disable-pip-version-check pytest
+      - name: Compile response relay
+        run: python -m compileall -q tools/terminal_response_relay.py tests/test_terminal_response_relay.py
+      - name: Validate Terminal conversation contract
+        run: python -m json.tool contracts/JANUS_TERMINAL_CONVERSATION_PLANE-v1.0.json >/dev/null
+      - name: Run response relay adversarial tests
+        env:
+          PYTHONPATH: .
+        run: python -m pytest -q tests/test_terminal_response_relay.py
+
+  relay:
+    if: github.event_name != 'pull_request'
+    needs: contract
+    concurrency:
+      group: janus-terminal-mailbox-writer
+      cancel-in-progress: false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - name: Check out Terminal control plane
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Mount or initialize local Terminal mailbox state
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "JANUS Terminal Relay"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          mailbox="${RUNNER_TEMP}/janus-terminal-mailbox"
+          rm -rf "$mailbox"
+          if git ls-remote --exit-code --heads origin janus/terminal-mailbox >/dev/null 2>&1; then
+            git fetch origin janus/terminal-mailbox:refs/remotes/origin/janus/terminal-mailbox
+            git worktree add -B janus-terminal-mailbox-relay "$mailbox" origin/janus/terminal-mailbox
+          else
+            git worktree add --detach "$mailbox" HEAD
+            cd "$mailbox"
+            git switch --orphan janus-terminal-mailbox-relay
+            git rm -rf --ignore-unmatch .
+            mkdir -p .janus/terminal-mailbox
+            printf '%s\n' '{"schema":"janus.terminal.mailbox.v1","role":"APPEND_ONLY_READ_ONLY_CONVERSATION_REQUESTS","cross_repo_write_authority":false}' > .janus/terminal-mailbox/MANIFEST.json
+            cd - >/dev/null
+          fi
+          mkdir -p "$mailbox/.janus/terminal-mailbox/relayed"
+          echo "JANUS_TERMINAL_MAILBOX_WORKTREE=$mailbox" >> "$GITHUB_ENV"
+
+      - name: Pull oldest unrelayed JANUS response through public HOME read
+        id: pull
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime
+          python tools/terminal_response_relay.py \
+            --seen-dir "$JANUS_TERMINAL_MAILBOX_WORKTREE/.janus/terminal-mailbox/relayed" \
+            --output runtime/janus-response.json \
+            --markdown-out runtime/janus-response.md \
+            --status-out runtime/janus-response-status.json
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          value=json.load(open('runtime/janus-response-status.json'))
+          print('found=' + ('true' if value.get('response_found') is True else 'false'))
+          print('response_id=' + str(value.get('response_id') or ''))
+          print('response_hash=' + str(value.get('response_hash') or ''))
+          print('issue_number=' + str(value.get('issue_number') or ''))
+          PY
+
+      - name: No response is waiting
+        if: steps.pull.outputs.found != 'true'
+        run: |
+          echo "NO_UNRELAYED_JANUS_RESPONSE=TRUE"
+          echo "SILENCE_IS_NEGATIVE_EVIDENCE=FALSE"
+
+      - name: Check issue for an already relayed response marker
+        if: steps.pull.outputs.found == 'true'
+        id: existing
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ steps.pull.outputs.issue_number }}
+          RESPONSE_ID: ${{ steps.pull.outputs.response_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          marker="<!-- JANUS_RESPONSE_ID:${RESPONSE_ID} -->"
+          if gh api --paginate "repos/Hawkar-usls/-Terminal-for-Janus/issues/${ISSUE_NUMBER}/comments?per_page=100" --jq '.[].body' | grep -Fq "$marker"; then
+            echo "already=true" >> "$GITHUB_OUTPUT"
+            echo "JANUS_RESPONSE_COMMENT_ALREADY_EXISTS=TRUE"
+          else
+            echo "already=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish JANUS response into the originating Terminal issue
+        if: steps.pull.outputs.found == 'true' && steps.existing.outputs.already != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue comment "${{ steps.pull.outputs.issue_number }}" \
+            --repo Hawkar-usls/-Terminal-for-Janus \
+            --body-file runtime/janus-response.md
+          echo "JANUS_RESPONSE_ISSUE_COMMENT=PASS"
+
+      - name: Record response as relayed only after comment exists
+        if: steps.pull.outputs.found == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          target="$JANUS_TERMINAL_MAILBOX_WORKTREE/.janus/terminal-mailbox/relayed/${{ steps.pull.outputs.response_id }}.json"
+          if [ ! -f "$target" ]; then
+            RESPONSE_ID='${{ steps.pull.outputs.response_id }}' \
+            RESPONSE_HASH='${{ steps.pull.outputs.response_hash }}' \
+            ISSUE_NUMBER='${{ steps.pull.outputs.issue_number }}' \
+            python - <<'PY' > "$target"
+          import json, os, time
+          print(json.dumps({
+            'schema':'janus.terminal.relay_receipt.v1',
+            'response_id':os.environ['RESPONSE_ID'],
+            'response_hash':os.environ['RESPONSE_HASH'],
+            'issue_number':int(os.environ['ISSUE_NUMBER']),
+            'issue_comment_confirmed':True,
+            'relayed_at':time.time(),
+            'credentialless_home_read':True,
+            'cross_repo_write_credential_used':False,
+            'command_authority_granted':False,
+            'external_effect_authorized':False,
+          }, sort_keys=True, indent=2))
+          PY
+          fi
+          cd "$JANUS_TERMINAL_MAILBOX_WORKTREE"
+          git config user.name "JANUS Terminal Relay"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .janus/terminal-mailbox
+          if git diff --cached --quiet; then
+            echo "TERMINAL_RELAY_STATE_COMMIT=NO_CHANGE"
+          else
+            git commit -m "Relay JANUS response ${{ steps.pull.outputs.response_id }}"
+            git push origin HEAD:refs/heads/janus/terminal-mailbox
+            echo "TERMINAL_RELAY_STATE_COMMIT=PASS"
+          fi
+
+      - name: Upload relay witness
+        if: steps.pull.outputs.found == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: janus-terminal-response-relay-${{ github.run_id }}
+          path: |
+            runtime/janus-response.json
+            runtime/janus-response.md
+            runtime/janus-response-status.json
+          if-no-files-found: error
+          retention-days: 14

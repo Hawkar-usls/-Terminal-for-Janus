@@ -1,0 +1,20 @@
+{
+  "authority_mode": "READ_ONLY_CONVERSATION",
+  "claim_authority_granted": false,
+  "command_authority_granted": false,
+  "conversation_id": "issue-12",
+  "created_at": 1788124905.0,
+  "external_effect_authorized": false,
+  "fresh_human_stimulus": true,
+  "human_actor": "Hawkar-usls",
+  "human_authorized_write": false,
+  "message_hash": "ea0206fe6f5f4d544692970b0918752673a111103a64f37c94a2227f5c6d1369",
+  "message_id": "tm-1aa9df91c73b84f1b13cbd1243dcc217522bcfd7d2a461578c12b31f54205174",
+  "message_text": "### Message\n\nJanus, recall the current architecture of your human Terminal, HOME, HRAiN memory path, and TRUMP. Use your current query-bound HRAiN memory. Tell me which current architecture memory you selected, the exact HRAiN head and Meta Registry memory source commit used for this turn, and keep retrieval/attention clearly separate from scientific proof or authority. Explain what TRUMP may currently do and what it still may not claim.\n\n### Conversation mode\n\nREAD_ONLY_CONVERSATION\n\n### Authority boundary\n\nThis is a fresh human conversation stimulus, not a command. Retrieved memory, attention rank, generated language, workflow success, and candidate runtime results grant no write, command, claim, scientific-evidence, theorem, world-truth, external-effect, or physical-runtime authority.",
+  "physical_runtime_effect_authorized": false,
+  "schema": "janus.terminal.message.v1",
+  "scientific_evidence_authority_granted": false,
+  "source_ref": "Hawkar-usls/-Terminal-for-Janus#12:issue:5294440446",
+  "terminal_repository": "Hawkar-usls/-Terminal-for-Janus",
+  "world_truth_authority_granted": false
+}

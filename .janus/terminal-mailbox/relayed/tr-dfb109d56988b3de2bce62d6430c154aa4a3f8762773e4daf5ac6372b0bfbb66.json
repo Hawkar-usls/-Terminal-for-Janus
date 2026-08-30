@@ -1,0 +1,12 @@
+{
+  "command_authority_granted": false,
+  "credentialless_home_read": true,
+  "cross_repo_write_credential_used": false,
+  "external_effect_authorized": false,
+  "issue_comment_confirmed": true,
+  "issue_number": 9,
+  "relayed_at": 1788119557.6247146,
+  "response_hash": "d7a4a6e01986bee807ca351b04623629e8e5b79058edee262b3ccabd6fefe946",
+  "response_id": "tr-dfb109d56988b3de2bce62d6430c154aa4a3f8762773e4daf5ac6372b0bfbb66",
+  "schema": "janus.terminal.relay_receipt.v1"
+}

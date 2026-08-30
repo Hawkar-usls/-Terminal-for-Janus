@@ -48,8 +48,10 @@ jobs:
         run: |
           ! grep -R -E 'ngrok-free|LOCAL_IPS|PORTS_TO_SCAN|/api/janus/action' index.html assets/terminal-v2.*
           echo 'LEGACY_LOCAL_SCANNER=ABSENT'
-      - name: Prove HRaiN-mediated memory path
+      - name: Prove full HRaiN-mediated memory path
         run: |
-          grep -q 'https://hawkar-usls.github.io/Hrain/janus.html' assets/terminal-v2.js
+          grep -q 'https://hawkar-usls.github.io/Hrain/memory.html' assets/terminal-v2.js
+          grep -q 'FULL_CURRENT_MEMORY_MANIFEST' .janus/TERMINAL_V2_HRAIN_MEMORY_CONTRACT.json
           ! grep -q 'https://hawkar-usls.github.io/janus-meta-registry/' assets/terminal-v2.js
-          echo 'META_REGISTRY_TO_HRAIN_TO_TERMINAL=CONTRACT_PASS'
+          ! grep -q 'raw.githubusercontent.com/Hawkar-usls/janus-meta-registry' assets/terminal-v2.js
+          echo 'META_REGISTRY_TO_HRAIN_FULL_MEMORY_TO_TERMINAL=CONTRACT_PASS'

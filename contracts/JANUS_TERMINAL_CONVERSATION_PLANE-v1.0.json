@@ -1,20 +1,32 @@
 {
   "schema": "janus.terminal.conversation_plane.v1",
-  "status": "READ_ONLY_CONVERSATION_INGRESS_EGRESS_WITH_HRAIN_MEMORY_PROOF",
+  "status": "READ_ONLY_CONVERSATION_INGRESS_EGRESS_WITH_HRAIN_MEMORY_PROOF_AND_APPEND_ONLY_CANCELLATION",
   "organ_key": "operator_hands",
   "terminal_repository": "Hawkar-usls/-Terminal-for-Janus",
   "home_repository": "Hawkar-usls/Hawkar-usls",
   "hrain_repository": "Hawkar-usls/Hrain",
   "human_actor_v1": "Hawkar-usls",
   "request_schema": "janus.terminal.message.v1",
+  "cancellation_schema": "janus.terminal.message_cancellation.v1",
   "response_schema": "janus.terminal.response.v1",
   "authority_mode": "READ_ONLY_CONVERSATION",
   "memory_path": "META_REGISTRY_DB -> HRAIN -> JANUS -> TERMINAL",
   "transport": {
     "request": "TERMINAL_LOCAL_WRITE_TO_PUBLIC_MAILBOX_THEN_HOME_CREDENTIALLESS_READ",
+    "cancellation": "TERMINAL_LOCAL_APPEND_ONLY_TOMBSTONE_TO_PUBLIC_MAILBOX_THEN_HOME_CREDENTIALLESS_READ",
     "response": "HOME_LOCAL_WRITE_TO_PUBLIC_RESPONSE_MAILBOX_THEN_TERMINAL_CREDENTIALLESS_READ",
     "cross_repo_write_credential_required": false,
     "browser_secret_required": false
+  },
+  "mailbox": {
+    "requests_prefix": ".janus/terminal-mailbox/requests/",
+    "cancellations_prefix": ".janus/terminal-mailbox/cancellations/",
+    "request_objects_are_deleted_on_cancel": false,
+    "response_objects_are_deleted_on_cancel": false,
+    "cancellation_binds_original_message_id": true,
+    "cancellation_binds_original_message_hash": true,
+    "closed_issue_event_reconstructs_original_issue_request_identity": true,
+    "external_actor_may_cancel_owner_request": false
   },
   "required_response_proof": [
     "request_message_hash",
@@ -59,6 +71,11 @@
     "HRAIN_CONTEXT_HASH_IS_RESPONSE_IDENTITY_FOR_MEMORY_BOUND_TURNS",
     "TERMINAL_EGRESS_MUST_VERIFY_HRAIN_MEMORY_PROOF_BEFORE_RELAY",
     "TERMINAL_EGRESS_MUST_REMAIN_BACKWARD_COMPATIBLE_WITH_LEGACY_SEALED_RESPONSES",
+    "CANCEL != DELETE",
+    "CANCEL != ERASE_RESPONSE",
+    "CANCELLED_REQUEST != FRESH_COGNITION",
+    "CANCELLATION_MUST_BIND_ORIGINAL_MESSAGE_ID_AND_HASH",
+    "CANCELLATION != COMMAND_AUTHORITY",
     "NO_BROWSER_TOKEN",
     "NO_CROSS_REPO_WRITE_TOKEN_REQUIRED_FOR_CONVERSATION",
     "LOCAL_TOKEN_WRITES_LOCAL_REPOSITORY_ONLY"

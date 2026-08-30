@@ -1,0 +1,53 @@
+name: JANUS Terminal v2 UI
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'assets/terminal-v2.css'
+      - 'assets/terminal-v2.js'
+      - '.janus/TERMINAL_V2_HRAIN_MEMORY_CONTRACT.json'
+      - 'tests/test_terminal_v2_static.py'
+      - '.github/workflows/janus-terminal-v2-ui.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'assets/terminal-v2.css'
+      - 'assets/terminal-v2.js'
+      - '.janus/TERMINAL_V2_HRAIN_MEMORY_CONTRACT.json'
+      - 'tests/test_terminal_v2_static.py'
+      - '.github/workflows/janus-terminal-v2-ui.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate JSON contract
+        run: python -m json.tool .janus/TERMINAL_V2_HRAIN_MEMORY_CONTRACT.json >/dev/null
+      - name: Syntax-check browser runtime
+        run: node --check assets/terminal-v2.js
+      - name: Run Terminal v2 architecture tests
+        run: python -m pytest -q tests/test_terminal_v2_static.py
+      - name: Prove legacy scanner is gone
+        run: |
+          ! grep -R -E 'ngrok-free|LOCAL_IPS|PORTS_TO_SCAN|/api/janus/action' index.html assets/terminal-v2.*
+          echo 'LEGACY_LOCAL_SCANNER=ABSENT'
+      - name: Prove HRaiN-mediated memory path
+        run: |
+          grep -q 'https://hawkar-usls.github.io/Hrain/janus.html' assets/terminal-v2.js
+          ! grep -q 'https://hawkar-usls.github.io/janus-meta-registry/' assets/terminal-v2.js
+          echo 'META_REGISTRY_TO_HRAIN_TO_TERMINAL=CONTRACT_PASS'

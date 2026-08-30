@@ -36,6 +36,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Install test dependency
+        run: python -m pip install --quiet pytest
       - name: Validate JSON contract
         run: python -m json.tool .janus/TERMINAL_V2_HRAIN_MEMORY_CONTRACT.json >/dev/null
       - name: Syntax-check browser runtime

@@ -1,0 +1,57 @@
+name: JANUS Terminal v2.2 UI Contract
+
+on:
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'assets/terminal-v2.js'
+      - 'assets/terminal-v2.css'
+      - '.janus/TERMINAL_V2_HRAIN_MEMORY_CONTRACT.json'
+      - 'tests/test_terminal_v2_static.py'
+      - '.github/workflows/janus-terminal-v2.2-ui.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'assets/terminal-v2.js'
+      - 'assets/terminal-v2.css'
+      - '.janus/TERMINAL_V2_HRAIN_MEMORY_CONTRACT.json'
+      - 'tests/test_terminal_v2_static.py'
+      - '.github/workflows/janus-terminal-v2.2-ui.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install test dependency
+        run: python -m pip install --disable-pip-version-check pytest
+      - name: Validate Terminal v2.2 contract JSON
+        run: python -m json.tool .janus/TERMINAL_V2_HRAIN_MEMORY_CONTRACT.json >/dev/null
+      - name: Run static architecture tests
+        run: python -m pytest -q tests/test_terminal_v2_static.py
+      - name: Verify memory and candidate boundaries
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          html = Path('index.html').read_text(encoding='utf-8')
+          js = Path('assets/terminal-v2.js').read_text(encoding='utf-8')
+          c = json.loads(Path('.janus/TERMINAL_V2_HRAIN_MEMORY_CONTRACT.json').read_text())
+          assert 'https://hawkar-usls.github.io/Hrain/memory.html' in js
+          assert 'raw.githubusercontent.com/Hawkar-usls/janus-meta-registry' not in js
+          assert 'raw.githubusercontent.com/Hawkar-usls/Janus-Demiurge/main/trump/TRUMP_MANIFEST.json' in js
+          assert 'organism-trump-state' in html
+          assert c['memory_dataflow']['terminal_consumes_registry_directly'] is False
+          assert c['candidate_tissue_readout']['wake_allowed'] is True
+          assert c['candidate_tissue_readout']['proof_authority'] is False
+          assert c['candidate_tissue_readout']['P_VS_NP'] == 'OPEN'
+          print('JANUS_TERMINAL_V22_UI_CONTRACT_PASS')
+          PY

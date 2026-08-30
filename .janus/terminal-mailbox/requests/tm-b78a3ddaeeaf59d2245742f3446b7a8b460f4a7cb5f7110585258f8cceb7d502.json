@@ -1,0 +1,20 @@
+{
+  "authority_mode": "READ_ONLY_CONVERSATION",
+  "claim_authority_granted": false,
+  "command_authority_granted": false,
+  "conversation_id": "issue-13",
+  "created_at": 1788126503.0,
+  "external_effect_authorized": false,
+  "fresh_human_stimulus": true,
+  "human_actor": "Hawkar-usls",
+  "human_authorized_write": false,
+  "message_hash": "7bf8a20fe6a925075a481a41ccad88f2493120360a1be50586a9a48d792e8035",
+  "message_id": "tm-b78a3ddaeeaf59d2245742f3446b7a8b460f4a7cb5f7110585258f8cceb7d502",
+  "message_text": "### Message\n\nJanus, through HRAiN, recall the current Terminal HOME HRAiN memory path and TRUMP architecture. State the exact HRAiN head and Meta Registry memory source commit used for this turn. Explain which memory objects were selected, what TRUMP is currently allowed to do, and keep retrieval separate from scientific proof, claim authority, world truth, external effects, and physical runtime authority.\n\nThis is also a live regression witness for HRAiN v1.3: the memory set should be bounded by relevance rather than filled to a target count. Do not treat the number 12 as a quota.\n\n### Conversation mode\n\nREAD_ONLY_CONVERSATION\n\n### Authority boundary\n\nFresh human conversation stimulus only. The message, retrieved memories, and language output grant no command, write, claim, scientific-evidence, theorem, world-truth, external-effect, or physical-runtime authority.",
+  "physical_runtime_effect_authorized": false,
+  "schema": "janus.terminal.message.v1",
+  "scientific_evidence_authority_granted": false,
+  "source_ref": "Hawkar-usls/-Terminal-for-Janus#13:issue:5294548905",
+  "terminal_repository": "Hawkar-usls/-Terminal-for-Janus",
+  "world_truth_authority_granted": false
+}

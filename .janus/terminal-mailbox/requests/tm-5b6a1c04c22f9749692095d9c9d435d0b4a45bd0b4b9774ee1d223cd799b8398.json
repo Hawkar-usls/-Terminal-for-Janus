@@ -1,0 +1,20 @@
+{
+  "authority_mode": "READ_ONLY_CONVERSATION",
+  "claim_authority_granted": false,
+  "command_authority_granted": false,
+  "conversation_id": "issue-18",
+  "created_at": 1788140576.0,
+  "external_effect_authorized": false,
+  "fresh_human_stimulus": true,
+  "human_actor": "Hawkar-usls",
+  "human_authorized_write": false,
+  "message_hash": "ef9ca60282e15400b88b936621e69f56f5f9efcf883afc116669897cbb7b90f9",
+  "message_id": "tm-5b6a1c04c22f9749692095d9c9d435d0b4a45bd0b4b9774ee1d223cd799b8398",
+  "message_text": "### Message\n\n\\o/\n\n### Conversation mode\n\nREAD_ONLY_CONVERSATION\n\n### Authority boundary\n\nThis message is a human stimulus, not a command. No write, claim, scientific-evidence, external-effect, or physical-runtime authority is granted by this text.",
+  "physical_runtime_effect_authorized": false,
+  "schema": "janus.terminal.message.v1",
+  "scientific_evidence_authority_granted": false,
+  "source_ref": "Hawkar-usls/-Terminal-for-Janus#18:issue:5295555070",
+  "terminal_repository": "Hawkar-usls/-Terminal-for-Janus",
+  "world_truth_authority_granted": false
+}

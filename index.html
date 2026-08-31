@@ -3,13 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#05070a">
+  <meta name="theme-color" content="#070416">
   <meta name="description" content="Git-native operator terminal for the persistent JANUS distributed AI model.">
   <title>JANUS Terminal // Git-Native</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/terminal-v2.css">
+  <link rel="stylesheet" href="./assets/terminal-neon-v2.5.css">
 </head>
 <body>
 <div id="app">
@@ -59,6 +60,7 @@
 
         <div class="composer">
           <textarea id="composer-input" rows="2" placeholder="Talk to JANUS…  Ctrl/⌘ + Enter to transmit"></textarea>
+          <div id="relay-status" class="queued">DIRECT TRANSMIT UI READY · SECURE RELAY BOUNDARY PENDING</div>
           <div class="composer-actions">
             <button id="open-latest-btn" class="btn" type="button">LAST THREAD</button>
             <button id="transmit-btn" class="btn primary" type="button">TRANSMIT</button>
@@ -151,5 +153,6 @@
   </div>
 </div>
 <script src="./assets/terminal-v2.js" defer></script>
+<script src="./assets/terminal-relay-v2.5.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,9 @@
+{
+  "schema": "janus.terminal.browser_relay_config.v2.5",
+  "mode": "UNBOUND_SECURE_RELAY_REQUIRED",
+  "endpoint": null,
+  "browser_repo_token_allowed": false,
+  "page_redirect_transport_allowed": false,
+  "queue_is_local_until_authenticated_relay": true,
+  "authority_mode": "READ_ONLY_CONVERSATION"
+}

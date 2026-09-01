@@ -11,7 +11,7 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 6656,
+  "files_scanned": 6682,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,

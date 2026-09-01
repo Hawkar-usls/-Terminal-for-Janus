@@ -99,6 +99,7 @@ jobs:
       - name: Validate Terminal JSON/5D backbone
         shell: bash
         run: |
+          python -m pip install --disable-pip-version-check 'pytest>=8,<9'
           python -m py_compile \
             terminal/tools/janus_json_mirror_pass.py \
             terminal/tools/janus_json_router.py \

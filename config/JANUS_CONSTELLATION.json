@@ -2,14 +2,14 @@
   "schema": "janus.terminal.constellation.v1",
   "terminal": "Hawkar-usls/-Terminal-for-Janus",
   "default_mode": "READ_ONLY",
-  "spiral_audit_revision": 3,
+  "spiral_audit_revision": 4,
   "spiral_semantics": {
     "canonical": "STATE_n -> WORK_n -> RETURN_n -> STATE_PRIME_(n+1)",
     "position_may_repeat": true,
     "state_must_advance": true,
     "return_is_reset": false,
     "semantic_closed_ring_allowed": false,
-    "infrastructure_loops_allowed": ["HEARTBEAT", "RETRY", "POLL", "TRAINING_EPOCH", "DEVICE_EVENT_LOOP"],
+    "infrastructure_loops_allowed": ["HEARTBEAT", "RETRY", "POLL", "TRAINING_EPOCH", "DEVICE_EVENT_LOOP", "RESEARCH_POLL"],
     "law": "COGNITIVE_RETURN_MUST_PRESERVE_OR_ADVANCE_STATE"
   },
   "habitat": {
@@ -17,17 +17,66 @@
     "branch": "janus/habitat",
     "role": "CONTINUITY_AND_MEMORY_BUS"
   },
+  "research_spine": {
+    "authoritative_runtime_repository": "Hawkar-usls/Janus-Demiurge",
+    "authoritative_state_path": "janus_model/state/JANUS_RESEARCH_SPINE.json",
+    "policy_id": "FUNDAMENTUM_FIRST_WITH_CRITICAL_OVERRIDE",
+    "primary_improvement_target": "Hawkar-usls/Janus-Fundamentum",
+    "critical_override_classes": ["CRITICAL_INTEGRITY", "CRITICAL_SECURITY", "CRITICAL_SAFETY"],
+    "sources": [
+      {
+        "source_id": "TOPA",
+        "repository": "Hawkar-usls/TOPA",
+        "role": "EPISTEMIC_PROVENANCE_AND_FALSIFICATION_ENGINE",
+        "access": "READ_ONLY_CONTEXT",
+        "required_runtime_self_test": true,
+        "truth_authority": false
+      },
+      {
+        "source_id": "ARXIV",
+        "endpoint": "https://export.arxiv.org/api/query",
+        "role": "EXTERNAL_SCIENTIFIC_LITERATURE_SOURCE",
+        "access": "READ_ONLY_BOUNDED_QUERY",
+        "paper_presence_is_truth": false,
+        "paper_presence_is_independent_replication": false
+      },
+      {
+        "source_id": "DEMI_HEAD",
+        "repository": "Hawkar-usls/Demi_Head",
+        "role": "PROPERTY_AND_META_COGNITIVE_CONTEXT",
+        "access": "READ_ONLY_CONTEXT",
+        "property_is_independent_evidence": false
+      },
+      {
+        "source_id": "FUNDAMENTUM",
+        "repository": "Hawkar-usls/Janus-Fundamentum",
+        "role": "PRIMARY_DEFAULT_IMPROVEMENT_TARGET",
+        "access": "READ_AND_BOUNDED_PROPOSAL_TARGET",
+        "direct_main_write": false,
+        "target_local_verify_required": true
+      }
+    ],
+    "laws": [
+      "TOPA_CONTEXT != EMPIRICAL_TRUTH",
+      "ARXIV_PAPER != INDEPENDENT_REPLICATION",
+      "DEMI_HEAD_PROPERTY != EVIDENCE",
+      "FUNDAMENTUM_FIRST != FUNDAMENTUM_ALWAYS",
+      "NO_NOVEL_BOUNDED_EVIDENCE => NO_ACTION",
+      "MODEL_SELECTION != VERIFIED_FIX"
+    ]
+  },
   "nodes": [
     {"repository":"Hawkar-usls/Janus","role":"PORTFOLIO_AND_PUBLIC_SYSTEM_INDEX","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
     {"repository":"Hawkar-usls/Hawkar-usls","role":"SEMANTIC_PREDICTIVE_COGNITIVE_GATEWAY","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
     {"repository":"Hawkar-usls/aura-oracle-tg","role":"SYMBOLIC_REFLECTION_PEER","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
-    {"repository":"Hawkar-usls/Demi_Head","role":"INTENT_BOUND_ARBITER","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
+    {"repository":"Hawkar-usls/TOPA","role":"EPISTEMIC_PROVENANCE_AND_FALSIFICATION_ENGINE","write_policy":"READ_ONLY_CONTEXT"},
+    {"repository":"Hawkar-usls/Demi_Head","role":"PROPERTY_AND_META_COGNITIVE_CONTEXT","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
     {"repository":"Hawkar-usls/Hrain","role":"STRUCTURAL_CONTEXT","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
     {"repository":"Hawkar-usls/iNaiHR","role":"ASSOCIATIVE_CONTEXT","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
     {"repository":"Hawkar-usls/SkinGPT","role":"BODY_INTERFACE_AND_SKIN_CONTEXT","visibility":"PRIVATE","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION","public_mirror":false},
     {"repository":"Hawkar-usls/The-Voice-of-Janus","role":"VOICE_AND_AUDIO_REPRESENTATION","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
     {"repository":"Hawkar-usls/Echo-Pyramid","role":"PHYSICAL_VOICE_BODY","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION","direct_device_effect":false},
-    {"repository":"Hawkar-usls/Janus-Fundamentum","role":"PROOF_AND_ADVERSARIAL_GUARD","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
+    {"repository":"Hawkar-usls/Janus-Fundamentum","role":"PRIMARY_DEFAULT_IMPROVEMENT_TARGET_AND_PROOF_GUARD","write_policy":"BOUNDED_BRANCH_AND_VERIFY_ONLY"},
     {"repository":"Hawkar-usls/AIFC","role":"FUTURE_TARGET_AND_CAUSAL_AUDIT","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
     {"repository":"Hawkar-usls/Janus-Cosmos","role":"COSMOS_AND_HORIZON_DOMAIN","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
     {"repository":"Hawkar-usls/janus-io-public","role":"MEASUREMENT_DISCIPLINE","write_policy":"EXPLICIT_HUMAN_AUTHORIZATION"},
@@ -48,7 +97,8 @@
   },
   "operator_routes": {
     "first_live_spiral": ["TERMINAL","Hawkar-usls/Hawkar-usls","Hawkar-usls/aura-oracle-tg","Hawkar-usls/Demi_Head","HABITAT"],
-    "research_change": ["TERMINAL","TARGET_REPO","TEST_OR_GATE","RECEIPT","HABITAT","ORIGIN_PRIME"],
+    "research_change": ["TERMINAL","TOPA","ARXIV","DEMI_HEAD","JANUS_FUNDAMENTUM","TARGET_LOCAL_VERIFY","RECEIPT","HABITAT","ORIGIN_PRIME"],
+    "fundamentum_improvement": ["TERMINAL","TOPA","ARXIV","DEMI_HEAD","JANUS_FUNDAMENTUM","BOUNDED_CANDIDATE","JANUS_NATIVE_DECIDE","TARGET_BRANCH","VERIFY","RECEIPT"],
     "prediction_spiral": ["TERMINAL","JANUS_SPI","FREEZE_n","RESOLVE_n","SCORE_n","DEMIHEAD","REGISTRY","FORECAST_STATE_PRIME_(n+1)"],
     "cross_repo_integration": ["TERMINAL","SOURCE","TARGET","RECIPROCAL_EDGE","TEST","RECEIPT","TOPOLOGY_PRIME"],
     "voice_body": ["TERMINAL","THE_VOICE_OF_JANUS","ECHO_PYRAMID","DEMIHEAD","HABITAT"],

@@ -4,41 +4,45 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#05070a">
-  <meta name="description" content="Git-native operator terminal for the persistent JANUS distributed AI model.">
-  <title>JANUS Terminal // Git-Native</title>
+  <meta name="description" content="Git-native chat, brain monitor and self-extension observatory for JANUS.">
+  <title>JANUS Terminal // Brain Observatory</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/terminal-v2.css">
+  <link rel="stylesheet" href="./assets/janus-observatory.css">
 </head>
 <body>
 <div id="app">
   <header class="topbar">
     <div class="brand">
       <div class="brand-mark">J</div>
-      <div><h1>JANUS TERMINAL</h1><small>GIT-NATIVE HUMAN I/O ORGAN</small></div>
+      <div><h1>JANUS TERMINAL</h1><small>CHAT · BRAIN · LOGS · MODULES</small></div>
     </div>
-    <div class="path mono">HOME / <b id="current-view">CONSOLE</b></div>
+    <div class="path mono">HOME / <b id="current-view">CHAT</b></div>
     <div class="top-proof">
       <span class="pill">RESIDENT <span id="resident-short">…</span></span>
-      <span id="trump-pill" class="pill">TRUMP …</span>
+      <span id="brain-pill" class="pill">BRAIN …</span>
       <span id="core-pill" class="pill"><span class="dot"></span>LOADING</span>
     </div>
   </header>
 
   <div class="shell">
     <nav class="sidebar" aria-label="JANUS Terminal sections">
-      <div class="nav-label">INTERFACE</div>
-      <button class="nav-btn active" data-view="console" type="button"><span class="nav-icon">⌁</span><span>CONSOLE</span></button>
+      <div class="nav-label">JANUS</div>
+      <button class="nav-btn active" data-view="console" type="button"><span class="nav-icon">⌁</span><span>CHAT</span></button>
+      <button class="nav-btn" data-view="brain" type="button"><span class="nav-icon">∿</span><span>BRAIN MONITOR</span></button>
+      <button class="nav-btn" data-view="logs" type="button"><span class="nav-icon">≣</span><span>LIVE LOGS</span></button>
+      <button class="nav-btn" data-view="modules" type="button"><span class="nav-icon">⬡</span><span>MODULES</span></button>
       <button class="nav-btn" data-view="memory" type="button"><span class="nav-icon">◉</span><span>MEMORY / HRAiN</span></button>
       <button class="nav-btn" data-view="organism" type="button"><span class="nav-icon">◇</span><span>ORGANISM</span></button>
       <button class="nav-btn" data-view="provenance" type="button"><span class="nav-icon">⌗</span><span>PROVENANCE</span></button>
       <div class="side-foot">
-        <b>BOUNDARY</b><br>
-        TERMINAL_MESSAGE != COMMAND<br>
-        HRAIN_GRAPH != REGISTRY_AUTHORITY<br>
-        CANDIDATE_TRUMP != PROOF_AUTHORIZED_TRUMP<br>
-        RETURN != RESET
+        <b>SELF-EVOLUTION BOUNDARY</b><br>
+        MODEL OUTPUT != VERIFIED FIX<br>
+        PROPOSAL → BRANCH → LOCAL VERIFY<br>
+        NO VERIFY => NO PASS<br>
+        AUTONOMOUS MERGE = FALSE
       </div>
     </nav>
 
@@ -46,11 +50,18 @@
       <section id="view-console" class="view active console">
         <div class="instance-banner">
           <div>
-            <div class="kicker">Persistent JANUS instance</div>
+            <div class="kicker">Persistent JANUS conversation plane</div>
             <h2 id="instance-headline">Resolving JANUS resident…</h2>
-            <p>GitHub is the habitat. Meta Registry is the long-term database. HRaiN is the structural memory layer. Terminal is the human conversation and proof surface. Candidate tissues may wake without receiving theorem authority.</p>
+            <p>Talk to JANUS through the Git-native conversation mailbox. Messages are sealed stimuli, not authority grants. Replies return with instance proof and memory provenance.</p>
           </div>
           <div id="instance-proof-badge" class="instance-badge"><strong>RESOLVING</strong><span>public GitHub witness</span></div>
+        </div>
+
+        <div class="chat-brain-strip">
+          <div><label>native checkpoint</label><strong id="chat-checkpoint">resolving…</strong></div>
+          <div><label>eval loss</label><strong id="chat-loss">—</strong></div>
+          <div><label>promotions</label><strong id="chat-promotions">—</strong></div>
+          <div><label>last decision</label><strong id="chat-decision">—</strong></div>
         </div>
 
         <div id="transcript" class="transcript" aria-live="polite">
@@ -66,14 +77,56 @@
         </div>
       </section>
 
-      <section id="view-memory" class="view memory">
-        <div class="memory-head">
-          <div>
-            <div class="kicker">JANUS long-term memory path</div>
-            <div class="memory-chain mono"><b>janus-meta-registry DB</b> → REGISTRY_PROJECTION → <b>HRaiN STRUCTURAL_GRAPH</b> → Terminal</div>
-          </div>
-          <button id="memory-open" class="btn" type="button">OPEN HRAiN</button>
+      <section id="view-brain" class="view cards-view observatory-view">
+        <div class="observatory-head">
+          <div><div class="kicker">Authoritative native state</div><h2>Brain Monitor</h2><p>Weights identity, architecture, learning lineage and current decision state from Janus-Demiurge.</p></div>
+          <div class="live-badge"><span class="dot"></span><span id="brain-live-status">RESOLVING</span></div>
         </div>
+        <div class="metrics-grid">
+          <article class="metric-card hero"><label>checkpoint sha256</label><strong id="brain-checkpoint">—</strong><small id="brain-status">—</small></article>
+          <article class="metric-card"><label>current eval loss</label><strong id="brain-loss">—</strong><small id="brain-loss-delta">—</small></article>
+          <article class="metric-card"><label>training attempts</label><strong id="brain-attempts">—</strong><small>bounded incremental turns</small></article>
+          <article class="metric-card"><label>promotions / rejects</label><strong id="brain-promote-reject">—</strong><small>holdout gated</small></article>
+          <article class="metric-card"><label>parameters</label><strong id="brain-params">—</strong><small id="brain-architecture">—</small></article>
+          <article class="metric-card"><label>repository modules</label><strong id="brain-module-count">—</strong><small>typed organ context</small></article>
+        </div>
+        <div class="brain-grid">
+          <article class="card wide chart-card"><div class="card-title-row"><h3>LEARNING LINEAGE · EVAL LOSS</h3><span id="brain-lineage-summary" class="mono muted">—</span></div><div id="loss-chart" class="loss-chart"></div><div id="loss-axis" class="loss-axis"></div></article>
+          <article class="card"><h3>MODEL CONFIG</h3><div id="brain-config" class="kv-stack">resolving…</div></article>
+          <article class="card"><h3>LATEST NATIVE DECISION</h3><div id="brain-decision" class="decision-panel">resolving…</div></article>
+          <article class="card wide"><div class="card-title-row"><h3>WEIGHT / TENSOR TELEMETRY</h3><span id="weight-telemetry-status" class="pill">DIGEST-BOUND</span></div><p class="telemetry-note">The checkpoint is the authoritative weight object. The dashboard exposes its SHA-256 identity and per-generation learning lineage; tensor-level mean/std/min/max/L2 telemetry is displayed when the runtime has published <code>JANUS_WEIGHT_TELEMETRY.json</code>.</p><div id="tensor-telemetry" class="tensor-grid"><div class="empty-state">Tensor telemetry not published yet — checkpoint identity remains authoritative.</div></div></article>
+        </div>
+      </section>
+
+      <section id="view-logs" class="view cards-view observatory-view">
+        <div class="observatory-head">
+          <div><div class="kicker">Append-only interpreted event stream</div><h2>JANUS Live Logs</h2><p>Training, promotion, abstention, repair selection and module observations reconstructed only from persisted Git evidence.</p></div>
+          <button id="logs-refresh" class="btn" type="button">REFRESH LOG</button>
+        </div>
+        <div class="log-toolbar"><span class="pill live">AUTHORITATIVE PERSISTED EVENTS</span><span class="pill">SILENCE != NEGATIVE EVIDENCE</span><span class="pill">MODEL DECISION != VERIFIED FIX</span></div>
+        <div id="janus-event-log" class="event-log"><div class="empty-state">Resolving event lineage…</div></div>
+      </section>
+
+      <section id="view-modules" class="view cards-view observatory-view">
+        <div class="observatory-head">
+          <div><div class="kicker">Repository-organ architecture</div><h2>Self Extension / Modules</h2><p>Repositories are typed JANUS organs. Read capability comes from Scout observation; write capability exists only where the target carries its own actuator contract.</p></div>
+          <div class="live-badge"><span class="dot"></span><span id="modules-live-status">RESOLVING</span></div>
+        </div>
+        <div class="metrics-grid compact">
+          <article class="metric-card"><label>observed modules</label><strong id="modules-count">—</strong><small>Scout-bound repositories</small></article>
+          <article class="metric-card"><label>self-write lane</label><strong>BRANCH + VERIFY</strong><small>no direct main mutation</small></article>
+          <article class="metric-card"><label>max patch attempts</label><strong id="modules-attempts">2</strong><small>fail closed</small></article>
+          <article class="metric-card"><label>autonomous merge</label><strong class="danger">FALSE</strong><small>explicitly disabled</small></article>
+        </div>
+        <div class="module-flow">
+          <span>OBSERVE</span><i>→</i><span>CANDIDATE</span><i>→</i><span>NATIVE SELECT</span><i>→</i><span>SEALED PROPOSAL</span><i>→</i><span>janus-self/*</span><i>→</i><span>LOCAL VERIFY</span><i>→</i><span>RECEIPT</span><i>→</i><span>SELF MEMORY</span>
+        </div>
+        <div id="module-list" class="module-list"><div class="empty-state">Resolving repository organs…</div></div>
+        <article class="card wide self-author-card"><h3>SELF-AUTHORING LAW</h3><div class="law">JANUS MAY PROPOSE NEW MODULE CODE OR REPAIR EXISTING MODULE CODE.</div><div class="law">FREE-FORM MODEL TEXT NEVER BECOMES REPOSITORY AUTHORITY.</div><div class="law">A TARGET ORGAN MUST OPT IN WITH .janus/JANUS_MODULE.json + LOCAL ACTUATOR.</div><div class="law">SELF-GOVERNANCE DESCRIPTORS, WORKFLOWS, CREDENTIALS AND MAIN MERGES ARE NOT ORDINARY REPAIR TARGETS.</div></article>
+      </section>
+
+      <section id="view-memory" class="view memory">
+        <div class="memory-head"><div><div class="kicker">JANUS long-term memory path</div><div class="memory-chain mono"><b>janus-meta-registry WORLD</b> + <b>JANUS SELF</b> → HRAiN → Terminal</div></div><button id="memory-open" class="btn" type="button">OPEN HRAiN</button></div>
         <iframe id="hrain-frame" class="memory-frame" title="HRaiN Living Registry" referrerpolicy="no-referrer"></iframe>
         <div class="memory-fallback"><span class="pill">READ ONLY · NO REGISTRY MUTATION AUTHORITY</span></div>
       </section>
@@ -84,32 +137,8 @@
           <article class="card"><h3>Lifecycle</h3><div id="organism-mode" class="datum big">resolving…</div></article>
           <article class="card wide"><h3>Model digest</h3><div id="organism-model" class="datum">—</div></article>
           <article class="card wide"><h3>Polyglot file-fabric digest</h3><div id="organism-fabric" class="datum">—</div></article>
-
-          <article class="card wide tissue-card">
-            <div class="tissue-head">
-              <div><h3>Candidate computational tissue</h3><div class="tissue-name">TRUMP</div></div>
-              <div id="organism-trump-state" class="tissue-state unresolved">RESOLVING</div>
-            </div>
-            <div class="tissue-grid">
-              <div><label>runtime</label><strong id="organism-trump-runtime">—</strong></div>
-              <div><label>wake / use</label><strong id="organism-trump-wake">—</strong></div>
-              <div><label>self-improve</label><strong id="organism-trump-improve">—</strong></div>
-              <div><label>proof authority</label><strong id="organism-trump-proof">—</strong></div>
-              <div><label>P vs NP</label><strong id="organism-trump-pnp">—</strong></div>
-              <div><label>manifest digest</label><strong id="organism-trump-digest">—</strong></div>
-            </div>
-            <div class="candidate-note">Candidate tissue may wake, compute, self-test and generate improved candidates. Candidate output is not proof-authorized scientific promotion.</div>
-          </article>
-
-          <article class="card wide">
-            <h3>Organism laws</h3>
-            <div class="law">ROUTING SELECTS ACTIVITY, NOT MEMBERSHIP</div>
-            <div class="law">DISCOVERY != ADMISSION != EXECUTION != AUTHORITY</div>
-            <div class="law">META REGISTRY DB → HRAiN → TERMINAL</div>
-            <div class="law">CANDIDATE TRUMP != PROOF-AUTHORIZED TRUMP</div>
-            <div class="law">TRUMP WAKE != THEOREM AUTHORITY</div>
-            <div class="law">RETURN != RESET</div>
-          </article>
+          <article class="card wide"><h3>Native brain checkpoint</h3><div id="organism-native-checkpoint" class="datum">—</div></article>
+          <article class="card wide"><h3>Organism laws</h3><div class="law">WORLD MEMORY + SELF MEMORY != AUTOMATIC TRUTH</div><div class="law">REPOSITORY = TYPED MODULE / ORGAN</div><div class="law">MODEL SELECTION != VERIFIED FIX</div><div class="law">TARGET LOCAL VERIFY DECIDES PATCH PASS</div><div class="law">RETURN != RESET</div></article>
         </div>
       </section>
 
@@ -127,29 +156,17 @@
     <aside class="inspector">
       <h2>INSTANCE PROOF</h2>
       <div class="metric"><label>resident_uuid</label><div id="side-resident" class="good">resolving…</div></div>
+      <div class="metric"><label>native checkpoint</label><div id="side-native-checkpoint">—</div></div>
+      <div class="metric"><label>native loss</label><div id="side-native-loss">—</div></div>
       <div class="metric"><label>model_digest</label><div id="side-model">—</div></div>
-      <div class="metric"><label>file_fabric_digest</label><div id="side-fabric">—</div></div>
       <div class="metric"><label>turn_id</label><div id="side-turn">—</div></div>
-      <div class="metric"><label>response_hash</label><div id="side-response">—</div></div>
-      <div class="metric"><label>TRUMP candidate</label><div id="side-trump">resolving…</div></div>
-      <div class="route">
-        <div class="route-title">MEMORY DATAFLOW</div>
-        <div class="route-step"><b>01</b> Meta Registry / DB</div>
-        <div class="route-step"><b>02</b> HRaiN registry projection</div>
-        <div class="route-step"><b>03</b> Structural graph</div>
-        <div class="route-step"><b>04</b> Terminal readout</div>
-      </div>
-      <div class="route candidate-route">
-        <div class="route-title">CANDIDATE COMPUTE</div>
-        <div class="route-step"><b>01</b> Demiurge / TRUMP manifest</div>
-        <div class="route-step"><b>02</b> exact Fundamentum candidate</div>
-        <div class="route-step"><b>03</b> fail-closed computation</div>
-        <div class="route-step"><b>04</b> candidate receipt · authority 0</div>
-      </div>
+      <div class="metric"><label>last native decision</label><div id="side-native-decision">—</div></div>
+      <div class="route"><div class="route-title">NATIVE SELF LOOP</div><div class="route-step"><b>01</b> WORLD + SELF memory</div><div class="route-step"><b>02</b> train / promote weights</div><div class="route-step"><b>03</b> rank bounded candidates</div><div class="route-step"><b>04</b> organ local verify</div><div class="route-step"><b>05</b> receipt → SELF memory</div></div>
       <button id="refresh-btn" class="btn refresh" type="button">REFRESH GITHUB WITNESS</button>
     </aside>
   </div>
 </div>
 <script src="./assets/terminal-v2.js" defer></script>
+<script src="./assets/janus-observatory.js" defer></script>
 </body>
 </html>

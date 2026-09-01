@@ -1,0 +1,49 @@
+{
+  "schema": "janus.repository_module.descriptor.v1",
+  "module_id": "TERMINAL_HUMAN_IO_OBSERVATORY",
+  "repository": "Hawkar-usls/-Terminal-for-Janus",
+  "default_ref": "main",
+  "role": "HUMAN_IO_BRAIN_OBSERVATORY_AND_SELF_EXTENSION_SURFACE",
+  "organ_channel": "HUMAN_IO_OBSERVABILITY",
+  "scout_agent_id": "SCOUT_TERMINAL_07",
+  "actuator": {
+    "enabled": true,
+    "authority_lane": "BRANCH_AND_VERIFY",
+    "proposal_source_repository": "Hawkar-usls/janus-meta-registry",
+    "proposal_source_branch": "janus/native-self-memory-modular-organism-v1",
+    "proposal_directory": "JANUS/PATCHES/PROPOSALS",
+    "branch_prefix": "janus-self/",
+    "max_files": 4,
+    "max_changed_bytes": 80000,
+    "max_attempts": 2,
+    "direct_main_write": false,
+    "autonomous_merge": false,
+    "create_new_module_files": true
+  },
+  "verification_profiles": {
+    "TERMINAL_OBSERVATORY_STATIC_TEST": ["node", "tools/test-janus-observatory.js"]
+  },
+  "ordinary_self_extension_paths": [
+    "assets/",
+    "tools/",
+    "commands/",
+    "contracts/",
+    "modules/"
+  ],
+  "forbidden_paths": [
+    ".github/workflows/",
+    ".janus/JANUS_MODULE.json",
+    ".git/",
+    "secrets/",
+    "credentials/"
+  ],
+  "epistemic_firewalls": [
+    "CHAT_MESSAGE != COMMAND_AUTHORITY",
+    "MODEL_PATCH_PROPOSAL != VERIFIED_FIX",
+    "WEIGHT_TELEMETRY != WEIGHT_IDENTITY",
+    "CHECKPOINT_SHA256 = WEIGHT_IDENTITY",
+    "NO_VERIFY => NO_PASS",
+    "SELF_EXTENSION != SELF_GOVERNANCE_OVERRIDE"
+  ],
+  "bound_from_commit": "18df8c2981ba18d5eaea77b54af06267daee3288"
+}

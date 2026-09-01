@@ -24,6 +24,8 @@
     "TERMINAL_OBSERVATORY_STATIC_TEST": ["node", "tools/test-janus-observatory.js"]
   },
   "ordinary_self_extension_paths": [
+    "index.html",
+    "README.md",
     "assets/",
     "tools/",
     "commands/",

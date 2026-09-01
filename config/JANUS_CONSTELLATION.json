@@ -9,7 +9,7 @@
     "state_must_advance": true,
     "return_is_reset": false,
     "semantic_closed_ring_allowed": false,
-    "infrastructure_loops_allowed": ["HEARTBEAT", "RETRY", "POLL", "TRAINING_EPOCH", "DEVICE_EVENT_LOOP", "RESEARCH_POLL"],
+    "infrastructure_loops_allowed": ["HEARTBEAT", "RETRY", "POLL", "TRAINING_EPOCH", "DEVICE_EVENT_LOOP"],
     "law": "COGNITIVE_RETURN_MUST_PRESERVE_OR_ADVANCE_STATE"
   },
   "habitat": {
@@ -20,6 +20,7 @@
   "research_spine": {
     "authoritative_runtime_repository": "Hawkar-usls/Janus-Demiurge",
     "authoritative_state_path": "janus_model/state/JANUS_RESEARCH_SPINE.json",
+    "polling_mode": "BOUNDED_RESEARCH_HEARTBEAT",
     "policy_id": "FUNDAMENTUM_FIRST_WITH_CRITICAL_OVERRIDE",
     "primary_improvement_target": "Hawkar-usls/Janus-Fundamentum",
     "critical_override_classes": ["CRITICAL_INTEGRITY", "CRITICAL_SECURITY", "CRITICAL_SAFETY"],

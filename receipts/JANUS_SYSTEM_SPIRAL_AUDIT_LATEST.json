@@ -2,8 +2,8 @@
   "schema": "janus.system_spiral_migration.audit_receipt.v1",
   "status": "PASS_NO_ACTIVE_HARD_RING",
   "workspace": "/home/runner/work/-Terminal-for-Janus/-Terminal-for-Janus/workspace",
-  "repositories_targeted": 21,
-  "repositories_scanned": 20,
+  "repositories_targeted": 20,
+  "repositories_scanned": 19,
   "repositories_inaccessible_or_skipped": [
     {
       "repository": "Hawkar-usls/SkinGPT",
@@ -11,13 +11,13 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 7077,
+  "files_scanned": 6636,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 640,
-    "SAFE_INFRA_LOOP": 1272,
-    "HISTORICAL_FROZEN": 728
+    "REVIEW": 624,
+    "SAFE_INFRA_LOOP": 1318,
+    "HISTORICAL_FROZEN": 721
   },
   "active_hard_ring_count": 0,
   "active_hard_rings": [],
@@ -1202,166 +1202,6 @@
       "code": "RESET_STATE_LANGUAGE",
       "pattern": "\\breset\\b.{0,80}\\b(state|origin|memory|generation)\\b|\\b(state|origin|memory|generation)\\b.{0,80}\\breset\\b",
       "excerpt": "git reset --hard origin/main",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/TOPA",
-      "path": "tools/topa_app_deep_mechanics_relation_spider.py",
-      "line": 57,
-      "classification": "REVIEW",
-      "code": "RESET_STATE_LANGUAGE",
-      "pattern": "\\breset\\b.{0,80}\\b(state|origin|memory|generation)\\b|\\b(state|origin|memory|generation)\\b.{0,80}\\breset\\b",
-      "excerpt": "\"rebirth\", \"first light\", \"origin prime\", \"reset\", \"return + memory\", \"перерожд\", \"первый свет\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/TOPA",
-      "path": "tools/topa_app_deep_mechanics_strict_sieve.py",
-      "line": 32,
-      "classification": "REVIEW",
-      "code": "RESET_STATE_LANGUAGE",
-      "pattern": "\\breset\\b.{0,80}\\b(state|origin|memory|generation)\\b|\\b(state|origin|memory|generation)\\b.{0,80}\\breset\\b",
-      "excerpt": "[\"origin_prime\",\"origin prime\",\"return + memory\",\"reset\",\"возврат\",\"сброс\"]",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/TOPA",
-      "path": "research/mathematics/README.md",
-      "line": 176,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "- forward and cyclic dependency attempts;",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/TOPA",
-      "path": "research/tesla-sweep/results/TOPA-HUNT-005E-J1832-FAST-0P2S-HRAIN-JANUS-5D-MECHANISM-PASS-2026-08-23-v1.0.json",
-      "line": 91,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "{\"id\":\"N4_RADIO_ACTIVE_WINDOW\",\"timescale\":\"40_to_250_s\",\"question\":\"Why do broad and narrow emission modes occupy only part of the cycle?\"},",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/TOPA",
-      "path": "research/tesla-sweep/results/TOPA-HUNT-005E-J1832-FAST-0P2S-HRAIN-JANUS-5D-MECHANISM-PASS-2026-08-23-v1.0.json",
-      "line": 134,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"D1_FORWARD_BACK\": \"The common 44-minute clock requires a common geometric or rotational regulator, but the previously replayed approximately 0.05-cycle radio/X-ray offset argues against requiring identical emission zones.\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/TOPA",
-      "path": "research/tesla-sweep/results/TOPA-HUNT-005B-J1832-RADIO-XRAY-PHASE-REPLAY-2026-08-23-v1.0.json",
-      "line": 53,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"interpretation\": \"Two estimators applied within the same published notebook and folded-product context agree on an offset of about five percent of a cycle. This is internal method concordance, not an independent-data replication.\"",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/TOPA",
-      "path": "research/tesla-sweep/results/TOPA-HUNT-005B-J1832-RADIO-XRAY-PHASE-REPLAY-2026-08-23-v1.0.json",
-      "line": 57,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"The measured relative offset is approximately 0.05 cycle, corresponding to roughly 135-146 seconds for the public timing period.\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/TOPA",
-      "path": "research/tesla-sweep/results/TOPA-HUNT-005D1-J1832-BINARY-VS-ROTATION-RESULT-2026-08-23-v1.0.json",
-      "line": 74,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"polarization geometry and mode changes across the 44-minute cycle\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/TOPA",
-      "path": "research/tesla-sweep/results/TOPA-HUNT-005D-J1832-BINARY-VS-ROTATION-PREREG-2026-08-23-v1.0.json",
-      "line": 16,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"radio_xray_relative_phase_offset_from_published_folded_analysis\": \"about 0.05 cycle\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/TOPA",
-      "path": "research/mathematics/p-vs-np/akinator_rspc_structured_kc_probe.py",
-      "line": 19,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# outer cycle 0..4, inner star 5..9, spokes i--i+5",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/TOPA",
-      "path": "research/mathematics/p-vs-np/C025_AKINATOR_GT_LINEAR_RESOLUTION_SCHEMA.md",
-      "line": 34,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "### Transitivity / no directed 3-cycle",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/TOPA",
-      "path": "research/mathematics/p-vs-np/C025_AKINATOR_GT_LINEAR_RESOLUTION_SCHEMA.md",
-      "line": 76,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "This clause is one of the frozen graph-tautology cycle clauses.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/TOPA",
-      "path": "research/mathematics/p-vs-np/C024_C025_FORENSIC_RESEARCH_JOURNAL_2026-08-24.md",
-      "line": 317,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "Negative suite covers freshness, duplicate IDs, descending IDs, forward/cyclic dependency, extension leak, axiom/slot tamper, Resolution tamper, wrong advertised clause/root, unreachable proof garbage and unused-definition garbage.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/TOPA",
-      "path": "research/mathematics/p-vs-np/C025_B2_EXTENSION_AWARE_REASON_V0.md",
-      "line": 28,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "3. definitions are therefore topologically ordered and cyclic/forward dependencies are rejected;",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/TOPA",
-      "path": "research/mathematics/p-vs-np/C025_B2_EXTENSION_AWARE_REASON_V0.md",
-      "line": 111,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "- explicit cyclic dependency attempt;",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/TOPA",
-      "path": "SPIDER-SILK/dossiers/SPIDER-N58-MISSED-LANES-ADDENDUM-2026-08-27-v1.0.json",
-      "line": 84,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"finding\": \"Near-extremal separability problems often become C4-free or short-cycle-free bipartite graph problems. Supersaturation results then force many collisions once a threshold is crossed.\",",
       "active_surface": true
     },
     {
@@ -3142,6 +2982,166 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "print(f\"[\\U0001F504] Восстановлено: цикл {cycle}, best_score {best_score:.4f}, failed_configs {len(failed_configs)}\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "core.py",
+      "line": 196,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "cycle = 0",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "core.py",
+      "line": 205,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "cycle += 1",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "core.py",
+      "line": 217,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "print(f\"[\\u25B6\\uFE0F] CYCLE {cycle} | [\\U0001F9A0 СИМБИОЗ] Архитектор активен (GPU: {gpu_load}%, Temp: {gpu_temp}°C)\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "core.py",
+      "line": 219,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "print(f\"[\\u25B6\\uFE0F] CYCLE {cycle} | [\\U0001F525 ДОМИНАЦИЯ] Система свободна (GPU: {gpu_load}%, Temp: {gpu_temp}°C)\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "core.py",
+      "line": 299,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "print(\"[\\U0001F573\\uFE0F] Конфигурация поглощена чёрной дырой, цикл пропущен.\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "core.py",
+      "line": 328,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "save_homeostatic_state(cycle, last_score, last_mi, best_score, failed_configs)",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "core.py",
+      "line": 343,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"cycle\": cycle,",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "core.py",
+      "line": 360,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "print(\"[!] Сбой расчёта метрик у выживших потоков — пропускаем цикл.\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "core.py",
+      "line": 448,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "best_cycle = cycle",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "core.py",
+      "line": 449,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "print(f\"[\\U0001F3C6] НОВЫЙ РЕКОРД: {best_score:.4f} (цикл {best_cycle})\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "core.py",
+      "line": 452,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"type\": \"cycle\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "core.py",
+      "line": 453,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"cycle\": cycle,",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "core.py",
+      "line": 462,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"cycle\": cycle,",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "core.py",
+      "line": 468,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "path = os.path.join(MODEL_ZOO_DIR, f\"janus_complete_{ts}_C{cycle}_S{score:.4f}.pt\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "core.py",
+      "line": 473,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "'cycle': cycle,",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "core.py",
+      "line": 480,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "save_homeostatic_state(cycle, last_score, last_mi, best_score, failed_configs)",
       "active_surface": true
     }
   ],

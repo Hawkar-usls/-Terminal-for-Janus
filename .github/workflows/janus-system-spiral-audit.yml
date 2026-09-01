@@ -105,7 +105,7 @@ jobs:
             terminal/tools/janus_json_router.py \
             terminal/tools/janus_json_5d_deep.py \
             terminal/tools/janus_system_spiral_audit.py
-          python -m unittest discover -s terminal/tests -p 'test_*.py'
+          (cd terminal && python -m unittest discover -s tests -p 'test_*.py')
 
       - name: Validate JANUS-SPI and Aura v2 backbone
         shell: bash

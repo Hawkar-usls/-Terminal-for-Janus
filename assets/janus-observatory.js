@@ -8,15 +8,17 @@
     modelManifest: `${DEMIURGE}/janus_model/JANUS_MODEL_MANIFEST-v1.json`,
     weightTelemetry: `${DEMIURGE}/janus_model/state/JANUS_WEIGHT_TELEMETRY.json`,
     latestDecision: `${DEMIURGE}/janus_model/state/JANUS_LATEST_DECISION.json`,
+    organAccess: `${DEMIURGE}/scout_swarm/JANUS_ACCUMULATIVE_ORGAN_ACCESS-v1.json`,
     moduleState: `${SELF}/JANUS/MODULES/OBSERVED-MODULE-STATE.json`,
     moduleRegistry: `${SELF}/JANUS/MODULES/JANUS-REPOSITORY-MODULE-REGISTRY-v1.0.json`,
     decisionIndex: `${SELF}/JANUS/DECISIONS/NATIVE/INDEX.json`,
   };
 
-  const actuatedRepos = new Set([
-    'Hawkar-usls/Hrain',
-    'Hawkar-usls/iNaiHR',
-    'Hawkar-usls/-Terminal-for-Janus',
+  const fallbackAccessLanes = new Map([
+    ['Hawkar-usls/Hrain', 'BRANCH_VERIFY_ACCUMULATE'],
+    ['Hawkar-usls/iNaiHR', 'BRANCH_VERIFY_ACCUMULATE'],
+    ['Hawkar-usls/-Terminal-for-Janus', 'BRANCH_VERIFY_ACCUMULATE'],
+    ['Hawkar-usls/Janus_Genesis', 'SANDBOX_VERIFY_ACCUMULATE'],
   ]);
 
   const obs = {
@@ -27,6 +29,7 @@
     decisionIndex: null,
     modules: null,
     registry: null,
+    organAccess: null,
     refreshedAt: null,
   };
 
@@ -167,6 +170,17 @@
     box.innerHTML = t.tensors.map((row) => `<div class="tensor-card"><strong>${esc(row.name)}</strong><span>shape ${esc(JSON.stringify(row.shape))} · n=${esc(row.numel)}</span><span>mean ${esc(fmt(row.mean,6))} · std ${esc(fmt(row.std,6))}</span><span>min ${esc(fmt(row.min,6))} · max ${esc(fmt(row.max,6))}</span><span>L2 ${esc(fmt(row.l2,6))}</span></div>`).join('');
   }
 
+  function accessLaneFor(repository) {
+    const row = (obs.organAccess?.organs || []).find((item) => item.repository === repository);
+    return row?.access_lane || fallbackAccessLanes.get(repository) || 'READ_ACCUMULATE';
+  }
+
+  function laneLabel(lane) {
+    if (lane === 'BRANCH_VERIFY_ACCUMULATE') return 'BRANCH + VERIFY + ACCUMULATE';
+    if (lane === 'SANDBOX_VERIFY_ACCUMULATE') return 'SANDBOX + VERIFY + ACCUMULATE';
+    return 'READ + ACCUMULATE';
+  }
+
   function renderModules() {
     const state = obs.modules || {};
     const registry = obs.registry || {};
@@ -174,14 +188,15 @@
     set('brain-module-count', state.module_count ?? registry?.discovery?.discovered_module_count ?? rows.length ?? '—');
     set('modules-count', state.module_count ?? rows.length ?? '—');
     set('modules-attempts', registry?.global_mutation_policy?.max_patch_attempts ?? 2);
-    set('modules-live-status', rows.length ? `${rows.length} ORGANS OBSERVED` : 'UNRESOLVED');
+    set('modules-live-status', rows.length ? `${rows.length} ORGANS OBSERVED · MEMORY APPEND-ONLY` : 'UNRESOLVED');
     const box = $('module-list');
     if (!box) return;
     if (!rows.length) { box.innerHTML = '<div class="empty-state">No persisted module state resolved.</div>'; return; }
     const sorted = [...rows].sort((a,b) => String(a.repository).localeCompare(String(b.repository)));
     box.innerHTML = sorted.map((m) => {
-      const actuated = actuatedRepos.has(m.repository);
-      return `<article class="module-card${actuated?' actuated':''}"><div class="module-top"><div><div class="module-name">${esc(m.repository)}</div><div class="module-role">${esc(m.scout_role || m.focus || 'typed repository organ')}</div></div><span class="module-lane">${actuated?'BRANCH + VERIFY':'READ ONLY'}</span></div><div class="module-meta"><div><label>module</label><b>${esc(m.module_id || '—')}</b></div><div><label>ref</label><b>${esc(m.ref || '—')}</b></div><div><label>observed commit</label><b title="${esc(m.target_commit)}">${esc(short(m.target_commit,16))}</b></div><div><label>scout</label><b>${esc(m.agent_id || '—')}</b></div></div></article>`;
+      const lane = accessLaneFor(m.repository);
+      const active = lane !== 'READ_ACCUMULATE';
+      return `<article class="module-card${active?' actuated':''}"><div class="module-top"><div><div class="module-name">${esc(m.repository)}</div><div class="module-role">${esc(m.scout_role || m.focus || 'typed repository organ')}</div></div><span class="module-lane">${esc(laneLabel(lane))}</span></div><div class="module-meta"><div><label>module</label><b>${esc(m.module_id || '—')}</b></div><div><label>ref</label><b>${esc(m.ref || '—')}</b></div><div><label>observed commit</label><b title="${esc(m.target_commit)}">${esc(short(m.target_commit,16))}</b></div><div><label>scout</label><b>${esc(m.agent_id || '—')}</b></div></div></article>`;
     }).join('');
   }
 
@@ -202,21 +217,22 @@
     if (d) {
       const selected = d.selected?.candidate_id || d.selected_candidate_id || 'NO_ACTION';
       rows.push(logRow(seq++, 'DECIDE', `${selected} · checkpoint ${short(d.checkpoint_sha256,16)} · ${d.gate_reason || 'persisted native selection'}`, d.status || 'RECORDED', d.status==='NO_ACTION'?'warn':''));
-      if (d.status && d.status !== 'NO_ACTION') rows.push(logRow(seq++, 'PATCH', `${d.selected?.target?.repository || 'target'} · ${d.selected?.verification_profile || 'local verifier'} · proposal must be applied only on janus-self/*`, 'AWAIT VERIFY', 'warn'));
+      if (d.status && d.status !== 'NO_ACTION') rows.push(logRow(seq++, 'PATCH', `${d.selected?.target?.repository || 'target'} · ${d.selected?.verification_profile || 'local verifier'} · proposal must be applied only through target-bounded write lane`, 'AWAIT VERIFY', 'warn'));
     }
     const mods = obs.modules?.modules || [];
     if (mods.length) rows.push(logRow(seq++, 'SCOUT', `${mods.length} repository organs present in SELF observed-module state`, 'OBSERVED'));
+    rows.push(logRow(seq++, 'MEMORY', 'Durable evidence is append-only: supersede, quarantine or mark stale; never erase failures, negative results or counterexamples.', 'NO DELETE'));
     rows.push(logRow(seq++, 'LAW', 'No verification = no PASS. Model output is not independent evidence. Autonomous merge remains disabled.', 'ENFORCED'));
     const box = $('janus-event-log');
     if (box) box.innerHTML = rows.length ? rows.slice().reverse().join('') : '<div class="empty-state">No persisted events resolved.</div>';
   }
 
   async function loadAll() {
-    const [model, manifest, telemetry, latestDecision, modules, registry, decisionIndex] = await Promise.all([
+    const [model, manifest, telemetry, latestDecision, organAccess, modules, registry, decisionIndex] = await Promise.all([
       json(URLS.modelState), json(URLS.modelManifest), json(URLS.weightTelemetry, true),
-      json(URLS.latestDecision, true), json(URLS.moduleState), json(URLS.moduleRegistry), json(URLS.decisionIndex, true),
+      json(URLS.latestDecision, true), json(URLS.organAccess, true), json(URLS.moduleState), json(URLS.moduleRegistry), json(URLS.decisionIndex, true),
     ]);
-    Object.assign(obs, { model, manifest, telemetry, decision: latestDecision, modules, registry, decisionIndex, refreshedAt: new Date() });
+    Object.assign(obs, { model, manifest, telemetry, decision: latestDecision, organAccess, modules, registry, decisionIndex, refreshedAt: new Date() });
   }
 
   function renderAll() {

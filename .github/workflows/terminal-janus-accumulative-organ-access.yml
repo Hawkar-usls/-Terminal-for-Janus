@@ -1,0 +1,54 @@
+name: JANUS Terminal — Accumulative Organ Access
+
+on:
+  push:
+    branches:
+      - main
+      - feature/janus-modules-accumulate-no-delete-v1
+    paths:
+      - 'assets/janus-observatory.js'
+      - 'tools/test-janus-observatory.js'
+      - '.github/workflows/terminal-janus-accumulative-organ-access.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'assets/janus-observatory.js'
+      - 'tools/test-janus-observatory.js'
+      - '.github/workflows/terminal-janus-accumulative-organ-access.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax-check observatory
+        run: node --check assets/janus-observatory.js
+      - name: Run Terminal observatory contract
+        run: node tools/test-janus-observatory.js
+      - name: Validate live 17-organ policy source
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location --retry 3 \
+            https://raw.githubusercontent.com/Hawkar-usls/Janus-Demiurge/main/scout_swarm/JANUS_ACCUMULATIVE_ORGAN_ACCESS-v1.json \
+            -o /tmp/access.json
+          python - <<'PY'
+          import json
+          d=json.load(open('/tmp/access.json', encoding='utf-8'))
+          assert d['module_count'] == 17
+          assert len(d['organs']) == 17
+          assert 'DELETE_DURABLE_JANUS_MEMORY' in d['universal_denials']
+          g=next(x for x in d['organs'] if x['repository']=='Hawkar-usls/Janus_Genesis')
+          assert g['access_lane']=='SANDBOX_VERIFY_ACCUMULATE'
+          assert g['target_ref']=='janus/habitat'
+          assert g['main_mutation_allowed'] is False
+          print('TERMINAL_LIVE_17_ORGAN_POLICY=PASS')
+          PY

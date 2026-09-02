@@ -1,0 +1,80 @@
+name: Terminal JANUS Synthesis Observatory
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, feature/janus-semantic-synthesis-observatory-v1]
+    paths:
+      - 'assets/janus-synthesis-observatory.js'
+      - '.github/workflows/terminal-janus-synthesis-observatory.yml'
+      - 'index.html'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: terminal-janus-synthesis-observatory
+  cancel-in-progress: false
+
+jobs:
+  verify-and-wire:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax check synthesis observatory
+        run: node --check assets/janus-synthesis-observatory.js
+      - name: Verify Terminal epistemic firewalls
+        run: |
+          grep -Fq 'SYNTHESIS != TRUTH' assets/janus-synthesis-observatory.js
+          grep -Fq 'ATTENTION_WEIGHT != EVIDENCE_WEIGHT' assets/janus-synthesis-observatory.js
+          grep -Fq 'CANDIDATE_EDGE != CAUSAL_EDGE' assets/janus-synthesis-observatory.js
+          grep -Fq "a.truth!==false" assets/janus-synthesis-observatory.js
+          grep -Fq "a.automatic_promotion!==false" assets/janus-synthesis-observatory.js
+          ! grep -Eq 'token=|Authorization:|contents: write' assets/janus-synthesis-observatory.js
+      - name: Verify live durable iNaiHR synthesis contract
+        run: |
+          curl --fail --location --retry 3 --max-time 30 \
+            'https://raw.githubusercontent.com/Hawkar-usls/iNaiHR/main/janus-synth/state/JANUS_SYNTH_LATEST.json' \
+            -o /tmp/synth.json
+          python - <<'PY'
+          import json
+          x=json.load(open('/tmp/synth.json',encoding='utf-8'))
+          assert x['schema']=='janus.inaihr.semantic_evolution.v2'
+          assert x['attention']['attention_weight_is_evidence_weight'] is False
+          assert x['limits']['max_depth']==4
+          assert all(c['status']=='CANDIDATE_AWAITING_CORROBORATION' for c in x['candidates'])
+          assert all(c['authority']['truth'] is False and c['authority']['automatic_promotion'] is False for c in x['candidates'])
+          print('TERMINAL_SYNTH_LIVE_CONTRACT=PASS', x['candidate_count'])
+          PY
+      - name: Wire observatory into Terminal exactly once
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          tag='<script src="./assets/janus-synthesis-observatory.js" defer></script>'
+          if tag not in s:
+              s=s.replace('</body>', tag+'\n</body>')
+              p.write_text(s,encoding='utf-8')
+              print('TERMINAL_SYNTH_WIRED=YES')
+          else:
+              print('TERMINAL_SYNTH_WIRED=ALREADY')
+          PY
+      - name: Verify wired page
+        run: |
+          grep -Fq './assets/janus-synthesis-observatory.js' index.html
+          grep -Fq 'AUTONOMOUS MERGE = FALSE' index.html
+      - name: Persist wiring if needed
+        run: |
+          if git diff --quiet -- index.html; then
+            echo 'TERMINAL_SYNTH_WIRING_UNCHANGED=PASS'
+            exit 0
+          fi
+          git config user.name 'janus-terminal-synthesis'
+          git config user.email 'janus-terminal-synthesis@users.noreply.github.com'
+          git add index.html
+          git commit -m 'Terminal: activate JANUS synthesis observatory [skip ci]'
+          git push

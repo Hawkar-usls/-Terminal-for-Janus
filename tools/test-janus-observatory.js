@@ -18,8 +18,14 @@ must(js, 'JANUS_MODEL_STATE.json', 'MODEL_STATE_SOURCE_MISSING');
 must(js, 'JANUS_WEIGHT_TELEMETRY.json', 'WEIGHT_TELEMETRY_SOURCE_MISSING');
 must(js, 'JANUS_LATEST_DECISION.json', 'DECISION_SOURCE_MISSING');
 must(js, 'OBSERVED-MODULE-STATE.json', 'MODULE_STATE_SOURCE_MISSING');
+must(js, 'JANUS_ACCUMULATIVE_ORGAN_ACCESS-v1.json', 'ORGAN_ACCESS_SOURCE_MISSING');
 must(js, 'selection ≠ verified fix', 'VERIFY_BOUNDARY_MISSING');
-must(js, "'Hawkar-usls/-Terminal-for-Janus'", 'TERMINAL_ACTUATED_SET_MISSING');
+must(js, "'Hawkar-usls/-Terminal-for-Janus', 'BRANCH_VERIFY_ACCUMULATE'", 'TERMINAL_ACTUATED_LANE_MISSING');
+must(js, "'Hawkar-usls/Janus_Genesis', 'SANDBOX_VERIFY_ACCUMULATE'", 'GENESIS_SANDBOX_LANE_MISSING');
+must(js, 'READ + ACCUMULATE', 'ACCUMULATIVE_READ_LANE_MISSING');
+must(js, 'SANDBOX + VERIFY + ACCUMULATE', 'GENESIS_LANE_LABEL_MISSING');
+must(js, 'Durable evidence is append-only', 'APPEND_ONLY_LAW_MISSING');
+must(js, 'never erase failures, negative results or counterexamples', 'NO_DELETE_DETAIL_MISSING');
 
 must(css, '.loss-chart', 'LOSS_CHART_STYLE_MISSING');
 must(css, '.event-log', 'EVENT_LOG_STYLE_MISSING');
@@ -40,6 +46,9 @@ console.log(JSON.stringify({
   brain_monitor: true,
   live_logs: true,
   repository_modules: true,
+  accumulative_access_visible: true,
+  genesis_sandbox_visible: true,
+  durable_delete_authority: false,
   bounded_self_extension: true,
   autonomous_merge: false,
 }, null, 2));

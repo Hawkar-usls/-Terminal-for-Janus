@@ -9,6 +9,14 @@ on:
       - 'tools/terminal_conversation_envelope.py'
       - 'tests/test_terminal_conversation_envelope.py'
       - '.github/workflows/janus-terminal-conversation-ingress.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'contracts/JANUS_TERMINAL_CONVERSATION_PLANE-v1.0.json'
+      - '.github/ISSUE_TEMPLATE/janus-chat.yml'
+      - 'tools/terminal_conversation_envelope.py'
+      - 'tests/test_terminal_conversation_envelope.py'
+      - '.github/workflows/janus-terminal-conversation-ingress.yml'
   issues:
     types: [opened, closed]
   issue_comment:

@@ -21,7 +21,10 @@
     "create_new_module_files": true
   },
   "verification_profiles": {
-    "TERMINAL_OBSERVATORY_STATIC_TEST": ["node", "tools/test-janus-observatory.js"]
+    "TERMINAL_OBSERVATORY_STATIC_TEST": [
+      "node",
+      "tools/test-janus-observatory.js"
+    ]
   },
   "ordinary_self_extension_paths": [
     "index.html",
@@ -35,6 +38,7 @@
   "forbidden_paths": [
     ".github/workflows/",
     ".janus/JANUS_MODULE.json",
+    "tools/test-janus-observatory.js",
     ".git/",
     "secrets/",
     "credentials/"
@@ -44,6 +48,9 @@
     "MODEL_PATCH_PROPOSAL != VERIFIED_FIX",
     "WEIGHT_TELEMETRY != WEIGHT_IDENTITY",
     "CHECKPOINT_SHA256 = WEIGHT_IDENTITY",
+    "ACTIVE_BRAIN != REJECTED_CANDIDATE",
+    "EMPTY_HRAIN_RETRIEVAL != HRAIN_FAILURE",
+    "VERIFIER != ORDINARY_SELF_EXTENSION_TARGET",
     "NO_VERIFY => NO_PASS",
     "SELF_EXTENSION != SELF_GOVERNANCE_OVERRIDE"
   ],

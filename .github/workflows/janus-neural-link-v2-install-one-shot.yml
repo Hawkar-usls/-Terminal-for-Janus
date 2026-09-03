@@ -36,14 +36,14 @@ jobs:
           from pathlib import Path
 
           def patch_once(path, old, new, label):
-              p=Path(path); s=p.read_text(encoding='utf-8')
+              p=Path(path)
+              s=p.read_text(encoding='utf-8')
               if old not in s:
                   raise SystemExit(f'PATCH_ANCHOR_MISSING:{label}')
               if s.count(old) != 1:
                   raise SystemExit(f'PATCH_ANCHOR_NONUNIQUE:{label}:{s.count(old)}')
               p.write_text(s.replace(old,new,1),encoding='utf-8')
 
-          # Wire browser assets into the public page.
           patch_once(
               'index.html',
               '  <link rel="stylesheet" href="./assets/janus-observatory.css">\n',
@@ -56,8 +56,6 @@ jobs:
               '<script src="./assets/terminal-v2.js" defer></script>\n<script src="./assets/neural-link-v2.js" defer></script>\n<script src="./assets/janus-observatory.js" defer></script>',
               'index-neural-js',
           )
-
-          # Expose already-fetched live transport state to Neural Link without a second API poller.
           patch_once(
               'assets/terminal-v2.js',
               "    refreshedAt: null,\n  };\n\n  const $ = (id) => document.getElementById(id);",
@@ -71,45 +69,43 @@ jobs:
               'terminal-state-event',
           )
 
-          # Strengthen static Python contract tests.
           tests=Path('tests/test_terminal_v2_static.py')
           s=tests.read_text(encoding='utf-8')
           marker='def test_neural_link_v2_is_hrain_mediated_and_append_only():'
           if marker not in s:
-              s += r'''
+              lines=[
+                  '', '',
+                  'def test_neural_link_v2_is_hrain_mediated_and_append_only():',
+                  '    html = (ROOT / "index.html").read_text(encoding="utf-8")',
+                  '    terminal = (ROOT / "assets/terminal-v2.js").read_text(encoding="utf-8")',
+                  '    neural = (ROOT / "assets/neural-link-v2.js").read_text(encoding="utf-8")',
+                  '    contract = json.loads((ROOT / ".janus/TERMINAL_V2_HRAIN_MEMORY_CONTRACT.json").read_text(encoding="utf-8"))',
+                  '    assert "assets/neural-link-v2.css" in html',
+                  '    assert "assets/neural-link-v2.js" in html',
+                  '    assert "https://raw.githubusercontent.com/Hawkar-usls/Hrain/main/state/neural-link/RECENT.json" in neural',
+                  '    assert "https://raw.githubusercontent.com/Hawkar-usls/Hrain/main/state/neural-link/PROVENANCE.json" in neural',
+                  '    assert "raw.githubusercontent.com/Hawkar-usls/janus-meta-registry" not in neural',
+                  '    assert "direct_registry_read: false" in neural',
+                  '    assert "META_REGISTRY_DB -> HRAIN -> TERMINAL" in neural',
+                  '    assert "PUBLIC APPEND-ONLY MEMORY" in neural',
+                  '    assert "DO NOT SEND PASSWORDS" in neural',
+                  '    assert "AWAITING GITHUB CONFIRMATION" in neural',
+                  '    assert "CHAT MESSAGE != COMMAND AUTHORITY" in neural',
+                  '    assert "GITHUB_TOKEN" not in neural',
+                  '    assert "window.JANUS_TERMINAL_STATE = state" in terminal',
+                  '    assert "new CustomEvent(\\\'janus:terminal-state\\\'" in terminal',
+                  '    archive = contract["neural_link_archive"]',
+                  '    assert archive["database_path"] == "data/JANUS-NEURAL-LINK/"',
+                  '    assert archive["hrain_mirror_path"] == "state/neural-link/"',
+                  '    assert archive["terminal_reads_archive_from_registry_directly"] is False',
+                  '    assert archive["archive_is_world_truth"] is False',
+                  '    assert archive["archive_grants_command_authority"] is False',
+                  '    assert contract["conversation"]["browser_secret_required"] is False',
+                  '    assert contract["conversation"]["browser_send_semantics"] == "PENDING_UNTIL_GITHUB_CONFIRMATION"',
+                  '',
+              ]
+              tests.write_text(s+'\n'.join(lines),encoding='utf-8')
 
-
-def test_neural_link_v2_is_hrain_mediated_and_append_only():
-    html = (ROOT / "index.html").read_text(encoding="utf-8")
-    terminal = (ROOT / "assets/terminal-v2.js").read_text(encoding="utf-8")
-    neural = (ROOT / "assets/neural-link-v2.js").read_text(encoding="utf-8")
-    contract = json.loads((ROOT / ".janus/TERMINAL_V2_HRAIN_MEMORY_CONTRACT.json").read_text(encoding="utf-8"))
-    assert 'assets/neural-link-v2.css' in html
-    assert 'assets/neural-link-v2.js' in html
-    assert 'https://raw.githubusercontent.com/Hawkar-usls/Hrain/main/state/neural-link/RECENT.json' in neural
-    assert 'https://raw.githubusercontent.com/Hawkar-usls/Hrain/main/state/neural-link/PROVENANCE.json' in neural
-    assert 'raw.githubusercontent.com/Hawkar-usls/janus-meta-registry' not in neural
-    assert 'direct_registry_read: false' in neural
-    assert 'META_REGISTRY_DB -> HRAIN -> TERMINAL' in neural
-    assert 'PUBLIC APPEND-ONLY MEMORY' in neural
-    assert 'DO NOT SEND PASSWORDS' in neural
-    assert 'AWAITING GITHUB CONFIRMATION' in neural
-    assert 'CHAT MESSAGE != COMMAND AUTHORITY' in neural
-    assert 'GITHUB_TOKEN' not in neural
-    assert 'window.JANUS_TERMINAL_STATE = state' in terminal
-    assert "new CustomEvent('janus:terminal-state'" in terminal
-    archive = contract['neural_link_archive']
-    assert archive['database_path'] == 'data/JANUS-NEURAL-LINK/'
-    assert archive['hrain_mirror_path'] == 'state/neural-link/'
-    assert archive['terminal_reads_archive_from_registry_directly'] is False
-    assert archive['archive_is_world_truth'] is False
-    assert archive['archive_grants_command_authority'] is False
-    assert contract['conversation']['browser_secret_required'] is False
-    assert contract['conversation']['browser_send_semantics'] == 'PENDING_UNTIL_GITHUB_CONFIRMATION'
-'''
-              tests.write_text(s,encoding='utf-8')
-
-          # Immutable organ-local verifier must cover the new chat truth boundaries.
           verifier=Path('tools/test-janus-observatory.js')
           s=verifier.read_text(encoding='utf-8')
           if "const neural = read('assets/neural-link-v2.js');" not in s:
@@ -118,38 +114,50 @@ def test_neural_link_v2_is_hrain_mediated_and_append_only():
                   "const synthesis = read('assets/janus-synthesis-observatory.js');\nconst neural = read('assets/neural-link-v2.js');\n",
                   1,
               )
-          neural_checks = r'''
-
-// Neural Link v2 truth: canonical chat history is append-only Meta Registry memory mirrored through HRAiN.
-must(html, 'assets/neural-link-v2.js', 'NEURAL_LINK_RUNTIME_NOT_WIRED');
-must(html, 'assets/neural-link-v2.css', 'NEURAL_LINK_STYLE_NOT_WIRED');
-must(neural, 'state/neural-link/RECENT.json', 'NEURAL_LINK_HRAIN_RECENT_SOURCE_MISSING');
-must(neural, 'state/neural-link/PROVENANCE.json', 'NEURAL_LINK_HRAIN_PROVENANCE_SOURCE_MISSING');
-if (neural.includes('raw.githubusercontent.com/Hawkar-usls/janus-meta-registry')) throw new Error('NEURAL_LINK_DIRECT_REGISTRY_BYPASS');
-must(neural, 'terminal_must_not_read_registry_directly', 'NEURAL_LINK_HRAIN_FIREWALL_MISSING');
-must(neural, 'OBSERVABILITY_AND_MEMORY_ONLY', 'NEURAL_LINK_AUTHORITY_CEILING_MISSING');
-must(neural, 'PUBLIC APPEND-ONLY MEMORY', 'NEURAL_LINK_PUBLIC_MEMORY_WARNING_MISSING');
-must(neural, 'AWAITING GITHUB CONFIRMATION', 'NEURAL_LINK_PENDING_SEND_SEMANTICS_MISSING');
-must(neural, 'CHAT MESSAGE != COMMAND AUTHORITY', 'NEURAL_LINK_COMMAND_FIREWALL_MISSING');
-if (neural.includes('GITHUB_TOKEN')) throw new Error('NEURAL_LINK_BROWSER_SECRET_FORBIDDEN');
-must(terminal, 'window.JANUS_TERMINAL_STATE = state', 'NEURAL_LINK_SHARED_TRANSPORT_STATE_MISSING');
-must(terminal, "new CustomEvent('janus:terminal-state'", 'NEURAL_LINK_SHARED_TRANSPORT_EVENT_MISSING');
-'''
           if 'NEURAL_LINK_RUNTIME_NOT_WIRED' not in s:
+              checks=[
+                  '',
+                  '// Neural Link v2 truth: canonical chat history is append-only Meta Registry memory mirrored through HRAiN.',
+                  "must(html, 'assets/neural-link-v2.js', 'NEURAL_LINK_RUNTIME_NOT_WIRED');",
+                  "must(html, 'assets/neural-link-v2.css', 'NEURAL_LINK_STYLE_NOT_WIRED');",
+                  "must(neural, 'state/neural-link/RECENT.json', 'NEURAL_LINK_HRAIN_RECENT_SOURCE_MISSING');",
+                  "must(neural, 'state/neural-link/PROVENANCE.json', 'NEURAL_LINK_HRAIN_PROVENANCE_SOURCE_MISSING');",
+                  "if (neural.includes('raw.githubusercontent.com/Hawkar-usls/janus-meta-registry')) throw new Error('NEURAL_LINK_DIRECT_REGISTRY_BYPASS');",
+                  "must(neural, 'terminal_must_not_read_registry_directly', 'NEURAL_LINK_HRAIN_FIREWALL_MISSING');",
+                  "must(neural, 'OBSERVABILITY_AND_MEMORY_ONLY', 'NEURAL_LINK_AUTHORITY_CEILING_MISSING');",
+                  "must(neural, 'PUBLIC APPEND-ONLY MEMORY', 'NEURAL_LINK_PUBLIC_MEMORY_WARNING_MISSING');",
+                  "must(neural, 'AWAITING GITHUB CONFIRMATION', 'NEURAL_LINK_PENDING_SEND_SEMANTICS_MISSING');",
+                  "must(neural, 'CHAT MESSAGE != COMMAND AUTHORITY', 'NEURAL_LINK_COMMAND_FIREWALL_MISSING');",
+                  "if (neural.includes('GITHUB_TOKEN')) throw new Error('NEURAL_LINK_BROWSER_SECRET_FORBIDDEN');",
+                  "must(terminal, 'window.JANUS_TERMINAL_STATE = state', 'NEURAL_LINK_SHARED_TRANSPORT_STATE_MISSING');",
+                  "must(terminal, \"new CustomEvent('janus:terminal-state'\", 'NEURAL_LINK_SHARED_TRANSPORT_EVENT_MISSING');",
+                  '',
+              ]
               anchor='// TRUMP truth: current public manifest is candidate runtime tissue, never proof authority.\n'
-              if anchor not in s: raise SystemExit('PATCH_ANCHOR_MISSING:verifier-neural-position')
-              s=s.replace(anchor,neural_checks+'\n'+anchor,1)
+              if anchor not in s:
+                  raise SystemExit('PATCH_ANCHOR_MISSING:verifier-neural-position')
+              s=s.replace(anchor,'\n'.join(checks)+anchor,1)
           if 'neural_link_v2: true' not in s:
-              s=s.replace('  valid_empty_hrain_retrieval: true,\n','  valid_empty_hrain_retrieval: true,\n  neural_link_v2: true,\n  neural_link_direct_registry_read: false,\n  neural_link_browser_secret: false,\n',1)
+              s=s.replace(
+                  '  valid_empty_hrain_retrieval: true,\n',
+                  '  valid_empty_hrain_retrieval: true,\n  neural_link_v2: true,\n  neural_link_direct_registry_read: false,\n  neural_link_browser_secret: false,\n',
+                  1,
+              )
           verifier.write_text(s,encoding='utf-8')
 
-          # UI CI must execute the Neural Link browser runtime on every relevant change.
           for wf in ('.github/workflows/janus-terminal-v2-ui.yml','.github/workflows/janus-terminal-v2.2-ui.yml'):
-              p=Path(wf); s=p.read_text(encoding='utf-8')
+              p=Path(wf)
+              s=p.read_text(encoding='utf-8')
               if "      - 'assets/neural-link-v2.js'" not in s:
-                  s=s.replace("      - 'assets/terminal-v2.js'\n", "      - 'assets/terminal-v2.js'\n      - 'assets/neural-link-v2.js'\n      - 'assets/neural-link-v2.css'\n")
+                  s=s.replace(
+                      "      - 'assets/terminal-v2.js'\n",
+                      "      - 'assets/terminal-v2.js'\n      - 'assets/neural-link-v2.js'\n      - 'assets/neural-link-v2.css'\n",
+                  )
               if 'node --check assets/neural-link-v2.js' not in s:
-                  s=s.replace('          node --check assets/terminal-v2.js\n','          node --check assets/terminal-v2.js\n          node --check assets/neural-link-v2.js\n')
+                  s=s.replace(
+                      '          node --check assets/terminal-v2.js\n',
+                      '          node --check assets/terminal-v2.js\n          node --check assets/neural-link-v2.js\n',
+                  )
               p.write_text(s,encoding='utf-8')
 
           print('JANUS_NEURAL_LINK_V2_PATCH=APPLIED')

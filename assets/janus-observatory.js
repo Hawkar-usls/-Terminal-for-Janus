@@ -31,6 +31,7 @@
     registry: null,
     organAccess: null,
     refreshedAt: null,
+    refreshInFlight: false,
   };
 
   const $ = (id) => document.getElementById(id);
@@ -43,6 +44,26 @@
   };
   const set = (id, v) => { const el = $(id); if (el) el.textContent = v ?? '—'; };
   const fmt = (v, digits = 5) => Number.isFinite(Number(v)) ? Number(v).toFixed(digits) : '—';
+  const finite = (v) => Number.isFinite(Number(v));
+  const promoted = (row) => row?.status === 'PROMOTED';
+  const activeLossForRow = (row) => {
+    if (!row) return null;
+    if (promoted(row) && finite(row.candidate_eval_loss)) return Number(row.candidate_eval_loss);
+    if (finite(row.incumbent_eval_loss)) return Number(row.incumbent_eval_loss);
+    return finite(row.candidate_eval_loss) ? Number(row.candidate_eval_loss) : null;
+  };
+
+  function modelIntegrity(model) {
+    const history = Array.isArray(model?.history) ? model.history : [];
+    const promotedRows = history.filter(promoted);
+    const latestPromoted = promotedRows.length ? promotedRows[promotedRows.length - 1] : null;
+    const checks = {
+      attempt_count_matches_history: Number(model?.attempt_count) === history.length,
+      promotion_plus_rejection_matches_attempts: Number(model?.promotion_count) + Number(model?.rejection_count) === Number(model?.attempt_count),
+      active_checkpoint_matches_last_promoted: !latestPromoted || !model?.checkpoint_sha256 || latestPromoted.checkpoint_sha256 === model.checkpoint_sha256,
+    };
+    return { pass: Object.values(checks).every(Boolean), checks };
+  }
 
   async function json(url, optional = false) {
     try {
@@ -66,63 +87,78 @@
     const last = latestHistory() || {};
     const manifest = obs.manifest || {};
     const params = manifest?.architecture?.parameter_count;
-    const loss = last.candidate_eval_loss;
-    const incumbent = last.incumbent_eval_loss;
-    const delta = Number.isFinite(Number(loss)) && Number.isFinite(Number(incumbent)) ? Number(incumbent) - Number(loss) : null;
+    const activeLoss = activeLossForRow(last);
+    const candidateLoss = finite(last.candidate_eval_loss) ? Number(last.candidate_eval_loss) : null;
+    const incumbent = finite(last.incumbent_eval_loss) ? Number(last.incumbent_eval_loss) : null;
+    const candidateDelta = candidateLoss != null && incumbent != null ? incumbent - candidateLoss : null;
     const checkpoint = m.checkpoint_sha256 || 'UNRESOLVED';
+    const integrity = modelIntegrity(m);
+    const lastVerdict = last.status || m.last_training_status || 'UNRESOLVED';
 
     set('brain-checkpoint', checkpoint);
-    set('brain-status', m.status || 'UNRESOLVED');
-    set('brain-loss', fmt(loss, 6));
-    set('brain-loss-delta', delta == null ? 'bootstrap / no incumbent' : `${delta >= 0 ? '↓ improved' : '↑ regressed'} ${Math.abs(delta).toFixed(6)}`);
+    set('brain-status', integrity.pass ? (m.status || 'UNRESOLVED') : `STATE INTEGRITY WARNING · ${m.status || 'UNRESOLVED'}`);
+    set('brain-loss', fmt(activeLoss, 6));
+    set('brain-loss-delta', promoted(last) ? 'candidate promoted → active brain' : `incumbent retained · last candidate ${lastVerdict}`);
+    set('brain-last-candidate', fmt(candidateLoss, 6));
+    set('brain-last-candidate-status', candidateDelta == null ? lastVerdict : `${lastVerdict} · candidate ${candidateDelta >= 0 ? 'better adaptive' : 'worse adaptive'} by ${Math.abs(candidateDelta).toFixed(6)}`);
     set('brain-attempts', m.attempt_count ?? '—');
     set('brain-promote-reject', `${m.promotion_count ?? '—'} / ${m.rejection_count ?? '—'}`);
     set('brain-params', Number.isFinite(Number(params)) ? Number(params).toLocaleString('en-US') : '—');
     set('brain-architecture', `${manifest?.architecture?.family || 'causal_transformer'} · ${cfg.n_layers ?? '?'}L × ${cfg.n_heads ?? '?'}H × d${cfg.d_model ?? '?'}`);
     set('chat-checkpoint', short(checkpoint, 20));
-    set('chat-loss', fmt(loss, 5));
+    set('chat-loss', fmt(activeLoss, 5));
+    set('chat-candidate-loss', `${fmt(candidateLoss, 5)} · ${lastVerdict}`);
     set('chat-promotions', `${m.promotion_count ?? '—'}/${m.attempt_count ?? '—'}`);
     set('side-native-checkpoint', short(checkpoint, 18));
-    set('side-native-loss', fmt(loss, 6));
+    set('side-native-loss', fmt(activeLoss, 6));
+    set('side-native-candidate', `${fmt(candidateLoss, 6)} · ${lastVerdict}`);
     set('organism-native-checkpoint', checkpoint);
-    set('brain-live-status', m.status === 'NATIVE_MODEL_PROMOTED' ? 'PROMOTED / LIVE' : (m.status || 'UNRESOLVED'));
+    set('brain-live-status', integrity.pass ? (m.status === 'NATIVE_MODEL_PROMOTED' ? 'ACTIVE CHECKPOINT VERIFIED' : (m.status || 'UNRESOLVED')) : 'STATE INTEGRITY WARNING');
 
     const pill = $('brain-pill');
     if (pill) {
-      pill.textContent = `BRAIN ${m.promotion_count ?? '?'} · L ${fmt(loss, 3)}`;
-      pill.classList.toggle('live', m.status === 'NATIVE_MODEL_PROMOTED');
+      pill.textContent = `BRAIN ${m.promotion_count ?? '?'}/${m.attempt_count ?? '?'} · L ${fmt(activeLoss, 3)}`;
+      pill.classList.toggle('live', integrity.pass && m.status === 'NATIVE_MODEL_PROMOTED');
+      pill.classList.toggle('warn', !integrity.pass);
+      pill.title = `active checkpoint ${checkpoint} · last candidate ${fmt(candidateLoss,6)} ${lastVerdict}`;
     }
 
     const rows = [
       ['context_length', cfg.context_length], ['d_model', cfg.d_model], ['n_heads', cfg.n_heads],
       ['n_layers', cfg.n_layers], ['ff_mult', cfg.ff_mult], ['dropout', cfg.dropout], ['vocab_size', cfg.vocab_size],
-      ['checkpoint', short(checkpoint, 22)],
+      ['checkpoint', short(checkpoint, 22)], ['last_training', lastVerdict],
     ];
     const box = $('brain-config');
     if (box) box.innerHTML = rows.map(([k, v]) => `<div class="kv-row"><span>${esc(k)}</span><b>${esc(v ?? '—')}</b></div>`).join('');
   }
 
   function renderLossChart() {
-    const history = (obs.model?.history || []).filter((x) => Number.isFinite(Number(x.candidate_eval_loss)));
+    const history = (obs.model?.history || []).filter((x) => finite(x.candidate_eval_loss));
     const chart = $('loss-chart');
     const axis = $('loss-axis');
     if (!chart || !history.length) return;
-    const vals = history.map((x) => Number(x.candidate_eval_loss));
-    let min = Math.min(...vals), max = Math.max(...vals);
+    const candidateVals = history.map((x) => Number(x.candidate_eval_loss));
+    const activeVals = history.map((x) => activeLossForRow(x));
+    const allVals = [...candidateVals, ...activeVals.filter(finite)].map(Number);
+    let min = Math.min(...allVals), max = Math.max(...allVals);
     if (max === min) { max += 0.1; min -= 0.1; }
     const pad = (max - min) * 0.12;
     min -= pad; max += pad;
     const W = 1000, H = 170, left = 18, right = 12, top = 10, bottom = 14;
     const x = (i) => left + (history.length === 1 ? (W-left-right)/2 : i * (W-left-right)/(history.length-1));
     const y = (v) => top + (max-v) * (H-top-bottom)/(max-min);
-    const points = vals.map((v, i) => `${x(i)},${y(v)}`).join(' ');
-    const area = `${left},${H-bottom} ${points} ${x(history.length-1)},${H-bottom}`;
+    const activePoints = activeVals.map((v, i) => `${x(i)},${y(Number(v))}`).join(' ');
     const grid = [0.25,0.5,0.75].map((r) => `<line class="grid" x1="${left}" x2="${W-right}" y1="${top+r*(H-top-bottom)}" y2="${top+r*(H-top-bottom)}"/>`).join('');
-    const dots = vals.map((v,i) => `<circle class="point${i===vals.length-1?' latest':''}" cx="${x(i)}" cy="${y(v)}" r="${i===vals.length-1?4.8:3.1}"><title>generation ${i+1}: ${v.toFixed(6)}</title></circle>`).join('');
-    chart.innerHTML = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-label="JANUS evaluation loss lineage">${grid}<polygon class="area" points="${area}"/><polyline class="curve" points="${points}"/>${dots}</svg>`;
-    axis.innerHTML = `<span>gen 1 · ${vals[0].toFixed(4)}</span><span>best ${Math.min(...vals).toFixed(4)}</span><span>gen ${vals.length} · ${vals[vals.length-1].toFixed(4)}</span>`;
-    const improvement = vals[0] - vals[vals.length-1];
-    set('brain-lineage-summary', `${history.length} promoted/attempt records · Δ ${improvement >= 0 ? '−' : '+'}${Math.abs(improvement).toFixed(5)}`);
+    const dots = candidateVals.map((v,i) => {
+      const cls = promoted(history[i]) ? 'promoted' : 'rejected';
+      const last = i === history.length - 1 ? ' latest' : '';
+      return `<circle class="candidate-point ${cls}${last}" cx="${x(i)}" cy="${y(v)}" r="${i===history.length-1?4.8:3.1}"><title>attempt ${i+1}: candidate ${v.toFixed(6)} · ${esc(history[i].status || 'UNKNOWN')} · active ${fmt(activeVals[i],6)}</title></circle>`;
+    }).join('');
+    chart.innerHTML = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-label="JANUS active brain and candidate evaluation trace">${grid}<polyline class="active-curve" points="${activePoints}"/>${dots}</svg>`;
+    const m = obs.model || {};
+    axis.innerHTML = `<span>attempt 1 active · ${fmt(activeVals[0],4)}</span><span>${m.promotion_count ?? '?'} promoted · ${m.rejection_count ?? '?'} rejected</span><span>attempt ${history.length} active · ${fmt(activeVals[activeVals.length-1],4)}</span>`;
+    const last = history[history.length - 1];
+    set('brain-lineage-summary', `${history.length} attempts · ${m.promotion_count ?? '?'} promoted · ${m.rejection_count ?? '?'} rejected · last ${last.status || 'UNKNOWN'}`);
   }
 
   function inferLatestDecisionFromIndex() {
@@ -196,6 +232,8 @@
 
     set('brain-module-count', resolvedCount);
     set('modules-count', resolvedCount);
+    set('brain-module-count-note', rows.length ? `${rows.length} Scout-observed organs` : observedMapStale ? 'registry fallback · observed map stale' : 'typed organ context unresolved');
+    set('modules-count-note', rows.length ? `${rows.length} Scout-observed repositories` : observedMapStale ? 'registered count · observed map stale' : 'Scout-bound repositories unresolved');
     set('modules-attempts', registry?.global_mutation_policy?.max_patch_attempts ?? 2);
     set('modules-live-status', rows.length
       ? `${rows.length} ORGANS OBSERVED · MEMORY APPEND-ONLY`
@@ -226,10 +264,11 @@
     const rows = [];
     let seq = 1;
     for (const h of obs.model?.history || []) {
-      const loss = fmt(h.candidate_eval_loss, 6);
-      const incumbent = Number.isFinite(Number(h.incumbent_eval_loss)) ? fmt(h.incumbent_eval_loss,6) : 'bootstrap';
+      const candidate = fmt(h.candidate_eval_loss, 6);
+      const incumbent = finite(h.incumbent_eval_loss) ? fmt(h.incumbent_eval_loss,6) : 'bootstrap';
+      const active = fmt(activeLossForRow(h), 6);
       const verdict = h.status || 'UNKNOWN';
-      rows.push(logRow(seq++, 'TRAIN', `run ${h.run_id} · incumbent ${incumbent} → candidate ${loss} · checkpoint ${short(h.checkpoint_sha256,16)}`, verdict, verdict==='PROMOTED'?'':'warn'));
+      rows.push(logRow(seq++, 'TRAIN', `run ${h.run_id} · incumbent ${incumbent} → candidate ${candidate} · active ${active} · active checkpoint ${short(h.checkpoint_sha256,16)}`, verdict, verdict==='PROMOTED'?'':'warn'));
     }
     const d = obs.decision || inferLatestDecisionFromIndex();
     if (d) {
@@ -240,15 +279,18 @@
     const mods = obs.modules?.modules || [];
     if (mods.length) rows.push(logRow(seq++, 'SCOUT', `${mods.length} repository organs present in SELF observed-module state`, 'OBSERVED'));
     rows.push(logRow(seq++, 'MEMORY', 'Durable evidence is append-only: supersede, quarantine or mark stale; never erase failures, negative results or counterexamples.', 'NO DELETE'));
-    rows.push(logRow(seq++, 'LAW', 'No verification = no PASS. Model output is not independent evidence. Autonomous merge remains disabled.', 'ENFORCED'));
+    rows.push(logRow(seq++, 'LAW', 'Rejected candidate != active brain. No verification = no PASS. Model output is not independent evidence. Autonomous merge remains disabled.', 'ENFORCED'));
     const box = $('janus-event-log');
-    if (box) box.innerHTML = rows.length ? rows.slice().reverse().join('') : '<div class="empty-state">No persisted events resolved.</div>';
+    if (box) {
+      box.innerHTML = rows.length ? rows.slice().reverse().join('') : '<div class="empty-state">No persisted events resolved.</div>';
+      document.dispatchEvent(new CustomEvent('janus:logs-rendered'));
+    }
   }
 
   async function loadAll() {
     const [model, manifest, telemetry, latestDecision, organAccess, modules, registry, decisionIndex] = await Promise.all([
       json(URLS.modelState), json(URLS.modelManifest), json(URLS.weightTelemetry, true),
-      json(URLS.latestDecision, true), json(URLS.organAccess, true), json(URLS.moduleState), json(URLS.moduleRegistry), json(URLS.decisionIndex, true),
+      json(URLS.latestDecision, true), json(URLS.organAccess, true), json(URLS.moduleState, true), json(URLS.moduleRegistry, true), json(URLS.decisionIndex, true),
     ]);
     Object.assign(obs, { model, manifest, telemetry, decision: latestDecision, organAccess, modules, registry, decisionIndex, refreshedAt: new Date() });
   }
@@ -263,6 +305,8 @@
   }
 
   async function refreshObservatory() {
+    if (obs.refreshInFlight) return;
+    obs.refreshInFlight = true;
     const btn = $('logs-refresh');
     btn?.classList.add('loading-shimmer');
     try {
@@ -275,9 +319,11 @@
       const log = $('janus-event-log');
       if (log) log.innerHTML = `<div class="empty-state">Git witness unresolved: ${esc(err?.message || err)}. Silence is not negative evidence.</div>`;
     } finally {
+      obs.refreshInFlight = false;
       btn?.classList.remove('loading-shimmer');
     }
   }
+
 
   document.addEventListener('DOMContentLoaded', () => {
     $('logs-refresh')?.addEventListener('click', refreshObservatory);

@@ -23,6 +23,7 @@
     <div class="top-proof">
       <span class="pill">RESIDENT <span id="resident-short">…</span></span>
       <span id="brain-pill" class="pill">BRAIN …</span>
+      <span id="trump-pill" class="pill">TRUMP ?</span>
       <span id="core-pill" class="pill"><span class="dot"></span>LOADING</span>
     </div>
   </header>
@@ -59,8 +60,9 @@
 
         <div class="chat-brain-strip">
           <div><label>native checkpoint</label><strong id="chat-checkpoint">resolving…</strong></div>
-          <div><label>eval loss</label><strong id="chat-loss">—</strong></div>
-          <div><label>promotions</label><strong id="chat-promotions">—</strong></div>
+          <div><label>active brain loss</label><strong id="chat-loss">—</strong></div>
+          <div><label>last candidate</label><strong id="chat-candidate-loss">—</strong></div>
+          <div><label>promoted / attempts</label><strong id="chat-promotions">—</strong></div>
           <div><label>last decision</label><strong id="chat-decision">—</strong></div>
         </div>
 
@@ -84,14 +86,15 @@
         </div>
         <div class="metrics-grid">
           <article class="metric-card hero"><label>checkpoint sha256</label><strong id="brain-checkpoint">—</strong><small id="brain-status">—</small></article>
-          <article class="metric-card"><label>current eval loss</label><strong id="brain-loss">—</strong><small id="brain-loss-delta">—</small></article>
+          <article class="metric-card"><label>active brain eval loss</label><strong id="brain-loss">—</strong><small id="brain-loss-delta">authoritative incumbent for latest eval context</small></article>
+          <article class="metric-card"><label>last candidate eval loss</label><strong id="brain-last-candidate">—</strong><small id="brain-last-candidate-status">candidate verdict unresolved</small></article>
           <article class="metric-card"><label>training attempts</label><strong id="brain-attempts">—</strong><small>bounded incremental turns</small></article>
           <article class="metric-card"><label>promotions / rejects</label><strong id="brain-promote-reject">—</strong><small>holdout gated</small></article>
           <article class="metric-card"><label>parameters</label><strong id="brain-params">—</strong><small id="brain-architecture">—</small></article>
-          <article class="metric-card"><label>repository modules</label><strong id="brain-module-count">—</strong><small>typed organ context</small></article>
+          <article class="metric-card"><label>repository modules</label><strong id="brain-module-count">—</strong><small id="brain-module-count-note">typed organ context</small></article>
         </div>
         <div class="brain-grid">
-          <article class="card wide chart-card"><div class="card-title-row"><h3>LEARNING LINEAGE · EVAL LOSS</h3><span id="brain-lineage-summary" class="mono muted">—</span></div><div id="loss-chart" class="loss-chart"></div><div id="loss-axis" class="loss-axis"></div></article>
+          <article class="card wide chart-card"><div class="card-title-row"><h3>EVAL TRACE · ACTIVE VS CANDIDATE</h3><span id="brain-lineage-summary" class="mono muted">—</span></div><div class="chart-legend"><span class="legend-active">ACTIVE / INCUMBENT</span><span class="legend-promoted">PROMOTED CANDIDATE</span><span class="legend-rejected">REJECTED CANDIDATE</span></div><div id="loss-chart" class="loss-chart"></div><div id="loss-axis" class="loss-axis"></div><div class="chart-truth">ACTIVE CHECKPOINT + PROMOTION VERDICT ARE AUTHORITATIVE. EVAL VALUES FROM DIFFERENT SOURCE DIGESTS ARE NOT A SINGLE FROZEN BENCHMARK.</div></article>
           <article class="card"><h3>MODEL CONFIG</h3><div id="brain-config" class="kv-stack">resolving…</div></article>
           <article class="card"><h3>LATEST NATIVE DECISION</h3><div id="brain-decision" class="decision-panel">resolving…</div></article>
           <article class="card wide"><div class="card-title-row"><h3>WEIGHT / TENSOR TELEMETRY</h3><span id="weight-telemetry-status" class="pill">DIGEST-BOUND</span></div><p class="telemetry-note">The checkpoint is the authoritative weight object. The dashboard exposes its SHA-256 identity and per-generation learning lineage; tensor-level mean/std/min/max/L2 telemetry is displayed when the runtime has published <code>JANUS_WEIGHT_TELEMETRY.json</code>.</p><div id="tensor-telemetry" class="tensor-grid"><div class="empty-state">Tensor telemetry not published yet — checkpoint identity remains authoritative.</div></div></article>
@@ -113,7 +116,7 @@
           <div class="live-badge"><span class="dot"></span><span id="modules-live-status">RESOLVING</span></div>
         </div>
         <div class="metrics-grid compact">
-          <article class="metric-card"><label>observed modules</label><strong id="modules-count">—</strong><small>Scout-bound repositories</small></article>
+          <article class="metric-card"><label>repository modules</label><strong id="modules-count">—</strong><small id="modules-count-note">Scout-bound repositories</small></article>
           <article class="metric-card"><label>self-write lane</label><strong>BRANCH + VERIFY</strong><small>no direct main mutation</small></article>
           <article class="metric-card"><label>max patch attempts</label><strong id="modules-attempts">2</strong><small>fail closed</small></article>
           <article class="metric-card"><label>autonomous merge</label><strong class="danger">FALSE</strong><small>explicitly disabled</small></article>
@@ -138,6 +141,7 @@
           <article class="card wide"><h3>Model digest</h3><div id="organism-model" class="datum">—</div></article>
           <article class="card wide"><h3>Polyglot file-fabric digest</h3><div id="organism-fabric" class="datum">—</div></article>
           <article class="card wide"><h3>Native brain checkpoint</h3><div id="organism-native-checkpoint" class="datum">—</div></article>
+          <article class="card wide tissue-card"><div class="tissue-head"><div><h3>Candidate runtime tissue</h3><div class="tissue-name">TRUMP</div></div><div id="organism-trump-state" class="tissue-state unresolved">UNRESOLVED</div></div><div class="tissue-grid"><div><label>runtime</label><strong id="organism-trump-runtime">—</strong></div><div><label>wake / use</label><strong id="organism-trump-wake">—</strong></div><div><label>self improve</label><strong id="organism-trump-improve">—</strong></div><div><label>proof authority</label><strong id="organism-trump-proof">—</strong></div><div><label>P vs NP</label><strong id="organism-trump-pnp">—</strong></div><div><label>manifest digest</label><strong id="organism-trump-digest">—</strong></div></div><div class="candidate-note">Candidate runtime status is observability only. TRUMP wake/use does not grant theorem, command, external-effect or scientific-claim authority.</div></article>
           <article class="card wide"><h3>Organism laws</h3><div class="law">WORLD MEMORY + SELF MEMORY != AUTOMATIC TRUTH</div><div class="law">REPOSITORY = TYPED MODULE / ORGAN</div><div class="law">MODEL SELECTION != VERIFIED FIX</div><div class="law">TARGET LOCAL VERIFY DECIDES PATCH PASS</div><div class="law">RETURN != RESET</div></article>
         </div>
       </section>
@@ -157,9 +161,13 @@
       <h2>INSTANCE PROOF</h2>
       <div class="metric"><label>resident_uuid</label><div id="side-resident" class="good">resolving…</div></div>
       <div class="metric"><label>native checkpoint</label><div id="side-native-checkpoint">—</div></div>
-      <div class="metric"><label>native loss</label><div id="side-native-loss">—</div></div>
+      <div class="metric"><label>active native loss</label><div id="side-native-loss">—</div></div>
+      <div class="metric"><label>last candidate</label><div id="side-native-candidate">—</div></div>
       <div class="metric"><label>model_digest</label><div id="side-model">—</div></div>
+      <div class="metric"><label>file_fabric_digest</label><div id="side-fabric">—</div></div>
       <div class="metric"><label>turn_id</label><div id="side-turn">—</div></div>
+      <div class="metric"><label>response_hash</label><div id="side-response">—</div></div>
+      <div class="metric"><label>TRUMP runtime</label><div id="side-trump">—</div></div>
       <div class="metric"><label>last native decision</label><div id="side-native-decision">—</div></div>
       <div class="route"><div class="route-title">NATIVE SELF LOOP</div><div class="route-step"><b>01</b> WORLD + SELF memory</div><div class="route-step"><b>02</b> train / promote weights</div><div class="route-step"><b>03</b> rank bounded candidates</div><div class="route-step"><b>04</b> organ local verify</div><div class="route-step"><b>05</b> receipt → SELF memory</div></div>
       <button id="refresh-btn" class="btn refresh" type="button">REFRESH GITHUB WITNESS</button>

@@ -117,3 +117,37 @@ def test_terminal_v22_contract_is_fail_closed():
     assert "FULL_CURRENT != COMPLETE_GIT_HISTORY" in contract["laws"]
     assert "CANDIDATE_TRUMP != PROOF_AUTHORIZED_TRUMP" in contract["laws"]
     assert "TRUMP_WAKE != THEOREM_AUTHORITY" in contract["laws"]
+
+
+def test_observatory_distinguishes_active_brain_from_last_candidate():
+    html = (ROOT / "index.html").read_text(encoding="utf-8")
+    js = (ROOT / "assets/janus-observatory.js").read_text(encoding="utf-8")
+    assert "active brain eval loss" in html
+    assert 'id="brain-last-candidate"' in html
+    assert 'id="chat-candidate-loss"' in html
+    assert "activeLossForRow" in js
+    assert "Rejected candidate != active brain" in js
+    assert "candidate_eval_loss" in js and "incumbent_eval_loss" in js
+    assert "BRAIN ${m.promotion_count" in js
+
+
+def test_observatory_has_state_integrity_and_resilient_auxiliary_reads():
+    js = (ROOT / "assets/janus-observatory.js").read_text(encoding="utf-8")
+    assert "modelIntegrity" in js
+    assert "STATE INTEGRITY WARNING" in js
+    assert "json(URLS.moduleState, true)" in js
+    assert "json(URLS.moduleRegistry, true)" in js
+    assert "refreshInFlight" in js
+
+
+def test_terminal_restores_all_runtime_readout_targets():
+    html = (ROOT / "index.html").read_text(encoding="utf-8")
+    for element_id in ("side-fabric", "side-response", "side-trump", "side-native-candidate"):
+        assert f'id="{element_id}"' in html
+
+
+def test_synthesis_log_uses_primary_event_log_contract_and_rehydrates():
+    js = (ROOT / "assets/janus-synthesis-observatory.js").read_text(encoding="utf-8")
+    assert "row.className='log-row'" in js
+    assert "janus:logs-rendered" in js
+    assert "lastSynthState" in js

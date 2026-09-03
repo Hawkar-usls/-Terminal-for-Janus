@@ -5,6 +5,7 @@ const SYNTH_URL='https://raw.githubusercontent.com/Hawkar-usls/iNaiHR/main/janus
 const EXPECTED_SCHEMA='janus.inaihr.semantic_evolution.v2';
 const REFRESH_MS=60000;
 let lastStateSha=null;
+let lastSynthState=null;
 
 function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function short(v,n=12){const s=String(v||'—');return s.length>n?s.slice(0,n)+'…':s;}
@@ -62,17 +63,17 @@ function candidateHtml(c){
  return `<article class="synth-card"><div class="synth-meta"><span>${esc(c.id)}</span><span>DEPTH ${esc(c.depth)}</span><span>${esc(c.focus_key||'focus:unknown')}</span><span>${esc(c.status)}</span></div><h3>${esc(c.label)}</h3><p><b>Purpose:</b> ${esc(c.meaning?.purpose||'—')}</p><p><b>Mechanism:</b> ${esc(c.meaning?.mechanism||'—')}</p><p><b>Next:</b> ${esc((c.meaning?.next_steps||[])[0]||'Await corroboration.')}</p><div class="synth-sources">${src.map(s=>`<div class="synth-source">${esc(s.path||s.id)} · ${esc(s.status||'UNCLASSIFIED')} · sha ${esc(short(s.sha256,16))}</div>`).join('')}</div></article>`;
 }
 
-function publishLogEvent(x){
- const log=document.getElementById('janus-event-log');if(!log||log.querySelector('[data-terminal-synth-event]'))return;
+function publishLogEvent(x=lastSynthState){
+ const log=document.getElementById('janus-event-log');if(!log||!x||log.querySelector('[data-terminal-synth-event]'))return;
  const latest=(x.candidates||[]).slice(-1)[0];if(!latest)return;
- const row=document.createElement('div');row.className='event-row';row.dataset.terminalSynthEvent='1';row.innerHTML=`<div class="event-id">SYNTH</div><div class="event-type">COMPOSE</div><div class="event-body"><div>${esc(latest.label)}</div><strong class="good">CANDIDATE_AWAITING_CORROBORATION</strong></div>`;log.prepend(row);
+ const row=document.createElement('div');row.className='log-row';row.dataset.terminalSynthEvent='1';row.innerHTML=`<span class="log-seq">#SYN</span><span class="log-type">COMPOSE</span><span class="log-body">${esc(latest.label)} · durable semantic candidate</span><span class="log-verdict warn">CANDIDATE</span>`;log.prepend(row);
 }
 
 async function loadSynth(){
  const status=document.getElementById('synth-live-status');if(status)status.textContent='RESOLVING';
  try{
    const r=await fetch(SYNTH_URL,{cache:'no-store',headers:{Accept:'application/json'}});if(!r.ok)throw new Error('HTTP_'+r.status);
-   const x=validate(await r.json());
+   const x=validate(await r.json());lastSynthState=x;
    document.getElementById('synth-count').textContent=x.candidate_count??x.candidates.length;
    document.getElementById('synth-created').textContent=x.created_this_run.length;
    document.getElementById('synth-focus').textContent=short(x.attention?.focus_key||'NO ACTIVE FOCUS',28);
@@ -85,6 +86,6 @@ async function loadSynth(){
  }catch(e){console.warn('JANUS synthesis observatory',e);if(status){status.textContent='DEGRADED · NO CLAIM';status.className='synth-state-wait';}const list=document.getElementById('synth-list');if(list)list.innerHTML='<div class="empty-state">SYNTH state unavailable. This is not negative evidence.</div>';}
 }
 
-function boot(){installView();loadSynth();setInterval(loadSynth,REFRESH_MS);}
+function boot(){installView();document.addEventListener('janus:logs-rendered',()=>publishLogEvent());loadSynth();setInterval(loadSynth,REFRESH_MS);}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();

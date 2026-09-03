@@ -9,6 +9,7 @@ const html = read('index.html');
 const observatory = read('assets/janus-observatory.js');
 const terminal = read('assets/terminal-v2.js');
 const synthesis = read('assets/janus-synthesis-observatory.js');
+const neural = read('assets/neural-link-v2.js');
 const css = read('assets/janus-observatory.css');
 const descriptor = JSON.parse(read('.janus/JANUS_MODULE.json'));
 
@@ -59,6 +60,21 @@ must(terminal, "p.memory_grants_authority !== 'false'", 'HRAIN_AUTHORITY_FIREWAL
 must(terminal, 'empty ≠ failure', 'HRAIN_EMPTY_NOT_FAILURE_LABEL_MISSING');
 must(terminal, 'empty ≠ negative evidence', 'HRAIN_EMPTY_NOT_NEGATIVE_LABEL_MISSING');
 
+
+// Neural Link v2 truth: canonical chat history is append-only Meta Registry memory mirrored through HRAiN.
+must(html, 'assets/neural-link-v2.js', 'NEURAL_LINK_RUNTIME_NOT_WIRED');
+must(html, 'assets/neural-link-v2.css', 'NEURAL_LINK_STYLE_NOT_WIRED');
+must(neural, 'state/neural-link/RECENT.json', 'NEURAL_LINK_HRAIN_RECENT_SOURCE_MISSING');
+must(neural, 'state/neural-link/PROVENANCE.json', 'NEURAL_LINK_HRAIN_PROVENANCE_SOURCE_MISSING');
+if (neural.includes('raw.githubusercontent.com/Hawkar-usls/janus-meta-registry')) throw new Error('NEURAL_LINK_DIRECT_REGISTRY_BYPASS');
+must(neural, 'terminal_must_not_read_registry_directly', 'NEURAL_LINK_HRAIN_FIREWALL_MISSING');
+must(neural, 'OBSERVABILITY_AND_MEMORY_ONLY', 'NEURAL_LINK_AUTHORITY_CEILING_MISSING');
+must(neural, 'PUBLIC APPEND-ONLY MEMORY', 'NEURAL_LINK_PUBLIC_MEMORY_WARNING_MISSING');
+must(neural, 'AWAITING GITHUB CONFIRMATION', 'NEURAL_LINK_PENDING_SEND_SEMANTICS_MISSING');
+must(neural, 'CHAT MESSAGE != COMMAND AUTHORITY', 'NEURAL_LINK_COMMAND_FIREWALL_MISSING');
+if (neural.includes('GITHUB_TOKEN')) throw new Error('NEURAL_LINK_BROWSER_SECRET_FORBIDDEN');
+must(terminal, 'window.JANUS_TERMINAL_STATE = state', 'NEURAL_LINK_SHARED_TRANSPORT_STATE_MISSING');
+must(terminal, "new CustomEvent('janus:terminal-state'", 'NEURAL_LINK_SHARED_TRANSPORT_EVENT_MISSING');
 // TRUMP truth: current public manifest is candidate runtime tissue, never proof authority.
 must(terminal, 'TRUMP_MANIFEST_URL', 'TRUMP_MANIFEST_SOURCE_MISSING');
 must(terminal, 'validateTrumpManifest', 'TRUMP_VALIDATOR_MISSING');
@@ -109,6 +125,9 @@ console.log(JSON.stringify({
   model_integrity_gate: true,
   hrain_proof_provenance: true,
   valid_empty_hrain_retrieval: true,
+  neural_link_v2: true,
+  neural_link_direct_registry_read: false,
+  neural_link_browser_secret: false,
   trump_candidate_authority_ceiling: true,
   synthesis_candidate_only: true,
   synthesis_causal_authority: false,

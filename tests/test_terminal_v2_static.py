@@ -167,3 +167,32 @@ def test_terminal_displays_proof_carrying_hrain_provenance():
         assert token in js
     assert "NO_RELEVANT_MEMORY_SELECTED" in js
     assert "Selected memory objects" in js
+
+
+def test_neural_link_v2_is_hrain_mediated_and_append_only():
+    html = (ROOT / "index.html").read_text(encoding="utf-8")
+    terminal = (ROOT / "assets/terminal-v2.js").read_text(encoding="utf-8")
+    neural = (ROOT / "assets/neural-link-v2.js").read_text(encoding="utf-8")
+    contract = json.loads((ROOT / ".janus/TERMINAL_V2_HRAIN_MEMORY_CONTRACT.json").read_text(encoding="utf-8"))
+    assert "assets/neural-link-v2.css" in html
+    assert "assets/neural-link-v2.js" in html
+    assert "https://raw.githubusercontent.com/Hawkar-usls/Hrain/main/state/neural-link/RECENT.json" in neural
+    assert "https://raw.githubusercontent.com/Hawkar-usls/Hrain/main/state/neural-link/PROVENANCE.json" in neural
+    assert "raw.githubusercontent.com/Hawkar-usls/janus-meta-registry" not in neural
+    assert "direct_registry_read: false" in neural
+    assert "META_REGISTRY_DB -> HRAIN -> TERMINAL" in neural
+    assert "PUBLIC APPEND-ONLY MEMORY" in neural
+    assert "DO NOT SEND PASSWORDS" in neural
+    assert "AWAITING GITHUB CONFIRMATION" in neural
+    assert "CHAT MESSAGE != COMMAND AUTHORITY" in neural
+    assert "GITHUB_TOKEN" not in neural
+    assert "window.JANUS_TERMINAL_STATE = state" in terminal
+    assert "new CustomEvent(\'janus:terminal-state\'" in terminal
+    archive = contract["neural_link_archive"]
+    assert archive["database_path"] == "data/JANUS-NEURAL-LINK/"
+    assert archive["hrain_mirror_path"] == "state/neural-link/"
+    assert archive["terminal_reads_archive_from_registry_directly"] is False
+    assert archive["archive_is_world_truth"] is False
+    assert archive["archive_grants_command_authority"] is False
+    assert contract["conversation"]["browser_secret_required"] is False
+    assert contract["conversation"]["browser_send_semantics"] == "PENDING_UNTIL_GITHUB_CONFIRMATION"

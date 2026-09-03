@@ -19,6 +19,7 @@
     trumpError: null,
     refreshedAt: null,
   };
+  window.JANUS_TERMINAL_STATE = state;
 
   const $ = (id) => document.getElementById(id);
   const qa = (sel) => [...document.querySelectorAll(sel)];
@@ -401,6 +402,7 @@
       renderStatus();
       renderTranscript();
       renderProvenance();
+      document.dispatchEvent(new CustomEvent('janus:terminal-state', { detail: { issue: state.issue, response: state.response, proof: state.proof, refreshedAt: state.refreshedAt?.toISOString() || null } }));
     } catch (err) {
       console.warn('JANUS_TERMINAL_REFRESH_UNRESOLVED', err);
       const corePill = $('core-pill');

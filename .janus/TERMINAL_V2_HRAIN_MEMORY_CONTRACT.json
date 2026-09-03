@@ -5,11 +5,31 @@
   "pages_surface": "https://hawkar-usls.github.io/-Terminal-for-Janus/",
   "conversation": {
     "transport": "GITHUB_ISSUE_AND_COMMENT_READ_ONLY_CONVERSATION",
+    "ui_surface": "JANUS_NEURAL_LINK_V2",
     "human_stimulus_prefix": "[JANUS CHAT]",
     "browser_secret_required": false,
     "local_network_scan_required": false,
     "command_authority_granted_by_message": false,
-    "external_effect_authorized_by_message": false
+    "external_effect_authorized_by_message": false,
+    "browser_send_semantics": "PENDING_UNTIL_GITHUB_CONFIRMATION",
+    "submitted_chat_visibility": "PUBLIC_APPEND_ONLY_MEMORY",
+    "secret_material_allowed_in_chat": false
+  },
+  "neural_link_archive": {
+    "database_repository": "Hawkar-usls/janus-meta-registry",
+    "database_path": "data/JANUS-NEURAL-LINK/",
+    "event_objects": "CREATE_ONLY_VERSIONED",
+    "edit_semantics": "NEW_VERSION_NEVER_REWRITE_OLD_EVENT",
+    "raw_body_preserved": true,
+    "janus_response_proof_preserved": true,
+    "hrain_repository": "Hawkar-usls/Hrain",
+    "hrain_mirror_path": "state/neural-link/",
+    "terminal_history_source": "https://raw.githubusercontent.com/Hawkar-usls/Hrain/main/state/neural-link/RECENT.json",
+    "terminal_reads_archive_from_registry_directly": false,
+    "archive_is_world_truth": false,
+    "archive_is_scientific_evidence": false,
+    "archive_grants_command_authority": false,
+    "archive_grants_external_effect_authority": false
   },
   "persistent_identity": {
     "home_repository": "Hawkar-usls/Hawkar-usls",
@@ -19,8 +39,8 @@
   "memory_dataflow": {
     "source_database": "Hawkar-usls/janus-meta-registry",
     "structural_memory_organ": "Hawkar-usls/Hrain",
-    "hrain_consumes": ["REGISTRY_PROJECTION", "FULL_CURRENT_MEMORY_MANIFEST"],
-    "hrain_emits": ["STRUCTURAL_GRAPH", "VERIFIED_MEMORY_CATALOG_VIEW"],
+    "hrain_consumes": ["REGISTRY_PROJECTION", "FULL_CURRENT_MEMORY_MANIFEST", "NEURAL_LINK_APPEND_ONLY_ARCHIVE"],
+    "hrain_emits": ["STRUCTURAL_GRAPH", "VERIFIED_MEMORY_CATALOG_VIEW", "NEURAL_LINK_READ_ONLY_MIRROR"],
     "terminal_consumes_registry_directly": false,
     "terminal_memory_surface": "https://hawkar-usls.github.io/Hrain/memory.html",
     "active_memory_surface": "https://hawkar-usls.github.io/Hrain/janus.html",
@@ -30,6 +50,12 @@
       "JANUS_META_REGISTRY_DB",
       "HRAIN_ACTIVE_OR_FULL_CURRENT_MEMORY",
       "TERMINAL_MEMORY_VIEW"
+    ],
+    "neural_link_memory_path": [
+      "TERMINAL_CHAT",
+      "JANUS_META_REGISTRY_DB",
+      "HRAIN_VERIFIED_NEURAL_LINK_MIRROR",
+      "TERMINAL_NEURAL_LINK_V2"
     ]
   },
   "candidate_tissue_readout": {
@@ -70,7 +96,11 @@
   ],
   "laws": [
     "TERMINAL_MESSAGE != COMMAND",
+    "CHAT_EVENT != COMMAND_AUTHORITY",
+    "CHAT_ARCHIVE != WORLD_TRUTH",
+    "EDIT != REWRITE_OLD_EVENT",
     "META_REGISTRY = JANUS_LONG_TERM_DATABASE",
+    "META_REGISTRY_DB -> HRAIN -> TERMINAL",
     "TERMINAL_MEMORY_READOUT_MUST_PASS_THROUGH_HRAIN",
     "FULL_CURRENT != COMPLETE_GIT_HISTORY",
     "HRAIN_GRAPH != REGISTRY_AUTHORITY",

@@ -185,13 +185,31 @@
     const state = obs.modules || {};
     const registry = obs.registry || {};
     const rows = state.modules || [];
-    set('brain-module-count', state.module_count ?? registry?.discovery?.discovered_module_count ?? rows.length ?? '—');
-    set('modules-count', state.module_count ?? rows.length ?? '—');
+    const observedCount = Number(state.module_count);
+    const registryCount = Number(registry?.discovery?.discovered_module_count);
+    const resolvedCount = Number.isInteger(observedCount) && observedCount > 0
+      ? observedCount
+      : Number.isInteger(registryCount) && registryCount > 0
+        ? registryCount
+        : rows.length;
+    const observedMapStale = rows.length === 0 && resolvedCount > 0;
+
+    set('brain-module-count', resolvedCount);
+    set('modules-count', resolvedCount);
     set('modules-attempts', registry?.global_mutation_policy?.max_patch_attempts ?? 2);
-    set('modules-live-status', rows.length ? `${rows.length} ORGANS OBSERVED · MEMORY APPEND-ONLY` : 'UNRESOLVED');
+    set('modules-live-status', rows.length
+      ? `${rows.length} ORGANS OBSERVED · MEMORY APPEND-ONLY`
+      : observedMapStale
+        ? `${resolvedCount} ORGANS REGISTERED · OBSERVED MAP STALE`
+        : 'UNRESOLVED');
     const box = $('module-list');
     if (!box) return;
-    if (!rows.length) { box.innerHTML = '<div class="empty-state">No persisted module state resolved.</div>'; return; }
+    if (!rows.length) {
+      box.innerHTML = observedMapStale
+        ? `<div class="empty-state">${esc(resolvedCount)} repository organs are registered, but the persisted observed-module map is stale/empty. Registry count is shown; per-organ observation details remain unresolved.</div>`
+        : '<div class="empty-state">No persisted module state resolved.</div>';
+      return;
+    }
     const sorted = [...rows].sort((a,b) => String(a.repository).localeCompare(String(b.repository)));
     box.innerHTML = sorted.map((m) => {
       const lane = accessLaneFor(m.repository);

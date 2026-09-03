@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 
 from tools.terminal_response_relay import (
+    EMPTY_MEMORY_STATUS,
     HRAIN_MEMORY_PATH,
     HRAIN_MEMORY_RESPONSE_MODE,
     canonical_hash,
@@ -93,6 +94,21 @@ def hrain_response():
     return body
 
 
+def empty_hrain_response():
+    body = hrain_response()
+    body.pop("response_hash")
+    body.update({
+        "response_text": "JANUS ONLINE. HRAiN selected no strong relevant memory objects.",
+        "memory_selected_count": 0,
+        "memory_selected_paths": [],
+        "memory_match_status": EMPTY_MEMORY_STATUS,
+        "empty_memory_is_hrain_failure": False,
+        "empty_memory_is_negative_evidence": False,
+    })
+    body["response_hash"] = canonical_hash(body)
+    return body
+
+
 def reseal(value):
     body = {k: v for k, v in value.items() if k != "response_hash"}
     value["response_hash"] = canonical_hash(body)
@@ -126,6 +142,46 @@ def test_hrain_bound_response_is_admitted_and_provenanced():
     assert "memory grants authority: `false`" in text
     for path in value["memory_selected_paths"]:
         assert path in text
+
+
+def test_valid_empty_hrain_retrieval_is_admitted_and_explicitly_provenanced():
+    value = empty_hrain_response()
+    assert verify_response(value)
+    text = markdown(value)
+    assert "selected_memory_count: `0`" in text
+    assert f"memory_match_status: `{EMPTY_MEMORY_STATUS}`" in text
+    assert "empty memory is HRAiN failure: `false`" in text
+    assert "empty memory is negative evidence: `false`" in text
+    assert "Selected memory objects: `none`" in text
+
+
+def test_empty_hrain_retrieval_requires_explicit_empty_semantics():
+    bad = copy.deepcopy(empty_hrain_response())
+    bad.pop("memory_match_status")
+    reseal(bad)
+    assert verify_response(bad) is False
+
+
+def test_empty_hrain_retrieval_cannot_claim_failure_or_negative_evidence():
+    for field in ["empty_memory_is_hrain_failure", "empty_memory_is_negative_evidence"]:
+        bad = copy.deepcopy(empty_hrain_response())
+        bad[field] = True
+        reseal(bad)
+        assert verify_response(bad) is False
+
+
+def test_zero_count_with_nonempty_paths_is_rejected():
+    bad = copy.deepcopy(empty_hrain_response())
+    bad["memory_selected_paths"] = ["data/should-not-exist.json"]
+    reseal(bad)
+    assert verify_response(bad) is False
+
+
+def test_negative_memory_count_is_rejected():
+    bad = copy.deepcopy(empty_hrain_response())
+    bad["memory_selected_count"] = -1
+    reseal(bad)
+    assert verify_response(bad) is False
 
 
 def test_hrain_response_identity_must_include_context_hash():

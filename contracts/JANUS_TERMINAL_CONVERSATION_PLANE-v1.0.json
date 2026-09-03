@@ -54,6 +54,15 @@
       "memory_context_is_evidence",
       "memory_grants_authority"
     ],
+    "empty_memory_semantics": {
+      "allowed": true,
+      "memory_selected_count": 0,
+      "memory_selected_paths": [],
+      "memory_match_status": "NO_RELEVANT_MEMORY_SELECTED",
+      "empty_memory_is_hrain_failure": false,
+      "empty_memory_is_negative_evidence": false,
+      "law": "EMPTY_RELEVANT_MEMORY_IS_VALID_RETRIEVAL_NOT_FAILURE_AND_NOT_NEGATIVE_EVIDENCE"
+    },
     "backward_compatible_with_legacy_responses": true,
     "terminal_must_display_memory_provenance": true,
     "memory_content_display_required": false
@@ -68,6 +77,8 @@
     "MEMORY_CONTENT != COMMAND",
     "MEMORY_CONTEXT != EVIDENCE",
     "MEMORY_PROVENANCE != MEMORY_AUTHORITY",
+    "EMPTY RELEVANT MEMORY != HRAiN FAILURE",
+    "EMPTY MEMORY != NEGATIVE EVIDENCE",
     "HRAIN_CONTEXT_HASH_IS_RESPONSE_IDENTITY_FOR_MEMORY_BOUND_TURNS",
     "TERMINAL_EGRESS_MUST_VERIFY_HRAIN_MEMORY_PROOF_BEFORE_RELAY",
     "TERMINAL_EGRESS_MUST_REMAIN_BACKWARD_COMPATIBLE_WITH_LEGACY_SEALED_RESPONSES",

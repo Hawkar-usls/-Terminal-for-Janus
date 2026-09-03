@@ -20,6 +20,7 @@ RESPONSE_SCHEMA = "janus.terminal.response.v1"
 HRAIN_MEMORY_RESPONSE_MODE = "MODEL_BOUND_HRAIN_MEMORY_CONVERSATION_PROOF"
 HRAIN_MEMORY_PATH = "META_REGISTRY_DB -> HRAIN -> JANUS -> TERMINAL"
 HRAIN_REPOSITORY = "Hawkar-usls/Hrain"
+EMPTY_MEMORY_STATUS = "NO_RELEVANT_MEMORY_SELECTED"
 ISSUE_RE = re.compile(r"^issue-(\d+)$")
 HEX40_RE = re.compile(r"^[0-9a-f]{40}$")
 HEX64_RE = re.compile(r"^[0-9a-f]{64}$")
@@ -34,7 +35,7 @@ def get_json(url: str, *, allow_404: bool = False) -> Any:
     request = urllib.request.Request(url, headers={
         "Accept": "application/vnd.github+json",
         "X-GitHub-Api-Version": "2022-11-28",
-        "User-Agent": "JANUS-Terminal-Response-Relay/1.1",
+        "User-Agent": "JANUS-Terminal-Response-Relay/1.2",
     })
     try:
         response = urllib.request.urlopen(request, timeout=20.0)
@@ -105,12 +106,30 @@ def _response_identity(body: Dict[str, Any]) -> Dict[str, Any]:
     return identity
 
 
+def _verify_memory_selection(body: Dict[str, Any], paths: Any, count: int) -> bool:
+    if count < 0 or not isinstance(paths, list) or len(paths) != count:
+        return False
+    if any(not isinstance(path, str) or not path.strip() for path in paths):
+        return False
+    if count > 0:
+        return True
+    return all([
+        paths == [],
+        body.get("memory_match_status") == EMPTY_MEMORY_STATUS,
+        body.get("empty_memory_is_hrain_failure") is False,
+        body.get("empty_memory_is_negative_evidence") is False,
+    ])
+
+
 def _verify_memory_binding(body: Dict[str, Any]) -> bool:
     if not _memory_bound(body):
         return True
     paths = body.get("memory_selected_paths")
+    raw_count = body.get("memory_selected_count")
+    if isinstance(raw_count, bool):
+        return False
     try:
-        count = int(body.get("memory_selected_count") or 0)
+        count = int(raw_count)
     except (TypeError, ValueError):
         return False
     return all([
@@ -120,10 +139,7 @@ def _verify_memory_binding(body: Dict[str, Any]) -> bool:
         HEX64_RE.fullmatch(str(body.get("hrain_context_hash") or "")) is not None,
         HEX40_RE.fullmatch(str(body.get("hrain_locked_head_sha") or "")) is not None,
         HEX40_RE.fullmatch(str(body.get("memory_source_commit") or "")) is not None,
-        count > 0,
-        isinstance(paths, list),
-        len(paths or []) == count,
-        all(isinstance(path, str) and bool(path.strip()) for path in (paths or [])),
+        _verify_memory_selection(body, paths, count),
         body.get("memory_path") == HRAIN_MEMORY_PATH,
         body.get("memory_retrieval_executed_by") == HRAIN_REPOSITORY,
         body.get("meta_registry_access_performed_by_home") is False,
@@ -184,21 +200,30 @@ def next_unrelayed(seen_dir: Path) -> Dict[str, Any] | None:
 def _memory_provenance_markdown(response: Dict[str, Any]) -> str:
     if not _memory_bound(response):
         return ""
+    count = int(response.get("memory_selected_count") or 0)
     lines = [
         "\n<details><summary>HRAiN memory provenance</summary>\n",
         f"- hrain_head: `{response['hrain_locked_head_sha']}`",
         f"- memory_source_commit: `{response['memory_source_commit']}`",
         f"- hrain_context_hash: `{response['hrain_context_hash']}`",
         f"- hrain_context_receipt_hash: `{response['hrain_context_receipt_hash']}`",
-        f"- selected_memory_count: `{response['memory_selected_count']}`",
+        f"- selected_memory_count: `{count}`",
         f"- memory_path: `{response['memory_path']}`",
         "- memory context is evidence: `false`",
         "- memory grants authority: `false`",
-        "",
-        "Selected memory objects:",
     ]
-    for path in response.get("memory_selected_paths") or []:
-        lines.append(f"- `{path}`")
+    if count == 0:
+        lines.extend([
+            f"- memory_match_status: `{response['memory_match_status']}`",
+            "- empty memory is HRAiN failure: `false`",
+            "- empty memory is negative evidence: `false`",
+            "",
+            "Selected memory objects: `none`",
+        ])
+    else:
+        lines.extend(["", "Selected memory objects:"])
+        for path in response.get("memory_selected_paths") or []:
+            lines.append(f"- `{path}`")
     lines.extend(["", "</details>\n"])
     return "\n".join(lines)
 
@@ -235,7 +260,7 @@ def main() -> int:
 
     response = next_unrelayed(Path(args.seen_dir))
     status = {
-        "schema": "janus.terminal.response_relay_status.v1.1",
+        "schema": "janus.terminal.response_relay_status.v1.2",
         "response_found": response is not None,
         "response_id": response.get("response_id") if response else None,
         "response_hash": response.get("response_hash") if response else None,
@@ -243,6 +268,8 @@ def main() -> int:
         "hrain_context_bound": response.get("hrain_context_bound") is True if response else False,
         "hrain_context_hash": response.get("hrain_context_hash") if response else None,
         "memory_source_commit": response.get("memory_source_commit") if response else None,
+        "memory_selected_count": response.get("memory_selected_count") if response else None,
+        "memory_match_status": response.get("memory_match_status") if response else None,
         "credentialless_home_read": True,
         "cross_repo_write_credential_used": False,
         "terminal": "JANUS_RESPONSE_READY_FOR_LOCAL_TERMINAL_RELAY" if response else "NO_UNRELAYED_JANUS_RESPONSE",

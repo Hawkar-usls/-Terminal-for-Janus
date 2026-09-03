@@ -145,21 +145,6 @@ jobs:
               )
           verifier.write_text(s,encoding='utf-8')
 
-          for wf in ('.github/workflows/janus-terminal-v2-ui.yml','.github/workflows/janus-terminal-v2.2-ui.yml'):
-              p=Path(wf)
-              s=p.read_text(encoding='utf-8')
-              if "      - 'assets/neural-link-v2.js'" not in s:
-                  s=s.replace(
-                      "      - 'assets/terminal-v2.js'\n",
-                      "      - 'assets/terminal-v2.js'\n      - 'assets/neural-link-v2.js'\n      - 'assets/neural-link-v2.css'\n",
-                  )
-              if 'node --check assets/neural-link-v2.js' not in s:
-                  s=s.replace(
-                      '          node --check assets/terminal-v2.js\n',
-                      '          node --check assets/terminal-v2.js\n          node --check assets/neural-link-v2.js\n',
-                  )
-              p.write_text(s,encoding='utf-8')
-
           print('JANUS_NEURAL_LINK_V2_PATCH=APPLIED')
           PY
       - name: Validate browser syntax and contracts
@@ -185,14 +170,13 @@ jobs:
           grep -Fq 'CHAT MESSAGE != COMMAND AUTHORITY' assets/neural-link-v2.js
           grep -Fq 'window.JANUS_TERMINAL_STATE = state' assets/terminal-v2.js
           echo 'JANUS_NEURAL_LINK_V2_TRUTH=PASS'
-      - name: Persist Neural Link v2 and retire installer
+      - name: Persist Neural Link v2 runtime
         shell: bash
         run: |
           set -euo pipefail
           git config user.name 'JANUS Neural Link v2'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git rm .github/workflows/janus-neural-link-v2-install-one-shot.yml
-          git add index.html assets/terminal-v2.js assets/neural-link-v2.js assets/neural-link-v2.css tests/test_terminal_v2_static.py tools/test-janus-observatory.js .github/workflows/janus-terminal-v2-ui.yml .github/workflows/janus-terminal-v2.2-ui.yml .janus/TERMINAL_V2_HRAIN_MEMORY_CONTRACT.json
+          git add index.html assets/terminal-v2.js assets/neural-link-v2.js assets/neural-link-v2.css tests/test_terminal_v2_static.py tools/test-janus-observatory.js .janus/TERMINAL_V2_HRAIN_MEMORY_CONTRACT.json
           git commit -m 'JANUS Terminal: activate Neural Link v2 append-only chat'
           git pull --rebase origin main
           git push origin HEAD:main

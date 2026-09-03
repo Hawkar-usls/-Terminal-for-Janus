@@ -151,3 +151,19 @@ def test_synthesis_log_uses_primary_event_log_contract_and_rehydrates():
     assert "row.className='log-row'" in js
     assert "janus:logs-rendered" in js
     assert "lastSynthState" in js
+
+
+
+def test_terminal_displays_proof_carrying_hrain_provenance():
+    js = (ROOT / "assets/terminal-v2.js").read_text(encoding="utf-8")
+    for token in (
+        "hrain_head", "memory_source_commit", "hrain_context_hash",
+        "hrain_context_receipt_hash", "selected_memory_count", "memory_match_status",
+        "memory_context_is_evidence", "memory_grants_authority",
+        "empty_memory_is_hrain_failure", "empty_memory_is_negative_evidence",
+        "VALID_EMPTY_RETRIEVAL", "BLOCKED_INVALID_EMPTY_RETRIEVAL",
+        "empty ≠ failure", "empty ≠ negative evidence", "side-hrain",
+    ):
+        assert token in js
+    assert "NO_RELEVANT_MEMORY_SELECTED" in js
+    assert "Selected memory objects" in js

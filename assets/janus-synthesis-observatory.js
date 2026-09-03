@@ -49,11 +49,17 @@ function installView(){
 
 function validate(x){
  if(!x||x.schema!==EXPECTED_SCHEMA||!Array.isArray(x.candidates)||!Array.isArray(x.created_this_run))throw new Error('SYNTH_SCHEMA_REJECTED');
+ if(!Number.isInteger(Number(x.candidate_count))||Number(x.candidate_count)!==x.candidates.length)throw new Error('SYNTH_COUNT_MISMATCH');
  if(x.attention?.attention_weight_is_evidence_weight!==false)throw new Error('ATTENTION_AUTHORITY_REJECTED');
  for(const c of x.candidates){
    if(c.kind!=='SEMANTIC_CANDIDATE'||c.status!=='CANDIDATE_AWAITING_CORROBORATION')throw new Error('NON_CANDIDATE_OBJECT_REJECTED');
-   const a=c.authority||{};if(a.truth!==false||a.proof!==false||a.mutation!==false||a.automatic_promotion!==false)throw new Error('SYNTH_AUTHORITY_REJECTED');
+   const a=c.authority||{};
+   if(a.truth!==false||a.proof!==false||a.causal!==false||a.mutation!==false||a.automatic_promotion!==false)throw new Error('SYNTH_AUTHORITY_REJECTED');
    if(!(Number(c.depth)>=1&&Number(c.depth)<=4))throw new Error('SYNTH_DEPTH_REJECTED');
+   const boundaries=Array.isArray(c.meaning?.boundaries)?c.meaning.boundaries:[];
+   for(const law of ['SYNTHESIS != TRUTH','ATTENTION_WEIGHT != EVIDENCE_WEIGHT','CANDIDATE_EDGE != CAUSAL_EDGE']){
+     if(!boundaries.includes(law))throw new Error(`SYNTH_BOUNDARY_MISSING:${law}`);
+   }
  }
  return x;
 }
@@ -74,7 +80,7 @@ async function loadSynth(){
  try{
    const r=await fetch(SYNTH_URL,{cache:'no-store',headers:{Accept:'application/json'}});if(!r.ok)throw new Error('HTTP_'+r.status);
    const x=validate(await r.json());lastSynthState=x;
-   document.getElementById('synth-count').textContent=x.candidate_count??x.candidates.length;
+   document.getElementById('synth-count').textContent=x.candidate_count;
    document.getElementById('synth-created').textContent=x.created_this_run.length;
    document.getElementById('synth-focus').textContent=short(x.attention?.focus_key||'NO ACTIVE FOCUS',28);
    document.getElementById('synth-focus-age').textContent=`focus age ${x.attention?.focus_age??0} · replay fatigue active`;

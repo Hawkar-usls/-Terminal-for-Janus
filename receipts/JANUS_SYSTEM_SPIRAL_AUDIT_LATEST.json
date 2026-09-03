@@ -11,13 +11,13 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 6682,
+  "files_scanned": 6889,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 624,
-    "SAFE_INFRA_LOOP": 1319,
-    "HISTORICAL_FROZEN": 721
+    "REVIEW": 672,
+    "SAFE_INFRA_LOOP": 1326,
+    "HISTORICAL_FROZEN": 723
   },
   "active_hard_ring_count": 0,
   "active_hard_rings": [],
@@ -1282,6 +1282,56 @@
       "code": "RESET_STATE_LANGUAGE",
       "pattern": "\\breset\\b.{0,80}\\b(state|origin|memory|generation)\\b|\\b(state|origin|memory|generation)\\b.{0,80}\\breset\\b",
       "excerpt": "// Reset State",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Hrain",
+      "path": ".github/workflows/hrain-topa-continuous-semantic-flywheel.yml",
+      "line": 198,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Path('work/cycle-inputs.json').write_text(json.dumps(body,indent=2,sort_keys=True)+'\\n')",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/iNaiHR",
+      "path": "janus-synth-organ.js",
+      "line": 170,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "btn.classList.add('active');btn.style.opacity='1';btn.style.pointerEvents='auto';btn.disabled=false;btn.textContent='SYNTH · JANUS';btn.title='JANUS autonomous synthesis from existing HRaiN + iNaiHR links. Click to force one cycle.';btn.onclick=e=>{e.preventDefault();e.stopPropagation();janusSynthesis(true);};",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/iNaiHR",
+      "path": "tools/janus_autonomous_semantic_evolution.py",
+      "line": 262,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"A CANDIDATE MAY ADVANCE AT MOST ONE SEMANTIC DEPTH PER CYCLE\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/iNaiHR",
+      "path": ".janus/JANUS_SEMANTIC_EVOLUTION_V2.json",
+      "line": 58,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"A CANDIDATE MAY ADVANCE AT MOST ONE SEMANTIC DEPTH PER CYCLE\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/iNaiHR",
+      "path": "janus-synth/state/JANUS_SYNTH_LATEST.json",
+      "line": 1717,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"A CANDIDATE MAY ADVANCE AT MOST ONE SEMANTIC DEPTH PER CYCLE\",",
       "active_surface": true
     },
     {
@@ -3093,56 +3143,6 @@
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "\"type\": \"cycle\",",
       "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "core.py",
-      "line": 453,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"cycle\": cycle,",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "core.py",
-      "line": 462,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"cycle\": cycle,",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "core.py",
-      "line": 468,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "path = os.path.join(MODEL_ZOO_DIR, f\"janus_complete_{ts}_C{cycle}_S{score:.4f}.pt\")",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "core.py",
-      "line": 473,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "'cycle': cycle,",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "core.py",
-      "line": 480,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "save_homeostatic_state(cycle, last_score, last_mi, best_score, failed_configs)",
-      "active_surface": true
     }
   ],
   "safe_infrastructure_loop_sample": [
@@ -4440,6 +4440,16 @@
     },
     {
       "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "data/JANUS-TRUMP-R37B-FIXED-CERTIFIED-PORTFOLIO-RESTART-CYCLE-2026-09-02-v1.0.json",
+      "line": 6,
+      "classification": "HISTORICAL_FROZEN",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"source_branch\": \"research/janus-trump-r37b-fixed-certified-portfolio-restart-cycle-2026-09-02\",",
+      "active_surface": false
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
       "path": "data/JANUS-NEXUS-HABITAT-EVOLUTION-PROVENANCE-LEDGER-2026-08-17-v1.0.json",
       "line": 46,
       "classification": "HISTORICAL_FROZEN",
@@ -5136,16 +5146,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "\"failure_mode\": \"Без ограничения возникает не забота, а perseveration: навязчивый цикл, confirmation bias и неспособность учиться.\"",
-      "active_surface": false
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "data/Ne Ver, Ne Boisia.json",
-      "line": 74,
-      "classification": "HISTORICAL_FROZEN",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"notes\": \"Код Janus Beacon использует библиотеки M5Cardputer, FastLED, RadioLib и реализует полный цикл сбора телеметрии, когнитивного выбора фраз, очереди сигналов и синхронизации с Blind Eye. Песни добавлены в соответствии с запросом.\"",
       "active_surface": false
     }
   ],

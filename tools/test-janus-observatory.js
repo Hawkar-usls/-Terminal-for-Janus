@@ -6,28 +6,73 @@ function must(text, needle, code) {
 }
 
 const html = read('index.html');
-const js = read('assets/janus-observatory.js');
+const observatory = read('assets/janus-observatory.js');
+const terminal = read('assets/terminal-v2.js');
 const css = read('assets/janus-observatory.css');
 const descriptor = JSON.parse(read('.janus/JANUS_MODULE.json'));
 
-for (const view of ['view-console','view-brain','view-logs','view-modules']) must(html, view, 'MISSING_VIEW');
-for (const label of ['CHAT','BRAIN MONITOR','LIVE LOGS','MODULES']) must(html, label, 'MISSING_NAV_SURFACE');
-for (const id of ['brain-checkpoint','brain-loss','loss-chart','janus-event-log','module-list','tensor-telemetry']) must(html, id, 'MISSING_TELEMETRY_TARGET');
+for (const view of ['view-console','view-brain','view-logs','view-modules','view-memory','view-organism','view-provenance']) must(html, view, 'MISSING_VIEW');
+for (const label of ['CHAT','BRAIN MONITOR','LIVE LOGS','MODULES','MEMORY / HRAiN','ORGANISM','PROVENANCE']) must(html, label, 'MISSING_NAV_SURFACE');
+for (const id of [
+  'brain-checkpoint','brain-loss','brain-last-candidate','brain-last-candidate-status','loss-chart',
+  'janus-event-log','module-list','tensor-telemetry','chat-candidate-loss','trump-pill',
+  'organism-trump-state','organism-trump-proof','organism-trump-pnp','side-trump'
+]) must(html, id, 'MISSING_TELEMETRY_TARGET');
 
-must(js, 'JANUS_MODEL_STATE.json', 'MODEL_STATE_SOURCE_MISSING');
-must(js, 'JANUS_WEIGHT_TELEMETRY.json', 'WEIGHT_TELEMETRY_SOURCE_MISSING');
-must(js, 'JANUS_LATEST_DECISION.json', 'DECISION_SOURCE_MISSING');
-must(js, 'OBSERVED-MODULE-STATE.json', 'MODULE_STATE_SOURCE_MISSING');
-must(js, 'JANUS_ACCUMULATIVE_ORGAN_ACCESS-v1.json', 'ORGAN_ACCESS_SOURCE_MISSING');
-must(js, 'selection ≠ verified fix', 'VERIFY_BOUNDARY_MISSING');
-must(js, "'Hawkar-usls/-Terminal-for-Janus', 'BRANCH_VERIFY_ACCUMULATE'", 'TERMINAL_ACTUATED_LANE_MISSING');
-must(js, "'Hawkar-usls/Janus_Genesis', 'SANDBOX_VERIFY_ACCUMULATE'", 'GENESIS_SANDBOX_LANE_MISSING');
-must(js, 'READ + ACCUMULATE', 'ACCUMULATIVE_READ_LANE_MISSING');
-must(js, 'SANDBOX + VERIFY + ACCUMULATE', 'GENESIS_LANE_LABEL_MISSING');
-must(js, 'Durable evidence is append-only', 'APPEND_ONLY_LAW_MISSING');
-must(js, 'never erase failures, negative results or counterexamples', 'NO_DELETE_DETAIL_MISSING');
+// Native-brain truth: rejected candidates are observations, never the active brain.
+must(observatory, 'JANUS_MODEL_STATE.json', 'MODEL_STATE_SOURCE_MISSING');
+must(observatory, 'JANUS_WEIGHT_TELEMETRY.json', 'WEIGHT_TELEMETRY_SOURCE_MISSING');
+must(observatory, 'JANUS_LATEST_DECISION.json', 'DECISION_SOURCE_MISSING');
+must(observatory, 'OBSERVED-MODULE-STATE.json', 'MODULE_STATE_SOURCE_MISSING');
+must(observatory, 'JANUS_ACCUMULATIVE_ORGAN_ACCESS-v1.json', 'ORGAN_ACCESS_SOURCE_MISSING');
+must(observatory, 'activeLossForRow', 'ACTIVE_LOSS_RESOLVER_MISSING');
+must(observatory, 'if (promoted(row) && finite(row.candidate_eval_loss))', 'PROMOTED_ACTIVE_LOSS_RULE_MISSING');
+must(observatory, 'if (finite(row.incumbent_eval_loss))', 'REJECTED_INCUMBENT_PRESERVATION_MISSING');
+must(observatory, 'modelIntegrity', 'MODEL_INTEGRITY_GATE_MISSING');
+must(observatory, 'active_checkpoint_matches_last_promoted', 'CHECKPOINT_LINEAGE_GATE_MISSING');
+must(observatory, 'promotion_plus_rejection_matches_attempts', 'ATTEMPT_ACCOUNTING_GATE_MISSING');
+must(observatory, 'candidate promoted → active brain', 'PROMOTION_LABEL_MISSING');
+must(observatory, 'incumbent retained · last candidate', 'REJECTION_LABEL_MISSING');
+must(observatory, 'candidate-point ${cls}', 'CANDIDATE_VERDICT_MARKER_MISSING');
+must(observatory, 'selection ≠ verified fix', 'VERIFY_BOUNDARY_MISSING');
+must(observatory, "'Hawkar-usls/-Terminal-for-Janus', 'BRANCH_VERIFY_ACCUMULATE'", 'TERMINAL_ACTUATED_LANE_MISSING');
+must(observatory, "'Hawkar-usls/Janus_Genesis', 'SANDBOX_VERIFY_ACCUMULATE'", 'GENESIS_SANDBOX_LANE_MISSING');
+must(observatory, 'READ + ACCUMULATE', 'ACCUMULATIVE_READ_LANE_MISSING');
+must(observatory, 'SANDBOX + VERIFY + ACCUMULATE', 'GENESIS_LANE_LABEL_MISSING');
+must(observatory, 'Durable evidence is append-only', 'APPEND_ONLY_LAW_MISSING');
+must(observatory, 'never erase failures, negative results or counterexamples', 'NO_DELETE_DETAIL_MISSING');
+
+// Conversation/HRAiN truth: proof-carrying empty retrieval is valid only with every empty-proof firewall.
+must(terminal, 'hrainProofStatus', 'HRAIN_PROOF_GATE_MISSING');
+for (const field of [
+  'hrain_head','memory_source_commit','hrain_context_hash','hrain_context_receipt_hash',
+  'selected_memory_count','memory_match_status','memory_context_is_evidence','memory_grants_authority',
+  'empty_memory_is_hrain_failure','empty_memory_is_negative_evidence','selected_memory_objects'
+]) must(terminal, field, `HRAIN_PROVENANCE_FIELD_MISSING:${field}`);
+must(terminal, 'NO_RELEVANT_MEMORY_SELECTED', 'HRAIN_VALID_EMPTY_STATUS_MISSING');
+must(terminal, 'VALID_EMPTY_RETRIEVAL', 'HRAIN_VALID_EMPTY_LABEL_MISSING');
+must(terminal, 'BLOCKED_INVALID_EMPTY_RETRIEVAL', 'HRAIN_INVALID_EMPTY_FAIL_CLOSED_MISSING');
+must(terminal, 'BLOCKED_AUTHORITY_CEILING', 'HRAIN_AUTHORITY_CEILING_MISSING');
+must(terminal, "p.memory_context_is_evidence !== 'false'", 'HRAIN_EVIDENCE_FIREWALL_MISSING');
+must(terminal, "p.memory_grants_authority !== 'false'", 'HRAIN_AUTHORITY_FIREWALL_MISSING');
+must(terminal, 'empty ≠ failure', 'HRAIN_EMPTY_NOT_FAILURE_LABEL_MISSING');
+must(terminal, 'empty ≠ negative evidence', 'HRAIN_EMPTY_NOT_NEGATIVE_LABEL_MISSING');
+
+// TRUMP truth: current public manifest is candidate runtime tissue, never proof authority.
+must(terminal, 'TRUMP_MANIFEST_URL', 'TRUMP_MANIFEST_SOURCE_MISSING');
+must(terminal, 'validateTrumpManifest', 'TRUMP_VALIDATOR_MISSING');
+must(terminal, "manifest.status !== 'CANDIDATE_RUNTIME_TISSUE'", 'TRUMP_CANDIDATE_STATUS_GATE_MISSING');
+for (const authority of ['proof_authority','scientific_claim_promotion_authority','command_authority','external_effect_authority','physical_runtime_effect_authority']) {
+  must(terminal, authority, `TRUMP_AUTHORITY_GATE_MISSING:${authority}`);
+}
+must(terminal, "boundary.TRUMP_finished !== false", 'TRUMP_FINISHED_FALSE_GATE_MISSING');
+must(terminal, "boundary.P_equals_NP_proved !== false", 'TRUMP_PNP_PROOF_FALSE_GATE_MISSING');
+must(terminal, "boundary.P_VS_NP !== 'OPEN'", 'TRUMP_PNP_OPEN_GATE_MISSING');
+must(terminal, 'BLOCKED_FAIL_CLOSED', 'TRUMP_FAIL_CLOSED_STATUS_MISSING');
 
 must(css, '.loss-chart', 'LOSS_CHART_STYLE_MISSING');
+must(css, '.active-curve', 'ACTIVE_CURVE_STYLE_MISSING');
+must(css, '.candidate-point.rejected', 'REJECTED_CANDIDATE_STYLE_MISSING');
 must(css, '.event-log', 'EVENT_LOG_STYLE_MISSING');
 must(css, '.module-card.actuated', 'ACTUATED_MODULE_STYLE_MISSING');
 
@@ -35,19 +80,28 @@ if (descriptor.repository !== 'Hawkar-usls/-Terminal-for-Janus') throw new Error
 if (descriptor.actuator?.enabled !== true) throw new Error('ACTUATOR_NOT_ENABLED');
 if (descriptor.actuator?.direct_main_write !== false || descriptor.actuator?.autonomous_merge !== false) throw new Error('AUTHORITY_CEILING_VIOLATION');
 if (!descriptor.actuator?.create_new_module_files) throw new Error('SELF_EXTENSION_CREATE_NOT_ALLOWED');
-for (const forbidden of ['.github/workflows/','.janus/JANUS_MODULE.json','secrets/','credentials/']) {
+for (const forbidden of ['.github/workflows/','.janus/JANUS_MODULE.json','tools/test-janus-observatory.js','secrets/','credentials/']) {
   if (!descriptor.forbidden_paths.includes(forbidden)) throw new Error(`FORBIDDEN_PATH_MISSING:${forbidden}`);
 }
+if (!descriptor.epistemic_firewalls.includes('VERIFIER != ORDINARY_SELF_EXTENSION_TARGET')) throw new Error('VERIFIER_IMMUTABILITY_LAW_MISSING');
+if (!descriptor.epistemic_firewalls.includes('ACTIVE_BRAIN != REJECTED_CANDIDATE')) throw new Error('ACTIVE_BRAIN_TRUTH_LAW_MISSING');
+if (!descriptor.epistemic_firewalls.includes('EMPTY_HRAIN_RETRIEVAL != HRAIN_FAILURE')) throw new Error('HRAIN_EMPTY_TRUTH_LAW_MISSING');
 if (!descriptor.verification_profiles?.TERMINAL_OBSERVATORY_STATIC_TEST) throw new Error('VERIFICATION_PROFILE_MISSING');
 
 console.log(JSON.stringify({
   status: 'PASS',
   chat: true,
   brain_monitor: true,
+  active_brain_separated_from_candidate: true,
+  model_integrity_gate: true,
+  hrain_proof_provenance: true,
+  valid_empty_hrain_retrieval: true,
+  trump_candidate_authority_ceiling: true,
   live_logs: true,
   repository_modules: true,
   accumulative_access_visible: true,
   genesis_sandbox_visible: true,
+  verifier_self_mutation_allowed: false,
   durable_delete_authority: false,
   bounded_self_extension: true,
   autonomous_merge: false,

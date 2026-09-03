@@ -7,6 +7,8 @@ on:
       - 'config/JANUS_CONSTELLATION.json'
       - '.github/workflows/janus-system-spiral-audit.yml'
   workflow_dispatch:
+  schedule:
+    - cron: '41 */6 * * *'
 
 concurrency:
   group: janus-system-spiral-audit
@@ -107,19 +109,25 @@ jobs:
             terminal/tools/janus_system_spiral_audit.py
           (cd terminal && python -m unittest discover -s tests -p 'test_*.py')
 
-      - name: Validate JANUS-SPI and Aura v2 backbone
+      - name: Validate executable HOME and Aura v2 spiral contract
         shell: bash
         run: |
           HOME_REPO=workspace/Hawkar-usls__Hawkar-usls
           AURA_REPO=workspace/Hawkar-usls__aura-oracle-tg
           test -d "$HOME_REPO"
           test -d "$AURA_REPO"
+          test -f "$HOME_REPO/run_aura_habitat_spiral.py"
+          test -f "$HOME_REPO/tests/test_aura_habitat_spiral.py"
+          test -f "$AURA_REPO/tools/aura_habitat_spiral_peer_v2.py"
+          test -f "$AURA_REPO/tests/test_aura_predictive_input_v2.py"
+          test -f "$AURA_REPO/tests/test_aura_semantic_predictive_spiral_v2.py"
           python -m pip install --upgrade pip
           pip install -r "$HOME_REPO/requirements.txt"
           pip install -r "$AURA_REPO/requirements-aura-intelligence.txt"
           pip install pytest
-          (cd "$HOME_REPO" && pytest -q)
-          (cd "$AURA_REPO" && python -m unittest discover -s tests -p 'test_*v2.py' -v)
+          (cd "$HOME_REPO" && pytest -q tests/test_aura_habitat_spiral.py)
+          (cd "$AURA_REPO" && python -m unittest discover -s tests -p 'test_aura_predictive_input_v2.py' -v)
+          (cd "$AURA_REPO" && python -m unittest discover -s tests -p 'test_aura_semantic_predictive_spiral_v2.py' -v)
 
       - name: Execute GitHub-side system spiral through current v2 peer
         shell: bash

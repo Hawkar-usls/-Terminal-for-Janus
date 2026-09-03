@@ -1,0 +1,20 @@
+{
+  "authority_mode": "READ_ONLY_CONVERSATION",
+  "claim_authority_granted": false,
+  "command_authority_granted": false,
+  "conversation_id": "issue-22",
+  "created_at": 1788471029.0,
+  "external_effect_authorized": false,
+  "fresh_human_stimulus": true,
+  "human_actor": "Hawkar-usls",
+  "human_authorized_write": false,
+  "message_hash": "788dc450387306bf01d820e5772c8b84a611d8d516b57ffdc02eec02b263204d",
+  "message_id": "tm-79744dd8e11925aa51c11479edc881329f7e1c9d292182242a10e15170f007f0",
+  "message_text": "### Message\n\nHi\n\n### Authority boundary\n\n- [x] I understand this conversation does not authorize repository writes, deployments, physical effects, or claim promotion.",
+  "physical_runtime_effect_authorized": false,
+  "schema": "janus.terminal.message.v1",
+  "scientific_evidence_authority_granted": false,
+  "source_ref": "Hawkar-usls/-Terminal-for-Janus#22:issue:5341669052",
+  "terminal_repository": "Hawkar-usls/-Terminal-for-Janus",
+  "world_truth_authority_granted": false
+}

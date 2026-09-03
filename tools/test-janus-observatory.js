@@ -8,6 +8,7 @@ function must(text, needle, code) {
 const html = read('index.html');
 const observatory = read('assets/janus-observatory.js');
 const terminal = read('assets/terminal-v2.js');
+const synthesis = read('assets/janus-synthesis-observatory.js');
 const css = read('assets/janus-observatory.css');
 const descriptor = JSON.parse(read('.janus/JANUS_MODULE.json'));
 
@@ -70,6 +71,18 @@ must(terminal, "boundary.P_equals_NP_proved !== false", 'TRUMP_PNP_PROOF_FALSE_G
 must(terminal, "boundary.P_VS_NP !== 'OPEN'", 'TRUMP_PNP_OPEN_GATE_MISSING');
 must(terminal, 'BLOCKED_FAIL_CLOSED', 'TRUMP_FAIL_CLOSED_STATUS_MISSING');
 
+// Semantic synthesis truth: candidate meaning cannot silently acquire causal/truth/proof/promotion authority.
+must(synthesis, "EXPECTED_SCHEMA='janus.inaihr.semantic_evolution.v2'", 'SYNTH_SCHEMA_GATE_MISSING');
+must(synthesis, 'SYNTH_COUNT_MISMATCH', 'SYNTH_COUNT_GATE_MISSING');
+must(synthesis, "a.truth!==false||a.proof!==false||a.causal!==false||a.mutation!==false||a.automatic_promotion!==false", 'SYNTH_AUTHORITY_CEILING_MISSING');
+must(synthesis, 'SYNTH_BOUNDARY_MISSING', 'SYNTH_BOUNDARY_GATE_MISSING');
+for (const law of ['SYNTHESIS != TRUTH','ATTENTION_WEIGHT != EVIDENCE_WEIGHT','CANDIDATE_EDGE != CAUSAL_EDGE']) {
+  must(synthesis, law, `SYNTH_LAW_MISSING:${law}`);
+}
+must(synthesis, 'CANDIDATE_AWAITING_CORROBORATION', 'SYNTH_CANDIDATE_STATUS_MISSING');
+must(synthesis, 'DEGRADED · NO CLAIM', 'SYNTH_FAIL_CLOSED_DISPLAY_MISSING');
+must(synthesis, 'SYNTH state unavailable. This is not negative evidence.', 'SYNTH_SILENCE_FIREWALL_MISSING');
+
 must(css, '.loss-chart', 'LOSS_CHART_STYLE_MISSING');
 must(css, '.active-curve', 'ACTIVE_CURVE_STYLE_MISSING');
 must(css, '.candidate-point.rejected', 'REJECTED_CANDIDATE_STYLE_MISSING');
@@ -97,6 +110,8 @@ console.log(JSON.stringify({
   hrain_proof_provenance: true,
   valid_empty_hrain_retrieval: true,
   trump_candidate_authority_ceiling: true,
+  synthesis_candidate_only: true,
+  synthesis_causal_authority: false,
   live_logs: true,
   repository_modules: true,
   accumulative_access_visible: true,

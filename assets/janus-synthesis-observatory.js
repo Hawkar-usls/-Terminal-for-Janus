@@ -17,14 +17,6 @@ function addStyle(){
  .synth-law{margin-top:16px;padding:12px;border:1px solid rgba(255,193,7,.2);border-radius:10px;color:#bea96d;font:600 .72rem 'IBM Plex Mono',monospace}.synth-state-pulse{color:#66f1c1}.synth-state-wait{color:#ffc75b}`;document.head.appendChild(s);
 }
 
-function installNeuralLink(){
- if(document.querySelector('script[data-neural-link-v2-runtime]'))return;
- const s=document.createElement('script');
- s.src='./assets/neural-link-v2-runtime.js';
- s.dataset.neuralLinkV2Runtime='1';
- document.head.appendChild(s);
-}
-
 function installView(){
  addStyle();
  if(document.getElementById('view-synthesis'))return;
@@ -100,6 +92,6 @@ async function loadSynth(){
  }catch(e){console.warn('JANUS synthesis observatory',e);if(status){status.textContent='DEGRADED · NO CLAIM';status.className='synth-state-wait';}const list=document.getElementById('synth-list');if(list)list.innerHTML='<div class="empty-state">SYNTH state unavailable. This is not negative evidence.</div>';}
 }
 
-function boot(){installNeuralLink();installView();document.addEventListener('janus:logs-rendered',()=>publishLogEvent());loadSynth();setInterval(loadSynth,REFRESH_MS);}
+function boot(){installView();document.addEventListener('janus:logs-rendered',()=>publishLogEvent());loadSynth();setInterval(loadSynth,REFRESH_MS);}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();

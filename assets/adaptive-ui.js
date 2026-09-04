@@ -4,6 +4,15 @@
   const ROOT = document.documentElement;
   const MOBILE_BREAKPOINT = 720;
   const SHEET_BREAKPOINT = 920;
+  const MOBILE_NAV_LABELS = Object.freeze({
+    console: 'CHAT',
+    brain: 'BRAIN',
+    logs: 'LOGS',
+    modules: 'MODULES',
+    memory: 'MEMORY',
+    organism: 'ORGANISM',
+    provenance: 'PROOF',
+  });
   let sheetOpen = false;
   let toggle = null;
   let backdrop = null;
@@ -24,6 +33,19 @@
     ROOT.classList.toggle('adaptive-hoverless', hoverless);
     ROOT.classList.toggle('adaptive-phone', window.innerWidth <= MOBILE_BREAKPOINT);
     ROOT.classList.toggle('adaptive-sheet-layout', window.innerWidth <= SHEET_BREAKPOINT);
+  }
+
+  function adaptNavigationLabels() {
+    const mobile = window.innerWidth <= MOBILE_BREAKPOINT;
+    document.querySelectorAll('.sidebar .nav-btn').forEach((button) => {
+      const label = button.querySelector('span:last-child');
+      if (!label) return;
+      const original = button.dataset.fullLabel || label.textContent.trim();
+      button.dataset.fullLabel = original;
+      button.setAttribute('aria-label', original);
+      label.textContent = mobile ? (MOBILE_NAV_LABELS[button.dataset.view] || original) : original;
+      label.title = original;
+    });
   }
 
   function closeSheet({ restoreFocus = false } = {}) {
@@ -137,6 +159,7 @@
   function reactToResize() {
     updateViewportHeight();
     setDeviceClasses();
+    adaptNavigationLabels();
     if (window.innerWidth > SHEET_BREAKPOINT && sheetOpen) closeSheet();
     if (window.innerWidth <= MOBILE_BREAKPOINT) centerActiveNav();
   }
@@ -144,6 +167,7 @@
   function boot() {
     updateViewportHeight();
     setDeviceClasses();
+    adaptNavigationLabels();
     installInspectorSheet();
     watchNavigation();
     improveScrollableRegions();

@@ -3,10 +3,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_mobile_neural_link_composer_stays_inside_chat_viewport():
+def test_mobile_neural_link_composer_stays_inside_active_chat_viewport():
     css = (ROOT / "assets/neural-link-v2.css").read_text(encoding="utf-8")
     required = (
-        "#view-console.neural-link-active{height:100%;min-height:0;overflow:hidden;display:flex;flex-direction:column",
+        "#view-console.neural-link-active.active{height:100%;min-height:0;overflow:hidden;display:flex;flex-direction:column",
         "#view-console.neural-link-active>.neural-link-v2{flex:1 1 0;min-height:0",
         ".neural-link-history{height:auto;min-height:0;min-width:0;max-width:100%;flex:1 1 auto",
         ".neural-link-compose textarea{box-sizing:border-box;width:100%;max-width:100%;min-width:0",
@@ -14,12 +14,30 @@ def test_mobile_neural_link_composer_stays_inside_chat_viewport():
     )
     for token in required:
         assert token in css
+    assert "#view-console.neural-link-active{height:100%;min-height:0;overflow:hidden;display:flex;flex-direction:column" not in css
 
 
 def test_mobile_terminal_root_cannot_be_widened_by_a_view():
     css = (ROOT / "assets/neural-link-v2.css").read_text(encoding="utf-8")
     assert "html,body{width:100%;max-width:100%;overflow:hidden}" in css
     assert ".topbar,.shell,.workspace,.view{width:100%;max-width:100%;min-width:0}" in css
+
+
+def test_mobile_chat_header_is_compact_and_has_no_horizontal_metric_carousel():
+    css = (ROOT / "assets/neural-link-v2.css").read_text(encoding="utf-8")
+    assert "#view-console.neural-link-active>.instance-banner .kicker{display:none}" in css
+    assert "#view-console.neural-link-active>.instance-banner h2{font-size:14px" in css
+    assert "grid-template-columns:minmax(0,1.55fr) repeat(4,minmax(0,1fr))" in css
+    assert "#view-console.neural-link-active>.chat-brain-strip>div{min-width:0" in css
+    assert "overflow-x:auto" not in css
+    assert "flex:0 0 138px" not in css
+
+
+def test_mobile_neural_header_status_wraps_instead_of_expanding_viewport():
+    css = (ROOT / "assets/neural-link-v2.css").read_text(encoding="utf-8")
+    assert ".neural-link-state{font-size:6.5px" in css
+    assert "max-width:42%;white-space:normal;text-align:center" in css
+    assert ".neural-link-public{padding:6px 10px;font-size:6.5px" in css
 
 
 def test_synthesis_router_exposes_programmatic_navigation_without_owning_static_tabs():

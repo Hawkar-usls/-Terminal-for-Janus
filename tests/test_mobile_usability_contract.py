@@ -2,6 +2,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
+# Permanent regression gate: iPhone safe-area overlap must never be reintroduced.
+
 
 def test_mobile_neural_link_composer_stays_inside_active_chat_viewport():
     css = (ROOT / "assets/neural-link-v2.css").read_text(encoding="utf-8")

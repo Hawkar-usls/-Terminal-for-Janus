@@ -112,11 +112,17 @@
     });
   }
 
-  function centerActiveNav() {
+  function centerActiveNav({ behavior = 'smooth' } = {}) {
     if (window.innerWidth > MOBILE_BREAKPOINT) return;
-    const active = document.querySelector('.sidebar .nav-btn.active');
-    if (!active) return;
-    active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    const sidebar = document.querySelector('.sidebar');
+    const active = sidebar?.querySelector('.nav-btn.active');
+    if (!sidebar || !active) return;
+    const target = Math.max(0, active.offsetLeft - ((sidebar.clientWidth - active.offsetWidth) / 2));
+    sidebar.scrollTo({ left: target, top: 0, behavior });
+  }
+
+  function resetRootHorizontalScroll() {
+    if (window.scrollX !== 0) window.scrollTo({ left: 0, top: window.scrollY, behavior: 'auto' });
   }
 
   function watchNavigation() {
@@ -126,13 +132,13 @@
     sidebar.addEventListener('click', (event) => {
       if (event.target.closest('.nav-btn')) {
         closeSheet();
-        window.setTimeout(centerActiveNav, 30);
+        window.setTimeout(() => centerActiveNav({ behavior: 'smooth' }), 30);
       }
     });
 
     activeObserver?.disconnect();
     activeObserver = new MutationObserver((records) => {
-      if (records.some((record) => record.attributeName === 'class')) centerActiveNav();
+      if (records.some((record) => record.attributeName === 'class')) centerActiveNav({ behavior: 'smooth' });
     });
     sidebar.querySelectorAll('.nav-btn').forEach((button) => {
       activeObserver.observe(button, { attributes: true, attributeFilter: ['class'] });
@@ -160,8 +166,9 @@
     updateViewportHeight();
     setDeviceClasses();
     adaptNavigationLabels();
+    resetRootHorizontalScroll();
     if (window.innerWidth > SHEET_BREAKPOINT && sheetOpen) closeSheet();
-    if (window.innerWidth <= MOBILE_BREAKPOINT) centerActiveNav();
+    if (window.innerWidth <= MOBILE_BREAKPOINT) centerActiveNav({ behavior: 'auto' });
   }
 
   function boot() {
@@ -172,7 +179,8 @@
     watchNavigation();
     improveScrollableRegions();
     installKeyboardHints();
-    centerActiveNav();
+    resetRootHorizontalScroll();
+    centerActiveNav({ behavior: 'auto' });
 
     window.addEventListener('resize', reactToResize, { passive: true });
     window.addEventListener('orientationchange', () => window.setTimeout(reactToResize, 80), { passive: true });
@@ -192,6 +200,7 @@
     command_authority: false,
     memory_authority: false,
     transport_authority: false,
+    root_horizontal_scroll: false,
     breakpoints: { phone: MOBILE_BREAKPOINT, sheet: SHEET_BREAKPOINT },
   });
 })();

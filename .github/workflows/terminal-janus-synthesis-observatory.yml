@@ -10,7 +10,7 @@ on:
       - 'index.html'
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: terminal-janus-synthesis-observatory
@@ -49,32 +49,24 @@ jobs:
           assert all(c['authority']['truth'] is False and c['authority']['automatic_promotion'] is False for c in x['candidates'])
           print('TERMINAL_SYNTH_LIVE_CONTRACT=PASS', x['candidate_count'])
           PY
-      - name: Wire observatory into Terminal exactly once
+      - name: Verify observatory wired exactly once
         run: |
           python - <<'PY'
           from pathlib import Path
-          p=Path('index.html')
-          s=p.read_text(encoding='utf-8')
+          s=Path('index.html').read_text(encoding='utf-8')
           tag='<script src="./assets/janus-synthesis-observatory.js" defer></script>'
-          if tag not in s:
-              s=s.replace('</body>', tag+'\n</body>')
-              p.write_text(s,encoding='utf-8')
-              print('TERMINAL_SYNTH_WIRED=YES')
-          else:
-              print('TERMINAL_SYNTH_WIRED=ALREADY')
+          count=s.count(tag)
+          assert count == 1, f'TERMINAL_SYNTH_WIRING_COUNT={count}; expected 1'
+          assert 'AUTONOMOUS MERGE = FALSE' in s
+          print('TERMINAL_SYNTH_WIRING=PASS_EXACTLY_ONCE')
           PY
-      - name: Verify wired page
+      - name: Verify workflow remains read-only
         run: |
-          grep -Fq './assets/janus-synthesis-observatory.js' index.html
-          grep -Fq 'AUTONOMOUS MERGE = FALSE' index.html
-      - name: Persist wiring if needed
-        run: |
-          if git diff --quiet -- index.html; then
-            echo 'TERMINAL_SYNTH_WIRING_UNCHANGED=PASS'
-            exit 0
-          fi
-          git config user.name 'janus-terminal-synthesis'
-          git config user.email 'janus-terminal-synthesis@users.noreply.github.com'
-          git add index.html
-          git commit -m 'Terminal: activate JANUS synthesis observatory [skip ci]'
-          git push
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('.github/workflows/terminal-janus-synthesis-observatory.yml').read_text(encoding='utf-8')
+          assert 'contents: read' in s
+          assert 'contents: write' not in s
+          assert 'git push' not in s
+          print('TERMINAL_SYNTH_AUTHORITY=READ_ONLY_PASS')
+          PY

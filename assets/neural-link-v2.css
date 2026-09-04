@@ -28,7 +28,7 @@
   .sidebar{width:100%;max-width:100%;overflow:hidden}
   .sidebar .nav-btn{min-width:0;padding:8px 4px;touch-action:manipulation}
 
-  #view-console.neural-link-active{height:100%;min-height:0;overflow:hidden;display:flex;flex-direction:column;gap:10px;padding:10px 12px}
+  #view-console.neural-link-active.active{height:100%;min-height:0;overflow:hidden;display:flex;flex-direction:column;gap:10px;padding:10px 12px}
   #view-console.neural-link-active>.instance-banner{flex:0 0 auto;padding:10px 12px}
   #view-console.neural-link-active>.instance-banner h2{font-size:16px;margin:4px 0 0}
   #view-console.neural-link-active>.instance-banner p{display:none}

@@ -196,3 +196,9 @@ def test_neural_link_v2_is_hrain_mediated_and_append_only():
     assert archive["archive_grants_command_authority"] is False
     assert contract["conversation"]["browser_secret_required"] is False
     assert contract["conversation"]["browser_send_semantics"] == "PENDING_UNTIL_GITHUB_CONFIRMATION"
+
+
+def test_mobile_neural_link_obeys_terminal_view_ownership():
+    css = (ROOT / "assets/neural-link-v2.css").read_text(encoding="utf-8")
+    assert "#view-console.neural-link-active.active{" in css
+    assert "#view-console.neural-link-active{height:100%;min-height:0;overflow:hidden;display:flex" not in css

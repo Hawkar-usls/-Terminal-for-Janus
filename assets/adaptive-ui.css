@@ -1,0 +1,160 @@
+/* JANUS Terminal Adaptive UI Layer
+   Layout-only: no authority, transport, model or memory semantics live here. */
+:root{
+  --terminal-safe-top:env(safe-area-inset-top,0px);
+  --terminal-safe-right:env(safe-area-inset-right,0px);
+  --terminal-safe-bottom:env(safe-area-inset-bottom,0px);
+  --terminal-safe-left:env(safe-area-inset-left,0px);
+  --terminal-topbar-h:64px;
+  --terminal-dock-h:64px;
+  --terminal-viewport-height:100dvh;
+}
+
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;overscroll-behavior:none}
+body{min-width:280px}
+button,.nav-btn,.btn,.neural-link-send{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+button:focus-visible,a:focus-visible,textarea:focus-visible{outline:2px solid rgba(111,255,193,.72);outline-offset:2px}
+
+/* More elastic desktop shell. */
+.shell{grid-template-columns:clamp(184px,14vw,218px) minmax(0,1fr) clamp(260px,21vw,320px)}
+.console,.cards-view{padding:clamp(14px,2vw,26px)}
+.inspector{padding-right:max(18px,var(--terminal-safe-right))}
+.sidebar{padding-left:max(12px,var(--terminal-safe-left))}
+.cards-grid,.brain-grid,.module-list,.tensor-grid,.metrics-grid{align-items:start}
+.card,.metric-card,.module-card{container-type:inline-size}
+
+/* Desktop inspector toggle is intentionally hidden. */
+.adaptive-inspector-toggle{display:none}
+.adaptive-inspector-backdrop{display:none}
+
+/* Medium displays: preserve information, reduce chrome. */
+@media(max-width:1180px){
+  .shell{grid-template-columns:72px minmax(0,1fr) 272px}
+  .sidebar{padding:14px 8px}
+  .nav-label,.side-foot{display:none}
+  .nav-btn{justify-content:center;padding:11px 8px;min-height:44px}
+  .nav-btn>span:last-child{display:none}
+  .path{display:none}
+  .brand{min-width:auto}
+  .brand small{display:none}
+  .topbar{gap:14px;padding-inline:16px}
+  .top-proof{gap:6px}
+  .top-proof .pill{max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .tissue-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+/* Tablet / narrow desktop: inspector becomes an on-demand sheet. */
+@media(max-width:920px){
+  :root{--terminal-topbar-h:60px}
+  #app{grid-template-rows:var(--terminal-topbar-h) 1fr;height:var(--terminal-viewport-height)}
+  .topbar{padding-left:max(12px,var(--terminal-safe-left));padding-right:max(12px,var(--terminal-safe-right))}
+  .shell{grid-template-columns:68px minmax(0,1fr)}
+  .inspector{
+    display:block;position:fixed;z-index:55;top:calc(var(--terminal-safe-top) + var(--terminal-topbar-h) + 8px);
+    right:max(8px,var(--terminal-safe-right));bottom:max(8px,var(--terminal-safe-bottom));width:min(360px,calc(100vw - 24px));
+    border:1px solid var(--line);border-radius:18px;background:rgba(6,10,14,.98);box-shadow:0 28px 90px rgba(0,0,0,.68);
+    transform:translateX(calc(100% + 24px));opacity:0;pointer-events:none;transition:transform .22s ease,opacity .18s ease;
+  }
+  .inspector.adaptive-open{transform:translateX(0);opacity:1;pointer-events:auto}
+  .adaptive-inspector-toggle{display:inline-flex;align-items:center;gap:5px;min-height:34px;border:1px solid var(--line);background:#080c11;color:var(--muted)}
+  .adaptive-inspector-toggle[aria-expanded="true"]{color:var(--green);border-color:rgba(111,255,193,.34)}
+  .adaptive-inspector-backdrop{position:fixed;z-index:54;inset:0;background:rgba(0,0,0,.46);backdrop-filter:blur(2px)}
+  .adaptive-inspector-backdrop.adaptive-open{display:block}
+  .metrics-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .metrics-grid.compact{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .metric-card.hero{grid-column:1/-1}
+  .module-list{grid-template-columns:1fr}
+}
+
+/* Phones: true mobile dock + dynamic viewport + safe areas. */
+@media(max-width:720px){
+  :root{--terminal-topbar-h:56px;--terminal-dock-h:68px}
+  body{overflow:hidden}
+  #app{height:var(--terminal-viewport-height);min-height:0;grid-template-rows:calc(var(--terminal-topbar-h) + var(--terminal-safe-top)) 1fr}
+  .topbar{
+    position:relative;top:auto;height:auto;min-height:calc(var(--terminal-topbar-h) + var(--terminal-safe-top));
+    padding-top:var(--terminal-safe-top);padding-left:max(10px,var(--terminal-safe-left));padding-right:max(10px,var(--terminal-safe-right));
+    grid-template-columns:auto 1fr auto;gap:8px;
+  }
+  .brand{gap:8px}.brand-mark{width:30px;height:30px;border-radius:9px}.brand h1{font-size:10px;letter-spacing:.13em}.brand small,.path{display:none}
+  .top-proof{justify-self:end;min-width:0;gap:4px}.top-proof .pill{padding:5px 7px;font-size:7px;max-width:104px}
+  .top-proof>span:first-child,#trump-pill{display:none}
+  .adaptive-inspector-toggle{padding:5px 8px;font-size:7px;min-height:30px}
+
+  .shell{display:block;min-height:0}
+  .workspace{height:calc(var(--terminal-viewport-height) - var(--terminal-topbar-h) - var(--terminal-safe-top));padding-bottom:calc(var(--terminal-dock-h) + var(--terminal-safe-bottom));overflow:hidden}
+  .view{height:100%}.view.active{min-height:0}
+
+  .sidebar{
+    position:fixed;z-index:45;left:0;right:0;bottom:0;height:calc(var(--terminal-dock-h) + var(--terminal-safe-bottom));
+    display:flex;flex-direction:row;justify-content:flex-start;gap:3px;padding:6px max(7px,var(--terminal-safe-right)) calc(6px + var(--terminal-safe-bottom)) max(7px,var(--terminal-safe-left));
+    overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;scrollbar-width:none;border:0;border-top:1px solid var(--line);border-radius:0;
+    background:rgba(4,7,10,.96);backdrop-filter:blur(18px) saturate(130%);box-shadow:0 -12px 42px rgba(0,0,0,.42)
+  }
+  .sidebar::-webkit-scrollbar{display:none}
+  .nav-label,.side-foot{display:none}
+  .nav-btn{
+    flex:0 0 72px;min-width:72px;height:52px;min-height:52px;padding:5px 4px;border-radius:12px;display:flex;flex-direction:column;justify-content:center;gap:3px;
+    scroll-snap-align:center;text-align:center;font-size:7px;line-height:1.05;letter-spacing:.035em
+  }
+  .nav-btn>span:last-child{display:block;max-width:68px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .nav-icon{width:auto;font-size:15px;line-height:1}
+  .nav-btn.active{background:rgba(111,255,193,.09);box-shadow:inset 0 0 0 1px rgba(111,255,193,.15)}
+
+  .console,.cards-view{padding:10px;gap:10px;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+  .console.neural-link-active{overflow:hidden}
+  .instance-banner{padding:12px;border-radius:13px;gap:10px}.instance-banner h2{font-size:17px;margin:5px 0}.instance-banner p{font-size:10px;line-height:1.5}.instance-badge{display:none}
+
+  /* Horizontal telemetry rail is denser than stacking five blocks vertically. */
+  .chat-brain-strip{display:flex;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;border-radius:11px;flex:0 0 auto}
+  .chat-brain-strip::-webkit-scrollbar{display:none}.chat-brain-strip>div{flex:0 0 150px;scroll-snap-align:start;padding:8px 10px}.chat-brain-strip label{font-size:7px}.chat-brain-strip strong{font-size:9px}
+
+  .metrics-grid,.metrics-grid.compact,.brain-grid,.cards-grid,.module-list,.tensor-grid{grid-template-columns:1fr;gap:9px}
+  .metric-card.hero,.brain-grid .wide,.card.wide{grid-column:auto}
+  .metric-card,.card,.module-card{border-radius:12px;padding:12px}
+  .metric-card strong{font-size:15px}.metric-card.hero strong{font-size:9px}
+  .observatory-head{display:block}.observatory-head h2{font-size:20px}.observatory-head p{font-size:10px}.live-badge{margin-top:8px;width:max-content;max-width:100%;font-size:8px}
+  .card-title-row{align-items:flex-start;flex-direction:column}.card-title-row .pill{align-self:flex-start}
+  .chart-card{min-height:220px}.loss-chart{height:145px;margin-top:10px}.loss-axis{font-size:7px;gap:8px}.loss-axis span:nth-child(2){text-align:center}.loss-axis span:last-child{text-align:right}.chart-legend{line-height:1.5}
+  .decision-row{grid-template-columns:92px minmax(0,1fr)}
+  .module-flow{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.module-flow::-webkit-scrollbar{display:none}.module-flow span{white-space:nowrap;flex:0 0 auto}
+  .module-meta{grid-template-columns:1fr}.module-lane{white-space:normal;text-align:right}
+  .tissue-grid{grid-template-columns:1fr}.tissue-head{align-items:center}.tissue-name{font-size:18px}.tissue-state{font-size:7px}
+  .event-log{overflow:visible}.log-row{grid-template-columns:52px minmax(0,1fr);padding:9px 8px}.log-type{grid-column:2}.log-body,.log-verdict{grid-column:2;text-align:left}.log-verdict{margin-top:2px}
+
+  .memory-head{min-height:0;padding:9px 10px}.memory-chain{font-size:8px}.memory-head .btn{padding:8px 9px;font-size:8px}.memory-frame{min-height:0}.memory-fallback{right:10px;bottom:calc(10px + var(--terminal-dock-h) + var(--terminal-safe-bottom))}.memory-fallback .pill{font-size:7px;max-width:76vw;display:block;white-space:normal}
+
+  .inspector{top:auto;left:max(8px,var(--terminal-safe-left));right:max(8px,var(--terminal-safe-right));bottom:calc(var(--terminal-dock-h) + var(--terminal-safe-bottom) + 8px);width:auto;max-height:min(68vh,560px);border-radius:18px;transform:translateY(calc(100% + var(--terminal-dock-h) + 32px));padding:16px;overflow:auto}
+  .inspector.adaptive-open{transform:translateY(0)}
+
+  /* Neural Link fills the useful viewport but leaves its composer reachable above the dock. */
+  .neural-link-v2{margin:0;min-height:0;display:flex;flex-direction:column;flex:1;border-radius:14px}
+  .neural-link-head{padding:10px 11px}.neural-link-public{padding:6px 10px;font-size:6.5px}
+  .neural-link-history{height:auto!important;min-height:0!important;flex:1;padding:11px 8px 14px}
+  .nl-bubble{max-width:92%;padding:9px 10px 8px}.nl-text{font-size:11px;line-height:1.48}.nl-who,.nl-meta,.nl-proof summary,.nl-proof pre{font-size:7px}
+  .neural-link-compose{grid-template-columns:minmax(0,1fr) 68px;padding:8px;gap:7px}.neural-link-compose textarea{font-size:16px;min-height:44px;max-height:112px;padding:9px 10px}.neural-link-send{min-width:0;font-size:9px}.neural-link-foot{padding:0 9px 8px;font-size:6.5px}
+
+  .composer textarea{font-size:16px}
+}
+
+/* Very narrow phones. */
+@media(max-width:390px){
+  .brand h1{font-size:9px}.brand-mark{width:28px;height:28px}.top-proof #brain-pill{display:none}
+  .top-proof .pill{font-size:6.5px}.nav-btn{flex-basis:66px;min-width:66px}.chat-brain-strip>div{flex-basis:138px}
+  .neural-link-title h3{font-size:11px}.neural-link-title small{font-size:6.5px}.neural-link-state{font-size:6.5px;padding:6px 7px}
+}
+
+/* Landscape phone: use width efficiently and keep dock compact. */
+@media(max-height:520px) and (orientation:landscape){
+  :root{--terminal-topbar-h:48px;--terminal-dock-h:54px}
+  .brand small{display:none}.topbar{min-height:calc(var(--terminal-topbar-h) + var(--terminal-safe-top))}.nav-btn{height:42px;min-height:42px;flex-direction:row;min-width:92px;flex-basis:92px}.nav-icon{font-size:13px}.neural-link-head{padding-block:7px}.neural-link-public{display:none}.nl-row{margin:6px 0}
+}
+
+/* Touch accessibility and reduced-motion respect. */
+@media(hover:none),(pointer:coarse){
+  .btn,.nav-btn,.neural-link-send{min-height:44px}
+  .nl-proof summary{padding-block:4px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+}

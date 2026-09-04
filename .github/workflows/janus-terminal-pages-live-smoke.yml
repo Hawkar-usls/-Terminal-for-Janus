@@ -1,0 +1,60 @@
+name: JANUS Terminal Pages Live Smoke
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'assets/terminal-v2.js'
+      - 'assets/janus-synthesis-observatory.js'
+      - '.github/workflows/janus-terminal-pages-live-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live-pages:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify live Pages serves the current navigation runtimes
+        env:
+          PAGES_BASE: https://hawkar-usls.github.io/-Terminal-for-Janus
+        run: |
+          set -euo pipefail
+          local_terminal="$(sha256sum assets/terminal-v2.js | awk '{print $1}')"
+          local_synthesis="$(sha256sum assets/janus-synthesis-observatory.js | awk '{print $1}')"
+
+          for attempt in $(seq 1 30); do
+            nonce="${GITHUB_SHA}-${GITHUB_RUN_ID}-${attempt}"
+            if curl -fsSL --connect-timeout 10 --max-time 20 \
+                 "${PAGES_BASE}/assets/terminal-v2.js?janus_live=${nonce}" \
+                 -o /tmp/live-terminal-v2.js \
+              && curl -fsSL --connect-timeout 10 --max-time 20 \
+                 "${PAGES_BASE}/assets/janus-synthesis-observatory.js?janus_live=${nonce}" \
+                 -o /tmp/live-synthesis.js; then
+              live_terminal="$(sha256sum /tmp/live-terminal-v2.js | awk '{print $1}')"
+              live_synthesis="$(sha256sum /tmp/live-synthesis.js | awk '{print $1}')"
+
+              if [ "$live_terminal" = "$local_terminal" ] \
+                && [ "$live_synthesis" = "$local_synthesis" ] \
+                && grep -Fq "btn.dataset.view!=='synthesis'" /tmp/live-synthesis.js \
+                && ! grep -Fq 'stopImmediatePropagation' /tmp/live-synthesis.js \
+                && ! grep -Fq 'stopPropagation' /tmp/live-synthesis.js; then
+                echo "PAGES_NAVIGATION_RUNTIME=LIVE_CURRENT"
+                echo "terminal_v2_sha256=$live_terminal"
+                echo "synthesis_sha256=$live_synthesis"
+                exit 0
+              fi
+            fi
+            sleep 5
+          done
+
+          echo 'PAGES_NAVIGATION_RUNTIME=STALE_OR_UNREACHABLE' >&2
+          echo "expected terminal-v2.js $local_terminal" >&2
+          echo "expected janus-synthesis-observatory.js $local_synthesis" >&2
+          if [ -f /tmp/live-terminal-v2.js ]; then sha256sum /tmp/live-terminal-v2.js >&2; fi
+          if [ -f /tmp/live-synthesis.js ]; then sha256sum /tmp/live-synthesis.js >&2; fi
+          exit 1

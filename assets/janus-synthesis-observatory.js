@@ -42,16 +42,12 @@ function activateTerminalView(name){
 }
 
 function installViewRouter(){
- if(window.JANUS_TERMINAL_NAVIGATE)return;
- window.JANUS_TERMINAL_NAVIGATE=activateTerminalView;
+ if(!window.JANUS_TERMINAL_NAVIGATE)window.JANUS_TERMINAL_NAVIGATE=activateTerminalView;
  document.addEventListener('click',event=>{
    const btn=event.target?.closest?.('.nav-btn[data-view]');
-   if(!btn)return;
-   if(activateTerminalView(btn.dataset.view)){
-     event.preventDefault();
-     event.stopImmediatePropagation();
-   }
- },true);
+   if(!btn||btn.dataset.view!=='synthesis')return;
+   if(activateTerminalView('synthesis'))event.preventDefault();
+ });
 }
 
 function installView(){

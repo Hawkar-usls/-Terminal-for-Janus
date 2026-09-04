@@ -291,6 +291,9 @@
     render();
     const opened = window.open(issueUrl(message), '_blank', 'noopener,noreferrer');
     if (!opened) {
+      state.pending = state.pending.filter((row) => row.event_id !== pending.event_id);
+      persistPending();
+      render();
       const status = $('neural-link-state');
       if (status) {
         status.className = 'neural-link-state blocked';

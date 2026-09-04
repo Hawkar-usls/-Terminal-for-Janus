@@ -37,3 +37,11 @@ def test_dynamic_synthesis_tab_uses_shared_router_not_private_click_router():
     js = (ROOT / "assets/janus-synthesis-observatory.js").read_text(encoding="utf-8")
     assert "nav.addEventListener('click'" not in js
     assert "installViewRouter();installView();" in js
+
+
+def test_shared_router_prevents_legacy_static_handlers_from_double_executing():
+    js = (ROOT / "assets/janus-synthesis-observatory.js").read_text(encoding="utf-8")
+    assert "event.stopImmediatePropagation();" in js
+    assert "if(name==='memory')" in js
+    assert "hrain-frame" in js
+    assert "https://hawkar-usls.github.io/Hrain/memory.html" in js

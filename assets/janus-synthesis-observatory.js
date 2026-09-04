@@ -31,6 +31,10 @@ function activateTerminalView(name){
    view.setAttribute('aria-hidden',active?'false':'true');
  });
  const current=document.getElementById('current-view');if(current)current.textContent=String(name).toUpperCase();
+ if(name==='memory'){
+   const frame=document.getElementById('hrain-frame');
+   if(frame&&!frame.getAttribute('src'))frame.setAttribute('src','https://hawkar-usls.github.io/Hrain/memory.html');
+ }
  if(name==='synthesis')loadSynth();
  requestAnimationFrame(()=>{target.scrollTop=0;});
  document.dispatchEvent(new CustomEvent('janus:view-changed',{detail:{view:name}}));
@@ -43,7 +47,10 @@ function installViewRouter(){
  document.addEventListener('click',event=>{
    const btn=event.target?.closest?.('.nav-btn[data-view]');
    if(!btn)return;
-   if(activateTerminalView(btn.dataset.view))event.preventDefault();
+   if(activateTerminalView(btn.dataset.view)){
+     event.preventDefault();
+     event.stopImmediatePropagation();
+   }
  },true);
 }
 

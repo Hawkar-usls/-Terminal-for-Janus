@@ -6,6 +6,7 @@ on:
     paths:
       - 'assets/neural-link-v2.css'
       - 'tests/test_terminal_v2_static.py'
+      - 'tests/test_mobile_usability_contract.py'
       - '.github/workflows/janus-terminal-mobile-view-live-smoke.yml'
   workflow_dispatch:
 
@@ -20,7 +21,7 @@ jobs:
       PAGES_CSS: https://hawkar-usls.github.io/-Terminal-for-Janus/assets/neural-link-v2.css
     steps:
       - uses: actions/checkout@v4
-      - name: Verify live Pages preserves single-view ownership
+      - name: Verify live Pages preserves single-view ownership and iPhone safe-area fit
         run: |
           set -euo pipefail
           local_sha="$(sha256sum assets/neural-link-v2.css | awk '{print $1}')"
@@ -30,13 +31,18 @@ jobs:
               live_sha="$(sha256sum /tmp/live-neural-link-v2.css | awk '{print $1}')"
               if [ "$live_sha" = "$local_sha" ] \
                 && grep -Fq '#view-console.neural-link-active.active{' /tmp/live-neural-link-v2.css \
+                && grep -Fq 'padding-top:max(env(safe-area-inset-top), 6px)' /tmp/live-neural-link-v2.css \
+                && grep -Fq '@media(max-width:430px)' /tmp/live-neural-link-v2.css \
+                && grep -Fq '#brain-pill{display:block;flex:1 1 auto;max-width:none;text-align:center}' /tmp/live-neural-link-v2.css \
+                && grep -Fq '#core-pill{display:block;flex:0 0 auto;max-width:72px}' /tmp/live-neural-link-v2.css \
                 && ! grep -Fq '#view-console.neural-link-active{height:100%;min-height:0;overflow:hidden;display:flex' /tmp/live-neural-link-v2.css; then
                 echo 'MOBILE_VIEW_OWNERSHIP=LIVE_CURRENT'
+                echo 'IPHONE_SAFE_AREA_TELEMETRY=LIVE_CURRENT'
                 echo "neural_link_css_sha256=$live_sha"
                 exit 0
               fi
             fi
             sleep 5
           done
-          echo 'MOBILE_VIEW_OWNERSHIP=STALE_OR_BROKEN' >&2
+          echo 'MOBILE_VIEW_OR_IPHONE_SAFE_AREA=STALE_OR_BROKEN' >&2
           exit 1

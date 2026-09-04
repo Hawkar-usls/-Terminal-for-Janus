@@ -3,6 +3,8 @@ from __future__ import annotations
 import copy
 
 from tools.terminal_response_relay import (
+    BOUNDED_INTEGER_CHOICE_KIND,
+    DIRECT_ANSWER_SURFACE,
     EMPTY_MEMORY_STATUS,
     HRAIN_MEMORY_PATH,
     HRAIN_MEMORY_RESPONSE_MODE,
@@ -94,6 +96,33 @@ def hrain_response():
     return body
 
 
+def direct_answer_hrain_response():
+    body = hrain_response()
+    body.pop("response_hash")
+    body.update({
+        "response_text": "13",
+        "response_surface": DIRECT_ANSWER_SURFACE,
+        "direct_answer_kind": BOUNDED_INTEGER_CHOICE_KIND,
+        "direct_answer_range": [1, 30],
+        "direct_answer_value": 13,
+        "direct_answer_derivation_hash": "a" * 64,
+        "direct_answer_memory_influence": False,
+        "system_status_requested": False,
+    })
+    body["response_id"] = "tr-" + canonical_hash({
+        "request_message_hash": body["request_message_hash"],
+        "resident_uuid": body["resident_uuid"],
+        "model_digest": body["model_digest"],
+        "file_fabric_digest": body["file_fabric_digest"],
+        "turn_id": body["turn_id"],
+        "response_mode": body["response_mode"],
+        "hrain_context_hash": body["hrain_context_hash"],
+        "response_surface": body["response_surface"],
+    })
+    body["response_hash"] = canonical_hash(body)
+    return body
+
+
 def empty_hrain_response():
     body = hrain_response()
     body.pop("response_hash")
@@ -142,6 +171,42 @@ def test_hrain_bound_response_is_admitted_and_provenanced():
     assert "memory grants authority: `false`" in text
     for path in value["memory_selected_paths"]:
         assert path in text
+
+
+def test_surface_bound_direct_answer_identity_is_admitted_without_authority_expansion():
+    value = direct_answer_hrain_response()
+    assert verify_response(value)
+    assert value["response_text"] == "13"
+    assert value["direct_answer_memory_influence"] is False
+    assert value["command_authority_granted"] is False
+    assert value["external_effect_authorized"] is False
+
+
+def test_surface_bound_response_identity_must_include_surface():
+    value = direct_answer_hrain_response()
+    value["response_id"] = "tr-" + canonical_hash({
+        "request_message_hash": value["request_message_hash"],
+        "resident_uuid": value["resident_uuid"],
+        "model_digest": value["model_digest"],
+        "file_fabric_digest": value["file_fabric_digest"],
+        "turn_id": value["turn_id"],
+        "response_mode": value["response_mode"],
+        "hrain_context_hash": value["hrain_context_hash"],
+    })
+    reseal(value)
+    assert verify_response(value) is False
+
+
+def test_direct_answer_surface_semantics_are_fail_closed():
+    for field, bad_value in [
+        ("direct_answer_memory_influence", True),
+        ("system_status_requested", True),
+        ("direct_answer_value", 31),
+    ]:
+        bad = copy.deepcopy(direct_answer_hrain_response())
+        bad[field] = bad_value
+        reseal(bad)
+        assert verify_response(bad) is False
 
 
 def test_valid_empty_hrain_retrieval_is_admitted_and_explicitly_provenanced():

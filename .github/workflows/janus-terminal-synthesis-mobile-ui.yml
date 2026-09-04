@@ -1,0 +1,63 @@
+name: JANUS Terminal Synthesis Mobile UI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/janus-synthesis-observatory.js'
+      - '.github/workflows/janus-terminal-synthesis-mobile-ui.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'assets/janus-synthesis-observatory.js'
+      - '.github/workflows/janus-terminal-synthesis-mobile-ui.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  synthesis-mobile:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax-check Synthesis runtime
+        run: node --check assets/janus-synthesis-observatory.js
+      - name: Verify mobile adaptation contract
+        run: |
+          set -euo pipefail
+          f=assets/janus-synthesis-observatory.js
+          grep -Fq '@media(max-width:720px)' "$f"
+          grep -Fq '#view-synthesis{width:100%;max-width:100%;min-width:0;overflow-x:hidden' "$f"
+          grep -Fq '#view-synthesis .metrics-grid.compact{grid-template-columns:1fr' "$f"
+          grep -Fq '#view-synthesis .synth-flow{display:grid;grid-template-columns:minmax(0,1fr)' "$f"
+          grep -Fq '#view-synthesis .card-title-row{display:flex;flex-direction:column' "$f"
+          grep -Fq '#view-synthesis #synth-refresh{width:100%}' "$f"
+          grep -Fq 'overflow-wrap:anywhere' "$f"
+          echo 'SYNTHESIS_MOBILE_LAYOUT=CONTRACT_PASS'
+      - name: Verify live Pages serves current Synthesis runtime
+        env:
+          PAGES_URL: https://hawkar-usls.github.io/-Terminal-for-Janus/assets/janus-synthesis-observatory.js
+        run: |
+          set -euo pipefail
+          expected="$(sha256sum assets/janus-synthesis-observatory.js | awk '{print $1}')"
+          for attempt in $(seq 1 30); do
+            nonce="${GITHUB_SHA}-${GITHUB_RUN_ID}-${attempt}"
+            if curl -fsSL --connect-timeout 10 --max-time 20 "${PAGES_URL}?janus_mobile=${nonce}" -o /tmp/live-synth.js; then
+              live="$(sha256sum /tmp/live-synth.js | awk '{print $1}')"
+              if [ "$live" = "$expected" ] \
+                && grep -Fq '#view-synthesis .metrics-grid.compact{grid-template-columns:1fr' /tmp/live-synth.js \
+                && grep -Fq '#view-synthesis .synth-flow{display:grid;grid-template-columns:minmax(0,1fr)' /tmp/live-synth.js; then
+                echo 'SYNTHESIS_MOBILE_PAGES=LIVE_CURRENT'
+                echo "synthesis_sha256=$live"
+                exit 0
+              fi
+            fi
+            sleep 5
+          done
+          echo 'SYNTHESIS_MOBILE_PAGES=STALE_OR_UNREACHABLE' >&2
+          exit 1

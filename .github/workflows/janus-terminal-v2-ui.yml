@@ -9,11 +9,14 @@ on:
       - 'assets/terminal-v2.js'
       - 'assets/neural-link-v2.js'
       - 'assets/neural-link-v2.css'
+      - 'assets/adaptive-ui.js'
+      - 'assets/adaptive-ui.css'
       - 'assets/janus-observatory.js'
       - 'assets/janus-observatory.css'
       - 'assets/janus-synthesis-observatory.js'
       - '.janus/TERMINAL_V2_HRAIN_MEMORY_CONTRACT.json'
       - 'tests/**'
+      - 'tools/test-janus-observatory.js'
       - '.github/workflows/janus-terminal-v2-ui.yml'
   push:
     branches: [main]
@@ -23,11 +26,14 @@ on:
       - 'assets/terminal-v2.js'
       - 'assets/neural-link-v2.js'
       - 'assets/neural-link-v2.css'
+      - 'assets/adaptive-ui.js'
+      - 'assets/adaptive-ui.css'
       - 'assets/janus-observatory.js'
       - 'assets/janus-observatory.css'
       - 'assets/janus-synthesis-observatory.js'
       - '.janus/TERMINAL_V2_HRAIN_MEMORY_CONTRACT.json'
       - 'tests/**'
+      - 'tools/test-janus-observatory.js'
       - '.github/workflows/janus-terminal-v2-ui.yml'
   workflow_dispatch:
 
@@ -54,15 +60,27 @@ jobs:
         run: |
           node --check assets/terminal-v2.js
           node --check assets/neural-link-v2.js
+          node --check assets/adaptive-ui.js
           node --check assets/janus-observatory.js
           node --check assets/janus-synthesis-observatory.js
       - name: Run Terminal v2 architecture tests
         run: python -m pytest -q tests/test_terminal_v2_static.py
       - name: Run immutable organ-local verifier
         run: node tools/test-janus-observatory.js
+      - name: Prove adaptive UI is layout-only
+        run: |
+          grep -q 'assets/adaptive-ui.css' index.html
+          grep -q 'assets/adaptive-ui.js' index.html
+          grep -q '100dvh' assets/adaptive-ui.css
+          grep -q 'safe-area-inset-bottom' assets/adaptive-ui.css
+          grep -q 'layout_only: true' assets/adaptive-ui.js
+          grep -q 'command_authority: false' assets/adaptive-ui.js
+          ! grep -q 'fetch(' assets/adaptive-ui.js
+          ! grep -q 'GITHUB_TOKEN' assets/adaptive-ui.js
+          echo 'JANUS_ADAPTIVE_UI=CONTRACT_PASS'
       - name: Prove legacy scanner is gone
         run: |
-          ! grep -R -E 'ngrok-free|LOCAL_IPS|PORTS_TO_SCAN|/api/janus/action' index.html assets/terminal-v2.* assets/neural-link-v2.*
+          ! grep -R -E 'ngrok-free|LOCAL_IPS|PORTS_TO_SCAN|/api/janus/action' index.html assets/terminal-v2.* assets/neural-link-v2.* assets/adaptive-ui.*
           echo 'LEGACY_LOCAL_SCANNER=ABSENT'
       - name: Prove full HRaiN-mediated memory path
         run: |

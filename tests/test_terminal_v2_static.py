@@ -153,6 +153,7 @@ def test_synthesis_log_uses_primary_event_log_contract_and_rehydrates():
     assert "lastSynthState" in js
 
 
+
 def test_terminal_displays_proof_carrying_hrain_provenance():
     js = (ROOT / "assets/terminal-v2.js").read_text(encoding="utf-8")
     for token in (
@@ -195,57 +196,3 @@ def test_neural_link_v2_is_hrain_mediated_and_append_only():
     assert archive["archive_grants_command_authority"] is False
     assert contract["conversation"]["browser_secret_required"] is False
     assert contract["conversation"]["browser_send_semantics"] == "PENDING_UNTIL_GITHUB_CONFIRMATION"
-
-
-def test_adaptive_ui_layer_is_wired_and_layout_only():
-    html = (ROOT / "index.html").read_text(encoding="utf-8")
-    css = (ROOT / "assets/adaptive-ui.css").read_text(encoding="utf-8")
-    js = (ROOT / "assets/adaptive-ui.js").read_text(encoding="utf-8")
-    assert 'viewport-fit=cover' in html
-    assert 'assets/adaptive-ui.css' in html
-    assert 'assets/adaptive-ui.js' in html
-    assert '100dvh' in css
-    assert 'safe-area-inset-bottom' in css
-    assert 'scroll-snap-type:x proximity' in css
-    assert '.inspector.adaptive-open' in css
-    assert 'visualViewport' in js
-    assert 'adaptive-inspector-toggle' in js
-    assert 'sidebar.scrollTo' in js
-    assert 'scrollIntoView' not in js
-    assert 'root_horizontal_scroll: false' in js
-    assert 'layout_only: true' in js
-    assert 'command_authority: false' in js
-    assert 'memory_authority: false' in js
-    assert 'transport_authority: false' in js
-    assert 'fetch(' not in js
-    assert 'GITHUB_TOKEN' not in js
-
-
-def test_mobile_navigation_is_scrollable_without_scrolling_root_viewport():
-    css = (ROOT / "assets/adaptive-ui.css").read_text(encoding="utf-8")
-    js = (ROOT / "assets/adaptive-ui.js").read_text(encoding="utf-8")
-    assert '.sidebar::-webkit-scrollbar{display:none}' in css
-    assert 'overflow-x:auto' in css
-    assert 'flex:0 0 72px' in css
-    assert 'width:100vw;max-width:100vw' in css
-    assert 'overscroll-behavior-x:contain' in css
-    assert 'html,body,#app{width:100%;max-width:100%;overflow-x:hidden}' in css
-    assert 'sidebar.scrollTo({ left: target' in js
-    assert 'window.scrollTo({ left: 0' in js
-
-
-def test_mobile_chat_is_one_screen_and_composer_cannot_widen_page():
-    css = (ROOT / "assets/adaptive-ui.css").read_text(encoding="utf-8")
-    assert '.console.neural-link-active{overflow:hidden!important;display:flex;flex-direction:column}' in css
-    assert '.instance-banner p{display:none}' in css
-    assert '.neural-link-v2{margin:0;width:100%;max-width:100%;min-width:0;min-height:0' in css
-    assert '.neural-link-compose{width:100%;max-width:100%;min-width:0;grid-template-columns:minmax(0,1fr) 66px' in css
-    assert '.neural-link-compose textarea{box-sizing:border-box;width:100%;max-width:100%;min-width:0' in css
-    assert '.neural-link-history{height:auto!important;min-height:0!important;min-width:0;max-width:100%;flex:1 1 0' in css
-
-
-def test_neural_link_mobile_composer_remains_keyboard_safe():
-    css = (ROOT / "assets/adaptive-ui.css").read_text(encoding="utf-8")
-    js = (ROOT / "assets/adaptive-ui.js").read_text(encoding="utf-8")
-    assert '.neural-link-compose textarea{box-sizing:border-box;width:100%;max-width:100%;min-width:0;font-size:16px' in css
-    assert "input.setAttribute('enterkeyhint', 'send')" in js

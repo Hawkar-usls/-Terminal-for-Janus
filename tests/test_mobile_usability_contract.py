@@ -22,7 +22,7 @@ def test_mobile_terminal_root_cannot_be_widened_by_a_view():
     assert ".topbar,.shell,.workspace,.view{width:100%;max-width:100%;min-width:0}" in css
 
 
-def test_all_present_and_future_nav_buttons_share_one_router():
+def test_synthesis_router_exposes_programmatic_navigation_without_owning_static_tabs():
     js = (ROOT / "assets/janus-synthesis-observatory.js").read_text(encoding="utf-8")
     assert "function activateTerminalView(name)" in js
     assert "function installViewRouter()" in js
@@ -31,17 +31,21 @@ def test_all_present_and_future_nav_buttons_share_one_router():
     assert ".workspace > .view" in js
     assert "view.classList.toggle('active',active)" in js
     assert "aria-hidden" in js
+    assert "btn.dataset.view!=='synthesis'" in js
 
 
-def test_dynamic_synthesis_tab_uses_shared_router_not_private_click_router():
+def test_dynamic_synthesis_tab_uses_delegated_router_not_private_click_router():
     js = (ROOT / "assets/janus-synthesis-observatory.js").read_text(encoding="utf-8")
     assert "nav.addEventListener('click'" not in js
     assert "installViewRouter();installView();" in js
+    assert "activateTerminalView('synthesis')" in js
 
 
-def test_shared_router_prevents_legacy_static_handlers_from_double_executing():
+def test_synthesis_router_does_not_block_terminal_static_navigation():
     js = (ROOT / "assets/janus-synthesis-observatory.js").read_text(encoding="utf-8")
-    assert "event.stopImmediatePropagation();" in js
+    assert "event.stopImmediatePropagation();" not in js
+    assert "event.stopPropagation();" not in js
+    assert "btn.dataset.view!=='synthesis'" in js
     assert "if(name==='memory')" in js
     assert "hrain-frame" in js
     assert "https://hawkar-usls.github.io/Hrain/memory.html" in js

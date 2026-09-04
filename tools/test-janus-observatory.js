@@ -10,6 +10,8 @@ const observatory = read('assets/janus-observatory.js');
 const terminal = read('assets/terminal-v2.js');
 const synthesis = read('assets/janus-synthesis-observatory.js');
 const neural = read('assets/neural-link-v2.js');
+const adaptive = read('assets/adaptive-ui.js');
+const adaptiveCss = read('assets/adaptive-ui.css');
 const css = read('assets/janus-observatory.css');
 const descriptor = JSON.parse(read('.janus/JANUS_MODULE.json'));
 
@@ -60,6 +62,20 @@ must(terminal, "p.memory_grants_authority !== 'false'", 'HRAIN_AUTHORITY_FIREWAL
 must(terminal, 'empty ≠ failure', 'HRAIN_EMPTY_NOT_FAILURE_LABEL_MISSING');
 must(terminal, 'empty ≠ negative evidence', 'HRAIN_EMPTY_NOT_NEGATIVE_LABEL_MISSING');
 
+
+
+// Adaptive UI truth: layout-only layer, no network/authority semantics.
+must(html, 'assets/adaptive-ui.js', 'ADAPTIVE_UI_RUNTIME_NOT_WIRED');
+must(html, 'assets/adaptive-ui.css', 'ADAPTIVE_UI_STYLE_NOT_WIRED');
+must(adaptiveCss, '100dvh', 'ADAPTIVE_UI_DYNAMIC_VIEWPORT_MISSING');
+must(adaptiveCss, 'safe-area-inset-bottom', 'ADAPTIVE_UI_SAFE_AREA_MISSING');
+must(adaptiveCss, 'scroll-snap-type:x proximity', 'ADAPTIVE_UI_MOBILE_DOCK_MISSING');
+must(adaptive, 'layout_only: true', 'ADAPTIVE_UI_LAYOUT_BOUNDARY_MISSING');
+must(adaptive, 'command_authority: false', 'ADAPTIVE_UI_COMMAND_BOUNDARY_MISSING');
+must(adaptive, 'memory_authority: false', 'ADAPTIVE_UI_MEMORY_BOUNDARY_MISSING');
+must(adaptive, 'transport_authority: false', 'ADAPTIVE_UI_TRANSPORT_BOUNDARY_MISSING');
+if (adaptive.includes('fetch(')) throw new Error('ADAPTIVE_UI_NETWORK_ACCESS_FORBIDDEN');
+if (adaptive.includes('GITHUB_TOKEN')) throw new Error('ADAPTIVE_UI_BROWSER_SECRET_FORBIDDEN');
 
 // Neural Link v2 truth: canonical chat history is append-only Meta Registry memory mirrored through HRAiN.
 must(html, 'assets/neural-link-v2.js', 'NEURAL_LINK_RUNTIME_NOT_WIRED');
@@ -126,6 +142,9 @@ console.log(JSON.stringify({
   hrain_proof_provenance: true,
   valid_empty_hrain_retrieval: true,
   neural_link_v2: true,
+  adaptive_ui: true,
+  adaptive_ui_network_access: false,
+  adaptive_ui_authority: false,
   neural_link_direct_registry_read: false,
   neural_link_browser_secret: false,
   trump_candidate_authority_ceiling: true,

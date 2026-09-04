@@ -196,3 +196,42 @@ def test_neural_link_v2_is_hrain_mediated_and_append_only():
     assert archive["archive_grants_command_authority"] is False
     assert contract["conversation"]["browser_secret_required"] is False
     assert contract["conversation"]["browser_send_semantics"] == "PENDING_UNTIL_GITHUB_CONFIRMATION"
+
+
+
+def test_adaptive_ui_layer_is_wired_and_layout_only():
+    html = (ROOT / "index.html").read_text(encoding="utf-8")
+    css = (ROOT / "assets/adaptive-ui.css").read_text(encoding="utf-8")
+    js = (ROOT / "assets/adaptive-ui.js").read_text(encoding="utf-8")
+    assert 'viewport-fit=cover' in html
+    assert 'assets/adaptive-ui.css' in html
+    assert 'assets/adaptive-ui.js' in html
+    assert '100dvh' in css
+    assert 'safe-area-inset-bottom' in css
+    assert 'scroll-snap-type:x proximity' in css
+    assert '.inspector.adaptive-open' in css
+    assert 'visualViewport' in js
+    assert 'adaptive-inspector-toggle' in js
+    assert 'scrollIntoView' in js
+    assert 'layout_only: true' in js
+    assert 'command_authority: false' in js
+    assert 'memory_authority: false' in js
+    assert 'transport_authority: false' in js
+    assert 'fetch(' not in js
+    assert 'GITHUB_TOKEN' not in js
+
+
+def test_mobile_navigation_is_scrollable_not_seven_way_squeezed():
+    css = (ROOT / "assets/adaptive-ui.css").read_text(encoding="utf-8")
+    assert '.sidebar::-webkit-scrollbar{display:none}' in css
+    assert 'overflow-x:auto' in css
+    assert 'flex:0 0 72px' in css
+    assert 'padding-bottom:calc(var(--terminal-dock-h) + var(--terminal-safe-bottom))' in css
+
+
+def test_neural_link_mobile_composer_remains_keyboard_safe():
+    css = (ROOT / "assets/adaptive-ui.css").read_text(encoding="utf-8")
+    js = (ROOT / "assets/adaptive-ui.js").read_text(encoding="utf-8")
+    assert '.neural-link-history{height:auto!important;min-height:0!important;flex:1' in css
+    assert '.neural-link-compose textarea{font-size:16px' in css
+    assert "input.setAttribute('enterkeyhint', 'send')" in js

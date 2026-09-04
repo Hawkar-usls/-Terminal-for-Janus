@@ -12,6 +12,8 @@
 
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%;overscroll-behavior:none}
 body{min-width:280px}
+html,body,#app{width:100%;max-width:100%;overflow-x:hidden}
+.shell,.workspace,.view,.console,.cards-view,.neural-link-v2,.neural-link-head,.neural-link-compose{min-width:0;max-width:100%}
 button,.nav-btn,.btn,.neural-link-send{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 button:focus-visible,a:focus-visible,textarea:focus-visible{outline:2px solid rgba(111,255,193,.72);outline-offset:2px}
 
@@ -66,30 +68,31 @@ button:focus-visible,a:focus-visible,textarea:focus-visible{outline:2px solid rg
   .module-list{grid-template-columns:1fr}
 }
 
-/* Phones: true mobile dock + dynamic viewport + safe areas. */
+/* Phones: one viewport, local horizontal rails only, no root X scroll. */
 @media(max-width:720px){
   :root{--terminal-topbar-h:56px;--terminal-dock-h:68px}
-  body{overflow:hidden}
-  #app{height:var(--terminal-viewport-height);min-height:0;grid-template-rows:calc(var(--terminal-topbar-h) + var(--terminal-safe-top)) 1fr}
+  html,body{overflow:hidden;width:100%;max-width:100%}
+  body{position:relative}
+  #app{height:var(--terminal-viewport-height);min-height:0;grid-template-rows:calc(var(--terminal-topbar-h) + var(--terminal-safe-top)) 1fr;overflow:hidden}
   .topbar{
-    position:relative;top:auto;height:auto;min-height:calc(var(--terminal-topbar-h) + var(--terminal-safe-top));
+    position:relative;top:auto;width:100%;max-width:100%;height:auto;min-height:calc(var(--terminal-topbar-h) + var(--terminal-safe-top));
     padding-top:var(--terminal-safe-top);padding-left:max(10px,var(--terminal-safe-left));padding-right:max(10px,var(--terminal-safe-right));
-    grid-template-columns:auto 1fr auto;gap:8px;
+    grid-template-columns:auto 1fr auto;gap:8px;overflow:hidden;
   }
-  .brand{gap:8px}.brand-mark{width:30px;height:30px;border-radius:9px}.brand h1{font-size:10px;letter-spacing:.13em}.brand small,.path{display:none}
-  .top-proof{justify-self:end;min-width:0;gap:4px}.top-proof .pill{padding:5px 7px;font-size:7px;max-width:104px}
+  .brand{gap:8px;min-width:0}.brand-mark{width:30px;height:30px;border-radius:9px;flex:0 0 auto}.brand h1{font-size:10px;letter-spacing:.13em;white-space:nowrap}.brand small,.path{display:none}
+  .top-proof{justify-self:end;min-width:0;gap:4px}.top-proof .pill{padding:5px 7px;font-size:7px;max-width:104px;min-width:0}
   .top-proof>span:first-child,#trump-pill{display:none}
   .adaptive-inspector-toggle{padding:5px 8px;font-size:7px;min-height:30px}
 
-  .shell{display:block;min-height:0}
-  .workspace{height:calc(var(--terminal-viewport-height) - var(--terminal-topbar-h) - var(--terminal-safe-top));padding-bottom:calc(var(--terminal-dock-h) + var(--terminal-safe-bottom));overflow:hidden}
-  .view{height:100%}.view.active{min-height:0}
+  .shell{display:block;min-height:0;width:100%;max-width:100%;overflow:hidden}
+  .workspace{height:calc(var(--terminal-viewport-height) - var(--terminal-topbar-h) - var(--terminal-safe-top));width:100%;max-width:100%;padding-bottom:calc(var(--terminal-dock-h) + var(--terminal-safe-bottom));overflow:hidden}
+  .view{height:100%;width:100%;max-width:100%}.view.active{min-height:0}
 
   .sidebar{
-    position:fixed;z-index:45;left:0;right:0;bottom:0;height:calc(var(--terminal-dock-h) + var(--terminal-safe-bottom));
+    position:fixed;z-index:45;left:0;right:0;bottom:0;width:100vw;max-width:100vw;height:calc(var(--terminal-dock-h) + var(--terminal-safe-bottom));
     display:flex;flex-direction:row;justify-content:flex-start;gap:3px;padding:6px max(7px,var(--terminal-safe-right)) calc(6px + var(--terminal-safe-bottom)) max(7px,var(--terminal-safe-left));
-    overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;scrollbar-width:none;border:0;border-top:1px solid var(--line);border-radius:0;
-    background:rgba(4,7,10,.96);backdrop-filter:blur(18px) saturate(130%);box-shadow:0 -12px 42px rgba(0,0,0,.42)
+    overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scroll-snap-type:x proximity;scrollbar-width:none;border:0;border-top:1px solid var(--line);border-radius:0;
+    background:rgba(4,7,10,.96);backdrop-filter:blur(18px) saturate(130%);box-shadow:0 -12px 42px rgba(0,0,0,.42);touch-action:pan-x
   }
   .sidebar::-webkit-scrollbar{display:none}
   .nav-label,.side-foot{display:none}
@@ -101,53 +104,61 @@ button:focus-visible,a:focus-visible,textarea:focus-visible{outline:2px solid rg
   .nav-icon{width:auto;font-size:15px;line-height:1}
   .nav-btn.active{background:rgba(111,255,193,.09);box-shadow:inset 0 0 0 1px rgba(111,255,193,.15)}
 
-  .console,.cards-view{padding:10px;gap:10px;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
-  .console.neural-link-active{overflow:hidden}
-  .instance-banner{padding:12px;border-radius:13px;gap:10px}.instance-banner h2{font-size:17px;margin:5px 0}.instance-banner p{font-size:10px;line-height:1.5}.instance-badge{display:none}
+  .console,.cards-view{padding:9px;gap:8px;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;width:100%;max-width:100%}
+  .console.neural-link-active{overflow:hidden!important;display:flex;flex-direction:column}
+  .instance-banner{padding:10px 11px;border-radius:13px;gap:8px;flex:0 0 auto;min-width:0;overflow:hidden}
+  .instance-banner h2{font-size:16px;margin:4px 0 0;line-height:1.18;overflow-wrap:anywhere}
+  .instance-banner p{display:none}
+  .instance-banner .kicker{font-size:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .instance-badge{display:none}
 
-  /* Horizontal telemetry rail is denser than stacking five blocks vertically. */
-  .chat-brain-strip{display:flex;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;border-radius:11px;flex:0 0 auto}
-  .chat-brain-strip::-webkit-scrollbar{display:none}.chat-brain-strip>div{flex:0 0 150px;scroll-snap-align:start;padding:8px 10px}.chat-brain-strip label{font-size:7px}.chat-brain-strip strong{font-size:9px}
+  /* Telemetry can scroll inside itself; it must never widen the page. */
+  .chat-brain-strip{display:flex;width:100%;max-width:100%;min-width:0;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scroll-snap-type:x proximity;scrollbar-width:none;border-radius:11px;flex:0 0 auto;touch-action:pan-x}
+  .chat-brain-strip::-webkit-scrollbar{display:none}.chat-brain-strip>div{flex:0 0 138px;min-width:0;scroll-snap-align:start;padding:7px 9px}.chat-brain-strip label{font-size:6.5px}.chat-brain-strip strong{font-size:8.5px}
 
-  .metrics-grid,.metrics-grid.compact,.brain-grid,.cards-grid,.module-list,.tensor-grid{grid-template-columns:1fr;gap:9px}
+  .metrics-grid,.metrics-grid.compact,.brain-grid,.cards-grid,.module-list,.tensor-grid{grid-template-columns:1fr;gap:9px;min-width:0;max-width:100%}
   .metric-card.hero,.brain-grid .wide,.card.wide{grid-column:auto}
-  .metric-card,.card,.module-card{border-radius:12px;padding:12px}
+  .metric-card,.card,.module-card{border-radius:12px;padding:12px;min-width:0;max-width:100%}
   .metric-card strong{font-size:15px}.metric-card.hero strong{font-size:9px}
-  .observatory-head{display:block}.observatory-head h2{font-size:20px}.observatory-head p{font-size:10px}.live-badge{margin-top:8px;width:max-content;max-width:100%;font-size:8px}
+  .observatory-head{display:block;min-width:0}.observatory-head h2{font-size:20px}.observatory-head p{font-size:10px}.live-badge{margin-top:8px;width:max-content;max-width:100%;font-size:8px}
   .card-title-row{align-items:flex-start;flex-direction:column}.card-title-row .pill{align-self:flex-start}
-  .chart-card{min-height:220px}.loss-chart{height:145px;margin-top:10px}.loss-axis{font-size:7px;gap:8px}.loss-axis span:nth-child(2){text-align:center}.loss-axis span:last-child{text-align:right}.chart-legend{line-height:1.5}
+  .chart-card{min-height:220px}.loss-chart{height:145px;margin-top:10px;max-width:100%;overflow:hidden}.loss-axis{font-size:7px;gap:8px}.loss-axis span:nth-child(2){text-align:center}.loss-axis span:last-child{text-align:right}.chart-legend{line-height:1.5}
   .decision-row{grid-template-columns:92px minmax(0,1fr)}
-  .module-flow{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.module-flow::-webkit-scrollbar{display:none}.module-flow span{white-space:nowrap;flex:0 0 auto}
+  .module-flow{max-width:100%;flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;touch-action:pan-x}.module-flow::-webkit-scrollbar{display:none}.module-flow span{white-space:nowrap;flex:0 0 auto}
   .module-meta{grid-template-columns:1fr}.module-lane{white-space:normal;text-align:right}
   .tissue-grid{grid-template-columns:1fr}.tissue-head{align-items:center}.tissue-name{font-size:18px}.tissue-state{font-size:7px}
-  .event-log{overflow:visible}.log-row{grid-template-columns:52px minmax(0,1fr);padding:9px 8px}.log-type{grid-column:2}.log-body,.log-verdict{grid-column:2;text-align:left}.log-verdict{margin-top:2px}
+  .event-log{overflow:visible;max-width:100%}.log-row{grid-template-columns:52px minmax(0,1fr);padding:9px 8px}.log-type{grid-column:2}.log-body,.log-verdict{grid-column:2;text-align:left}.log-verdict{margin-top:2px}
 
-  .memory-head{min-height:0;padding:9px 10px}.memory-chain{font-size:8px}.memory-head .btn{padding:8px 9px;font-size:8px}.memory-frame{min-height:0}.memory-fallback{right:10px;bottom:calc(10px + var(--terminal-dock-h) + var(--terminal-safe-bottom))}.memory-fallback .pill{font-size:7px;max-width:76vw;display:block;white-space:normal}
+  .memory-head{min-height:0;padding:9px 10px}.memory-chain{font-size:8px}.memory-head .btn{padding:8px 9px;font-size:8px}.memory-frame{min-height:0;max-width:100%}.memory-fallback{right:10px;bottom:calc(10px + var(--terminal-dock-h) + var(--terminal-safe-bottom))}.memory-fallback .pill{font-size:7px;max-width:76vw;display:block;white-space:normal}
 
-  .inspector{top:auto;left:max(8px,var(--terminal-safe-left));right:max(8px,var(--terminal-safe-right));bottom:calc(var(--terminal-dock-h) + var(--terminal-safe-bottom) + 8px);width:auto;max-height:min(68vh,560px);border-radius:18px;transform:translateY(calc(100% + var(--terminal-dock-h) + 32px));padding:16px;overflow:auto}
+  .inspector{top:auto;left:max(8px,var(--terminal-safe-left));right:max(8px,var(--terminal-safe-right));bottom:calc(var(--terminal-dock-h) + var(--terminal-safe-bottom) + 8px);width:auto;max-width:calc(100vw - 16px);max-height:min(68vh,560px);border-radius:18px;transform:translateY(calc(100% + var(--terminal-dock-h) + 32px));padding:16px;overflow:auto}
   .inspector.adaptive-open{transform:translateY(0)}
 
-  /* Neural Link fills the useful viewport but leaves its composer reachable above the dock. */
-  .neural-link-v2{margin:0;min-height:0;display:flex;flex-direction:column;flex:1;border-radius:14px}
-  .neural-link-head{padding:10px 11px}.neural-link-public{padding:6px 10px;font-size:6.5px}
-  .neural-link-history{height:auto!important;min-height:0!important;flex:1;padding:11px 8px 14px}
-  .nl-bubble{max-width:92%;padding:9px 10px 8px}.nl-text{font-size:11px;line-height:1.48}.nl-who,.nl-meta,.nl-proof summary,.nl-proof pre{font-size:7px}
-  .neural-link-compose{grid-template-columns:minmax(0,1fr) 68px;padding:8px;gap:7px}.neural-link-compose textarea{font-size:16px;min-height:44px;max-height:112px;padding:9px 10px}.neural-link-send{min-width:0;font-size:9px}.neural-link-foot{padding:0 9px 8px;font-size:6.5px}
+  /* CHAT is one-screen: banner + telemetry + Neural Link share exactly the available viewport. */
+  .neural-link-v2{margin:0;width:100%;max-width:100%;min-width:0;min-height:0;display:flex;flex-direction:column;flex:1 1 0;border-radius:14px;overflow:hidden}
+  .neural-link-head{padding:9px 10px;min-width:0;max-width:100%;overflow:hidden}.neural-link-title{min-width:0;overflow:hidden}.neural-link-title>div:last-child{min-width:0}.neural-link-title h3{white-space:nowrap}.neural-link-title small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.neural-link-state{max-width:42%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .neural-link-public{padding:6px 9px;font-size:6px;line-height:1.35;overflow-wrap:anywhere}
+  .neural-link-history{height:auto!important;min-height:0!important;min-width:0;max-width:100%;flex:1 1 0;padding:9px 8px 10px;overflow-x:hidden}
+  .nl-row{min-width:0;max-width:100%}.nl-bubble{max-width:88%;min-width:0;padding:8px 9px 7px}.nl-text{font-size:10.5px;line-height:1.42;max-width:100%;overflow-wrap:anywhere}.nl-who,.nl-meta,.nl-proof summary,.nl-proof pre{font-size:7px;max-width:100%;overflow-wrap:anywhere}
+  .neural-link-compose{width:100%;max-width:100%;min-width:0;grid-template-columns:minmax(0,1fr) 66px;padding:7px;gap:7px;flex:0 0 auto;overflow:hidden}
+  .neural-link-compose textarea{box-sizing:border-box;width:100%;max-width:100%;min-width:0;font-size:16px;min-height:42px;max-height:96px;padding:8px 9px;resize:none}
+  .neural-link-send{width:66px;max-width:66px;min-width:0;font-size:9px;padding-inline:4px}
+  .neural-link-foot{min-width:0;max-width:100%;padding:0 8px 7px;font-size:6px;line-height:1.35;gap:5px;overflow-wrap:anywhere}.neural-link-foot>*{min-width:0;max-width:100%}
 
-  .composer textarea{font-size:16px}
+  .composer textarea{font-size:16px;min-width:0;width:100%}
 }
 
 /* Very narrow phones. */
 @media(max-width:390px){
   .brand h1{font-size:9px}.brand-mark{width:28px;height:28px}.top-proof #brain-pill{display:none}
-  .top-proof .pill{font-size:6.5px}.nav-btn{flex-basis:66px;min-width:66px}.chat-brain-strip>div{flex-basis:138px}
+  .top-proof .pill{font-size:6.5px}.nav-btn{flex-basis:66px;min-width:66px}.chat-brain-strip>div{flex-basis:126px}
   .neural-link-title h3{font-size:11px}.neural-link-title small{font-size:6.5px}.neural-link-state{font-size:6.5px;padding:6px 7px}
 }
 
 /* Landscape phone: use width efficiently and keep dock compact. */
 @media(max-height:520px) and (orientation:landscape){
   :root{--terminal-topbar-h:48px;--terminal-dock-h:54px}
-  .brand small{display:none}.topbar{min-height:calc(var(--terminal-topbar-h) + var(--terminal-safe-top))}.nav-btn{height:42px;min-height:42px;flex-direction:row;min-width:92px;flex-basis:92px}.nav-icon{font-size:13px}.neural-link-head{padding-block:7px}.neural-link-public{display:none}.nl-row{margin:6px 0}
+  .brand small{display:none}.topbar{min-height:calc(var(--terminal-topbar-h) + var(--terminal-safe-top))}.nav-btn{height:42px;min-height:42px;flex-direction:row;min-width:92px;flex-basis:92px}.nav-icon{font-size:13px}.neural-link-head{padding-block:7px}.neural-link-public{display:none}.nl-row{margin:6px 0}.instance-banner{padding-block:7px}.instance-banner .kicker{display:none}
 }
 
 /* Touch accessibility and reduced-motion respect. */

@@ -14,7 +14,7 @@
 .neural-link-compose{display:grid;grid-template-columns:1fr auto;gap:9px;padding:12px;border-top:1px solid rgba(47,238,174,.16);background:rgba(2,7,9,.96)}.neural-link-compose textarea{min-height:46px;max-height:160px;resize:vertical;border:1px solid rgba(255,255,255,.11);border-radius:12px;padding:11px 12px;background:#080d0f;color:#eaf6f1;font:12px/1.45 Inter,sans-serif;outline:none}.neural-link-compose textarea:focus{border-color:rgba(47,238,174,.48);box-shadow:0 0 0 2px rgba(47,238,174,.04)}.neural-link-send{min-width:92px;border:1px solid rgba(47,238,174,.38);border-radius:12px;background:var(--green);color:#02100b;font:700 10px/1 "IBM Plex Mono",monospace;letter-spacing:.06em;cursor:pointer}.neural-link-send:disabled{opacity:.42;cursor:not-allowed}
 .neural-link-foot{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:0 13px 11px;color:var(--dim);font:7px/1.45 "IBM Plex Mono",monospace}.neural-link-foot b{color:#8ab3a5}.neural-link-transport{color:var(--amber)}
 #view-console.neural-link-active>#transcript,#view-console.neural-link-active>.composer{display:none}
-@media(max-width:720px){.neural-link-v2{margin:10px -2px 0;border-radius:15px}.neural-link-head{padding:11px 12px}.neural-link-title h3{font-size:12px}.neural-link-state{font-size:7px}.neural-link-history{height:52vh;min-height:300px;padding:14px 9px 18px}.nl-bubble{max-width:88%;padding:10px 11px 8px}.nl-text{font-size:11px}.neural-link-compose{grid-template-columns:1fr 72px;padding:9px}.neural-link-send{min-width:0}.neural-link-public{padding:7px 12px}.neural-link-mark{width:30px;height:30px}}
+@media(max-width:720px){.neural-link-v2{margin:8px 0 0;border-radius:15px}.neural-link-head{padding:8px 10px;gap:8px}.neural-link-title{gap:8px}.neural-link-title h3{font-size:11px;letter-spacing:.11em}.neural-link-title small{font-size:6.5px;line-height:1.25}.neural-link-state{font-size:6.5px;line-height:1.2;padding:6px 7px;max-width:42%;white-space:normal;text-align:center}.neural-link-history{height:52vh;min-height:300px;padding:14px 9px 18px}.nl-bubble{max-width:88%;padding:10px 11px 8px}.nl-text{font-size:11px}.neural-link-compose{grid-template-columns:1fr 72px;padding:9px}.neural-link-send{min-width:0}.neural-link-public{padding:6px 10px;font-size:6.5px;line-height:1.35}.neural-link-mark{width:26px;height:26px;font-size:12px}}
 
 /* Mobile stability contract: preserve the original compact Terminal shell, but make CHAT a real one-screen workspace. */
 @media(max-width:720px){
@@ -28,15 +28,16 @@
   .sidebar{width:100%;max-width:100%;overflow:hidden}
   .sidebar .nav-btn{min-width:0;padding:8px 4px;touch-action:manipulation}
 
-  #view-console.neural-link-active.active{height:100%;min-height:0;overflow:hidden;display:flex;flex-direction:column;gap:10px;padding:10px 12px}
-  #view-console.neural-link-active>.instance-banner{flex:0 0 auto;padding:10px 12px}
-  #view-console.neural-link-active>.instance-banner h2{font-size:16px;margin:4px 0 0}
+  #view-console.neural-link-active.active{height:100%;min-height:0;overflow:hidden;display:flex;flex-direction:column;gap:6px;padding:6px 8px}
+  #view-console.neural-link-active>.instance-banner{flex:0 0 auto;min-width:0;padding:7px 9px;border-radius:12px}
+  #view-console.neural-link-active>.instance-banner .kicker{display:none}
+  #view-console.neural-link-active>.instance-banner h2{font-size:14px;line-height:1.15;margin:0;white-space:normal;overflow-wrap:anywhere}
   #view-console.neural-link-active>.instance-banner p{display:none}
-  #view-console.neural-link-active>.chat-brain-strip{display:flex;flex:0 0 52px;min-height:52px;min-width:0;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;overscroll-behavior-x:contain}
-  #view-console.neural-link-active>.chat-brain-strip::-webkit-scrollbar{display:none}
-  #view-console.neural-link-active>.chat-brain-strip>div{flex:0 0 138px;min-width:0;padding:6px 8px}
-  #view-console.neural-link-active>.chat-brain-strip label{font-size:7px;margin-bottom:3px}
-  #view-console.neural-link-active>.chat-brain-strip strong{font-size:9px}
+  #view-console.neural-link-active>.instance-banner .instance-badge{display:none}
+  #view-console.neural-link-active>.chat-brain-strip{display:grid;grid-template-columns:minmax(0,1.55fr) repeat(4,minmax(0,1fr));flex:0 0 44px;min-height:44px;min-width:0;width:100%;max-width:100%;overflow:hidden}
+  #view-console.neural-link-active>.chat-brain-strip>div{min-width:0;padding:5px 5px;overflow:hidden}
+  #view-console.neural-link-active>.chat-brain-strip label{font-size:5.5px;line-height:1.1;margin-bottom:3px;white-space:normal;overflow-wrap:anywhere}
+  #view-console.neural-link-active>.chat-brain-strip strong{font-size:7.5px;line-height:1.15;display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
   #view-console.neural-link-active>.neural-link-v2{flex:1 1 0;min-height:0;min-width:0;width:100%;max-width:100%;margin:0;display:flex;flex-direction:column}
   #view-console.neural-link-active .neural-link-head,#view-console.neural-link-active .neural-link-public,#view-console.neural-link-active .neural-link-compose,#view-console.neural-link-active .neural-link-foot{flex:0 0 auto}

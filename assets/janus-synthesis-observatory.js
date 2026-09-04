@@ -17,14 +17,44 @@ function addStyle(){
  .synth-law{margin-top:16px;padding:12px;border:1px solid rgba(255,193,7,.2);border-radius:10px;color:#bea96d;font:600 .72rem 'IBM Plex Mono',monospace}.synth-state-pulse{color:#66f1c1}.synth-state-wait{color:#ffc75b}`;document.head.appendChild(s);
 }
 
+function activateTerminalView(name){
+ const target=document.getElementById(`view-${name}`);
+ if(!target)return false;
+ document.querySelectorAll('.nav-btn[data-view]').forEach(btn=>{
+   const active=btn.dataset.view===name;
+   btn.classList.toggle('active',active);
+   btn.setAttribute('aria-selected',active?'true':'false');
+ });
+ document.querySelectorAll('.workspace > .view').forEach(view=>{
+   const active=view===target;
+   view.classList.toggle('active',active);
+   view.setAttribute('aria-hidden',active?'false':'true');
+ });
+ const current=document.getElementById('current-view');if(current)current.textContent=String(name).toUpperCase();
+ if(name==='synthesis')loadSynth();
+ requestAnimationFrame(()=>{target.scrollTop=0;});
+ document.dispatchEvent(new CustomEvent('janus:view-changed',{detail:{view:name}}));
+ return true;
+}
+
+function installViewRouter(){
+ if(window.JANUS_TERMINAL_NAVIGATE)return;
+ window.JANUS_TERMINAL_NAVIGATE=activateTerminalView;
+ document.addEventListener('click',event=>{
+   const btn=event.target?.closest?.('.nav-btn[data-view]');
+   if(!btn)return;
+   if(activateTerminalView(btn.dataset.view))event.preventDefault();
+ },true);
+}
+
 function installView(){
  addStyle();
  if(document.getElementById('view-synthesis'))return;
  const sideFoot=document.querySelector('.sidebar .side-foot');
- const nav=document.createElement('button');nav.className='nav-btn';nav.dataset.view='synthesis';nav.type='button';nav.innerHTML='<span class="nav-icon">⟁</span><span>SYNTHESIS</span>';
+ const nav=document.createElement('button');nav.className='nav-btn';nav.dataset.view='synthesis';nav.type='button';nav.setAttribute('aria-selected','false');nav.innerHTML='<span class="nav-icon">⟁</span><span>SYNTHESIS</span>';
  if(sideFoot)sideFoot.before(nav);else document.querySelector('.sidebar')?.appendChild(nav);
 
- const section=document.createElement('section');section.id='view-synthesis';section.className='view cards-view observatory-view';section.innerHTML=`
+ const section=document.createElement('section');section.id='view-synthesis';section.className='view cards-view observatory-view';section.setAttribute('aria-hidden','true');section.innerHTML=`
  <div class="observatory-head"><div><div class="kicker">Durable autonomous semantic evolution</div><h2>JANUS Synthesis</h2><p>Candidate meanings reconstructed from existing HRaiN/iNaiHR links. This view reads the same persisted synthesis state produced autonomously by JANUS.</p></div><div class="live-badge"><span class="dot"></span><span id="synth-live-status">RESOLVING</span></div></div>
  <div class="metrics-grid compact">
    <article class="metric-card"><label>semantic candidates</label><strong id="synth-count">—</strong><small>durable candidate-only meanings</small></article>
@@ -36,14 +66,6 @@ function installView(){
  <div class="card wide"><div class="card-title-row"><h3>LATEST CANDIDATE MEANINGS</h3><button id="synth-refresh" class="btn" type="button">REFRESH SYNTH</button></div><div id="synth-list" class="synth-list"><div class="empty-state">Resolving iNaiHR semantic evolution state…</div></div></div>
  <div class="synth-law">SYNTHESIS != TRUTH · ATTENTION_WEIGHT != EVIDENCE_WEIGHT · CANDIDATE_EDGE != CAUSAL_EDGE · NO VERIFY => NO VERIFIED FIX</div>`;
  document.querySelector('.workspace')?.appendChild(section);
-
- nav.addEventListener('click',()=>{
-   document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));
-   document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
-   nav.classList.add('active');section.classList.add('active');
-   const cv=document.getElementById('current-view');if(cv)cv.textContent='SYNTHESIS';
-   loadSynth();
- });
  section.querySelector('#synth-refresh')?.addEventListener('click',loadSynth);
 }
 
@@ -92,6 +114,6 @@ async function loadSynth(){
  }catch(e){console.warn('JANUS synthesis observatory',e);if(status){status.textContent='DEGRADED · NO CLAIM';status.className='synth-state-wait';}const list=document.getElementById('synth-list');if(list)list.innerHTML='<div class="empty-state">SYNTH state unavailable. This is not negative evidence.</div>';}
 }
 
-function boot(){installView();document.addEventListener('janus:logs-rendered',()=>publishLogEvent());loadSynth();setInterval(loadSynth,REFRESH_MS);}
+function boot(){installViewRouter();installView();document.addEventListener('janus:logs-rendered',()=>publishLogEvent());loadSynth();setInterval(loadSynth,REFRESH_MS);}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();

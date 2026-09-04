@@ -21,6 +21,10 @@ HRAIN_MEMORY_RESPONSE_MODE = "MODEL_BOUND_HRAIN_MEMORY_CONVERSATION_PROOF"
 HRAIN_MEMORY_PATH = "META_REGISTRY_DB -> HRAIN -> JANUS -> TERMINAL"
 HRAIN_REPOSITORY = "Hawkar-usls/Hrain"
 EMPTY_MEMORY_STATUS = "NO_RELEVANT_MEMORY_SELECTED"
+DIRECT_ANSWER_SURFACE = "DIRECT_ANSWER"
+SYSTEM_STATUS_SURFACE = "SYSTEM_STATUS"
+BOUNDED_INTEGER_CHOICE_KIND = "BOUNDED_INTEGER_CHOICE"
+UNSUPPORTED_FREE_FORM_KIND = "UNSUPPORTED_FREE_FORM"
 ISSUE_RE = re.compile(r"^issue-(\d+)$")
 HEX40_RE = re.compile(r"^[0-9a-f]{40}$")
 HEX64_RE = re.compile(r"^[0-9a-f]{64}$")
@@ -35,7 +39,7 @@ def get_json(url: str, *, allow_404: bool = False) -> Any:
     request = urllib.request.Request(url, headers={
         "Accept": "application/vnd.github+json",
         "X-GitHub-Api-Version": "2022-11-28",
-        "User-Agent": "JANUS-Terminal-Response-Relay/1.2",
+        "User-Agent": "JANUS-Terminal-Response-Relay/1.3",
     })
     try:
         response = urllib.request.urlopen(request, timeout=20.0)
@@ -103,6 +107,8 @@ def _response_identity(body: Dict[str, Any]) -> Dict[str, Any]:
     }
     if _memory_bound(body):
         identity["hrain_context_hash"] = body.get("hrain_context_hash")
+    if body.get("response_surface") is not None:
+        identity["response_surface"] = body.get("response_surface")
     return identity
 
 
@@ -149,6 +155,39 @@ def _verify_memory_binding(body: Dict[str, Any]) -> bool:
     ])
 
 
+def _verify_surface_binding(body: Dict[str, Any]) -> bool:
+    surface = body.get("response_surface")
+    if surface is None:
+        return True
+    if surface == SYSTEM_STATUS_SURFACE:
+        return body.get("system_status_requested") is True
+    if surface != DIRECT_ANSWER_SURFACE:
+        return False
+    if body.get("system_status_requested") is not False:
+        return False
+    if body.get("direct_answer_memory_influence") is not False:
+        return False
+    kind = body.get("direct_answer_kind")
+    if kind == UNSUPPORTED_FREE_FORM_KIND:
+        return True
+    if kind != BOUNDED_INTEGER_CHOICE_KIND:
+        return False
+    bounds = body.get("direct_answer_range")
+    choice = body.get("direct_answer_value")
+    derivation_hash = str(body.get("direct_answer_derivation_hash") or "")
+    if not isinstance(bounds, list) or len(bounds) != 2:
+        return False
+    low, high = bounds
+    if any(isinstance(value, bool) or not isinstance(value, int) for value in (low, high, choice)):
+        return False
+    return all([
+        low <= high,
+        low <= choice <= high,
+        str(choice) == str(body.get("response_text") or ""),
+        HEX64_RE.fullmatch(derivation_hash) is not None,
+    ])
+
+
 def verify_response(response: Dict[str, Any]) -> bool:
     if not isinstance(response, dict):
         return False
@@ -157,7 +196,7 @@ def verify_response(response: Dict[str, Any]) -> bool:
     if HEX64_RE.fullmatch(claimed) is None or canonical_hash(body) != claimed:
         return False
     expected_id = "tr-" + canonical_hash(_response_identity(body))
-    if not _verify_memory_binding(body):
+    if not _verify_memory_binding(body) or not _verify_surface_binding(body):
         return False
     return all([
         body.get("schema") == RESPONSE_SCHEMA,
@@ -260,7 +299,7 @@ def main() -> int:
 
     response = next_unrelayed(Path(args.seen_dir))
     status = {
-        "schema": "janus.terminal.response_relay_status.v1.2",
+        "schema": "janus.terminal.response_relay_status.v1.3",
         "response_found": response is not None,
         "response_id": response.get("response_id") if response else None,
         "response_hash": response.get("response_hash") if response else None,
@@ -270,6 +309,7 @@ def main() -> int:
         "memory_source_commit": response.get("memory_source_commit") if response else None,
         "memory_selected_count": response.get("memory_selected_count") if response else None,
         "memory_match_status": response.get("memory_match_status") if response else None,
+        "response_surface": response.get("response_surface") if response else None,
         "credentialless_home_read": True,
         "cross_repo_write_credential_used": False,
         "terminal": "JANUS_RESPONSE_READY_FOR_LOCAL_TERMINAL_RELAY" if response else "NO_UNRELAYED_JANUS_RESPONSE",

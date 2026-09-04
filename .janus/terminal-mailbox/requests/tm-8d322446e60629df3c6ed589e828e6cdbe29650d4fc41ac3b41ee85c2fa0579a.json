@@ -1,0 +1,20 @@
+{
+  "authority_mode": "READ_ONLY_CONVERSATION",
+  "claim_authority_granted": false,
+  "command_authority_granted": false,
+  "conversation_id": "issue-23",
+  "created_at": 1788530632.0,
+  "external_effect_authorized": false,
+  "fresh_human_stimulus": true,
+  "human_actor": "Hawkar-usls",
+  "human_authorized_write": false,
+  "message_hash": "f31ceb75ea1f915bd33d3bb9b030b5df9be89f43676a62d9d7c8de03eceed7d8",
+  "message_id": "tm-8d322446e60629df3c6ed589e828e6cdbe29650d4fc41ac3b41ee85c2fa0579a",
+  "message_text": "### Message\n\nВыбери номер от 1 до 30.\n\n### Authority boundary\n\n- [x] I understand this conversation does not authorize repository writes, deployments, physical effects, or claim promotion.",
+  "physical_runtime_effect_authorized": false,
+  "schema": "janus.terminal.message.v1",
+  "scientific_evidence_authority_granted": false,
+  "source_ref": "Hawkar-usls/-Terminal-for-Janus#23:issue:5349034929",
+  "terminal_repository": "Hawkar-usls/-Terminal-for-Janus",
+  "world_truth_authority_granted": false
+}

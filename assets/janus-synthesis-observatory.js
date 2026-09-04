@@ -13,8 +13,29 @@ function addStyle(){
  if(document.getElementById('janus-synthesis-style'))return;
  const s=document.createElement('style');s.id='janus-synthesis-style';s.textContent=`
  .synth-flow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:14px 0 20px}.synth-flow span{padding:8px 10px;border:1px solid rgba(0,255,163,.22);border-radius:8px;background:rgba(0,255,163,.035);font:600 .72rem 'IBM Plex Mono',monospace;color:#9bcbbb}.synth-flow i{color:#54edbb;font-style:normal}
- .synth-list{display:grid;gap:12px}.synth-card{border:1px solid rgba(0,255,163,.18);border-radius:14px;background:rgba(4,12,14,.72);padding:16px}.synth-card h3{margin:.25rem 0 .6rem;font-size:.92rem;color:#c9eee2}.synth-card .synth-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}.synth-card .synth-meta span{font:600 .67rem 'IBM Plex Mono',monospace;color:#72cbae;border:1px solid rgba(114,203,174,.18);border-radius:999px;padding:4px 7px}.synth-card p{margin:.35rem 0;color:#94aca5;line-height:1.48;font-size:.83rem}.synth-card b{color:#c6ddd6}.synth-sources{display:grid;gap:5px;margin-top:9px}.synth-source{font:500 .67rem 'IBM Plex Mono',monospace;color:#6f8e85;overflow-wrap:anywhere;padding-left:8px;border-left:2px solid rgba(200,169,107,.3)}
- .synth-law{margin-top:16px;padding:12px;border:1px solid rgba(255,193,7,.2);border-radius:10px;color:#bea96d;font:600 .72rem 'IBM Plex Mono',monospace}.synth-state-pulse{color:#66f1c1}.synth-state-wait{color:#ffc75b}`;document.head.appendChild(s);
+ .synth-list{display:grid;gap:12px}.synth-card{border:1px solid rgba(0,255,163,.18);border-radius:14px;background:rgba(4,12,14,.72);padding:16px;min-width:0}.synth-card h3{margin:.25rem 0 .6rem;font-size:.92rem;color:#c9eee2;overflow-wrap:anywhere}.synth-card .synth-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}.synth-card .synth-meta span{font:600 .67rem 'IBM Plex Mono',monospace;color:#72cbae;border:1px solid rgba(114,203,174,.18);border-radius:999px;padding:4px 7px;max-width:100%;overflow-wrap:anywhere}.synth-card p{margin:.35rem 0;color:#94aca5;line-height:1.48;font-size:.83rem;overflow-wrap:anywhere}.synth-card b{color:#c6ddd6}.synth-sources{display:grid;gap:5px;margin-top:9px;min-width:0}.synth-source{font:500 .67rem 'IBM Plex Mono',monospace;color:#6f8e85;overflow-wrap:anywhere;padding-left:8px;border-left:2px solid rgba(200,169,107,.3)}
+ .synth-law{margin-top:16px;padding:12px;border:1px solid rgba(255,193,7,.2);border-radius:10px;color:#bea96d;font:600 .72rem 'IBM Plex Mono',monospace;overflow-wrap:anywhere}.synth-state-pulse{color:#66f1c1}.synth-state-wait{color:#ffc75b}
+ @media(max-width:720px){
+   #view-synthesis{width:100%;max-width:100%;min-width:0;overflow-x:hidden;padding:12px 12px 76px}
+   #view-synthesis .observatory-head{display:block;min-width:0}
+   #view-synthesis .observatory-head>div{min-width:0}
+   #view-synthesis .observatory-head h2,#view-synthesis .observatory-head p{overflow-wrap:anywhere}
+   #view-synthesis .live-badge,#view-synthesis .synth-state-pulse,#view-synthesis .synth-state-wait{max-width:100%;white-space:normal;overflow-wrap:anywhere}
+   #view-synthesis .metrics-grid.compact{grid-template-columns:1fr;min-width:0}
+   #view-synthesis .metric-card{min-width:0}
+   #view-synthesis .metric-card strong,#view-synthesis .metric-card small{overflow-wrap:anywhere}
+   #view-synthesis .synth-flow{display:grid;grid-template-columns:minmax(0,1fr);gap:5px;margin:10px 0 14px;min-width:0}
+   #view-synthesis .synth-flow span{width:100%;max-width:100%;text-align:center;overflow-wrap:anywhere}
+   #view-synthesis .synth-flow i{justify-self:center;transform:rotate(90deg)}
+   #view-synthesis .card.wide{min-width:0;padding:12px}
+   #view-synthesis .card-title-row{display:flex;flex-direction:column;align-items:stretch;gap:9px;min-width:0}
+   #view-synthesis .card-title-row h3{overflow-wrap:anywhere}
+   #view-synthesis #synth-refresh{width:100%}
+   #view-synthesis .synth-list{min-width:0}
+   #view-synthesis .synth-card{padding:12px;width:100%;max-width:100%;min-width:0}
+   #view-synthesis .synth-meta{min-width:0}
+   #view-synthesis .synth-law{font-size:.64rem;line-height:1.5}
+ }`;document.head.appendChild(s);
 }
 
 function activateTerminalView(name){

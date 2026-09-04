@@ -16,15 +16,17 @@
 #view-console.neural-link-active>#transcript,#view-console.neural-link-active>.composer{display:none}
 @media(max-width:720px){.neural-link-v2{margin:8px 0 0;border-radius:15px}.neural-link-head{padding:8px 10px;gap:8px}.neural-link-title{gap:8px}.neural-link-title h3{font-size:11px;letter-spacing:.11em}.neural-link-title small{font-size:6.5px;line-height:1.25}.neural-link-state{font-size:6.5px;line-height:1.2;padding:6px 7px;max-width:42%;white-space:normal;text-align:center}.neural-link-history{height:52vh;min-height:300px;padding:14px 9px 18px}.nl-bubble{max-width:88%;padding:10px 11px 8px}.nl-text{font-size:11px}.neural-link-compose{grid-template-columns:1fr 72px;padding:9px}.neural-link-send{min-width:0}.neural-link-public{padding:6px 10px;font-size:6.5px;line-height:1.35}.neural-link-mark{width:26px;height:26px;font-size:12px}}
 
-/* Mobile stability contract: preserve the original compact Terminal shell, but make CHAT a real one-screen workspace. */
+/* Mobile stability contract: keep Terminal inside the visual viewport and below the iPhone safe area. */
 @media(max-width:720px){
   html,body{width:100%;max-width:100%;overflow:hidden}
-  #app{width:100%;max-width:100%;height:100vh;min-height:0;overflow:hidden}
+  #app{width:100%;max-width:100%;height:100vh;min-height:0;overflow:hidden;grid-template-rows:48px minmax(0,1fr);padding-top:max(env(safe-area-inset-top), 6px)}
   @supports(height:100dvh){#app{height:100dvh}}
   .topbar,.shell,.workspace,.view{width:100%;max-width:100%;min-width:0}
-  .topbar{overflow:hidden}.top-proof{min-width:0}.top-proof .pill{flex:0 0 auto}
-  .workspace{height:calc(100vh - 64px);min-height:0;overflow:hidden}
-  @supports(height:100dvh){.workspace{height:calc(100dvh - 64px)}}
+  .topbar{position:relative;top:auto;min-height:48px;height:48px;padding:4px 10px;grid-template-columns:minmax(0,1fr) auto;gap:8px;overflow:hidden}
+  .brand{min-width:0;gap:7px;overflow:hidden}.brand-mark{width:28px;height:28px;flex:0 0 28px}.brand h1{font-size:10px;letter-spacing:.11em;white-space:nowrap}.brand small{display:none}
+  .top-proof{min-width:0;max-width:100%;gap:4px;justify-self:end;overflow:hidden}.top-proof .pill{min-width:0;max-width:112px;padding:4px 6px;font-size:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.top-proof .pill:first-child{display:none}#trump-pill{display:none}#brain-pill{display:block;max-width:126px}#core-pill{display:block;max-width:72px}
+  .shell{height:100%;min-height:0;overflow:hidden}
+  .workspace{height:100%;min-height:0;overflow:hidden;padding-bottom:58px}
   .sidebar{width:100%;max-width:100%;overflow:hidden}
   .sidebar .nav-btn{min-width:0;padding:8px 4px;touch-action:manipulation}
 
@@ -48,4 +50,15 @@
   #view-console.neural-link-active .neural-link-send{min-width:0;min-height:44px}
   #view-console.neural-link-active .neural-link-foot{padding:0 9px 7px;justify-content:flex-end}
   #view-console.neural-link-active .neural-link-foot span:first-child{display:none}
+}
+
+/* Extra-narrow iPhone contract: telemetry wins horizontal space; brand text yields, no zoom required. */
+@media(max-width:430px){
+  #app{grid-template-rows:44px minmax(0,1fr)}
+  .topbar{min-height:44px;height:44px;padding:3px 8px;grid-template-columns:30px minmax(0,1fr);gap:6px}
+  .brand{min-width:30px;width:30px}.brand-mark{width:26px;height:26px;flex-basis:26px}.brand>div:last-child{display:none}
+  .top-proof{width:100%;justify-self:stretch;justify-content:flex-end;gap:3px}
+  .top-proof .pill{font-size:6.5px;padding:4px 5px}
+  #brain-pill{display:block;flex:1 1 auto;max-width:none;text-align:center}
+  #core-pill{display:block;flex:0 0 auto;max-width:72px}
 }

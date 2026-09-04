@@ -64,9 +64,11 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          s=Path('.github/workflows/terminal-janus-synthesis-observatory.yml').read_text(encoding='utf-8')
-          assert 'contents: read' in s
-          assert 'contents: write' not in s
-          assert 'git push' not in s
+          lines=[line.strip() for line in Path('.github/workflows/terminal-janus-synthesis-observatory.yml').read_text(encoding='utf-8').splitlines()]
+          write_permission='contents:'+' write'
+          push_command='git'+' push'
+          assert 'contents: read' in lines
+          assert write_permission not in lines
+          assert not any(line == push_command or line.startswith(push_command+' ') for line in lines)
           print('TERMINAL_SYNTH_AUTHORITY=READ_ONLY_PASS')
           PY

@@ -10,7 +10,7 @@ def test_mobile_neural_link_composer_stays_inside_active_chat_viewport():
         "#view-console.neural-link-active>.neural-link-v2{flex:1 1 0;min-height:0",
         ".neural-link-history{height:auto;min-height:0;min-width:0;max-width:100%;flex:1 1 auto",
         ".neural-link-compose textarea{box-sizing:border-box;width:100%;max-width:100%;min-width:0",
-        "@supports(height:100dvh){.workspace{height:calc(100dvh - 64px)}}",
+        ".workspace{height:100%;min-height:0;overflow:hidden;padding-bottom:58px}",
     )
     for token in required:
         assert token in css
@@ -38,6 +38,22 @@ def test_mobile_neural_header_status_wraps_instead_of_expanding_viewport():
     assert ".neural-link-state{font-size:6.5px" in css
     assert "max-width:42%;white-space:normal;text-align:center" in css
     assert ".neural-link-public{padding:6px 10px;font-size:6.5px" in css
+
+
+def test_iphone_top_telemetry_respects_safe_area_and_does_not_require_zoom():
+    css = (ROOT / "assets/neural-link-v2.css").read_text(encoding="utf-8")
+    required = (
+        "grid-template-rows:48px minmax(0,1fr);padding-top:max(env(safe-area-inset-top), 6px)",
+        ".topbar{position:relative;top:auto;min-height:48px;height:48px",
+        ".shell{height:100%;min-height:0;overflow:hidden}",
+        "@media(max-width:430px)",
+        ".brand>div:last-child{display:none}",
+        "#brain-pill{display:block;flex:1 1 auto;max-width:none;text-align:center}",
+        "#core-pill{display:block;flex:0 0 auto;max-width:72px}",
+    )
+    for token in required:
+        assert token in css
+    assert ".topbar{position:sticky" not in css
 
 
 def test_synthesis_router_exposes_programmatic_navigation_without_owning_static_tabs():

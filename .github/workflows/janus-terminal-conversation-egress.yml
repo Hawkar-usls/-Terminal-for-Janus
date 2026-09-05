@@ -107,6 +107,23 @@ jobs:
           mkdir -p "$mailbox/.janus/terminal-mailbox/relayed"
           echo "JANUS_TERMINAL_MAILBOX_WORKTREE=$mailbox" >> "$GITHUB_ENV"
 
+      - name: Mount credentialless HOME response snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          home_response_root="${RUNNER_TEMP}/janus-home-terminal-responses"
+          rm -rf "$home_response_root"
+          git -c http.https://github.com/.extraheader= clone \
+            --depth 1 \
+            --single-branch \
+            --branch janus/terminal-responses \
+            https://github.com/Hawkar-usls/Hawkar-usls.git \
+            "$home_response_root"
+          test -d "$home_response_root/.janus/terminal-responses"
+          echo "JANUS_HOME_RESPONSE_ROOT=$home_response_root" >> "$GITHUB_ENV"
+          echo "HOME_RESPONSE_TRANSPORT=CREDENTIALLESS_GIT_SNAPSHOT"
+          echo "CROSS_REPO_WRITE_CREDENTIAL_USED=FALSE"
+
       - name: Pull oldest unrelayed JANUS response through public HOME read
         id: pull
         shell: bash
@@ -114,6 +131,7 @@ jobs:
           set -euo pipefail
           mkdir -p runtime
           python tools/terminal_response_relay.py \
+            --home-response-root "$JANUS_HOME_RESPONSE_ROOT" \
             --seen-dir "$JANUS_TERMINAL_MAILBOX_WORKTREE/.janus/terminal-mailbox/relayed" \
             --output runtime/janus-response.json \
             --markdown-out runtime/janus-response.md \
@@ -121,6 +139,9 @@ jobs:
           python - <<'PY' >> "$GITHUB_OUTPUT"
           import json
           value=json.load(open('runtime/janus-response-status.json'))
+          assert value.get('credentialless_home_read') is True
+          assert value.get('cross_repo_write_credential_used') is False
+          assert value.get('home_response_transport') == 'CREDENTIALLESS_GIT_SNAPSHOT'
           print('found=' + ('true' if value.get('response_found') is True else 'false'))
           print('response_id=' + str(value.get('response_id') or ''))
           print('response_hash=' + str(value.get('response_hash') or ''))

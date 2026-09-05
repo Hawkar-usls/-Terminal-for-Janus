@@ -39,7 +39,7 @@ def get_json(url: str, *, allow_404: bool = False) -> Any:
     request = urllib.request.Request(url, headers={
         "Accept": "application/vnd.github+json",
         "X-GitHub-Api-Version": "2022-11-28",
-        "User-Agent": "JANUS-Terminal-Response-Relay/1.3",
+        "User-Agent": "JANUS-Terminal-Response-Relay/1.4",
     })
     try:
         response = urllib.request.urlopen(request, timeout=20.0)
@@ -61,7 +61,16 @@ def branch_head() -> str | None:
     return sha if HEX40_RE.fullmatch(sha) else None
 
 
-def response_paths() -> list[str]:
+def response_paths(response_root: Path | None = None) -> list[str]:
+    if response_root is not None:
+        base = response_root / HOME_RESPONSE_PREFIX.rstrip("/")
+        if not base.is_dir():
+            return []
+        return sorted(
+            path.relative_to(response_root).as_posix()
+            for path in base.rglob("*.response.json")
+            if path.is_file()
+        )
     head = branch_head()
     if head is None:
         return []
@@ -78,7 +87,18 @@ def response_paths() -> list[str]:
     )
 
 
-def load_response(path: str) -> Dict[str, Any]:
+def load_response(path: str, response_root: Path | None = None) -> Dict[str, Any]:
+    if response_root is not None:
+        candidate = (response_root / path).resolve()
+        root = response_root.resolve()
+        if root not in candidate.parents:
+            raise RuntimeError("HOME_RESPONSE_PATH_ESCAPE")
+        if not candidate.is_file():
+            raise RuntimeError("HOME_RESPONSE_CONTENT_MISSING")
+        parsed = json.loads(candidate.read_text(encoding="utf-8"))
+        if not isinstance(parsed, dict):
+            raise RuntimeError("HOME_RESPONSE_OBJECT_REQUIRED")
+        return parsed
     encoded = "/".join(urllib.parse.quote(part, safe="") for part in path.split("/"))
     value = get_json(
         f"https://api.github.com/repos/Hawkar-usls/Hawkar-usls/contents/{encoded}?ref=janus%2Fterminal-responses"
@@ -222,11 +242,11 @@ def verify_response(response: Dict[str, Any]) -> bool:
     ])
 
 
-def next_unrelayed(seen_dir: Path) -> Dict[str, Any] | None:
+def next_unrelayed(seen_dir: Path, response_root: Path | None = None) -> Dict[str, Any] | None:
     seen_dir.mkdir(parents=True, exist_ok=True)
     candidates: list[Dict[str, Any]] = []
-    for path in response_paths():
-        response = load_response(path)
+    for path in response_paths(response_root):
+        response = load_response(path, response_root)
         if not verify_response(response):
             raise RuntimeError(f"INVALID_HOME_TERMINAL_RESPONSE:{path}")
         if (seen_dir / f"{response['response_id']}.json").exists():
@@ -295,11 +315,13 @@ def main() -> int:
     parser.add_argument("--output", required=True)
     parser.add_argument("--markdown-out", required=True)
     parser.add_argument("--status-out", required=True)
+    parser.add_argument("--home-response-root")
     args = parser.parse_args()
 
-    response = next_unrelayed(Path(args.seen_dir))
+    response_root = Path(args.home_response_root) if args.home_response_root else None
+    response = next_unrelayed(Path(args.seen_dir), response_root)
     status = {
-        "schema": "janus.terminal.response_relay_status.v1.3",
+        "schema": "janus.terminal.response_relay_status.v1.4",
         "response_found": response is not None,
         "response_id": response.get("response_id") if response else None,
         "response_hash": response.get("response_hash") if response else None,
@@ -310,6 +332,7 @@ def main() -> int:
         "memory_selected_count": response.get("memory_selected_count") if response else None,
         "memory_match_status": response.get("memory_match_status") if response else None,
         "response_surface": response.get("response_surface") if response else None,
+        "home_response_transport": "CREDENTIALLESS_GIT_SNAPSHOT" if response_root is not None else "PUBLIC_GITHUB_API",
         "credentialless_home_read": True,
         "cross_repo_write_credential_used": False,
         "terminal": "JANUS_RESPONSE_READY_FOR_LOCAL_TERMINAL_RELAY" if response else "NO_UNRELAYED_JANUS_RESPONSE",

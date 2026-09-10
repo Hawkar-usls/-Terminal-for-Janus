@@ -10,6 +10,7 @@ on:
       - 'assets/neural-link-v2.js'
       - 'assets/neural-link-v2.css'
       - 'assets/janus-observatory.js'
+      - 'assets/brain-truth-v2.js'
       - 'assets/janus-observatory.css'
       - 'assets/janus-synthesis-observatory.js'
       - '.janus/TERMINAL_V2_HRAIN_MEMORY_CONTRACT.json'
@@ -24,6 +25,7 @@ on:
       - 'assets/neural-link-v2.js'
       - 'assets/neural-link-v2.css'
       - 'assets/janus-observatory.js'
+      - 'assets/brain-truth-v2.js'
       - 'assets/janus-observatory.css'
       - 'assets/janus-synthesis-observatory.js'
       - '.janus/TERMINAL_V2_HRAIN_MEMORY_CONTRACT.json'
@@ -55,6 +57,7 @@ jobs:
           node --check assets/terminal-v2.js
           node --check assets/neural-link-v2.js
           node --check assets/janus-observatory.js
+          node --check assets/brain-truth-v2.js
           node --check assets/janus-synthesis-observatory.js
       - name: Run Terminal v2 architecture tests
         run: python -m pytest -q tests/test_terminal_v2_static.py

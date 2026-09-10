@@ -11,12 +11,12 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 7283,
+  "files_scanned": 7289,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 720,
-    "SAFE_INFRA_LOOP": 1344,
+    "REVIEW": 721,
+    "SAFE_INFRA_LOOP": 1346,
     "HISTORICAL_FROZEN": 724
   },
   "active_hard_ring_count": 0,
@@ -1327,7 +1327,7 @@
     {
       "repository": "Hawkar-usls/iNaiHR",
       "path": "janus-synth/state/JANUS_SYNTH_LATEST.json",
-      "line": 8280,
+      "line": 8345,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
@@ -2776,6 +2776,16 @@
     },
     {
       "repository": "Hawkar-usls/SCOBY-D0",
+      "path": "JANUS_SCOBY_CEDRE_COMPATIBLE_PRESCREEN_2026-09-10_v1.0.json",
+      "line": 87,
+      "classification": "REVIEW",
+      "code": "CLOSED_LOOP_LANGUAGE",
+      "pattern": "closed[- ]loop|замкнут(?:ый|ого|ом)?\\s+(?:круг|цикл)|кольцев",
+      "excerpt": "\"M1_G5_PRESS_RECOVERY\": \"existing >=60% single-press recovery remains an internal project target when closed-loop recovery is claimed\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/SCOBY-D0",
       "path": "JANUS_SCOBY_OIL_SPILL_SORBENT_SPONGE_2258_v1.1.json",
       "line": 180,
       "classification": "REVIEW",
@@ -3132,16 +3142,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "\"cycle\": cycle,",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "core.py",
-      "line": 468,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "path = os.path.join(MODEL_ZOO_DIR, f\"janus_complete_{ts}_C{cycle}_S{score:.4f}.pt\")",
       "active_surface": true
     }
   ],

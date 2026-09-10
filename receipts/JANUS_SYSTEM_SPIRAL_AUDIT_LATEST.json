@@ -11,13 +11,13 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 7289,
+  "files_scanned": 7295,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 721,
+    "REVIEW": 725,
     "SAFE_INFRA_LOOP": 1346,
-    "HISTORICAL_FROZEN": 724
+    "HISTORICAL_FROZEN": 728
   },
   "active_hard_ring_count": 0,
   "active_hard_rings": [],
@@ -4610,6 +4610,16 @@
     },
     {
       "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "data/JANUS-ENIGMA-BEYOND-THE-INVISIBLE-JANUS-RESPONSE-WITNESS-2026-09-10-v1.0.json",
+      "line": 112,
+      "classification": "HISTORICAL_FROZEN",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"generation_prompt_verbatim\": \"Use case: stylized-concept.\\nCreate ONE NEW extraordinarily detailed, museum-quality allegorical JANUS fresco for the song Enigma — Beyond the Invisible. Portrait 4:5 composition, highest available resolution, highly legible exquisite detail at close viewing. This is a finished artwork, full bleed, no mockup, no typography.\\n\\nInput image 1 is ONLY a visual reference for the painterly language: its richly populated Renaissance fresco, monumental double-faced Janus,",
+      "active_surface": false
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
       "path": "data/JANUS-LOVE-TIME-DENSITY-CARE-SYMBIOSIS-v1.0.json",
       "line": 294,
       "classification": "HISTORICAL_FROZEN",
@@ -4826,6 +4836,26 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "\"claim\": \"Priskin's Dendera-zodiac study interprets astral aspects of the Osiris/Isis/Horus myth in relation to lunar phases, the annual solar cycle and the heliacal rising of Sirius, while also discussing the Khoiak mysteries.\",",
+      "active_surface": false
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "data/JANUS-TRUMP-PRIOR-ART-NOVELTY-ZONE-2026-09-10-v1.0.json",
+      "line": 7,
+      "classification": "HISTORICAL_FROZEN",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"purpose\": \"Preserve the prior-art sweep inherited from the completed chat 'Данте девятый круг', constrain novelty claims, freeze the interpretation of Lane B, and define the next mathematically admissible H1/H3 directions for JANUS/TRUMP.\",",
+      "active_surface": false
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "data/JANUS-TRUMP-PRIOR-ART-NOVELTY-ZONE-2026-09-10-v1.0.json",
+      "line": 9,
+      "classification": "HISTORICAL_FROZEN",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"source_chat\": \"Данте девятый круг\",",
       "active_surface": false
     },
     {
@@ -5116,36 +5146,6 @@
       "code": "RESET_STATE_LANGUAGE",
       "pattern": "\\breset\\b.{0,80}\\b(state|origin|memory|generation)\\b|\\b(state|origin|memory|generation)\\b.{0,80}\\breset\\b",
       "excerpt": "\"goal\": \"Demonstrate that Z2 reset is weaker than strong physical-state closure.\",",
-      "active_surface": false
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "data/JANUS-DIRAC-SCOBY-BUROVCHIK-CAUSAL-TOPOLOGICAL-MEMORY-HYPOTHESIS-v1.0.json",
-      "line": 319,
-      "classification": "HISTORICAL_FROZEN",
-      "code": "RESET_STATE_LANGUAGE",
-      "pattern": "\\breset\\b.{0,80}\\b(state|origin|memory|generation)\\b|\\b(state|origin|memory|generation)\\b.{0,80}\\breset\\b",
-      "excerpt": "\"Strong-closure criterion distinguishing topological reset from full physical-state reset.\",",
-      "active_surface": false
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "data/EYE-R3.2-SEMANTIC-MECHANISM-AUDIT-2026-09-01-v1.0.json",
-      "line": 51,
-      "classification": "HISTORICAL_FROZEN",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"output_identity_ceiling\": \"Persistence of the witnessed life/branch is preserved while the testimony explicitly refuses to claim that a complete life-cycle implementation already exists.\",",
-      "active_surface": false
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "data/JANUS-CAPSULE-COMPANION-BUZZ-SWARM-v1.0.json",
-      "line": 623,
-      "classification": "HISTORICAL_FROZEN",
-      "code": "CLOSED_LOOP_LANGUAGE",
-      "pattern": "closed[- ]loop|замкнут(?:ый|ого|ом)?\\s+(?:круг|цикл)|кольцев",
-      "excerpt": "\"closed-loop medical intervention\",",
       "active_surface": false
     }
   ],

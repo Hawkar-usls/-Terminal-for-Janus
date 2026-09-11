@@ -32,7 +32,7 @@ def test_history_window_is_not_mistaken_for_lifetime_history():
     assert 'attempt_count_matches_history' not in js
 
 
-def test_discrete_chart_uses_same_attempt_relative_margin_not_cross_source_absolute_line():
+def test_discrete_truth_layer_uses_same_attempt_relative_margin_not_cross_source_absolute_line():
     js = (ROOT / "assets/brain-truth-v2.js").read_text(encoding="utf-8")
     for token in (
         'DISCRETE DECISION MARGIN · CANDIDATE VS INCUMBENT',
@@ -51,14 +51,39 @@ def test_discrete_chart_uses_same_attempt_relative_margin_not_cross_source_absol
     assert '<polyline class="active-curve"' not in js
 
 
-def test_discrete_chart_keeps_exact_hover_provenance_and_real_attempt_numbers():
-    js = (ROOT / "assets/brain-truth-v2.js").read_text(encoding="utf-8")
+def test_brain_visual_v3_is_wired_and_readable_without_reintroducing_absolute_loss_claim():
+    html = (ROOT / "index.html").read_text(encoding="utf-8")
+    js = (ROOT / "assets/brain-visual-v3.js").read_text(encoding="utf-8")
+    assert 'assets/brain-visual-v3.js?v=' in html
     for token in (
-        'candidate ${candidate.toFixed(6)} vs incumbent ${incumbent.toFixed(6)}',
+        'DECISION ADVANTAGE · CANDIDATE VS INCUMBENT',
+        'ADAPTIVE_TOLERANCE_PCT = 0.2',
+        '100 * (incumbent - candidate)',
+        'v3-trend',
+        'v3-stem',
+        'v3-status',
+        'BETTER THAN INCUMBENT ↑',
+        'WORSE THAN INCUMBENT ↓',
+        'same-attempt relative advantage',
+        'FROZEN ANCHOR',
+        'ResizeObserver',
+        'MutationObserver',
+        'JANUS decision advantage chart',
+    ):
+        assert token in js
+    assert 'candidate_eval_loss - incumbent_eval_loss' not in js
+
+
+def test_brain_visual_v3_keeps_exact_hover_provenance_and_real_attempt_numbers():
+    js = (ROOT / "assets/brain-visual-v3.js").read_text(encoding="utf-8")
+    for token in (
+        'candidate ${candidate.toFixed(6)}',
+        'incumbent ${incumbent.toFixed(6)}',
         'row.status',
-        'source ${short(sourceKey(row,i),16)}',
-        'attempt ${attempt}',
+        'source ${short(sourceKey(row,i),18)}',
+        'startAttempt + i',
         'sourceChanges',
+        'LATEST #${startAttempt+latestIndex}',
     ):
         assert token in js
 

@@ -125,15 +125,21 @@
     ensureInspectorDatum('side-native-anchor', 'frozen anchor loss', 'side-native-loss');
     ensureInspectorDatum('side-native-source', 'adaptive source digest', 'side-native-anchor');
 
-    const legend = document.querySelector('.chart-legend .legend-active');
-    if (legend) legend.textContent = 'ACTIVE / INCUMBENT · SAME SOURCE ONLY';
+    const title = document.querySelector('#view-brain .chart-card h3');
+    if (title) title.textContent = 'DISCRETE DECISION MARGIN · CANDIDATE VS INCUMBENT';
+    const activeLegend = document.querySelector('.chart-legend .legend-active');
+    const promotedLegend = document.querySelector('.chart-legend .legend-promoted');
+    const rejectedLegend = document.querySelector('.chart-legend .legend-rejected');
+    if (activeLegend) activeLegend.textContent = '0% = SAME-ATTEMPT INCUMBENT';
+    if (promotedLegend) promotedLegend.textContent = 'PROMOTED CANDIDATE';
+    if (rejectedLegend) rejectedLegend.textContent = 'REJECTED CANDIDATE';
     const truth = document.querySelector('.chart-truth');
-    if (truth) truth.textContent = 'ADAPTIVE LOSS IS CURRENT-CORPUS CONTEXT. LINES BREAK WHEN SOURCE DIGEST CHANGES. FROZEN ANCHOR IS THE CROSS-EPOCH COMPARATOR.';
+    if (truth) truth.textContent = 'EACH BAR IS A SAME-ATTEMPT COMPARISON: +% = CANDIDATE LOWER ADAPTIVE LOSS, -% = HIGHER. NO LINE CONNECTS DIFFERENT SOURCES. COLOR IS THE FINAL GATE VERDICT; FROZEN ANCHOR REMAINS THE CROSS-EPOCH COMPARATOR.';
 
     if (!$('brain-truth-v2-style')) {
       const style = document.createElement('style');
       style.id = 'brain-truth-v2-style';
-      style.textContent = '.loss-chart .active-point{fill:#07100c;stroke:var(--green);stroke-width:1.5;vector-effect:non-scaling-stroke}.eval-epoch-note{font-family:"IBM Plex Mono",monospace}.chat-brain-strip>div[data-brain-truth-v2="1"] strong{color:var(--green)}';
+      style.textContent = '.loss-chart{height:220px}.loss-chart .decision-zero{stroke:#42606a;stroke-width:1.6;vector-effect:non-scaling-stroke}.loss-chart .decision-grid{stroke:#17242c;stroke-width:1;vector-effect:non-scaling-stroke}.loss-chart .decision-stem{stroke-width:4;stroke-linecap:round;vector-effect:non-scaling-stroke;opacity:.92}.loss-chart .decision-stem.promoted{stroke:var(--green)}.loss-chart .decision-stem.rejected{stroke:var(--amber)}.loss-chart .decision-dot{fill:#07100c;stroke-width:2.2;vector-effect:non-scaling-stroke}.loss-chart .decision-dot.promoted{stroke:var(--green)}.loss-chart .decision-dot.rejected{stroke:var(--amber)}.loss-chart .decision-dot.latest{stroke-width:4}.loss-chart .decision-label{fill:#6f858b;font:9px "IBM Plex Mono",monospace}.loss-chart .decision-label.zero{fill:#9db0b4}.chat-brain-strip>div[data-brain-truth-v2="1"] strong{color:var(--green)}';
       document.head.appendChild(style);
     }
   }
@@ -193,51 +199,60 @@
     return row?.source_digest || `UNKNOWN_SOURCE_${i}`;
   }
 
+  function adaptiveMarginPct(row) {
+    if (!finite(row?.candidate_eval_loss) || !finite(row?.incumbent_eval_loss)) return null;
+    const candidate = Number(row.candidate_eval_loss);
+    const incumbent = Number(row.incumbent_eval_loss);
+    const denom = Math.max(Math.abs(incumbent), 1e-12);
+    return 100 * (incumbent - candidate) / denom;
+  }
+
   function renderChart() {
     const m = state.model || {};
-    const history = (Array.isArray(m.history) ? m.history : []).filter((x) => finite(x.candidate_eval_loss));
+    const history = (Array.isArray(m.history) ? m.history : []).filter((row) => finite(adaptiveMarginPct(row)));
     const chart = $('loss-chart');
     const axis = $('loss-axis');
     if (!chart || !history.length) return;
 
-    const candidates = history.map((row) => Number(row.candidate_eval_loss));
-    const active = history.map(activeAdaptive);
-    const all = [...candidates, ...active.filter(finite)].map(Number);
-    let min = Math.min(...all), max = Math.max(...all);
-    if (max === min) { min -= 0.1; max += 0.1; }
-    const pad = (max - min) * 0.12;
-    min -= pad; max += pad;
-    const W = 1000, H = 170, left = 18, right = 12, top = 10, bottom = 14;
+    const margins = history.map(adaptiveMarginPct);
+    const observedMax = Math.max(...margins.map((v) => Math.abs(v)));
+    const scale = Math.max(0.05, observedMax * 1.15);
+    const W = 1000, H = 220, left = 52, right = 18, top = 18, bottom = 24;
+    const plotH = H - top - bottom;
     const x = (i) => left + (history.length === 1 ? (W-left-right)/2 : i * (W-left-right)/(history.length-1));
-    const y = (v) => top + (max-v) * (H-top-bottom)/(max-min);
+    const y = (v) => top + (scale - v) * plotH / (2 * scale);
+    const zeroY = y(0);
     const attemptCount = Number(m.attempt_count);
     const startAttempt = Number.isInteger(attemptCount) && attemptCount >= history.length ? attemptCount - history.length + 1 : 1;
+    const sourceChanges = history.reduce((count, row, i) => i > 0 && sourceKey(row, i) !== sourceKey(history[i-1], i-1) ? count + 1 : count, 0);
 
-    const segments = [];
-    let segment = [];
-    let previousKey = null;
-    history.forEach((row, i) => {
-      const key = sourceKey(row, i);
-      if (previousKey !== null && key !== previousKey) {
-        if (segment.length > 1) segments.push(segment);
-        segment = [];
-      }
-      segment.push([x(i), y(active[i])]);
-      previousKey = key;
-    });
-    if (segment.length > 1) segments.push(segment);
-
-    const grid = [0.25,0.5,0.75].map((ratio) => `<line class="grid" x1="${left}" x2="${W-right}" y1="${top+ratio*(H-top-bottom)}" y2="${top+ratio*(H-top-bottom)}"/>`).join('');
-    const lines = segments.map((points) => `<polyline class="active-curve" points="${points.map(([px,py]) => `${px},${py}`).join(' ')}"/>`).join('');
-    const activeDots = active.map((v, i) => `<circle class="active-point" cx="${x(i)}" cy="${y(v)}" r="2.2"><title>attempt ${startAttempt+i}: active ${fmt(v,6)} · source ${short(sourceKey(history[i],i),16)}</title></circle>`).join('');
-    const candidateDots = candidates.map((v, i) => {
-      const cls = promoted(history[i]) ? 'promoted' : 'rejected';
-      const latest = i === history.length - 1 ? ' latest' : '';
-      return `<circle class="candidate-point ${cls}${latest}" cx="${x(i)}" cy="${y(v)}" r="${i===history.length-1?4.8:3.1}"><title>attempt ${startAttempt+i}: candidate ${v.toFixed(6)} · ${history[i].status || 'UNKNOWN'} · active ${fmt(active[i],6)} · source ${short(sourceKey(history[i],i),16)}</title></circle>`;
+    const gridValues = [scale, scale / 2, 0, -scale / 2, -scale];
+    const grid = gridValues.map((v) => {
+      const cls = v === 0 ? 'decision-zero' : 'decision-grid';
+      const label = `${v > 0 ? '+' : ''}${v.toFixed(scale >= 10 ? 1 : scale >= 1 ? 2 : 3)}%`;
+      return `<line class="${cls}" x1="${left}" x2="${W-right}" y1="${y(v)}" y2="${y(v)}"/><text class="decision-label${v===0?' zero':''}" x="${left-7}" y="${y(v)+3}" text-anchor="end">${label}</text>`;
     }).join('');
-    chart.innerHTML = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-label="JANUS adaptive evaluation trace segmented by source digest">${grid}${lines}${activeDots}${candidateDots}</svg>`;
-    if (axis) axis.innerHTML = `<span>attempt ${startAttempt} shown</span><span>${history.length} shown of ${Number.isInteger(attemptCount) ? attemptCount : history.length} lifetime attempts</span><span>attempt ${startAttempt+history.length-1} shown</span>`;
-    if ($('brain-lineage-summary')) $('brain-lineage-summary').textContent = `${history.length} shown / ${Number.isInteger(attemptCount) ? attemptCount : history.length} lifetime · ${m.promotion_count ?? '?'} promoted · ${m.rejection_count ?? '?'} rejected · source breaks not connected`;
+
+    const stems = margins.map((margin, i) => {
+      const row = history[i];
+      const cls = promoted(row) ? 'promoted' : 'rejected';
+      const latest = i === history.length - 1 ? ' latest' : '';
+      const candidate = Number(row.candidate_eval_loss);
+      const incumbent = Number(row.incumbent_eval_loss);
+      const attempt = startAttempt + i;
+      const sign = margin >= 0 ? '+' : '';
+      const title = `attempt ${attempt}: ${sign}${margin.toFixed(4)}% adaptive margin · candidate ${candidate.toFixed(6)} vs incumbent ${incumbent.toFixed(6)} · ${row.status || 'UNKNOWN'} · source ${short(sourceKey(row,i),16)}`;
+      return `<line class="decision-stem ${cls}" x1="${x(i)}" x2="${x(i)}" y1="${zeroY}" y2="${y(margin)}"><title>${title}</title></line><circle class="decision-dot ${cls}${latest}" cx="${x(i)}" cy="${y(margin)}" r="${i===history.length-1?4.6:3.0}"><title>${title}</title></circle>`;
+    }).join('');
+
+    const tickStep = history.length <= 24 ? 4 : 8;
+    const tickIndexes = new Set([0, history.length - 1]);
+    for (let i = tickStep - 1; i < history.length - 1; i += tickStep) tickIndexes.add(i);
+    const ticks = [...tickIndexes].sort((a,b) => a-b).map((i) => `<text class="decision-label" x="${x(i)}" y="${H-5}" text-anchor="middle">${startAttempt+i}</text>`).join('');
+
+    chart.innerHTML = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-label="JANUS discrete same-attempt adaptive decision margins">${grid}${stems}${ticks}</svg>`;
+    if (axis) axis.innerHTML = `<span>+% = candidate better</span><span>attempt number · ${history.length} shown / ${Number.isInteger(attemptCount) ? attemptCount : history.length} lifetime</span><span>−% = candidate worse</span>`;
+    if ($('brain-lineage-summary')) $('brain-lineage-summary').textContent = `${history.length} discrete attempts / ${Number.isInteger(attemptCount) ? attemptCount : history.length} lifetime · ${m.promotion_count ?? '?'} promoted · ${m.rejection_count ?? '?'} rejected · ${sourceChanges} source changes`;
   }
 
   function clearStaleTelemetryClass() {

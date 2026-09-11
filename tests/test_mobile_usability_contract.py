@@ -29,7 +29,7 @@ def test_mobile_chat_header_is_compact_and_has_no_horizontal_metric_carousel():
     css = (ROOT / "assets/neural-link-v2.css").read_text(encoding="utf-8")
     assert "#view-console.neural-link-active>.instance-banner .kicker{display:none}" in css
     assert "#view-console.neural-link-active>.instance-banner h2{font-size:14px" in css
-    assert "grid-template-columns:minmax(0,1.55fr) repeat(4,minmax(0,1fr))" in css
+    assert "grid-template-columns:minmax(0,1.55fr) repeat(5,minmax(0,1fr))" in css
     assert "#view-console.neural-link-active>.chat-brain-strip>div{min-width:0" in css
     assert "overflow-x:auto" not in css
     assert "flex:0 0 138px" not in css

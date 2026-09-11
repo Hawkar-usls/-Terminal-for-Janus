@@ -209,7 +209,7 @@
 
   function renderChart() {
     const m = state.model || {};
-    const history = (Array.isArray(m.history) ? m.history : []).filter((row) => finite(adaptiveMarginPct(row)));
+    const history = (Array.isArray(m.history) ? m.history : []).filter((row) => Number.isFinite(adaptiveMarginPct(row)));
     const chart = $('loss-chart');
     const axis = $('loss-axis');
     if (!chart || !history.length) return;
@@ -217,7 +217,7 @@
     const margins = history.map(adaptiveMarginPct);
     const observedMax = Math.max(...margins.map((v) => Math.abs(v)));
     const scale = Math.max(0.05, observedMax * 1.15);
-    const W = 1000, H = 220, left = 52, right = 18, top = 18, bottom = 24;
+    const W = Math.max(720, Math.round(chart.clientWidth || 1000)), H = 220, left = 52, right = 18, top = 18, bottom = 24;
     const plotH = H - top - bottom;
     const x = (i) => left + (history.length === 1 ? (W-left-right)/2 : i * (W-left-right)/(history.length-1));
     const y = (v) => top + (scale - v) * plotH / (2 * scale);
@@ -287,9 +287,17 @@
   }
 
   let eventTimer = null;
+  let resizeTimer = null;
   function queueRefresh() {
     clearTimeout(eventTimer);
     eventTimer = setTimeout(refresh, 150);
+  }
+
+  function queueChartResize() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (state.model) renderChart();
+    }, 100);
   }
 
   function boot() {
@@ -297,6 +305,7 @@
     setTimeout(refresh, 250);
     setInterval(refresh, REFRESH_MS);
     document.addEventListener('janus:logs-rendered', queueRefresh);
+    window.addEventListener('resize', queueChartResize, { passive: true });
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true });

@@ -36,7 +36,7 @@
   #view-console.neural-link-active>.instance-banner h2{font-size:14px;line-height:1.15;margin:0;white-space:normal;overflow-wrap:anywhere}
   #view-console.neural-link-active>.instance-banner p{display:none}
   #view-console.neural-link-active>.instance-banner .instance-badge{display:none}
-  #view-console.neural-link-active>.chat-brain-strip{display:grid;grid-template-columns:minmax(0,1.55fr) repeat(4,minmax(0,1fr));flex:0 0 44px;min-height:44px;min-width:0;width:100%;max-width:100%;overflow:hidden}
+  #view-console.neural-link-active>.chat-brain-strip{display:grid;grid-template-columns:minmax(0,1.55fr) repeat(5,minmax(0,1fr));flex:0 0 44px;min-height:44px;min-width:0;width:100%;max-width:100%;overflow:hidden}
   #view-console.neural-link-active>.chat-brain-strip>div{min-width:0;padding:5px 5px;overflow:hidden}
   #view-console.neural-link-active>.chat-brain-strip label{font-size:5.5px;line-height:1.1;margin-bottom:3px;white-space:normal;overflow-wrap:anywhere}
   #view-console.neural-link-active>.chat-brain-strip strong{font-size:7.5px;line-height:1.15;display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}

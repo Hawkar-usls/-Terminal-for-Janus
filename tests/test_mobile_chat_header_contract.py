@@ -18,3 +18,10 @@ def test_mobile_neural_header_can_wrap_status_without_expanding_viewport():
     assert ".neural-link-state{font-size:6.5px" in css
     assert "max-width:42%;white-space:normal;text-align:center" in css
     assert ".neural-link-public{padding:6px 10px;font-size:6.5px" in css
+
+
+def test_iphone_portrait_brain_strip_cannot_create_empty_second_row():
+    css = (ROOT / "assets/neural-link-v2.css").read_text(encoding="utf-8")
+    assert "@media(max-width:720px) and (orientation:portrait)" in css
+    assert "grid-template-columns:minmax(0,1.55fr) repeat(4,minmax(0,1fr))" in css
+    assert "#view-console.neural-link-active>.chat-brain-strip>div:last-child{display:none}" in css

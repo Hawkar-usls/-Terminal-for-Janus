@@ -64,7 +64,7 @@ def test_brain_visual_v3_is_wired_and_readable_without_reintroducing_absolute_lo
         'v3-status',
         'BETTER THAN INCUMBENT ↑',
         'WORSE THAN INCUMBENT ↓',
-        'same-attempt relative advantage',
+        'SAME-ATTEMPT RELATIVE ADVANTAGE',
         'FROZEN ANCHOR',
         'ResizeObserver',
         'MutationObserver',

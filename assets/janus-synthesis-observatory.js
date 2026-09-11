@@ -38,37 +38,20 @@ function addStyle(){
  }`;document.head.appendChild(s);
 }
 
+/*
+ * Programmatic navigation deliberately delegates to the Terminal core click
+ * path.  It does not own view state.  This keeps one source of truth for
+ * active classes, aria state and MEMORY/HRAiN routing.
+ */
 function activateTerminalView(name){
- const target=document.getElementById(`view-${name}`);
- if(!target)return false;
- document.querySelectorAll('.nav-btn[data-view]').forEach(btn=>{
-   const active=btn.dataset.view===name;
-   btn.classList.toggle('active',active);
-   btn.setAttribute('aria-selected',active?'true':'false');
- });
- document.querySelectorAll('.workspace > .view').forEach(view=>{
-   const active=view===target;
-   view.classList.toggle('active',active);
-   view.setAttribute('aria-hidden',active?'false':'true');
- });
- const current=document.getElementById('current-view');if(current)current.textContent=String(name).toUpperCase();
- if(name==='memory'){
-   const frame=document.getElementById('hrain-frame');
-   if(frame&&!frame.getAttribute('src'))frame.setAttribute('src','https://hawkar-usls.github.io/Hrain/memory.html');
- }
- if(name==='synthesis')loadSynth();
- requestAnimationFrame(()=>{target.scrollTop=0;});
- document.dispatchEvent(new CustomEvent('janus:view-changed',{detail:{view:name}}));
+ const btn=[...document.querySelectorAll('.nav-btn[data-view]')].find(x=>x.dataset.view===String(name));
+ if(!btn)return false;
+ btn.click();
  return true;
 }
 
 function installViewRouter(){
- if(!window.JANUS_TERMINAL_NAVIGATE)window.JANUS_TERMINAL_NAVIGATE=activateTerminalView;
- document.addEventListener('click',event=>{
-   const btn=event.target?.closest?.('.nav-btn[data-view]');
-   if(!btn||btn.dataset.view!=='synthesis')return;
-   if(activateTerminalView('synthesis'))event.preventDefault();
- });
+ window.JANUS_TERMINAL_NAVIGATE=activateTerminalView;
 }
 
 function installView(){
@@ -90,6 +73,7 @@ function installView(){
  <div class="card wide"><div class="card-title-row"><h3>LATEST CANDIDATE MEANINGS</h3><button id="synth-refresh" class="btn" type="button">REFRESH SYNTH</button></div><div id="synth-list" class="synth-list"><div class="empty-state">Resolving iNaiHR semantic evolution state…</div></div></div>
  <div class="synth-law">SYNTHESIS != TRUTH · ATTENTION_WEIGHT != EVIDENCE_WEIGHT · CANDIDATE_EDGE != CAUSAL_EDGE · NO VERIFY => NO VERIFIED FIX</div>`;
  document.querySelector('.workspace')?.appendChild(section);
+ nav.addEventListener('click',loadSynth);
  section.querySelector('#synth-refresh')?.addEventListener('click',loadSynth);
 }
 
@@ -138,6 +122,14 @@ async function loadSynth(){
  }catch(e){console.warn('JANUS synthesis observatory',e);if(status){status.textContent='DEGRADED · NO CLAIM';status.className='synth-state-wait';}const list=document.getElementById('synth-list');if(list)list.innerHTML='<div class="empty-state">SYNTH state unavailable. This is not negative evidence.</div>';}
 }
 
-function boot(){installViewRouter();installView();document.addEventListener('janus:logs-rendered',()=>publishLogEvent());loadSynth();setInterval(loadSynth,REFRESH_MS);}
+function boot(){document.addEventListener('janus:logs-rendered',()=>publishLogEvent());loadSynth();setInterval(loadSynth,REFRESH_MS);}
+
+/*
+ * This script is loaded with defer after terminal-v2.js.  Install the dynamic
+ * tab synchronously during deferred-script evaluation, before DOMContentLoaded,
+ * so terminal-v2.js::wire() discovers it and remains the sole click router.
+ */
+installView();
+installViewRouter();
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();

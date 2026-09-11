@@ -58,30 +58,37 @@ def test_iphone_top_telemetry_respects_safe_area_and_does_not_require_zoom():
     assert ".topbar{position:sticky" not in css
 
 
-def test_synthesis_router_exposes_programmatic_navigation_without_owning_static_tabs():
-    js = (ROOT / "assets/janus-synthesis-observatory.js").read_text(encoding="utf-8")
-    assert "function activateTerminalView(name)" in js
-    assert "function installViewRouter()" in js
-    assert "window.JANUS_TERMINAL_NAVIGATE=activateTerminalView" in js
-    assert ".nav-btn[data-view]" in js
-    assert ".workspace > .view" in js
-    assert "view.classList.toggle('active',active)" in js
-    assert "aria-hidden" in js
-    assert "btn.dataset.view!=='synthesis'" in js
+def test_synthesis_programmatic_navigation_delegates_to_core_click_router():
+    synth = (ROOT / "assets/janus-synthesis-observatory.js").read_text(encoding="utf-8")
+    terminal = (ROOT / "assets/terminal-v2.js").read_text(encoding="utf-8")
+    assert "function activateTerminalView(name)" in synth
+    assert "window.JANUS_TERMINAL_NAVIGATE=activateTerminalView" in synth
+    assert "btn.click();" in synth
+    assert "function switchView(name)" in terminal
+    assert "btn.addEventListener('click', () => switchView(btn.dataset.view))" in terminal
+    assert "view.classList.toggle('active',active)" not in synth
+    assert "document.querySelectorAll('.workspace > .view')" not in synth
 
 
-def test_dynamic_synthesis_tab_uses_delegated_router_not_private_click_router():
-    js = (ROOT / "assets/janus-synthesis-observatory.js").read_text(encoding="utf-8")
-    assert "nav.addEventListener('click'" not in js
-    assert "installViewRouter();installView();" in js
-    assert "activateTerminalView('synthesis')" in js
+def test_dynamic_synthesis_tab_exists_before_core_domcontentloaded_wiring():
+    synth = (ROOT / "assets/janus-synthesis-observatory.js").read_text(encoding="utf-8")
+    html = (ROOT / "index.html").read_text(encoding="utf-8")
+    assert "installView();\ninstallViewRouter();\nif(document.readyState==='loading')" in synth
+    assert "nav.addEventListener('click',loadSynth);" in synth
+    terminal_tag = '<script src="./assets/terminal-v2.js" defer></script>'
+    synthesis_tag = '<script src="./assets/janus-synthesis-observatory.js" defer></script>'
+    assert html.count(terminal_tag) == 1
+    assert html.count(synthesis_tag) == 1
+    assert html.index(terminal_tag) < html.index(synthesis_tag)
 
 
-def test_synthesis_router_does_not_block_terminal_static_navigation():
-    js = (ROOT / "assets/janus-synthesis-observatory.js").read_text(encoding="utf-8")
-    assert "event.stopImmediatePropagation();" not in js
-    assert "event.stopPropagation();" not in js
-    assert "btn.dataset.view!=='synthesis'" in js
-    assert "if(name==='memory')" in js
-    assert "hrain-frame" in js
-    assert "https://hawkar-usls.github.io/Hrain/memory.html" in js
+def test_synthesis_does_not_own_terminal_view_state_or_memory_routing():
+    synth = (ROOT / "assets/janus-synthesis-observatory.js").read_text(encoding="utf-8")
+    terminal = (ROOT / "assets/terminal-v2.js").read_text(encoding="utf-8")
+    assert "event.stopImmediatePropagation();" not in synth
+    assert "event.stopPropagation();" not in synth
+    assert "classList.toggle('active'" not in synth
+    assert "if(name==='memory')" not in synth
+    assert "if (name === 'memory')" in terminal
+    assert "hrain-frame" in terminal
+    assert "https://hawkar-usls.github.io/Hrain/memory.html" in terminal

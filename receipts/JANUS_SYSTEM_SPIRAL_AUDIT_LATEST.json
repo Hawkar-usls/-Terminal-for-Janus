@@ -11,13 +11,13 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 7295,
+  "files_scanned": 7346,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 725,
-    "SAFE_INFRA_LOOP": 1346,
-    "HISTORICAL_FROZEN": 728
+    "REVIEW": 723,
+    "SAFE_INFRA_LOOP": 1351,
+    "HISTORICAL_FROZEN": 730
   },
   "active_hard_ring_count": 0,
   "active_hard_rings": [],
@@ -1327,7 +1327,7 @@
     {
       "repository": "Hawkar-usls/iNaiHR",
       "path": "janus-synth/state/JANUS_SYNTH_LATEST.json",
-      "line": 8345,
+      "line": 8347,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
@@ -2846,6 +2846,16 @@
     },
     {
       "repository": "Hawkar-usls/janus-lapis",
+      "path": "tools/beetle_director_overlay.py",
+      "line": 128,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "# Global all-sided invariant: if we have at least four lane slots, every cycle must",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/janus-lapis",
       "path": "reports/2026-08-25/DRA008948_MATRIX_TRAJECTORY_STAGE1_MANIFEST_PASS_v0.2.json",
       "line": 25,
       "classification": "REVIEW",
@@ -3128,16 +3138,6 @@
       "repository": "Hawkar-usls/janus-meta-registry",
       "path": "core.py",
       "line": 453,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"cycle\": cycle,",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "core.py",
-      "line": 462,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
@@ -4660,6 +4660,16 @@
     },
     {
       "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "data/JANUS-TRUMP-TIME-TRAVEL-CROSS-CHAT-HANDOFF-PROTOCOL-2026-09-11-v1.0.json",
+      "line": 34,
+      "classification": "HISTORICAL_FROZEN",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"cycle\": [",
+      "active_surface": false
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
       "path": "data/JANUS-YAKSA-APRIL18-NUMERIC-EVENT-HORIZON-POSTMORTEM-2026-08-18-v1.0.json",
       "line": 31,
       "classification": "HISTORICAL_FROZEN",
@@ -5136,16 +5146,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "\"cycle\": \"int (опционально)\",",
-      "active_surface": false
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "data/JANUS-DIRAC-SCOBY-BUROVCHIK-CAUSAL-TOPOLOGICAL-MEMORY-HYPOTHESIS-v1.0.json",
-      "line": 292,
-      "classification": "HISTORICAL_FROZEN",
-      "code": "RESET_STATE_LANGUAGE",
-      "pattern": "\\breset\\b.{0,80}\\b(state|origin|memory|generation)\\b|\\b(state|origin|memory|generation)\\b.{0,80}\\breset\\b",
-      "excerpt": "\"goal\": \"Demonstrate that Z2 reset is weaker than strong physical-state closure.\",",
       "active_surface": false
     }
   ],

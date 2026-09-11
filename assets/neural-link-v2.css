@@ -52,6 +52,15 @@
   #view-console.neural-link-active .neural-link-foot span:first-child{display:none}
 }
 
+/* Portrait iPhone contract: five visible telemetry cells stay on one row.
+   The detailed LAST DECISION remains available in Brain Monitor; hiding only
+   this compact duplicate prevents WebKit from materializing a mostly-empty
+   second grid row when the frozen-anchor cell is injected at runtime. */
+@media(max-width:720px) and (orientation:portrait){
+  #view-console.neural-link-active>.chat-brain-strip{grid-template-columns:minmax(0,1.55fr) repeat(4,minmax(0,1fr))}
+  #view-console.neural-link-active>.chat-brain-strip>div:last-child{display:none}
+}
+
 /* Extra-narrow iPhone contract: telemetry wins horizontal space; brand text yields, no zoom required. */
 @media(max-width:430px){
   #app{grid-template-rows:44px minmax(0,1fr)}

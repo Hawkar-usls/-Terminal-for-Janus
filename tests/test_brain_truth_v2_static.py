@@ -28,18 +28,37 @@ def test_history_window_is_not_mistaken_for_lifetime_history():
     assert 'history_window_truncated' in js
     assert 'attempts >= history.length' in js
     assert 'attemptCount - history.length + 1' in js
-    assert 'shown of ${Number.isInteger(attemptCount) ? attemptCount : history.length} lifetime attempts' in js
+    assert '${history.length} shown / ${Number.isInteger(attemptCount) ? attemptCount : history.length} lifetime' in js
     assert 'attempt_count_matches_history' not in js
 
 
-def test_adaptive_chart_breaks_cross_source_lines_and_anchor_is_cross_epoch():
+def test_discrete_chart_uses_same_attempt_relative_margin_not_cross_source_absolute_line():
     js = (ROOT / "assets/brain-truth-v2.js").read_text(encoding="utf-8")
     for token in (
-        'sourceKey(row, i)',
-        'key !== previousKey',
-        'if (segment.length > 1) segments.push(segment)',
-        'LINES BREAK WHEN SOURCE DIGEST CHANGES',
-        'FROZEN ANCHOR IS THE CROSS-EPOCH COMPARATOR',
+        'DISCRETE DECISION MARGIN · CANDIDATE VS INCUMBENT',
+        'function adaptiveMarginPct(row)',
+        '100 * (incumbent - candidate) / denom',
+        'EACH BAR IS A SAME-ATTEMPT COMPARISON',
+        'NO LINE CONNECTS DIFFERENT SOURCES',
+        'FROZEN ANCHOR REMAINS THE CROSS-EPOCH COMPARATOR',
+        'decision-stem',
+        'decision-zero',
+        '+% = candidate better',
+        '−% = candidate worse',
+    ):
+        assert token in js
+    assert 'active-curve' not in js
+    assert '<polyline class="active-curve"' not in js
+
+
+def test_discrete_chart_keeps_exact_hover_provenance_and_real_attempt_numbers():
+    js = (ROOT / "assets/brain-truth-v2.js").read_text(encoding="utf-8")
+    for token in (
+        'candidate ${candidate.toFixed(6)} vs incumbent ${incumbent.toFixed(6)}',
+        'row.status',
+        'source ${short(sourceKey(row,i),16)}',
+        'attempt ${attempt}',
+        'sourceChanges',
     ):
         assert token in js
 

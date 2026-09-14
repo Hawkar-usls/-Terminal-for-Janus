@@ -11,13 +11,13 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 7536,
+  "files_scanned": 7582,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 753,
-    "SAFE_INFRA_LOOP": 1378,
-    "HISTORICAL_FROZEN": 750
+    "REVIEW": 760,
+    "SAFE_INFRA_LOOP": 1434,
+    "HISTORICAL_FROZEN": 752
   },
   "active_hard_ring_count": 0,
   "active_hard_rings": [],
@@ -2936,6 +2936,26 @@
     },
     {
       "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "Janus_Time.json",
+      "line": 569,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"cell-cycle time\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "Janus_Time.json",
+      "line": 652,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"linear/cyclic/event-based cultural models of time\"",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
       "path": "DovoD2.py",
       "line": 305,
       "classification": "REVIEW",
@@ -3122,26 +3142,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "print(f\"[\\U0001F3C6] НОВЫЙ РЕКОРД: {best_score:.4f} (цикл {best_cycle})\")",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "core.py",
-      "line": 452,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"type\": \"cycle\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "core.py",
-      "line": 453,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"cycle\": cycle,",
       "active_surface": true
     }
   ],
@@ -4240,6 +4240,16 @@
     },
     {
       "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "data/JANUS-TRUMP-APMA-TRINITY-V3-IMPORT-DENSE-RETEST-2026-09-14-v1.0.json",
+      "line": 53,
+      "classification": "HISTORICAL_FROZEN",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"OPEN_INTERFACE_HYPEREDGE in typed module forest / cycle-cut routes\",",
+      "active_surface": false
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
       "path": "data/JANUS-EGYPT-OSIRIS-JSON-INVENTORY-2026-09-01-v1.1.json",
       "line": 72,
       "classification": "HISTORICAL_FROZEN",
@@ -5136,16 +5146,6 @@
       "code": "RESET_STATE_LANGUAGE",
       "pattern": "\\breset\\b.{0,80}\\b(state|origin|memory|generation)\\b|\\b(state|origin|memory|generation)\\b.{0,80}\\breset\\b",
       "excerpt": "{\"doi\":\"10.1016/j.biomaterials.2026.124311\",\"system\":\"soft-primed MSCs in chronic SCI\",\"class\":\"CHALLENGE_RESISTANT_CELLULAR_RESET_CANDIDATE\",\"boundary\":\"transplanted-cell mechanical-memory reset, not host-tissue rewrite\"}",
-      "active_surface": false
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "data/JANUS-ARCHITECTURE-V26.6.json",
-      "line": 121,
-      "classification": "HISTORICAL_FROZEN",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"cycle\": \"int (опционально)\",",
       "active_surface": false
     }
   ],

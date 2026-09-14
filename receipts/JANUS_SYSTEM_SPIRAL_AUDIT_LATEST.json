@@ -11,13 +11,13 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 7607,
+  "files_scanned": 7645,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 774,
+    "REVIEW": 787,
     "SAFE_INFRA_LOOP": 1440,
-    "HISTORICAL_FROZEN": 756
+    "HISTORICAL_FROZEN": 766
   },
   "active_hard_ring_count": 0,
   "active_hard_rings": [],
@@ -1396,6 +1396,16 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "START_HERE_TRUMP_CONTEXT.md",
+      "line": 65,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "After every material development, update the journal/current-state lineage and, if a new durable mechanism or alias was introduced, update `registry/TRUMP_CONTEXT_MANIFEST.json` in the same development cycle.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "README.md",
       "line": 197,
       "classification": "REVIEW",
@@ -1532,6 +1542,26 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "f\"unexpected cycle descendants in matrix: {sorted(new)}\"",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL.md",
+      "line": 135,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "A shared variable incident to three or more modules is not itself a fatal cycle. Pairwise module-overlap projection can manufacture graph cycles that disappear in the correct factor representation.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL.md",
+      "line": 141,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "The final interaction barrier established that unrestricted typed interaction over the exact width<=3 typed mosaic is an identity-image of 3SAT. Therefore a universal polynomial compiler closing all remaining unrestricted cycle/hyperedge/high-width interactions would amount to a SAT-in-P result.",
       "active_surface": true
     },
     {
@@ -1936,6 +1966,56 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "registry/TRUMP_CURRENT_STATE.json",
+      "line": 117,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"algebraic_obstruction\": \"MAJ3 partial restriction plus Tseitin incidence-cycle-space syndrome can erase linearly many history bits semantically; generic residual injectivity cannot yield the required subexponential execution-fiber bound.\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "registry/TRUMP_CURRENT_STATE.json",
+      "line": 121,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"next_allowed_action\": \"Prove or refute the execution-specific reachable-context-per-MAJ3-stifling/cycle-space-coset bound on the frozen q=4 Morgenstern family; do not fit asymptotics from finite data.\"",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "registry/TRUMP_C023R_CAPTAIN_CHECKPOINT_2026-09-15.json",
+      "line": 43,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"question\": \"Do inherited clauses distinguish all but 2^{o(L)} reachable cycle-space-equivalent forced-output histories, or can an Omega(L)-dimensional cycle-flip family survive to one full historical cache key?\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "registry/TRUMP_C023R_CAPTAIN_CHECKPOINT_2026-09-15.json",
+      "line": 46,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"falsifier_route\": \"construct an exact reachable family of byte-identical keys with Omega(L) independent cycle-space flips / serial diamonds\"",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "registry/TRUMP_C023R_CAPTAIN_CHECKPOINT_2026-09-15.json",
+      "line": 58,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"next_allowed_action\": \"Analyze inherited root-witness restrictions under cycle-space flips and derive either a reusable witness-basis bound or an exact witness-switching/serial-diamond countertemplate.\"",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "registry/hypotheses-c003.json",
       "line": 1,
       "classification": "REVIEW",
@@ -2182,6 +2262,56 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "raise AssertionError(\"UNSAT member passed the cycle-parity test\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-14_C023R_CACHE_FIBER_DIAGNOSTIC_RESULT.md",
+      "line": 64,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Therefore equal syndromes are cosets of the graph cycle space:",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-14_C023R_CACHE_FIBER_DIAGNOSTIC_RESULT.md",
+      "line": 82,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "is blocked. MAJ3 + Tseitin cycle-space can erase linearly many history bits exactly.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-14_C023R_CACHE_FIBER_DIAGNOSTIC_RESULT.md",
+      "line": 86,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "> Bound the number of reachable deterministic Policy-0A contexts per MAJ3-stifling / cycle-space residual coset on one frozen infinite MAJ3-lifted expander-Tseitin family.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_C023R_REACHABLE_COSET_AND_EXECUTION_DAG_GATE.md",
+      "line": 135,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "derive, from frozen transition semantics, either a family-wide inherited-clause fingerprint retaining almost every MAJ3/cycle-space collision bit, or an exact symbolic template that composes into `Omega(L)` byte-identical serial diamonds on the frozen q=4 Morgenstern family.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_CAPTAIN_OBVIOUS_C023R_REPRESENTATION_CORRECTION_AND_TAIL_BALANCE.md",
+      "line": 54,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Semantic MAJ3 restriction and cycle-space quotient lemmas remain valid under their original claim boundary.",
       "active_surface": true
     },
     {
@@ -3012,136 +3142,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "def save_homeostatic_state(cycle, last_score, last_mi, best_score, failed_configs):",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "core.py",
-      "line": 38,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "'cycle': cycle,",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "core.py",
-      "line": 189,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "cycle = state['cycle']",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "core.py",
-      "line": 194,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "print(f\"[\\U0001F504] Восстановлено: цикл {cycle}, best_score {best_score:.4f}, failed_configs {len(failed_configs)}\")",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "core.py",
-      "line": 196,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "cycle = 0",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "core.py",
-      "line": 205,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "cycle += 1",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "core.py",
-      "line": 217,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "print(f\"[\\u25B6\\uFE0F] CYCLE {cycle} | [\\U0001F9A0 СИМБИОЗ] Архитектор активен (GPU: {gpu_load}%, Temp: {gpu_temp}°C)\")",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "core.py",
-      "line": 219,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "print(f\"[\\u25B6\\uFE0F] CYCLE {cycle} | [\\U0001F525 ДОМИНАЦИЯ] Система свободна (GPU: {gpu_load}%, Temp: {gpu_temp}°C)\")",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "core.py",
-      "line": 299,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "print(\"[\\U0001F573\\uFE0F] Конфигурация поглощена чёрной дырой, цикл пропущен.\")",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "core.py",
-      "line": 328,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "save_homeostatic_state(cycle, last_score, last_mi, best_score, failed_configs)",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "core.py",
-      "line": 343,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"cycle\": cycle,",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "core.py",
-      "line": 360,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "print(\"[!] Сбой расчёта метрик у выживших потоков — пропускаем цикл.\")",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "core.py",
-      "line": 448,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "best_cycle = cycle",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "core.py",
-      "line": 449,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "print(f\"[\\U0001F3C6] НОВЫЙ РЕКОРД: {best_score:.4f} (цикл {best_cycle})\")",
       "active_surface": true
     }
   ],

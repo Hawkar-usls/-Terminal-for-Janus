@@ -11,12 +11,12 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 7645,
+  "files_scanned": 7910,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 787,
-    "SAFE_INFRA_LOOP": 1440,
+    "REVIEW": 873,
+    "SAFE_INFRA_LOOP": 1468,
     "HISTORICAL_FROZEN": 766
   },
   "active_hard_ring_count": 0,
@@ -1397,11 +1397,11 @@
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "START_HERE_TRUMP_CONTEXT.md",
-      "line": 65,
+      "line": 116,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "After every material development, update the journal/current-state lineage and, if a new durable mechanism or alias was introduced, update `registry/TRUMP_CONTEXT_MANIFEST.json` in the same development cycle.",
+      "excerpt": "After every material development, create/update the latest successor-state and journal while preserving all parent-state history. If a durable mechanism or alias is introduced, index it in continuity sources in the same development cycle.",
       "active_surface": true
     },
     {
@@ -1412,6 +1412,116 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "│   └── ... cycle and audit notes",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "reviews/APMA_TRINITY_UNICYCLIC_TRANSFER_HQ_REVIEW_2026-09-15.md",
+      "line": 46,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Reconstruction follows stored exact separator keys. Tree-adjacent witnesses agree on complete edge separators. The two endpoints of the removed cycle edge agree on the same explicitly fixed sigma. Under no-hyperedge admission there are no hidden cross-module overlaps. Final witness replay is performed on the unchanged root CNF.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "reviews/APMA_TRINITY_UNICYCLIC_TRANSFER_HQ_REVIEW_2026-09-15.md",
+      "line": 70,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "- historical cycle OPEN cases: 128;",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "reviews/APMA_TRINITY_UNICYCLIC_TRANSFER_HQ_REVIEW_2026-09-15.md",
+      "line": 73,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "- multi-cycle control: remains OPEN;",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "proof_attempts/APMA_TRINITY_UNICYCLIC_TRANSFER_PROOF_2026-09-15.md",
+      "line": 9,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "with a connected simple module-interaction graph of cycle rank exactly one, no interface hyperedge (every source variable occurs in at most two distinct modules), and for every module the union of incident shared variables has cardinality at most",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "proof_attempts/APMA_TRINITY_UNICYCLIC_TRANSFER_PROOF_2026-09-15.md",
+      "line": 33,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "In a connected unicyclic graph there is exactly one simple cycle. An edge is a non-bridge iff it lies on that cycle. The implementation scans interaction edges in deterministic lexicographic order and selects the first edge whose removal leaves the graph connected. Therefore the selected edge `e*=(a,b)` lies on the unique cycle.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "proof_attempts/APMA_TRINITY_UNICYCLIC_TRANSFER_PROOF_2026-09-15.md",
+      "line": 145,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "- interaction construction and cycle-rank checks: polynomial in modules and shared-variable incidences;",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "proof_attempts/APMA_TRINITY_UNICYCLIC_TRANSFER_PROOF_2026-09-15.md",
+      "line": 162,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "- `unicyclic_certificate`: connectedness, `|E|=|V|`, deterministic cycle-edge cut, logarithmic full-boundary guard;",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "proof_attempts/APMA_TRINITY_UNICYCLIC_TRANSFER_PROOF_2026-09-15.md",
+      "line": 174,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "The preregistered 256-orientation cycle product reproduced 128 historical OPEN cases and the successor closed all 128 with zero exact mismatches. Multi-cycle and width-overflow negative controls remained OPEN.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "proof_attempts/APMA_TRINITY_UNICYCLIC_TRANSFER_PROOF_2026-09-15.md",
+      "line": 176,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "A later deterministic hostile attack exhaustively tested 8,128 one- and two-clause augmentations of the frozen cycle base. 1,477 fell inside the admitted unicyclic scope and there were zero exact mismatches. The attack additionally exercised:",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "proof_attempts/APMA_TRINITY_UNICYCLIC_TRANSFER_PROOF_2026-09-15.md",
+      "line": 179,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "- unicyclic graphs with tree modules attached to the cycle;",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "proof_attempts/APMA_TRINITY_UNICYCLIC_TRANSFER_PROOF_2026-09-15.md",
+      "line": 194,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "- arbitrary connected multi-cycle interaction graphs: OPEN;",
       "active_surface": true
     },
     {
@@ -1542,6 +1652,236 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "f\"unexpected cycle descendants in matrix: {sorted(new)}\"",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/TRUMP_BICAMERAL_COMPONENT_BOUNDARY_JOIN_CARRIER_V1_2_FAILURE_2026-09-15.json",
+      "line": 17,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"interpretation\": \"The structural alpha-cycle is real locally, but the end-to-end raw control is rejected by an earlier parent gate, so it does not test the frozen successor scope.\"",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/TRUMP_BICAMERAL_COMPONENT_BOUNDARY_JOIN_CARRIER_V1_2_FAILURE_2026-09-15.json",
+      "line": 38,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"repair_rule\": \"Preserve v1 candidate and v1.2 singleton receipt repair. Replace only the alpha-cycle raw control with a hostile mixed-language instance that remains in the parent overwidth scope while preserving the same private-variable three-relation cycle.\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/TRUMP_WIDE_FEEDBACK_INTERFACE_MECHANISM_HARVEST_2026-09-15.md",
+      "line": 9,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "The preceding scoped gate established an exact multiple-cycle transfer door when the deterministic canonical feedback-interface union `B` satisfies",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/TRUMP_LOG_ALIEN_CONSTRAINT_EXACT_TRANSFER_THEOREM_2026-09-15.md",
+      "line": 89,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "The checker independently verified exact SAT/UNSAT control truth, original witness replay, complete UNSAT branch accounting, overlap inconsistency handling, connected multi-cycle incidence controls, over-budget fail-closed behavior, absence of candidate full-variable-cube enumeration, and the scientific firewalls.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/TRUMP_BICAMERAL_COMPONENT_BOUNDARY_JOIN_CARRIER_PREREGISTRATION_2026-09-15.json",
+      "line": 80,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"reason\": \"Three relation scopes form a private-variable cycle after removing B; deterministic tree must fail running-intersection and may not backtrack/search for a semantic shortcut.\"",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/TRUMP_APMA_FEEDBACK_INTERFACE_TRANSFER_FORMAL_PROOF_2026-09-15.md",
+      "line": 26,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Admission requires cycle rank at least two, `|B|<=floor(log2 L)`, and after",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/TRUMP_BICAMERAL_DERIVED_TWO_RELATION_BOUNDARY_FACTOR_THEOREM_SEAL_2026-09-15.md",
+      "line": 90,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "This seal does **not** establish polynomial boundary compression for components of arbitrary relation count, arbitrary cyclic elimination, arbitrary unseen invariant discovery, general SAT in P, or P=NP/P!=NP.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/TRUMP_INVERTED_PYRAMID_ADMISSION_V2_PREREGISTRATION_2026-09-15.json",
+      "line": 40,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"connected cyclic mixed instance within explicit alien tuple budget\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/TRUMP_APMA_TRINITY_UNICYCLIC_TRANSFER_PREREGISTRATION_2026-09-15.json",
+      "line": 17,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"canonical_cut\": \"Choose the lexicographically smallest interaction edge belonging to the unique cycle.\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/TRUMP_APMA_TRINITY_UNICYCLIC_TRANSFER_PREREGISTRATION_2026-09-15.json",
+      "line": 26,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"cycle rank not exactly one\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/TRUMP_APMA_TRINITY_UNICYCLIC_TRANSFER_PREREGISTRATION_2026-09-15.json",
+      "line": 50,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"negative_multicycle\": \"Two disjoint shifted copies of a frozen OPEN cycle must fail closed; no unicyclic admission.\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/TRUMP_APMA_TRINITY_UNICYCLIC_TRANSFER_PREREGISTRATION_2026-09-15.json",
+      "line": 62,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"pass_condition\": \"All proof-obligation checks encoded by an independent checker pass, all 256 frozen cycle orientations are exact, negative controls fail closed as preregistered, symbolic polynomial ledger is satisfied, and root replay succeeds.\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/TRUMP_APMA_FEEDBACK_INTERFACE_TRANSFER_SCIENTIFIC_SEAL_2026-09-15.json",
+      "line": 7,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"interaction\": \"connected simple module graph with cycle rank at least two\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/TRUMP_APMA_FEEDBACK_INTERFACE_TRANSFER_SCIENTIFIC_SEAL_2026-09-15.json",
+      "line": 52,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"primary_gate\": \"cycle-rank-2 K_2_3 SAT and UNSAT controls\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/TRUMP_APMA_TRINITY_UNICYCLIC_TRANSFER_SCIENTIFIC_SEAL_2026-09-15.json",
+      "line": 7,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"interaction\": \"connected simple module graph with cycle rank exactly one\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/TRUMP_APMA_TRINITY_UNICYCLIC_TRANSFER_SCIENTIFIC_SEAL_2026-09-15.json",
+      "line": 24,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"theorem\": \"For every instance in the frozen scope, deterministic canonical cycle-edge cutting plus exhaustive exact cut-separator conditioning and exact typed-module tree DP decides SAT exactly with polynomial total construction, discovery, solve, reconstruction, and verification cost.\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/TRUMP_APMA_FEEDBACK_INTERFACE_TRANSFER_PREREGISTRATION_2026-09-15.json",
+      "line": 69,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"at least one connected graph with cycle rank >=2 and canonical |B| within budget\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/TRUMP_APMA_FEEDBACK_INTERFACE_TRANSFER_HQ_REVIEW_2026-09-15.md",
+      "line": 32,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "simple, whose cycle rank is at least two, and for which the deterministic",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/TRUMP_APMA_FEEDBACK_INTERFACE_TRANSFER_HQ_REVIEW_2026-09-15.md",
+      "line": 91,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Successful gate run `34908013810` exercised a cycle-rank-2 typed `K_{2,3}` SAT",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/TRUMP_APMA_FEEDBACK_INTERFACE_TRANSFER_HQ_REVIEW_2026-09-15.md",
+      "line": 94,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "regressions, rejected interface hyperedges, and kept a cycle-rank-11 / feedback-",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/TRUMP_BICAMERAL_COMPONENT_BOUNDARY_JOIN_CARRIER_THEOREM_SEAL_2026-09-15.json",
+      "line": 80,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"a carrier for cyclic/non-running-intersection relation hypergraphs\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/TRUMP_LOG_ALIEN_CONSTRAINT_EXACT_TRANSFER_PREREGISTRATION_2026-09-15.json",
+      "line": 60,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"P1_CONNECTED_OR2_BASE_XOR_ALIENS_SAT\": \"Connected cyclic OR2 backbone with overlapping EVEN_XOR3 alien constraints, admitted by 4^k <= L, exact SAT witness replay.\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/TRUMP_APMA_TRINITY_OPEN_SURFACE_DIAGNOSTIC_2026-09-15.json",
+      "line": 39,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"reason_for_priority\": \"Small frozen topology isolates a pure interaction-cycle obstruction without conflating it with interface-width growth.\"",
       "active_surface": true
     },
     {
@@ -1876,6 +2216,16 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "registry/TRUMP_CONTEXT_MANIFEST.json",
+      "line": 288,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"negative_authority\": \"Predecessor-admitted hostile three-relation private-variable cycle remains OPEN_NO_VERIFIED_COMPONENT_JOIN_TREE in both candidate and independent checker.\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "registry/graveyard-c004.json",
       "line": 1,
       "classification": "REVIEW",
@@ -1906,6 +2256,16 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "registry/TRUMP_CURRENT_STATE_2026-09-15.json",
+      "line": 137,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"meaning\": \"The interface may be connected and cyclic; raw feedback width, affine quotient, disconnected factorization, provenance escape, and polynomial alien-tuple enumeration do not apply. The remaining task is to reduce effective alien-choice dimension through an exact source-bound structure or else encounter the unrestricted Schaefer barrier.\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "registry/hypotheses-c006-2.json",
       "line": 1,
       "classification": "REVIEW",
@@ -1932,6 +2292,26 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "{\"registry_version\":\"1.3.0\",\"cycles\":[{\"id\":\"C004\",\"title\":\"Refutation sweep — projection closure, completeness, and hidden universality\",\"started_utc\":\"2026-08-02T00:10:00Z\",\"closed_utc\":\"2026-08-02T00:25:00Z\",\"objective\":\"Attack existing hypotheses rather than generate new ones, seeking decisive contradictions, vacuous quantifiers, hidden general computation, and newly applicable lower bounds.\",\"actions\":[\"Proved a closure lemma for existential forgetting in DNNF.\",\"Combined the closure lemma ",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "registry/TRUMP_CURRENT_STATE_2026-09-15_v2.9.json",
+      "line": 102,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"meaning\": \"The multi-relation case is now scoped-closed when every cut component provides an explicit relation covering the full canonical cut and its relation scopes admit a verified running-intersection tree. The nearest unresolved components either expose the cut only across several relations, or contain cyclic/non-running-intersection interactions for which anchor-row semijoin cannot serve as an exact polynomial boundary carrier.\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "registry/TRUMP_CURRENT_STATE_2026-09-15_v2.9.json",
+      "line": 104,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"required_target\": \"Derive from raw multi-relation component semantics, without any full-cut anchor assumption, an exact polynomial boundary message/quotient over the canonical cut. Prefer a raw-derived affine syndrome when exact factor-through adequacy can be proved; otherwise a factorized/finite-congruence/bounded-elimination carrier with an original-L polynomial output bound. Cyclic controls must remain OPEN unless the new carrier independently proves exact adequacy.\",",
       "active_surface": true
     },
     {
@@ -2196,6 +2576,186 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/trump_apma_novel_composite_transfer/make_population.py",
+      "line": 165,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "cycle=[1,2,3]",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/trump_apma_novel_composite_transfer/make_population.py",
+      "line": 166,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "kind=cycle[index%len(cycle)]",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/trump_apma_novel_composite_transfer/make_population.py",
+      "line": 336,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "raw,meta=cycle_control(124000+j); cnf=transport(raw,125000+j,'hold_encoder_v6'); cid=f'v12-control-cycle-{j}'; controls.append({'id':cid,'control':'CONTROL_CYCLE','cnf':cnf,'encoder':'hold_encoder_v6'}); ctruth[cid]={'hidden_meta':meta}",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/trump_apma_novel_composite_transfer/make_population.py",
+      "line": 345,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "report={'version':'v1.2','template_audit':audit,'counts':{'calibration':len(cal),'admission':len(adm),'holdout':len(hold),'controls':len(controls)},'pair_audit':pair_audit,'all_pair_metrics_equal':all(x['metrics_equal'] for x in pair_audit),'whole_population_no_unit_clauses':True,'all_target_templates_separator_robust':True,'interaction_only_design':'hidden GF2 true + hidden Horn false + robust asymmetric 2CNF implication; same-parts pairs differ only by equal-degree challenge port swap','fresh_",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/trump_apma_novel_composite_transfer/POPULATION_AUDIT.json",
+      "line": 5,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"mixed robust cycle\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/trump_apma_novel_composite_transfer/V1_3_PASS_NOTE.json",
+      "line": 5,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"claim\": \"One frozen reusable bounded-interface transfer rule, constructed only from frozen lower-level primitives, exactly solved the preregistered mixed tree-composite blind population across unseen sizes/topologies/encoder while rejecting cycle and width-4 controls.\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/trump_apma_novel_composite_transfer/V1_3_PASS_NOTE.json",
+      "line": 38,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"id\": \"v12-control-cycle-0\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/trump_apma_novel_composite_transfer/V1_3_PASS_NOTE.json",
+      "line": 52,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"id\": \"v12-control-cycle-1\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/trump_apma_novel_composite_transfer/checker_raw_v1_2.json",
+      "line": 771,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"id\": \"v12-control-cycle-0\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/trump_apma_novel_composite_transfer/checker_raw_v1_2.json",
+      "line": 785,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"id\": \"v12-control-cycle-1\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/trump_apma_novel_composite_transfer/sealed_controls.json",
+      "line": 256,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"id\": \"v12-control-cycle-0\"",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/trump_apma_novel_composite_transfer/sealed_controls.json",
+      "line": 706,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"id\": \"v12-control-cycle-1\"",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/trump_apma_novel_composite_transfer/PREREG_v1.1_2026-09-14.json",
+      "line": 52,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"CONTROL_CYCLE\": \"mixed locally exact degree-2 relational components on a genuine cycle; no unit clauses\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/trump_apma_novel_composite_transfer/sealed_truth.json",
+      "line": 3,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"v12-control-cycle-0\": {",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/trump_apma_novel_composite_transfer/sealed_truth.json",
+      "line": 68,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"v12-control-cycle-1\": {",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/trump_apma_novel_composite_transfer/PREREG_v1.2_2026-09-14.json",
+      "line": 30,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"CONTROL_CYCLE\": \"genuine mixed locally exact factor cycle, expected NO_ADMISSION\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/trump_apma_novel_composite_transfer/checker_raw_v1_3.json",
+      "line": 771,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"id\": \"v12-control-cycle-0\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/trump_apma_novel_composite_transfer/checker_raw_v1_3.json",
+      "line": 785,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"id\": \"v12-control-cycle-1\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "experiments/direct/janus_tear_tseitin_condensation.py",
       "line": 41,
       "classification": "REVIEW",
@@ -2266,6 +2826,116 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/tools/apma_trinity_feedback/independent_checker.py",
+      "line": 22,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "# Typed module interaction graph K_{2,3}: V=5, E=6, cycle rank=2.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/tools/apma_component_join_carrier/independent_checker.py",
+      "line": 249,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "cycle = run[\"negative_cycle\"]",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/tools/apma_component_join_carrier/independent_checker.py",
+      "line": 280,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"P13_cycle_candidate_open\": cycle.get(\"status\") == \"OPEN_NO_VERIFIED_COMPONENT_JOIN_TREE\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/tools/apma_component_join_carrier/independent_checker.py",
+      "line": 309,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"cycle_terminal\": cycle.get(\"status\"),",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/tools/apma_component_join_carrier/independent_checker_v1_3.py",
+      "line": 75,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "cycle = run[\"negative_cycle\"]",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/tools/apma_component_join_carrier/independent_checker_v1_3.py",
+      "line": 111,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"P13_cycle_candidate_open\": cycle.get(\"status\") == \"OPEN_NO_VERIFIED_COMPONENT_JOIN_TREE\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/tools/apma_component_join_carrier/independent_checker_v1_3.py",
+      "line": 142,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"cycle_candidate_terminal\": cycle.get(\"status\"),",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/tools/apma_component_join_carrier/independent_checker_v1_2.py",
+      "line": 79,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "cycle = run[\"negative_cycle\"]",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/tools/apma_component_join_carrier/independent_checker_v1_2.py",
+      "line": 116,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"P13_cycle_candidate_open\": cycle.get(\"status\") == \"OPEN_NO_VERIFIED_COMPONENT_JOIN_TREE\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/tools/apma_component_join_carrier/independent_checker_v1_2.py",
+      "line": 148,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"cycle_terminal\": cycle.get(\"status\"),",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/tools/apma_trinity_unicyclic/unicyclic.py",
+      "line": 42,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "# In a connected unicyclic simple graph, exactly the cycle edges are non-bridges.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-14_C023R_CACHE_FIBER_DIAGNOSTIC_RESULT.md",
       "line": 64,
       "classification": "REVIEW",
@@ -2296,12 +2966,82 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_COMPONENT_BOUNDARY_JOIN_CARRIER_V1_3_PASS.md",
+      "line": 13,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "The hostile cycle was repaired into a genuine predecessor-admitted mixed-language overwidth object. Parent status was `OPEN_MINCUT_BRANCH_BUDGET`, branch enumerations zero, canonical cut was variables 0..19, and the post-cut components had sizes 3 and 1. Both the candidate Kruskal construction and independent Prim/tree-DP checker rejected it as `OPEN_NO_VERIFIED_COMPONENT_JOIN_TREE`.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_COMPONENT_BOUNDARY_JOIN_CARRIER_V1_3_PASS.md",
+      "line": 18,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "- v1.2: provenance-only singleton receipt repair succeeded on the core, but the original alpha-cycle negative control was outside parent scope; frozen as control failure.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_COMPONENT_BOUNDARY_JOIN_CARRIER_V1_3_PASS.md",
+      "line": 19,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "- v1.3: only the hostile cycle raw control changed; candidate semantics and v1.2 singleton receipt repair stayed frozen.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_C023R_REACHABLE_COSET_AND_EXECUTION_DAG_GATE.md",
       "line": 135,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "derive, from frozen transition semantics, either a family-wide inherited-clause fingerprint retaining almost every MAJ3/cycle-space collision bit, or an exact symbolic template that composes into `Omega(L)` byte-identical serial diamonds on the frozen q=4 Morgenstern family.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_TRINITY_OPEN_SURFACE_DIAGNOSTIC.md",
+      "line": 7,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "## Cycle surface",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_TRINITY_OPEN_SURFACE_DIAGNOSTIC.md",
+      "line": 46,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Reason: the frozen triangle-cycle topology isolates a small pure cycle obstruction without conflating it with increasing interface width.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_WIDE_MIXED_INTERFACE_CONTINUITY_CHECKPOINT.md",
+      "line": 73,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "- positive controls were connected and cyclic (cycle ranks `6` and `2` in the independent checker);",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_WIDE_FEEDBACK_INTERFACE_HARVEST_AND_QUOTIENT_RESULT.md",
+      "line": 11,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "The preceding multiple-cycle transfer gate admitted the strict class whose deterministic canonical feedback-interface union `B` obeys",
       "active_surface": true
     },
     {
@@ -2316,832 +3056,92 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": ".github/workflows/validate-registry.yml",
-      "line": 110,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "- name: Verify exact XOR-cycle local twins",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/AIFC",
-      "path": "spec/SCIENTIFIC-ASSURANCE-LINEAGE-v0.12.md",
-      "line": 167,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "The 122 -> 143 release frontier remains inherited unchanged. This cycle does not",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/AIFC",
-      "path": "spec/SCIENTIFIC-ASSURANCE-LINEAGE-v0.10.md",
-      "line": 37,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "The canonical dependency graph collapses repeated occurrences only after canonical semantic resolution and is used for transitive cycle detection.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/AIFC",
-      "path": "spec/AIFC-SPEC-v1.0-draft.2.md",
-      "line": 346,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "To avoid a self-certification hash cycle:",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/AIFC",
-      "path": "docs/PRE_TARGET_VIEW.md",
-      "line": 48,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "The view MUST NOT contain the hash of the quorum that signs it; doing so would create a hash cycle.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Cosmos",
-      "path": ".github/workflows/love-edem-image-forced-photoz.yml",
-      "line": 61,
-      "classification": "REVIEW",
-      "code": "RESET_STATE_LANGUAGE",
-      "pattern": "\\breset\\b.{0,80}\\b(state|origin|memory|generation)\\b|\\b(state|origin|memory|generation)\\b.{0,80}\\breset\\b",
-      "excerpt": "git reset --hard origin/main",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A9_8_V32_SOVEREIGN_TRIAD_OBSERVER_50_50_IO_SINGLE.py",
-      "line": 1075,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Full-cycle-ish additive walk with odd stride.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A9_8_V32_SOVEREIGN_TRIAD_OBSERVER_50_50_IO_SINGLE.py",
-      "line": 3696,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "p.add_argument(\"--bunnyhop-rescout-cycle-accepted\", type=int, default=420,",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A9_8_V32_SOVEREIGN_TRIAD_OBSERVER_50_50_IO_SINGLE.py",
-      "line": 3697,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "help=\"accepted-proof cycle length for Memory ReJump windows\")",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A9_11_V32_ACTIVE_TRIUNE_SOVEREIGN_GATE_50_50_IO_SINGLE.py",
-      "line": 1083,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Full-cycle-ish additive walk with odd stride.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A9_11_V32_ACTIVE_TRIUNE_SOVEREIGN_GATE_50_50_IO_SINGLE.py",
-      "line": 4305,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "p.add_argument(\"--bunnyhop-rescout-cycle-accepted\", type=int, default=420,",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A9_11_V32_ACTIVE_TRIUNE_SOVEREIGN_GATE_50_50_IO_SINGLE.py",
-      "line": 4306,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "help=\"accepted-proof cycle length for Memory ReJump windows\")",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A9_6_V32_MINIMAL_BUNNYHOP_WITCHHUNTER_50_50_IO_SINGLE.py",
-      "line": 1067,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Full-cycle-ish additive walk with odd stride.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A10_V34_PHANTOM_POOLDAY_THETA_50_50_IO_SINGLE.py",
-      "line": 1196,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Full-cycle-ish additive walk with odd stride.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A9_10_V32_TRIUNE_ATOMIC_CLOCK_KOMBUCHA_FINAL_50_50_IO_SINGLE.py",
-      "line": 1082,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Full-cycle-ish additive walk with odd stride.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A9_10_V32_TRIUNE_ATOMIC_CLOCK_KOMBUCHA_FINAL_50_50_IO_SINGLE.py",
-      "line": 4194,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "p.add_argument(\"--bunnyhop-rescout-cycle-accepted\", type=int, default=420,",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A9_10_V32_TRIUNE_ATOMIC_CLOCK_KOMBUCHA_FINAL_50_50_IO_SINGLE.py",
-      "line": 4195,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "help=\"accepted-proof cycle length for Memory ReJump windows\")",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A8_3_V34_ANTI_DISPERSION_RECIPE_FOCUS_IO_SINGLE.py",
-      "line": 2649,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Full-cycle-ish additive walk with odd stride.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_V31_DUALLOCK_ORACLE_SINGLE.py",
-      "line": 935,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Full-cycle-ish additive walk with odd stride.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A9_3_V32_BUNNYHOP_TACHYON_SCOUT_WAKE_IO_SINGLE.py",
-      "line": 1062,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Full-cycle-ish additive walk with odd stride.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A10_1_V34_FULL_PHANTOM_OBSERVER_PACK_IO_SINGLE.py",
-      "line": 1199,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Full-cycle-ish additive walk with odd stride.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A9_7_V32_BUNNYHOP_MEMORY_REJUMP_WITCHHUNTER_50_50_IO_SINGLE.py",
-      "line": 1069,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Full-cycle-ish additive walk with odd stride.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A9_7_V32_BUNNYHOP_MEMORY_REJUMP_WITCHHUNTER_50_50_IO_SINGLE.py",
-      "line": 3515,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "p.add_argument(\"--bunnyhop-rescout-cycle-accepted\", type=int, default=420,",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A9_7_V32_BUNNYHOP_MEMORY_REJUMP_WITCHHUNTER_50_50_IO_SINGLE.py",
-      "line": 3516,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "help=\"accepted-proof cycle length for Memory ReJump windows\")",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A9_2_V32_RANDOMIZED_TRAVERSAL_MIRROR_IO_SINGLE.py",
-      "line": 1062,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Full-cycle-ish additive walk with odd stride.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_V31_DUALLOCK_ORACLE_IO_SINGLE.py",
-      "line": 936,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Full-cycle-ish additive walk with odd stride.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A8_2_V34_PROTECTED_CHAMPION_EXPOSURE_IO_SINGLE.py",
-      "line": 2479,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Full-cycle-ish additive walk with odd stride.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_V32_NETWORKRECOVERY_TACHYON_READY_IO_SINGLE.py",
-      "line": 1045,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Full-cycle-ish additive walk with odd stride.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A9_5_V32_MINIMAL_BUNNYHOP_50_50_IO_SINGLE.py",
-      "line": 1065,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Full-cycle-ish additive walk with odd stride.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A8_4_V34_BARE_RECIPE_ABYSS_CUT_IO_SINGLE.py",
-      "line": 2621,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Full-cycle-ish additive walk with odd stride.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A10_2_V34_FULL_PHANTOM_POOLDAY_NETPULSE_IO_SINGLE.py",
-      "line": 1372,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Full-cycle-ish additive walk with odd stride.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A9_V32_BROAD_MIXTURE_RANDOM_CONTROL_ACCOUNTING_IO_SINGLE.py",
-      "line": 1053,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Full-cycle-ish additive walk with odd stride.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "llms.txt",
-      "line": 35,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "- A18.35 Cycle 1: closed negative after valid challenge exposure.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "llms.txt",
-      "line": 36,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "- A18.35 Cycle 2: collection completed, but no candidate engine executed and no",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_V33_ALLOCATOR_REVIEW_IO_SINGLE.py",
-      "line": 1685,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Full-cycle-ish additive walk with odd stride.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A10_ENCODING_ARCHAEOLOGY_V32_ACTIVE_TRIUNE_50_50_IO_SINGLE.py",
-      "line": 1094,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Full-cycle-ish additive walk with odd stride.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A10_ENCODING_ARCHAEOLOGY_V32_ACTIVE_TRIUNE_50_50_IO_SINGLE.py",
-      "line": 6271,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "p.add_argument(\"--bunnyhop-rescout-cycle-accepted\", type=int, default=420,",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A10_ENCODING_ARCHAEOLOGY_V32_ACTIVE_TRIUNE_50_50_IO_SINGLE.py",
-      "line": 6272,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "help=\"accepted-proof cycle length for Memory ReJump windows\")",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A9_4_V32_BUNNYHOP_FULL_OBSERVER_50_50_IO_SINGLE.py",
-      "line": 1070,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Full-cycle-ish additive walk with odd stride.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_V33_TACHYON_SHADOW_IO_SINGLE.py",
-      "line": 1411,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Full-cycle-ish additive walk with odd stride.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A8_1_V34_FRESH_TAILGEX_REVIEW_IO_SINGLE.py",
-      "line": 2220,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Full-cycle-ish additive walk with odd stride.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A9_1_V32_BROAD_MIXTURE_STRICT_50_50_IO_SINGLE.py",
-      "line": 1056,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Full-cycle-ish additive walk with odd stride.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A9_9_V32_KOMBUCHA_CELL_MICROKERNEL_OBSERVER_50_50_IO_SINGLE.py",
-      "line": 1077,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Full-cycle-ish additive walk with odd stride.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A9_9_V32_KOMBUCHA_CELL_MICROKERNEL_OBSERVER_50_50_IO_SINGLE.py",
-      "line": 3964,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "p.add_argument(\"--bunnyhop-rescout-cycle-accepted\", type=int, default=420,",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "RBLGANUL_A9_9_V32_KOMBUCHA_CELL_MICROKERNEL_OBSERVER_50_50_IO_SINGLE.py",
-      "line": 3965,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "help=\"accepted-proof cycle length for Memory ReJump windows\")",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "docs/avengers-lineage.md",
-      "line": 48,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "| Cuckoo Cycle founder | John Tromp | graph/memory structure can become part of work design |",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "docs/avengers-lineage.md",
-      "line": 72,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "a replacement for Bitcoin, Primecoin, Cuckoo Cycle, or Equihash",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "docs/avengers-integration-plan.md",
-      "line": 48,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "Cycle teaches that memory and graph structure can change the economics of a",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "docs/avengers-integration-plan.md",
-      "line": 80,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "| Cuckoo Cycle | graph structure and random memory access can become the work surface | study traversal/corpus pressure as telemetry, not a wire mutation |",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "docs/avengers-integration-plan.md",
-      "line": 92,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "- John Tromp, `Cuckoo Cycle: a memory bound graph-theoretic proof-of-work`,",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "docs/avengers-launch-runbook.md",
-      "line": 47,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "Avengers is not a replacement for Bitcoin, Primecoin, Cuckoo Cycle, Equihash,",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "docs/avengers-launch-runbook.md",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_LOG_ALIEN_CONSTRAINT_EXACT_TRANSFER_PASS.md",
       "line": 52,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "- Cuckoo Cycle: respect structure, memory, and traversal as first-class signals.",
+      "excerpt": "- OR2-base / XOR-alien positive instance was incidence-connected with cycle rank `6`;",
       "active_surface": true
     },
     {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "docs/a18-status-2026-07-14.md",
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_LOG_ALIEN_CONSTRAINT_EXACT_TRANSFER_PASS.md",
+      "line": 53,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "- reverse affine-base / OR2-alien positive instance was incidence-connected with cycle rank `2`;",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_LOG_ALIEN_CONSTRAINT_EXACT_TRANSFER_PASS.md",
+      "line": 65,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "This gate handles connected, cyclic mixed-carrier instances that need not have a small feedback interface, provided the exact alien tuple budget is polynomially bounded.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_APMA_TRINITY_UNICYCLIC_TRANSFER_PASS.md",
+      "line": 15,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "The prior Trinity OPEN-surface diagnostic isolated a pure cycle obstruction. A successor was preregistered before implementation, implemented without modifying frozen Trinity v1.0, checked by a separate checker, attacked by deterministic hostile finite falsifiers, then reviewed formally obligation-by-obligation.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_APMA_TRINITY_UNICYCLIC_TRANSFER_PASS.md",
+      "line": 19,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "1. Admit only connected simple typed-module interaction graphs with cycle rank exactly one, no shared-variable hyperedge, and full per-module boundary at most `floor(log2 L)`.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_APMA_TRINITY_UNICYCLIC_TRANSFER_PASS.md",
+      "line": 20,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "2. Deterministically cut one canonical non-bridge cycle edge.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_APMA_TRINITY_UNICYCLIC_TRANSFER_PASS.md",
+      "line": 34,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "The preregistered 256-orientation gate had zero exact mismatches and closed all 128 historical OPEN cases on that frozen topology. A hostile augmentation attack tested 8,128 deterministic augmentations; 1,477 were in the admitted unicyclic scope, with zero exact mismatches. It exercised genuine all-sigma UNSAT rejection, trees attached to the cycle, and a multi-variable cut separator. These finite results are implementation falsifiers only and are not the proof.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_COMPONENT_BOUNDARY_JOIN_CARRIER_V1_2_CONTROL_FAILURE.md",
+      "line": 7,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "The only failed obligation was the hostile alpha-cycle end-to-end control. The independent local structural checker rejected the three-relation cycle as `OPEN_NO_VERIFIED_COMPONENT_JOIN_TREE`, but the candidate returned `OUT_OF_SCOPE_PARENT_NOT_OVERWIDTH`. Therefore the raw control did not survive the predecessor admission stack and could not test this successor gate.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_COMPONENT_BOUNDARY_JOIN_CARRIER_V1_2_CONTROL_FAILURE.md",
       "line": 11,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "### Cycle 1",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-io-public",
-      "path": "docs/a18-status-2026-07-14.md",
-      "line": 24,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "### Cycle 2",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-distributed-ai-swarm",
-      "path": "tools/swarm_genome_ledger.py",
-      "line": 209,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "raise ValueError(\"cycle detected\")",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-distributed-ai-swarm",
-      "path": "docs/ADV_ELITE_INTERACTIVE_MODES_V1.md",
-      "line": 235,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "1. ESC returns HOME from every mode within one input cycle.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-distributed-ai-swarm",
-      "path": "docs/demiurge-spiral-swarm.md",
-      "line": 22,
-      "classification": "REVIEW",
-      "code": "RESET_STATE_LANGUAGE",
-      "pattern": "\\breset\\b.{0,80}\\b(state|origin|memory|generation)\\b|\\b(state|origin|memory|generation)\\b.{0,80}\\breset\\b",
-      "excerpt": "A return to the same logical slot is never treated as a reset to the same state:",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-distributed-ai-swarm",
-      "path": "firmware/golcron/README.md",
-      "line": 47,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "- **B tap:** cycle `COSMOS / MINER / DIAG`",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-distributed-ai-swarm",
-      "path": ".github/workflows/build-adv-monolith.yml",
-      "line": 39,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "raise RuntimeError(f'cyclic include: {stack} -> {path.name}')",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/SCOBY-D0",
-      "path": "JANUS_SCOBY_CEDRE_COMPATIBLE_PRESCREEN_2026-09-10_v1.0.json",
-      "line": 87,
-      "classification": "REVIEW",
-      "code": "CLOSED_LOOP_LANGUAGE",
-      "pattern": "closed[- ]loop|замкнут(?:ый|ого|ом)?\\s+(?:круг|цикл)|кольцев",
-      "excerpt": "\"M1_G5_PRESS_RECOVERY\": \"existing >=60% single-press recovery remains an internal project target when closed-loop recovery is claimed\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/SCOBY-D0",
-      "path": "JANUS_SCOBY_OIL_SPILL_SORBENT_SPONGE_2258_v1.1.json",
-      "line": 180,
-      "classification": "REVIEW",
-      "code": "CLOSED_LOOP_LANGUAGE",
-      "pattern": "closed[- ]loop|замкнут(?:ый|ого|ом)?\\s+(?:круг|цикл)|кольцев",
-      "excerpt": "\"G5_RECOVERY\": \"If the closed-loop route is claimed, pressing/draining recovers >= 50% of absorbed surrogate oil.\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/SCOBY-D0",
-      "path": "JANUS_SCOBY_OIL_SPILL_SORBENT_SPONGE_2233_v1.0.json",
-      "line": 246,
-      "classification": "REVIEW",
-      "code": "CLOSED_LOOP_LANGUAGE",
-      "pattern": "closed[- ]loop|замкнут(?:ый|ого|ом)?\\s+(?:круг|цикл)|кольцев",
-      "excerpt": "\"title\": \"Harvesting Bacterial Cellulose from Kitchen Waste to Prepare Superhydrophobic Aerogel for Recovering Waste Cooking Oil toward a Closed-Loop Biorefinery\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/SCOBY-D0",
-      "path": "JANUS_SCOBY_OIL_SPILL_SORBENT_SPONGE_2233_v1.0.json",
-      "line": 248,
-      "classification": "REVIEW",
-      "code": "CLOSED_LOOP_LANGUAGE",
-      "pattern": "closed[- ]loop|замкнут(?:ый|ого|ом)?\\s+(?:круг|цикл)|кольцев",
-      "excerpt": "\"use\": \"closed-loop BC aerogel concept for oil capture/recovery\"",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/SCOBY-D0",
-      "path": "JANUS_SCOBY_MARINE_DYNAMIC_SALTWATER_BOOM_GATE_0018_v1.0.json",
-      "line": 94,
-      "classification": "REVIEW",
-      "code": "CLOSED_LOOP_LANGUAGE",
-      "pattern": "closed[- ]loop|замкнут(?:ый|ого|ом)?\\s+(?:круг|цикл)|кольцев",
-      "excerpt": "\"M1_G5_PRESS_RECOVERY\": \"At least 60% of initially absorbed surrogate oil is recoverable by the standardized single press if closed-loop recovery is claimed.\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-lapis",
-      "path": "LapisModernGPT.py",
-      "line": 1121,
-      "classification": "REVIEW",
-      "code": "CLOSED_LOOP_LANGUAGE",
-      "pattern": "closed[- ]loop|замкнут(?:ый|ого|ом)?\\s+(?:круг|цикл)|кольцев",
-      "excerpt": "\"LAPIS_DEMIURGE\":\"the Lapis as discovery engine: closed-loop transformer/search/review system\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-lapis",
-      "path": "tools/Pv11Gofre.py",
-      "line": 228,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"No repair->cell-cycle temporal ordering is claimed until numerical trajectories are available.\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-lapis",
-      "path": "tools/beetle_director_overlay.py",
-      "line": 132,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Global all-sided invariant: if we have at least four lane slots, every cycle must",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-lapis",
-      "path": "reports/2026-08-25/DRA008948_MATRIX_TRAJECTORY_STAGE1_MANIFEST_PASS_v0.2.json",
-      "line": 25,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"No repair->cell-cycle temporal ordering is claimed until numerical trajectories are available.\"",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-lapis",
-      "path": "reports/2026-08-25/PV11GOFRE_PUBLIC_FIXTURE_RUN_v0.1.json",
-      "line": 83,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"prospective perturbation showing repair-state manipulation shifts cell-cycle restart\"",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "DovoD4.py",
-      "line": 261,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# 4. ЦИКЛ ОБУЧЕНИЯ (без изменений)",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "DovoD.py",
-      "line": 264,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# 4. ЦИКЛ ОБУЧЕНИЯ (с сохранением истории)",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "DovoD3.py",
-      "line": 312,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# 4. ЦИКЛ ОБУЧЕНИЯ (с сохранением истории)",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "windows_optimizer.py",
-      "line": 326,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# 7. ОСНОВНОЙ ЦИКЛ (бесконечный) с возможностью остановки и продолжения",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "bridge_tachyon.py",
-      "line": 117,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# ОСНОВНОЙ ЦИКЛ МОСТА",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "janus_deep_optimizer.py",
-      "line": 401,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# 8. ОСНОВНОЙ ЦИКЛ",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "Janus_Time.json",
-      "line": 569,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"cell-cycle time\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "Janus_Time.json",
-      "line": 652,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"linear/cyclic/event-based cultural models of time\"",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "DovoD2.py",
-      "line": 305,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# 4. ЦИКЛ ОБУЧЕНИЯ (с сохранением истории)",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "janus_core.py",
-      "line": 321,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "await db.execute(\"CREATE TABLE IF NOT EXISTS evolution_log (id INTEGER PRIMARY KEY AUTOINCREMENT, timestamp TEXT, cycle TEXT, subject_id TEXT, action TEXT, reason TEXT, meta TEXT)\")",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "janus_core.py",
-      "line": 406,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "async def log_evolution(self, cycle, subject_id, action, reason=\"\", meta=None):",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "janus_core.py",
-      "line": 409,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "await db.execute(\"INSERT INTO evolution_log (timestamp, cycle, subject_id, action, reason, meta) VALUES (?, ?, ?, ?, ?, ?)\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "janus_core.py",
-      "line": 410,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "(datetime.now().isoformat(), cycle, str(subject_id), action, reason, json.dumps(meta or {})))",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "core.py",
-      "line": 36,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "def save_homeostatic_state(cycle, last_score, last_mi, best_score, failed_configs):",
+      "excerpt": "No PASS is promoted. The allowed successor repair is limited to changing the alpha-cycle raw control so it remains a genuine three-relation private-variable cycle while mixing relation semantics strongly enough to stay inside the parent connected-mixed overwidth surface. Candidate semantics and the v1.2 singleton receipt repair are frozen.",
       "active_surface": true
     }
   ],

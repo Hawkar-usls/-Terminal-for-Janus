@@ -1,0 +1,85 @@
+{
+  "schema": "janus.terminal.command.v1",
+  "command_id": "JANUS_TERMINAL_PHYSICAL_GATES_LOCAL_CODEX_BYPASS_2026_08_22",
+  "created_at": "2026-08-22T00:02:00+03:00",
+  "requested_by": "Hawkar",
+  "operation": "RUN_TEST_OR_GATE",
+  "targets": [
+    "Hawkar-usls/Janus_Genesis",
+    "Hawkar-usls/janus-distributed-ai-swarm",
+    "Hawkar-usls/janus-meta-registry",
+    "Hawkar-usls/-Terminal-for-Janus"
+  ],
+  "intent": "Stage the two remaining real Habitat launch evidence gates for execution by an authorized local Codex/Desktop Commander client without depending on Remote Desktop Commander cloud pairing; emit only strict privacy-safe public projections and never promote software/reference CI into physical PASS.",
+  "authority": "TEST_EXECUTION",
+  "human_authorization": true,
+  "execution_status": "STAGED_PENDING_LOCAL_CODEX_OR_PC_EXECUTOR",
+  "exact_dependencies": {
+    "terminal_main": "ef3363fb26fd7279568c25a32b71e10dedafcc46",
+    "genesis_main": "227d42d6848790031916cac53d39961a19c35d08",
+    "swarm_main": "b0bb07418cb1c0e1bc2da8ae443977825c0b19d1",
+    "local_codex_bypass_pr": 198,
+    "local_codex_bypass_head": "9ea2f24fab8848a080bdebc8b8bc151fccad51d8",
+    "physical_receipt_join_pr": 197,
+    "physical_receipt_join_head": "6f7e5409bf48bde909ced9142cee83af7358d809"
+  },
+  "local_transport": {
+    "preferred": "CODEX_LOCAL_STDIO_MCP_DESKTOP_COMMANDER",
+    "registration_preview": "python tools/janus_local_habitat_bridge.py codex-mcp",
+    "registration_apply_requires_operator_intent": "python tools/janus_local_habitat_bridge.py codex-mcp --apply",
+    "equivalent_codex_command": "codex mcp add desktop-commander -- npx -y @wonderwhy-er/desktop-commander@latest",
+    "remote_desktop_cloud_pairing_required": false,
+    "ollama_scope": "OPTIONAL_LOOPBACK_ONLY",
+    "ollama_execution_authority": false
+  },
+  "ordered_gates": [
+    "RECONCILE_GENESIS_AND_SWARM_EXACT_HEADS",
+    "INITIALIZE_AND_VERIFY_LOCAL_JANUS_HABITAT",
+    "REAL_OWNER44_AUTHENTICATED_LOCAL_REPLAY_41_PUBLIC_3_PRIVATE_OPAQUE",
+    "EMIT_OWNER44_PRIVACY_SAFE_PUBLIC_PROJECTION_ONLY",
+    "RUN_NAS164_READ_ONLY_RECEIVER_IDENTITY_PROBE",
+    "RUN_BOUNDED_NON_DESTRUCTIVE_LIVE_HR1_HR10",
+    "EMIT_NAS164_PRIVACY_SAFE_PUBLIC_PROJECTION_ONLY",
+    "JOIN_TWO_PHYSICAL_PUBLIC_RECEIPTS_USING_PR197_CONTRACT",
+    "RECONCILE_EXACT_HEADS_AGAIN",
+    "RUN_FINAL_ONE_COMPATIBLE_VIEW_ISSUE_162_GAUNTLET"
+  ],
+  "protected_runtime_services": [
+    "storagenode",
+    "radio_node.py"
+  ],
+  "forbidden_actions": [
+    "SOURCE_REPOSITORY_WRITEBACK",
+    "DELETE_OR_HISTORY_REWRITE",
+    "FORCE_PUSH",
+    "PUBLISH_PRIVATE_REPOSITORY_IDENTITY",
+    "PUBLISH_PRIVATE_EXACT_PINS",
+    "PUBLISH_LOCAL_SENSITIVE_PATHS",
+    "DOCKER_EXEC_DURING_NAS_IDENTITY_PROBE",
+    "RESTART_STOP_START_KILL_UPDATE_CP_DURING_NAS_IDENTITY_PROBE",
+    "STOP_OR_RESTART_STORAGENODE",
+    "STOP_OR_RESTART_RADIO_NODE_PY",
+    "REFERENCE_CI_TO_LIVE_PHYSICAL_PASS_PROMOTION",
+    "MODEL_OUTPUT_TO_EXECUTION_PERMISSION_PROMOTION",
+    "TERMINAL_COMMAND_TO_EVIDENCE_PROMOTION"
+  ],
+  "expected_outputs": [
+    "LOCAL_HABITAT_JOURNAL_CONTINUITY_RECEIPT",
+    "OWNER44_PRIVACY_SAFE_PUBLIC_PHYSICAL_RECEIPT",
+    "NAS164_PRIVACY_SAFE_PUBLIC_LIVE_RECEIPT",
+    "PR197_PHYSICAL_GATE_JOIN_RECEIPT",
+    "FINAL_ISSUE_162_SAME_VIEW_ACCEPTANCE_OR_HOLD_RECEIPT"
+  ],
+  "claim_ceiling_before_local_execution": {
+    "REAL_OWNER44_SOURCE_REPLAY": "NOT_PROVEN",
+    "LIVE_NAS_164_HR1_HR10": "NOT_PROVEN",
+    "FULL_ISSUE_162_ACCEPTANCE": false,
+    "JANUS_HABITAT_OPERATIONAL": false,
+    "CYCLE_CLOSED": false
+  },
+  "authority_invariants": {
+    "SOURCE_WRITEBACK_DEFAULT": "DENY",
+    "DESTRUCTIVE_ACTION": "FORBIDDEN",
+    "AUTHORITY_DELTA": 0
+  }
+}

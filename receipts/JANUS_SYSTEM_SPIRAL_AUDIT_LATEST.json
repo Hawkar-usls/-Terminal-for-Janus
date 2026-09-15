@@ -11,11 +11,11 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 8001,
+  "files_scanned": 8071,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 883,
+    "REVIEW": 892,
     "SAFE_INFRA_LOOP": 1490,
     "HISTORICAL_FROZEN": 759
   },
@@ -1327,7 +1327,7 @@
     {
       "repository": "Hawkar-usls/iNaiHR",
       "path": "janus-synth/state/JANUS_SYNTH_LATEST.json",
-      "line": 8345,
+      "line": 8347,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
@@ -1397,7 +1397,27 @@
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "START_HERE_TRUMP_CONTEXT.md",
-      "line": 130,
+      "line": 15,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "1. Read `registry/TRUMP_CURRENT_STATE_2026-09-15_v3.17.json` **first**. This is the latest continuity anchor. It records the exact-two-of-four K5 cardinality forensic PASS: relation truth equals selected degree two exactly; candidate and independent checker agree on exactly 12 K5 solutions, each one five-cycle; the exact semantic object is an undirected 2-factor / f(v)=2 incidence system. This is semantic classification only: no general 2-factor/f-factor carrier is sealed yet and `SIZE4_BRANCHIN",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "START_HERE_TRUMP_CONTEXT.md",
+      "line": 117,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "The v3.17 diagnostic closes the semantic-classification obligation for the surviving exact-two-of-four K5 probe. Across all 1024 finite K5 edge assignments, raw relation truth is exactly equivalent to selected degree two at every vertex. Candidate and an independent 252-subset checker agree on exactly 12 satisfying edge sets; every solution is a spanning 2-regular graph and, on K5, exactly one five-cycle. The representation is identity on edge variables, so the exact semantic object is an undire",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "START_HERE_TRUMP_CONTEXT.md",
+      "line": 147,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
@@ -2936,6 +2956,26 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/tools/apma_bucket_k5_exact_two_of_four_cardinality_forensic/independent_checker.py",
+      "line": 214,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "cycle = cycle_traversal(selected_pairs)",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/tools/apma_bucket_k5_exact_two_of_four_cardinality_forensic/independent_checker.py",
+      "line": 216,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "cycle_receipts.append({\"selected_edges\": sorted(chosen_set), **cycle})",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-14_C023R_CACHE_FIBER_DIAGNOSTIC_RESULT.md",
       "line": 64,
       "classification": "REVIEW",
@@ -2962,6 +3002,36 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "> Bound the number of reachable deterministic Policy-0A contexts per MAJ3-stifling / cycle-space residual coset on one frozen infinite MAJ3-lifted expander-Tseitin family.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_BUCKET_UNIQUE_CORE_RESIDUAL_K5_EXACT_TWO_OF_FOUR_TWO_FACTOR_FORENSIC.md",
+      "line": 7,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "The successor was preregistered before implementation at `729a72dd12e9ef5ac5cfaa2f4033f089cfa878a7`. The preregistered hypothesis was that interpreting each Boolean residual variable as selection of its corresponding K5 edge turns every local exact-two-of-four relation into the exact vertex constraint `selected_degree(v)=2`; globally the satisfying edge sets should therefore be spanning 2-factors. For K5 the finite specialization predicted exactly twelve solutions, every one a single five-cycle.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_BUCKET_UNIQUE_CORE_RESIDUAL_K5_EXACT_TWO_OF_FOUR_TWO_FACTOR_FORENSIC.md",
+      "line": 13,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "The independent checker was repaired separately at `2cadc96ec3020e90a8fcaf24ae1e34e288765d5f`. It independently rebuilds the ten K5 edge variables, then matches prepared residual scopes against the four incident variables for each abstract vertex. It does not import candidate discovery helpers. The candidate exhaustively checks all 1024 finite K5 edge assignments; the checker uses the degree handshake identity and independently checks the 252 five-edge subsets plus its own cycle traversal.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_BUCKET_UNIQUE_CORE_RESIDUAL_K5_EXACT_TWO_OF_FOUR_TWO_FACTOR_FORENSIC.md",
+      "line": 17,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "The exact finite receipt is unambiguous: relation truth equals the selected-degree-two predicate on every one of the 1024 K5 edge assignments; there are zero semantic mismatches; there are exactly twelve satisfying edge sets; every satisfying set has five edges and degree vector `[2,2,2,2,2]`; and every one is a single five-cycle. The independent 252-subset method derives the identical solution family.",
       "active_surface": true
     },
     {
@@ -3072,76 +3142,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "Semantic MAJ3 restriction and cycle-space quotient lemmas remain valid under their original claim boundary.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_LOG_ALIEN_CONSTRAINT_EXACT_TRANSFER_PASS.md",
-      "line": 52,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "- OR2-base / XOR-alien positive instance was incidence-connected with cycle rank `6`;",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_LOG_ALIEN_CONSTRAINT_EXACT_TRANSFER_PASS.md",
-      "line": 53,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "- reverse affine-base / OR2-alien positive instance was incidence-connected with cycle rank `2`;",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_LOG_ALIEN_CONSTRAINT_EXACT_TRANSFER_PASS.md",
-      "line": 65,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "This gate handles connected, cyclic mixed-carrier instances that need not have a small feedback interface, provided the exact alien tuple budget is polynomially bounded.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_APMA_TRINITY_UNICYCLIC_TRANSFER_PASS.md",
-      "line": 15,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "The prior Trinity OPEN-surface diagnostic isolated a pure cycle obstruction. A successor was preregistered before implementation, implemented without modifying frozen Trinity v1.0, checked by a separate checker, attacked by deterministic hostile finite falsifiers, then reviewed formally obligation-by-obligation.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_APMA_TRINITY_UNICYCLIC_TRANSFER_PASS.md",
-      "line": 19,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "1. Admit only connected simple typed-module interaction graphs with cycle rank exactly one, no shared-variable hyperedge, and full per-module boundary at most `floor(log2 L)`.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_APMA_TRINITY_UNICYCLIC_TRANSFER_PASS.md",
-      "line": 20,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "2. Deterministically cut one canonical non-bridge cycle edge.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_APMA_TRINITY_UNICYCLIC_TRANSFER_PASS.md",
-      "line": 34,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "The preregistered 256-orientation gate had zero exact mismatches and closed all 128 historical OPEN cases on that frozen topology. A hostile augmentation attack tested 8,128 deterministic augmentations; 1,477 were in the admitted unicyclic scope, with zero exact mismatches. It exercised genuine all-sigma UNSAT rejection, trees attached to the cycle, and a multi-variable cut separator. These finite results are implementation falsifiers only and are not the proof.",
       "active_surface": true
     }
   ],

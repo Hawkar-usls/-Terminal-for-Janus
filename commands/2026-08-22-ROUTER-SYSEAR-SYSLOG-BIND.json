@@ -1,0 +1,87 @@
+{
+  "schema": "janus.terminal.command.v1",
+  "command_id": "JANUS_TERMINAL_ROUTER_SYSEAR_SYSLOG_BIND_2026_08_22",
+  "created_at": "2026-08-22T00:29:00+03:00",
+  "requested_by": "Hawkar",
+  "operation": "REQUEST_DEPLOYMENT",
+  "targets": [
+    "Hawkar-usls/Janus_Genesis",
+    "Hawkar-usls/-Terminal-for-Janus",
+    "Hawkar-usls/janus-meta-registry"
+  ],
+  "intent": "Bind JANUS SysEar to the owner's local edge router syslog through the local Codex/Desktop Commander execution path, capture only bounded read-only telemetry, keep raw network identifiers local, and publish only a privacy-safe receipt.",
+  "authority": "DEPLOY_REQUEST",
+  "human_authorization": true,
+  "status": "STAGED_PENDING_LOCAL_EXECUTOR",
+  "exact_surfaces": {
+    "genesis_pr_198_local_codex_base": "9ea2f24fab8848a080bdebc8b8bc151fccad51d8",
+    "genesis_pr_199_sysear_observer": "ce961b01864d160fcfed5159eb80514ded26d71e",
+    "terminal_main": "ef3363fb26fd7279568c25a32b71e10dedafcc46"
+  },
+  "execution_sequence": [
+    "ENTER_LOCAL_CODEX_ON_EXACT_PR199_VIEW",
+    "RUN_SYSEAR_DOCTOR_READ_ONLY",
+    "DISCOVER_DEFAULT_GATEWAY_EXACT_LOCAL_ONLY",
+    "CHECK_FOR_EXISTING_ROUTER_SYSLOG_WITH_BOUNDED_PASSIVE_CAPTURE",
+    "IF_NO_EVENTS_IDENTIFY_ROUTER_MODEL_AND_SYSLOG_CAPABILITY_LOCALLY_WITHOUT_PUBLISHING_IDENTIFIERS",
+    "IF_REQUIRED_CHANGE_ONLY_REMOTE_SYSLOG_ENABLE_TARGET_AND_PORT_USING_EXISTING_LOCAL_ADMIN_CREDENTIALS_WITHOUT_PERSISTING_THEM",
+    "RUN_BOUNDED_ROUTER_SOURCE_FILTERED_CAPTURE",
+    "WRITE_LOCAL_RAW_0600_AND_LOCAL_RECEIPT",
+    "PROJECT_PRIVACY_SAFE_PUBLIC_RECEIPT",
+    "RELAY_ONLY_SAFE_RECEIPT_TO_META_REGISTRY"
+  ],
+  "capture_policy": {
+    "preferred_unprivileged_port_when_router_supports_custom_port": 5514,
+    "standard_syslog_port_if_router_requires_it": 514,
+    "default_duration_seconds": 60,
+    "default_max_events": 500,
+    "source_binding": "DEFAULT_GATEWAY_EXACT_LOCAL_ONLY_OR_EXPLICIT_OPERATOR_SOURCE",
+    "transport": "UDP_SYSLOG_UNAUTHENTICATED",
+    "transport_authenticated": false
+  },
+  "router_change_scope_if_needed": {
+    "allowed": [
+      "ENABLE_REMOTE_SYSLOG",
+      "SET_SYSLOG_TARGET_TO_LOCAL_JANUS_COLLECTOR",
+      "SET_SYSLOG_PORT_IF_ROUTER_SUPPORTS_CUSTOM_PORT",
+      "SET_LOG_SEVERITY_OR_FACILITY_ONLY_AS_NEEDED_FOR_OBSERVATION"
+    ],
+    "forbidden": [
+      "FIRMWARE_CHANGE",
+      "WAN_CHANGE",
+      "DNS_CHANGE",
+      "DHCP_CHANGE",
+      "FIREWALL_POLICY_CHANGE",
+      "PORT_FORWARD_CHANGE",
+      "WIFI_CREDENTIAL_CHANGE",
+      "ADMIN_CREDENTIAL_CHANGE",
+      "REMOTE_ADMIN_ENABLE",
+      "FACTORY_RESET",
+      "REBOOT_UNLESS_SEPARATELY_EXPLICITLY_AUTHORIZED"
+    ]
+  },
+  "privacy": {
+    "raw_syslog_publication": false,
+    "router_ip_publication": false,
+    "lan_ip_publication": false,
+    "mac_publication": false,
+    "router_model_or_serial_publication": false,
+    "credentials_persisted_or_logged": false,
+    "public_receipt_only": true
+  },
+  "expected_outputs": [
+    "SYSEAR_ROUTER_SYSLOG_DOCTOR_RECEIPT_LOCAL",
+    "SYSEAR_ROUTER_SYSLOG_CAPTURE_RECEIPT_LOCAL",
+    "SYSEAR_ROUTER_SYSLOG_PUBLIC_SAFE_RECEIPT",
+    "RAW_TELEMETRY_PUBLICATION_EQUALS_FALSE",
+    "AUTHORITY_DELTA_EQUALS_ZERO"
+  ],
+  "forbidden_promotions": [
+    "COMMAND_TO_PHYSICAL_PASS",
+    "CI_PASS_TO_ROUTER_CONNECTED",
+    "UDP_SOURCE_FILTER_TO_CRYPTOGRAPHIC_AUTHENTICATION",
+    "SYSLOG_EVENT_TO_TRUTH",
+    "SYSLOG_EVENT_TO_EXECUTION_PERMISSION",
+    "NETWORK_TIMING_TO_SECURITY_ENTROPY"
+  ]
+}

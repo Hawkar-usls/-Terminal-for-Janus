@@ -11,12 +11,12 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 7921,
+  "files_scanned": 8001,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 879,
-    "SAFE_INFRA_LOOP": 1481,
+    "REVIEW": 883,
+    "SAFE_INFRA_LOOP": 1490,
     "HISTORICAL_FROZEN": 759
   },
   "active_hard_ring_count": 0,
@@ -1327,7 +1327,7 @@
     {
       "repository": "Hawkar-usls/iNaiHR",
       "path": "janus-synth/state/JANUS_SYNTH_LATEST.json",
-      "line": 8346,
+      "line": 8345,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
@@ -1397,7 +1397,7 @@
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "START_HERE_TRUMP_CONTEXT.md",
-      "line": 116,
+      "line": 130,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
@@ -2217,7 +2217,7 @@
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "registry/TRUMP_CONTEXT_MANIFEST.json",
-      "line": 288,
+      "line": 291,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
@@ -2966,6 +2966,26 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_BUCKET_UNIQUE_CORE_RESIDUAL_NO_SINGLE_SEPARATOR_FORENSIC.md",
+      "line": 18,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Residual factors `orig:4/5/6/7` have scopes `[47,48,53]`, `[47,50]`, `[48,50]`, `[53,54]`. Variable `53` is a singleton cut, but it only peels the leaf `orig:7`; the cyclic `orig:4/5/6` triangle remains GT2. Running-intersection again fails on variable `50`.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_BUCKET_UNIQUE_CORE_RESIDUAL_NO_SINGLE_SEPARATOR_FORENSIC.md",
+      "line": 22,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "The nearest exact successor is not a general join-tree carrier because running-intersection fails on the minimal cyclic triangle. It is not another single-variable separator because the main triangle has none. The nearest obligation is therefore a raw-derived two-variable residual separator: discover unordered pairs in O(V^2), choose the frozen lexicographic minimum structurally admissible pair, enumerate exactly four Boolean assignments, recompute residual components per assignment, and reuse o",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_COMPONENT_BOUNDARY_JOIN_CARRIER_V1_3_PASS.md",
       "line": 13,
       "classification": "REVIEW",
@@ -3122,26 +3142,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "The preregistered 256-orientation gate had zero exact mismatches and closed all 128 historical OPEN cases on that frozen topology. A hostile augmentation attack tested 8,128 deterministic augmentations; 1,477 were in the admitted unicyclic scope, with zero exact mismatches. It exercised genuine all-sigma UNSAT rejection, trees attached to the cycle, and a multi-variable cut separator. These finite results are implementation falsifiers only and are not the proof.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_COMPONENT_BOUNDARY_JOIN_CARRIER_V1_2_CONTROL_FAILURE.md",
-      "line": 7,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "The only failed obligation was the hostile alpha-cycle end-to-end control. The independent local structural checker rejected the three-relation cycle as `OPEN_NO_VERIFIED_COMPONENT_JOIN_TREE`, but the candidate returned `OUT_OF_SCOPE_PARENT_NOT_OVERWIDTH`. Therefore the raw control did not survive the predecessor admission stack and could not test this successor gate.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_COMPONENT_BOUNDARY_JOIN_CARRIER_V1_2_CONTROL_FAILURE.md",
-      "line": 11,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "No PASS is promoted. The allowed successor repair is limited to changing the alpha-cycle raw control so it remains a genuine three-relation private-variable cycle while mixing relation semantics strongly enough to stay inside the parent connected-mixed overwidth surface. Candidate semantics and the v1.2 singleton receipt repair are frozen.",
       "active_surface": true
     }
   ],

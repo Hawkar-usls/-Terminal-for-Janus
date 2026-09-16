@@ -11,12 +11,12 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 8071,
+  "files_scanned": 8120,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 892,
-    "SAFE_INFRA_LOOP": 1490,
+    "REVIEW": 893,
+    "SAFE_INFRA_LOOP": 1506,
     "HISTORICAL_FROZEN": 759
   },
   "active_hard_ring_count": 0,
@@ -1397,31 +1397,11 @@
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "START_HERE_TRUMP_CONTEXT.md",
-      "line": 15,
+      "line": 174,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "1. Read `registry/TRUMP_CURRENT_STATE_2026-09-15_v3.17.json` **first**. This is the latest continuity anchor. It records the exact-two-of-four K5 cardinality forensic PASS: relation truth equals selected degree two exactly; candidate and independent checker agree on exactly 12 K5 solutions, each one five-cycle; the exact semantic object is an undirected 2-factor / f(v)=2 incidence system. This is semantic classification only: no general 2-factor/f-factor carrier is sealed yet and `SIZE4_BRANCHIN",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "START_HERE_TRUMP_CONTEXT.md",
-      "line": 117,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "The v3.17 diagnostic closes the semantic-classification obligation for the surviving exact-two-of-four K5 probe. Across all 1024 finite K5 edge assignments, raw relation truth is exactly equivalent to selected degree two at every vertex. Candidate and an independent 252-subset checker agree on exactly 12 satisfying edge sets; every solution is a spanning 2-regular graph and, on K5, exactly one five-cycle. The representation is identity on edge variables, so the exact semantic object is an undire",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "START_HERE_TRUMP_CONTEXT.md",
-      "line": 147,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "After every material development, create/update the latest successor-state and journal while preserving all parent-state history. If a durable mechanism or alias is introduced, index it in continuity sources in the same development cycle.",
+      "excerpt": "After every material development, create/update the latest successor-state and continuity overlay while preserving all parent-state history. If a durable mechanism or alias is introduced, index it in continuity sources in the same development cycle.",
       "active_surface": true
     },
     {
@@ -3136,12 +3116,32 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-16_BUCKET_UNIQUE_CORE_RESIDUAL_EXACT_TWO_FACTOR_F_FACTOR_CARRIER.md",
+      "line": 17,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "The parent raw K5 exact-two-of-four instance is admitted and solved SAT. Its Tutte graph has 30 vertices and 50 edges. The verified source assignment selects edge variables `[93,94,97,98,100]`, and original relations `orig:19` through `orig:23` all replay true. The independent checker confirms that the selected edges form one five-cycle.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_CAPTAIN_OBVIOUS_C023R_REPRESENTATION_CORRECTION_AND_TAIL_BALANCE.md",
       "line": 54,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "Semantic MAJ3 restriction and cycle-space quotient lemmas remain valid under their original claim boundary.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_LOG_ALIEN_CONSTRAINT_EXACT_TRANSFER_PASS.md",
+      "line": 52,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "- OR2-base / XOR-alien positive instance was incidence-connected with cycle rank `6`;",
       "active_surface": true
     }
   ],

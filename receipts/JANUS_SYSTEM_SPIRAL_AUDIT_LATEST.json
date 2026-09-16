@@ -11,12 +11,12 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 8120,
+  "files_scanned": 8149,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 893,
-    "SAFE_INFRA_LOOP": 1506,
+    "REVIEW": 907,
+    "SAFE_INFRA_LOOP": 1509,
     "HISTORICAL_FROZEN": 759
   },
   "active_hard_ring_count": 0,
@@ -1397,7 +1397,7 @@
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "START_HERE_TRUMP_CONTEXT.md",
-      "line": 174,
+      "line": 250,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",

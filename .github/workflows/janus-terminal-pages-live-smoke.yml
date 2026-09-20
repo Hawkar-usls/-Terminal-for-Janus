@@ -7,6 +7,8 @@ on:
       - 'index.html'
       - 'assets/terminal-v2.js'
       - 'assets/janus-synthesis-observatory.js'
+      - 'assets/pnp-autoresearch-observatory.js'
+      - 'config/JANUS_RESEARCH_ORGAN_FABRIC.json'
       - '.github/workflows/janus-terminal-pages-live-smoke.yml'
   workflow_dispatch:
 
@@ -26,6 +28,7 @@ jobs:
           set -euo pipefail
           local_terminal="$(sha256sum assets/terminal-v2.js | awk '{print $1}')"
           local_synthesis="$(sha256sum assets/janus-synthesis-observatory.js | awk '{print $1}')"
+          local_pnp="$(sha256sum assets/pnp-autoresearch-observatory.js | awk '{print $1}')"
 
           for attempt in $(seq 1 30); do
             nonce="${GITHUB_SHA}-${GITHUB_RUN_ID}-${attempt}"
@@ -34,20 +37,29 @@ jobs:
                  -o /tmp/live-terminal-v2.js \
               && curl -fsSL --connect-timeout 10 --max-time 20 \
                  "${PAGES_BASE}/assets/janus-synthesis-observatory.js?janus_live=${nonce}" \
-                 -o /tmp/live-synthesis.js; then
+                 -o /tmp/live-synthesis.js \
+              && curl -fsSL --connect-timeout 10 --max-time 20 \
+                 "${PAGES_BASE}/assets/pnp-autoresearch-observatory.js?janus_live=${nonce}" \
+                 -o /tmp/live-pnp.js; then
               live_terminal="$(sha256sum /tmp/live-terminal-v2.js | awk '{print $1}')"
               live_synthesis="$(sha256sum /tmp/live-synthesis.js | awk '{print $1}')"
+              live_pnp="$(sha256sum /tmp/live-pnp.js | awk '{print $1}')"
 
               if [ "$live_terminal" = "$local_terminal" ] \
                 && [ "$live_synthesis" = "$local_synthesis" ] \
+                && [ "$live_pnp" = "$local_pnp" ] \
                 && grep -Fq 'function activateTerminalView(name)' /tmp/live-synthesis.js \
                 && grep -Fq 'btn.click();' /tmp/live-synthesis.js \
                 && grep -Fq 'window.JANUS_TERMINAL_NAVIGATE=activateTerminalView' /tmp/live-synthesis.js \
                 && ! grep -Fq 'stopImmediatePropagation' /tmp/live-synthesis.js \
-                && ! grep -Fq 'stopPropagation' /tmp/live-synthesis.js; then
+                && ! grep -Fq 'stopPropagation' /tmp/live-synthesis.js \
+                && grep -Fq 'RESEARCH ORGAN FABRIC' /tmp/live-pnp.js \
+                && grep -Fq 'DEGRADED · NO PROMOTION' /tmp/live-pnp.js \
+                && grep -Fq 'research_supervisor' /tmp/live-pnp.js; then
                 echo "PAGES_NAVIGATION_RUNTIME=LIVE_CURRENT"
                 echo "terminal_v2_sha256=$live_terminal"
                 echo "synthesis_sha256=$live_synthesis"
+                echo "pnp_autoresearch_sha256=$live_pnp"
                 exit 0
               fi
             fi
@@ -57,6 +69,8 @@ jobs:
           echo 'PAGES_NAVIGATION_RUNTIME=STALE_OR_UNREACHABLE' >&2
           echo "expected terminal-v2.js $local_terminal" >&2
           echo "expected janus-synthesis-observatory.js $local_synthesis" >&2
+          echo "expected pnp-autoresearch-observatory.js $local_pnp" >&2
           if [ -f /tmp/live-terminal-v2.js ]; then sha256sum /tmp/live-terminal-v2.js >&2; fi
           if [ -f /tmp/live-synthesis.js ]; then sha256sum /tmp/live-synthesis.js >&2; fi
+          if [ -f /tmp/live-pnp.js ]; then sha256sum /tmp/live-pnp.js >&2; fi
           exit 1

@@ -11,13 +11,13 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 8522,
+  "files_scanned": 8605,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 977,
-    "SAFE_INFRA_LOOP": 1636,
-    "HISTORICAL_FROZEN": 782
+    "REVIEW": 1044,
+    "SAFE_INFRA_LOOP": 1657,
+    "HISTORICAL_FROZEN": 806
   },
   "active_hard_ring_count": 0,
   "active_hard_rings": [],
@@ -1706,6 +1706,16 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_CSZ_P6_DEPENDENCY_OBLIGATION_INVENTORY_2026-09-20_v1.0.json",
+      "line": 812,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"local_hypotheses\": \"Assume an odd cycle in auxiliary F after 2-SAT assignment; obtain a path T=t1-...-tk in H|(Z∪X~12).\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "research/TRUMP_APMA_FEEDBACK_INTERFACE_TRANSFER_FORMAL_PROOF_2026-09-15.md",
       "line": 26,
       "classification": "REVIEW",
@@ -3132,16 +3142,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "Semantic MAJ3 restriction and cycle-space quotient lemmas remain valid under their original claim boundary.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_LOG_ALIEN_CONSTRAINT_EXACT_TRANSFER_PASS.md",
-      "line": 52,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "- OR2-base / XOR-alien positive instance was incidence-connected with cycle rank `6`;",
       "active_surface": true
     }
   ],

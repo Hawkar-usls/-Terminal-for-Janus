@@ -1,0 +1,53 @@
+{
+  "schema": "janus.terminal.research_lanes.v1",
+  "contract_id": "JANUS_TERMINAL_RESEARCH_LANES_V1",
+  "status": "ACTIVE_FAIL_CLOSED",
+  "purpose": "Keep live Janus-Fundamentum research provenance separate from JANUS independent candidate research while allowing source-bound contextual cross-feed.",
+  "lanes": {
+    "fundamentum_mirror": {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "ref": "main",
+      "status_path": "docs/CURRENT_RESEARCH_STATUS.md",
+      "mode": "SOURCE_BOUND_READ_ONLY",
+      "authority": "AUTHORITATIVE_FOR_FUNDAMENTUM_REPOSITORY_STATE_ONLY",
+      "inherits_into_janus_claims": false,
+      "direct_mutation": false,
+      "stale_binding_must_be_visible": true
+    },
+    "janus_independent": {
+      "repository": "Hawkar-usls/Janus-Demiurge",
+      "state_path": "janus_model/state/JANUS_RESEARCH_SPINE.json",
+      "decision_path": "janus_model/state/JANUS_LATEST_DECISION.json",
+      "mode": "INDEPENDENT_CANDIDATE_RESEARCH",
+      "truth_authority": false,
+      "proof_authority": false,
+      "scientific_claim_promotion_authority": false,
+      "direct_target_mutation": false,
+      "autonomous_merge": false,
+      "target_local_verify_required_before_pass": true
+    }
+  },
+  "transfer_rules": {
+    "fundamentum_to_janus": "CONTEXT_WITH_PROVENANCE_ONLY",
+    "janus_to_fundamentum": "PROPOSAL_ONLY_AFTER_EXPLICIT_TARGET_LOCAL_VERIFY",
+    "fundamentum_verdict_inheritance": false,
+    "janus_candidate_becomes_fundamentum_result_automatically": false,
+    "shared_text_is_independent_replication": false,
+    "source_presence_is_truth": false
+  },
+  "refresh": {
+    "terminal_public_witness_interval_seconds": 60,
+    "compare_live_fundamentum_head_to_demiurge_bound_commit": true,
+    "stale_result": "STALE_BINDING",
+    "stale_binding_is_negative_evidence": false
+  },
+  "laws": [
+    "FUNDAMENTUM_SOURCE != JANUS_OWN_RESEARCH",
+    "JANUS_OWN_RESEARCH != FUNDAMENTUM_THEOREM_AUTHORITY",
+    "SOURCE_CONTEXT != INDEPENDENT_REPLICATION",
+    "MODEL_SELECTION != VERIFIED_FIX",
+    "NO_TARGET_LOCAL_VERIFY => NO_PASS",
+    "STALE_BINDING_MUST_BE_SHOWN",
+    "P_VS_NP_REMAINS_SOURCE_BOUND_AND_OPEN_UNLESS_EXPLICITLY_PROVED"
+  ]
+}

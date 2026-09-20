@@ -1,0 +1,48 @@
+{
+  "schema": "janus.terminal.pnp_autoresearch.v1",
+  "status": "AUTOMATIC_CANDIDATE_RESEARCH",
+  "goal": "P_VS_NP",
+  "source_repository": "Hawkar-usls/Janus-Fundamentum",
+  "source_mutation": false,
+  "lanes": [
+    {
+      "id": "HRAIN_STRUCTURAL_MEMORY",
+      "repository": "Hawkar-usls/Hrain",
+      "state_branch": "janus/fundamentum-structural-memory",
+      "cadence": "hourly",
+      "role": "FULL_REPOSITORY_JSON_INDEX_AND_STRUCTURAL_CONTEXT"
+    },
+    {
+      "id": "INAIHR_ASSOCIATIVE_MEMORY",
+      "repository": "Hawkar-usls/iNaiHR",
+      "state_branch": "janus/fundamentum-associative-memory",
+      "cadence": "hourly",
+      "role": "ASSOCIATIVE_ROUTES_QUERY_SEEDS_AND_CANDIDATE_QUESTIONS"
+    },
+    {
+      "id": "TOPA_INTERNET_SPIDER",
+      "repository": "Hawkar-usls/TOPA",
+      "state_branch": "janus/pnp-autoresearch-state",
+      "cadence": "every_2_hours",
+      "role": "ARXIV_OPENALEX_DISCOVERY_AND_SPIDER_GRAPH"
+    },
+    {
+      "id": "DEMIURGE_OWN_RESEARCH",
+      "repository": "Hawkar-usls/Janus-Demiurge",
+      "state_path": "janus_model/state/JANUS_PNP_AUTORESEARCH_CONTEXT.json",
+      "cadence": "every_2_hours",
+      "role": "JANUS_OWN_CANDIDATES_BOUNDED_REPLAYS_AND_NATIVE_WAKE"
+    }
+  ],
+  "firewalls": {
+    "fundamentum_write": false,
+    "automatic_pnp_claim": false,
+    "automatic_theorem_promotion": false,
+    "search_rank_is_truth": false,
+    "association_is_evidence": false,
+    "finite_replay_is_asymptotic_theorem": false,
+    "autonomous_merge": false
+  },
+  "terminal_role": "OBSERVE_AUTOMATIC_RESEARCH_AND_SURFACE_PROVENANCE",
+  "law": "AUTOMATION MAY SEARCH_GENERATE_ATTACK_REPLAY_AND_REMEMBER; CLAIM PROMOTION REQUIRES EXPLICIT PROOF_REPLAY_AUTHORITY."
+}

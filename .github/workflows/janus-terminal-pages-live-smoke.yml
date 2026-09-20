@@ -40,7 +40,9 @@ jobs:
 
               if [ "$live_terminal" = "$local_terminal" ] \
                 && [ "$live_synthesis" = "$local_synthesis" ] \
-                && grep -Fq "btn.dataset.view!=='synthesis'" /tmp/live-synthesis.js \
+                && grep -Fq 'function activateTerminalView(name)' /tmp/live-synthesis.js \
+                && grep -Fq 'btn.click();' /tmp/live-synthesis.js \
+                && grep -Fq 'window.JANUS_TERMINAL_NAVIGATE=activateTerminalView' /tmp/live-synthesis.js \
                 && ! grep -Fq 'stopImmediatePropagation' /tmp/live-synthesis.js \
                 && ! grep -Fq 'stopPropagation' /tmp/live-synthesis.js; then
                 echo "PAGES_NAVIGATION_RUNTIME=LIVE_CURRENT"

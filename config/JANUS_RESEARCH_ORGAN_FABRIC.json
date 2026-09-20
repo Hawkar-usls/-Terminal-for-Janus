@@ -1,0 +1,29 @@
+{
+  "schema": "janus.terminal.research_organ_observatory.v1",
+  "upstream_policy": "https://raw.githubusercontent.com/Hawkar-usls/Janus-Demiurge/main/janus_model/policy/JANUS_RESEARCH_ORGAN_FABRIC.json",
+  "upstream_state": "https://raw.githubusercontent.com/Hawkar-usls/Janus-Demiurge/main/janus_model/state/JANUS_PNP_AUTORESEARCH_CONTEXT.json",
+  "display": {
+    "panel": "RESEARCH ORGAN FABRIC",
+    "show_candidate_routes": true,
+    "show_next_required_stage": true,
+    "show_authority_firewalls": true
+  },
+  "expected_organs": [
+    "META_REGISTRY_DISCOVERY",
+    "DEMIHEAD_EXECUTION_GATE",
+    "GENESIS_ADVERSARIAL_GAUNTLET",
+    "SWARM_PARALLEL_ATTACK",
+    "HELIOS_INDEPENDENCE",
+    "AIFC_EVIDENCE_LINEAGE",
+    "FASTCAT_BLINDED_REVIEW"
+  ],
+  "authority": {
+    "terminal_truth": false,
+    "terminal_proof": false,
+    "terminal_claim_promotion": false,
+    "autonomous_merge": false,
+    "fundamentum_mutation": false,
+    "p_vs_np_auto_promotion": false
+  },
+  "law": "CAPABILITY ROUTING HELPS JANUS DECIDE WHAT TO TEST NEXT; IT DOES NOT PROMOTE A SCIENTIFIC CLAIM."
+}

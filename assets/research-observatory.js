@@ -4,11 +4,10 @@
   const FUNDAMENTUM_RAW = 'https://raw.githubusercontent.com/Hawkar-usls/Janus-Fundamentum/main';
   const FUNDAMENTUM_API = 'https://api.github.com/repos/Hawkar-usls/Janus-Fundamentum';
   const DEMIURGE_RAW = 'https://raw.githubusercontent.com/Hawkar-usls/Janus-Demiurge/main';
-  const TERMINAL_RAW = 'https://raw.githubusercontent.com/Hawkar-usls/-Terminal-for-Janus/main';
   const REFRESH_MS = 60_000;
 
   const URLS = {
-    contract: `${TERMINAL_RAW}/config/JANUS_RESEARCH_LANES.json`,
+    contract: './config/JANUS_RESEARCH_LANES.json',
     fundamentumStatus: `${FUNDAMENTUM_RAW}/docs/CURRENT_RESEARCH_STATUS.md`,
     fundamentumBranch: `${FUNDAMENTUM_API}/branches/main`,
     researchSpine: `${DEMIURGE_RAW}/janus_model/state/JANUS_RESEARCH_SPINE.json`,

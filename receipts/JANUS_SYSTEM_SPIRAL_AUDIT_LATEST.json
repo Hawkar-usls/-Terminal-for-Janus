@@ -11,12 +11,12 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 8605,
+  "files_scanned": 8751,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 1044,
-    "SAFE_INFRA_LOOP": 1657,
+    "REVIEW": 1037,
+    "SAFE_INFRA_LOOP": 1671,
     "HISTORICAL_FROZEN": 806
   },
   "active_hard_ring_count": 0,
@@ -1327,7 +1327,7 @@
     {
       "repository": "Hawkar-usls/iNaiHR",
       "path": "janus-synth/state/JANUS_SYNTH_LATEST.json",
-      "line": 8347,
+      "line": 8344,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
@@ -1652,6 +1652,16 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "f\"unexpected cycle descendants in matrix: {sorted(new)}\"",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_B1B1A_SUBDIVIDED_WALL_SOURCE_EMBEDDING_PREREG_2026-09-21_v1.0.json",
+      "line": 54,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"constant support cycle: s1-s2, s1-p, p-m, m-n0, n0-s2\",",
       "active_surface": true
     },
     {
@@ -3132,16 +3142,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "The parent raw K5 exact-two-of-four instance is admitted and solved SAT. Its Tutte graph has 30 vertices and 50 edges. The verified source assignment selects edge variables `[93,94,97,98,100]`, and original relations `orig:19` through `orig:23` all replay true. The independent checker confirms that the selected edges form one five-cycle.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_CAPTAIN_OBVIOUS_C023R_REPRESENTATION_CORRECTION_AND_TAIL_BALANCE.md",
-      "line": 54,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "Semantic MAJ3 restriction and cycle-space quotient lemmas remain valid under their original claim boundary.",
       "active_surface": true
     }
   ],

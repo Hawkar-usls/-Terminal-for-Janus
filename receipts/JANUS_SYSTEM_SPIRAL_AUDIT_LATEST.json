@@ -11,12 +11,12 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 8874,
+  "files_scanned": 8998,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 1050,
-    "SAFE_INFRA_LOOP": 1692,
+    "REVIEW": 1051,
+    "SAFE_INFRA_LOOP": 1723,
     "HISTORICAL_FROZEN": 806
   },
   "active_hard_ring_count": 0,
@@ -1327,7 +1327,7 @@
     {
       "repository": "Hawkar-usls/iNaiHR",
       "path": "janus-synth/state/JANUS_SYNTH_LATEST.json",
-      "line": 8344,
+      "line": 8345,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
@@ -1732,6 +1732,16 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "Admission requires cycle rank at least two, `|B|<=floor(log2 L)`, and after",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_B1B1C5B2B2_E3_HUANG_ALLTRIPLES_SOURCE_AND_CARRIER_AUDIT_2026-09-21_v1.0.json",
+      "line": 117,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"C7_persistence\":\"Therefore every non-distinguished Huang clause remains an induced 7-cycle in the compiled dynamic+selector graph, whether each C-position is dynamic or represented by its selector.\",",
       "active_surface": true
     },
     {
@@ -3132,16 +3142,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "The preceding multiple-cycle transfer gate admitted the strict class whose deterministic canonical feedback-interface union `B` obeys",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-16_BUCKET_UNIQUE_CORE_RESIDUAL_EXACT_TWO_FACTOR_F_FACTOR_CARRIER.md",
-      "line": 17,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "The parent raw K5 exact-two-of-four instance is admitted and solved SAT. Its Tutte graph has 30 vertices and 50 edges. The verified source assignment selects edge variables `[93,94,97,98,100]`, and original relations `orig:19` through `orig:23` all replay true. The independent checker confirms that the selected edges form one five-cycle.",
       "active_surface": true
     }
   ],

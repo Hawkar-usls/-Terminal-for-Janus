@@ -32,6 +32,30 @@
       "state_path": "janus_model/state/JANUS_PNP_AUTORESEARCH_CONTEXT.json",
       "cadence": "every_2_hours",
       "role": "JANUS_OWN_CANDIDATES_BOUNDED_REPLAYS_AND_NATIVE_WAKE"
+    },
+    {
+      "id": "PNP_CORPUS_MIRROR",
+      "repository": "Hawkar-usls/TOPA",
+      "state_branch": "janus/pnp-autoresearch-state",
+      "state_path": "data/pnp-autoresearch/CORPUS.json",
+      "cadence": "every_2_hours",
+      "role": "DEDUPLICATED_DRIVE_PLUS_OPEN_SOURCE_PNP_RESEARCH_CORPUS"
+    },
+    {
+      "id": "PNP_CORPUS_WEIGHT_LEDGER",
+      "repository": "Hawkar-usls/TOPA",
+      "state_branch": "janus/pnp-autoresearch-state",
+      "state_path": "data/pnp-autoresearch/CORPUS_WEIGHT_LEDGER.json",
+      "cadence": "every_2_hours",
+      "role": "ROUTING_PRIORITY_SIDECAR__NOT_TRUTH_OR_EVIDENCE"
+    },
+    {
+      "id": "PNP_DRIVE_SYNC_STATUS",
+      "repository": "Hawkar-usls/TOPA",
+      "state_branch": "janus/pnp-autoresearch-state",
+      "state_path": "data/pnp-autoresearch/DRIVE_INDEX_RECEIPT.json",
+      "cadence": "every_2_hours",
+      "role": "PRIVATE_DRIVE_SYNC_OBSERVABILITY__NO_CREDENTIALS_IN_TERMINAL"
     }
   ],
   "firewalls": {
@@ -41,8 +65,11 @@
     "search_rank_is_truth": false,
     "association_is_evidence": false,
     "finite_replay_is_asymptotic_theorem": false,
-    "autonomous_merge": false
+    "autonomous_merge": false,
+    "corpus_weight_is_truth": false,
+    "corpus_weight_is_evidence": false,
+    "drive_sync_is_scientific_evidence": false
   },
   "terminal_role": "OBSERVE_AUTOMATIC_RESEARCH_AND_SURFACE_PROVENANCE",
-  "law": "AUTOMATION MAY SEARCH_GENERATE_ATTACK_REPLAY_AND_REMEMBER; CLAIM PROMOTION REQUIRES EXPLICIT PROOF_REPLAY_AUTHORITY."
+  "law": "AUTOMATION MAY SEARCH_GENERATE_ATTACK_REPLAY_REMEMBER_AND_REWEIGHT_ROUTING; CORPUS WEIGHTS ARE NOT EVIDENCE AND CLAIM PROMOTION REQUIRES EXPLICIT PROOF_REPLAY_AUTHORITY."
 }

@@ -4,6 +4,10 @@ const U={
  h:'https://raw.githubusercontent.com/Hawkar-usls/Hrain/janus/fundamentum-structural-memory/data/fundamentum-mirror/LATEST.json',
  i:'https://raw.githubusercontent.com/Hawkar-usls/iNaiHR/janus/fundamentum-associative-memory/data/fundamentum-associative/LATEST.json',
  t:'https://raw.githubusercontent.com/Hawkar-usls/TOPA/janus/pnp-autoresearch-state/data/pnp-autoresearch/LATEST.json',
+ c:'https://raw.githubusercontent.com/Hawkar-usls/TOPA/janus/pnp-autoresearch-state/data/pnp-autoresearch/CORPUS.json',
+ w:'https://raw.githubusercontent.com/Hawkar-usls/TOPA/janus/pnp-autoresearch-state/data/pnp-autoresearch/CORPUS_WEIGHT_LEDGER.json',
+ r:'https://raw.githubusercontent.com/Hawkar-usls/TOPA/janus/pnp-autoresearch-state/data/pnp-autoresearch/DEDUPE_RECEIPT.json',
+ g:'https://raw.githubusercontent.com/Hawkar-usls/TOPA/janus/pnp-autoresearch-state/data/pnp-autoresearch/DRIVE_INDEX_RECEIPT.json',
  d:'https://raw.githubusercontent.com/Hawkar-usls/Janus-Demiurge/main/janus_model/state/JANUS_PNP_AUTORESEARCH_CONTEXT.json',
  f:'https://raw.githubusercontent.com/Hawkar-usls/Janus-Demiurge/main/janus_model/policy/JANUS_RESEARCH_ORGAN_FABRIC.json'
 };
@@ -11,6 +15,21 @@ const $=id=>document.getElementById(id);
 const esc=v=>String(v??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
 const short=(v,n=16)=>{const s=String(v||'—');return s.length>n?s.slice(0,n)+'…':s};
 async function get(url,optional=false){try{const r=await fetch(url+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('HTTP_'+r.status);return await r.json()}catch(e){if(optional)return {status:'UNAVAILABLE',error:String(e)};throw e}}
+
+function corpusBundleSafe(c,w,r){
+ return c?.schema==='janus.topa.pnp_corpus.v1'
+   && c?.P_VS_NP==='OPEN'
+   && c?.D1==='EMPTY'
+   && c?.successor_algorithm==='LOCKED'
+   && w?.schema==='janus.topa.pnp_corpus_weight_ledger.v1'
+   && r?.schema==='janus.topa.pnp_corpus_dedupe_receipt.v1'
+   && r?.status==='PASS'
+   && typeof c?.semantic_sha256==='string'
+   && typeof w?.semantic_sha256==='string'
+   && w?.corpus_semantic_sha256===c?.semantic_sha256
+   && r?.corpus_semantic_sha256===c?.semantic_sha256
+   && r?.ledger_semantic_sha256===w?.semantic_sha256;
+}
 
 function supervisorSafe(d,f){
  const s=d?.research_supervisor||{};
@@ -38,10 +57,14 @@ function install(){
    '<div class="kv-row"><span>HRAiN structural memory</span><b id="pnp-h">—</b></div>'+
    '<div class="kv-row"><span>iNaiHR associative memory</span><b id="pnp-i">—</b></div>'+
    '<div class="kv-row"><span>TOPA internet spider</span><b id="pnp-t">—</b></div>'+
+   '<div class="kv-row"><span>PNP deduplicated corpus</span><b id="pnp-c">—</b></div>'+
+   '<div class="kv-row"><span>TOPA attention ledger</span><b id="pnp-w">—</b></div>'+
+   '<div class="kv-row"><span>corpus state bundle</span><b id="pnp-bind">—</b></div>'+
+   '<div class="kv-row"><span>private Drive corpus sync</span><b id="pnp-g">—</b></div>'+
    '<div class="kv-row"><span>Demiurge own research</span><b id="pnp-d">—</b></div>'+
    '<div class="kv-row"><span>Fundamentum mutation</span><b>FALSE</b></div>'+
    '<div class="kv-row"><span>automatic P=NP promotion</span><b>FALSE</b></div>'+
-   '</div><div class="law">HRAiN → iNaiHR → TOPA SPIDER → DEMIURGE → NATIVE WAKE. SOURCE MEMORY AND JANUS OWN RESEARCH REMAIN SEPARATE.</div>';
+   '</div><div class="law">HRAiN → iNaiHR → TOPA SPIDER/CORPUS → DEMIURGE → NATIVE WAKE. ATTENTION WEIGHT != EVIDENCE · DRIVE SYNC != SCIENTIFIC RESULT · SOURCE MEMORY AND JANUS OWN RESEARCH REMAIN SEPARATE.</div>';
    cards.prepend(a);
  }
 
@@ -79,14 +102,19 @@ function renderRoutes(d){
 
 async function refresh(){
  install(); if(!$('pnp-auto-panel'))return;
- const [h,i,t,d,f]=await Promise.all([get(U.h,true),get(U.i,true),get(U.t,true),get(U.d,true),get(U.f,true)]);
+ const [h,i,t,corpus,weights,dedupe,drive,d,f]=await Promise.all([get(U.h,true),get(U.i,true),get(U.t,true),get(U.c,true),get(U.w,true),get(U.r,true),get(U.g,true),get(U.d,true),get(U.f,true)]);
 
  $('pnp-h').textContent=(h.status||'UNRESOLVED')+' · '+short(h.source_commit)+' · '+(h.entry_count??'—')+' files';
  $('pnp-i').textContent=(i.status||'UNRESOLVED')+' · '+(i.topa_query_seed_count??'—')+' query seeds';
  $('pnp-t').textContent=(t.status||'UNRESOLVED')+' · '+(t.record_count??0)+' records · '+(t.edge_count??0)+' edges';
+ $('pnp-c').textContent=(corpus.status||'UNRESOLVED')+' · '+(corpus.record_count??0)+' unique · '+(corpus.new_publication_count??0)+' new';
+ $('pnp-w').textContent=(weights.status||'UNRESOLVED')+' · '+(weights.weight_count??0)+' weighted · truth=FALSE';
+ const bundleSafe=corpusBundleSafe(corpus,weights,dedupe);
+ $('pnp-bind').textContent=bundleSafe?'BOUND · PASS':'UNBOUND / MIXED · FAIL-CLOSED';
+ $('pnp-g').textContent=(drive.status||'UNRESOLVED')+' · '+(drive.source||'NO LIVE DRIVE RECEIPT');
  $('pnp-d').textContent=(d.status||'UNRESOLVED')+' · '+short(d.context_sha256);
- const ready=[h,i,t].every(x=>!['UNAVAILABLE','UNRESOLVED'].includes(String(x.status||'')));
- const pill=$('pnp-auto-state');pill.textContent=ready?'AUTOMATIC · LIVE':'PARTIAL / BOOTSTRAP';pill.classList.toggle('live',ready);pill.classList.toggle('warn',!ready);
+ const ready=[h,i,t,corpus,weights,dedupe].every(x=>!['UNAVAILABLE','UNRESOLVED'].includes(String(x.status||''))) && bundleSafe;
+ const pill=$('pnp-auto-state');pill.textContent=ready?'AUTOMATIC · LIVE · BOUND':'PARTIAL / BOOTSTRAP';pill.classList.toggle('live',ready);pill.classList.toggle('warn',!ready);
 
  const s=d?.research_supervisor||{};
  $('organ-count').textContent=s.organ_count??(Array.isArray(f?.organs)?f.organs.length:'—');
@@ -103,5 +131,5 @@ async function refresh(){
 }
 function boot(){install();refresh();setInterval(refresh,60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()})}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
-window.JANUS_PNP_AUTORESEARCH={automatic:true,source_mutation:false,automatic_claim_promotion:false,research_supervisor:true,urls:U};
+window.JANUS_PNP_AUTORESEARCH={automatic:true,source_mutation:false,automatic_claim_promotion:false,research_supervisor:true,pnp_corpus_fabric:true,corpus_weights_are_evidence:false,corpus_bundle_must_bind:true,urls:U};
 })();

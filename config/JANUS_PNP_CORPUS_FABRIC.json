@@ -1,0 +1,38 @@
+{
+  "schema": "janus.terminal.pnp_corpus_fabric.v1",
+  "status": "OBSERVABILITY_ONLY",
+  "goal": "P_VS_NP",
+  "drive_pack": {
+    "root_url": "https://drive.google.com/drive/folders/1afNpNkT1KcTZie1SJQz6drmIg5kEfVMZ",
+    "direct_browser_fetch": false,
+    "credentials_in_terminal": false
+  },
+  "topa_mirror": {
+    "repository": "Hawkar-usls/TOPA",
+    "branch": "janus/pnp-autoresearch-state",
+    "corpus_url": "https://raw.githubusercontent.com/Hawkar-usls/TOPA/janus/pnp-autoresearch-state/data/pnp-autoresearch/CORPUS.json",
+    "weight_ledger_url": "https://raw.githubusercontent.com/Hawkar-usls/TOPA/janus/pnp-autoresearch-state/data/pnp-autoresearch/CORPUS_WEIGHT_LEDGER.json",
+    "drive_receipt_url": "https://raw.githubusercontent.com/Hawkar-usls/TOPA/janus/pnp-autoresearch-state/data/pnp-autoresearch/DRIVE_INDEX_RECEIPT.json",
+    "dedupe_receipt_url": "https://raw.githubusercontent.com/Hawkar-usls/TOPA/janus/pnp-autoresearch-state/data/pnp-autoresearch/DEDUPE_RECEIPT.json",
+    "state_bundle_binding_required": true,
+    "binding_rule": "LEDGER.corpus_semantic_sha256 == CORPUS.semantic_sha256 == DEDUPE.corpus_semantic_sha256 AND DEDUPE.ledger_semantic_sha256 == LEDGER.semantic_sha256"
+  },
+  "authority": {
+    "terminal_truth": false,
+    "terminal_proof": false,
+    "scientific_claim_promotion": false,
+    "corpus_weight_is_evidence": false,
+    "drive_sync_status_is_evidence": false,
+    "fundamentum_mutation": false,
+    "automatic_pnp_promotion": false,
+    "D1": "EMPTY"
+  },
+  "laws": [
+    "TERMINAL_CORPUS_VIEW != HRAIN_MEMORY_AUTHORITY",
+    "ATTENTION_WEIGHT != EVIDENCE",
+    "DRIVE_SYNC_STATUS != SCIENTIFIC_RESULT",
+    "TOPA_DISCOVERY != FUNDAMENTUM_VERDICT",
+    "P_VS_NP = OPEN",
+    "MIXED_TOPA_STATE_BUNDLE != LIVE_CORPUS"
+  ]
+}

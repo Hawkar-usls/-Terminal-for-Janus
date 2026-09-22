@@ -37,5 +37,11 @@ jobs:
           assert f['authority']['terminal_truth'] is False
           assert f['authority']['scientific_claim_promotion'] is False
           assert f['authority']['automatic_pnp_promotion'] is False
+          assert f['authority']['D1']=='EMPTY'
+          assert f['topa_mirror']['state_bundle_binding_required'] is True
+          js=open('assets/pnp-autoresearch-observatory.js',encoding='utf-8').read()
+          assert 'corpusBundleSafe' in js
+          assert 'DEDUPE_RECEIPT.json' in js
+          assert 'UNBOUND / MIXED · FAIL-CLOSED' in js
           print('TERMINAL_PNP_CORPUS_FABRIC=PASS')
           PY

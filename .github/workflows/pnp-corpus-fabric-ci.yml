@@ -1,0 +1,41 @@
+name: Terminal PNP Corpus Fabric CI
+
+on:
+  pull_request:
+    paths:
+      - 'config/JANUS_PNP_AUTORESEARCH.json'
+      - 'config/JANUS_PNP_CORPUS_FABRIC.json'
+      - 'assets/pnp-autoresearch-observatory.js'
+      - '.github/workflows/pnp-corpus-fabric-ci.yml'
+  push:
+    branches:
+      - 'integration/pnp-corpus-fabric-v1'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate JSON and JS
+        run: |
+          set -euo pipefail
+          node --check assets/pnp-autoresearch-observatory.js
+          python - <<'PY'
+          import json
+          for p in ('config/JANUS_PNP_AUTORESEARCH.json','config/JANUS_PNP_CORPUS_FABRIC.json'):
+              json.load(open(p))
+          a=json.load(open('config/JANUS_PNP_AUTORESEARCH.json'))
+          f=json.load(open('config/JANUS_PNP_CORPUS_FABRIC.json'))
+          assert a['firewalls']['corpus_weight_is_truth'] is False
+          assert a['firewalls']['corpus_weight_is_evidence'] is False
+          assert f['authority']['terminal_truth'] is False
+          assert f['authority']['scientific_claim_promotion'] is False
+          assert f['authority']['automatic_pnp_promotion'] is False
+          print('TERMINAL_PNP_CORPUS_FABRIC=PASS')
+          PY

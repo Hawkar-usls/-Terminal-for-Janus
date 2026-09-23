@@ -53,17 +53,17 @@ def test_persistent_instance_proof_is_rendered():
 def test_first_party_browser_assets_use_cache_busting_epoch():
     html = (ROOT / "index.html").read_text(encoding="utf-8")
     required = (
-        "terminal-v2.css?v=20260923-4",
-        "janus-observatory.css?v=20260923-4",
-        "neural-link-v2.css?v=20260923-4",
-        "terminal-v2.js?v=20260923-4",
-        "neural-link-v2.js?v=20260923-4",
-        "janus-observatory.js?v=20260923-4",
-        "brain-truth-v2.js?v=20260923-4",
-        "brain-visual-v3.js?v=20260923-4",
-        "janus-synthesis-observatory.js?v=20260923-4",
-        "research-observatory.js?v=20260923-4",
-        "pnp-autoresearch-observatory.js?v=20260923-4",
+        "terminal-v2.css?v=20260923-5",
+        "janus-observatory.css?v=20260923-5",
+        "neural-link-v2.css?v=20260923-5",
+        "terminal-v2.js?v=20260923-5",
+        "neural-link-v2.js?v=20260923-5",
+        "janus-observatory.js?v=20260923-5",
+        "brain-truth-v2.js?v=20260923-5",
+        "brain-visual-v3.js?v=20260923-5",
+        "janus-synthesis-observatory.js?v=20260923-5",
+        "research-observatory.js?v=20260923-5",
+        "pnp-autoresearch-observatory.js?v=20260923-5",
     )
     for asset in required:
         assert asset in html

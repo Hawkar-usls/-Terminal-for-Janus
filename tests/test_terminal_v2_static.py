@@ -191,6 +191,15 @@ def test_terminal_partial_witness_failure_does_not_blank_organism():
     assert "Available sources remain visible" in js
 
 
+def test_pnp_autoresearch_live_status_requires_current_source_binding():
+    js = (ROOT / "assets/pnp-autoresearch-observatory.js").read_text(encoding="utf-8")
+    assert "sourceBindingCurrent=s.source_binding_current===true && sourcesAligned" in js
+    assert "sourcesAvailable && sourceBindingCurrent" in js
+    assert "SOURCE BINDING STALE" in js
+    assert "short(i.source_commit)" in js
+    assert "short(t.source_commit)" in js
+
+
 def test_keymaster_progress_scale_is_route_completeness_not_probability():
     js = (ROOT / "assets/pnp-autoresearch-observatory.js").read_text(encoding="utf-8")
     css = (ROOT / "assets/janus-observatory.css").read_text(encoding="utf-8")

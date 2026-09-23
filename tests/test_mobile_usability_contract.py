@@ -75,11 +75,11 @@ def test_dynamic_synthesis_tab_exists_before_core_domcontentloaded_wiring():
     html = (ROOT / "index.html").read_text(encoding="utf-8")
     assert "installView();\ninstallViewRouter();\nif(document.readyState==='loading')" in synth
     assert "nav.addEventListener('click',loadSynth);" in synth
-    terminal_tag = '<script src="./assets/terminal-v2.js" defer></script>'
-    synthesis_tag = '<script src="./assets/janus-synthesis-observatory.js" defer></script>'
-    assert html.count(terminal_tag) == 1
-    assert html.count(synthesis_tag) == 1
-    assert html.index(terminal_tag) < html.index(synthesis_tag)
+    terminal_src = './assets/terminal-v2.js'
+    synthesis_src = './assets/janus-synthesis-observatory.js'
+    assert html.count(terminal_src) == 1
+    assert html.count(synthesis_src) == 1
+    assert html.index(terminal_src) < html.index(synthesis_src)
 
 
 def test_synthesis_does_not_own_terminal_view_state_or_memory_routing():

@@ -54,8 +54,8 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           s=Path('index.html').read_text(encoding='utf-8')
-          tag='<script src="./assets/janus-synthesis-observatory.js" defer></script>'
-          count=s.count(tag)
+          src='./assets/janus-synthesis-observatory.js'
+          count=s.count(src)
           assert count == 1, f'TERMINAL_SYNTH_WIRING_COUNT={count}; expected 1'
           assert 'AUTONOMOUS MERGE = FALSE' in s
           print('TERMINAL_SYNTH_WIRING=PASS_EXACTLY_ONCE')

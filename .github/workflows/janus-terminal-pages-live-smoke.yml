@@ -6,9 +6,18 @@ on:
     paths:
       - 'index.html'
       - 'assets/terminal-v2.js'
+      - 'assets/neural-link-v2.js'
+      - 'assets/janus-observatory.js'
+      - 'assets/brain-truth-v2.js'
+      - 'assets/brain-visual-v3.js'
       - 'assets/janus-synthesis-observatory.js'
+      - 'assets/research-observatory.js'
       - 'assets/pnp-autoresearch-observatory.js'
+      - 'assets/terminal-v2.css'
+      - 'assets/neural-link-v2.css'
+      - 'assets/janus-observatory.css'
       - 'config/JANUS_RESEARCH_ORGAN_FABRIC.json'
+      - 'config/JANUS_RESEARCH_LANES.json'
       - '.github/workflows/janus-terminal-pages-live-smoke.yml'
   workflow_dispatch:
 
@@ -21,75 +30,124 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-      - name: Syntax-check Keymaster observability runtime
-        run: node --check assets/pnp-autoresearch-observatory.js
-      - name: Verify live Pages serves the current navigation runtimes
+
+      - name: Syntax-check complete browser runtime surface
+        run: |
+          set -euo pipefail
+          for file in \
+            assets/terminal-v2.js \
+            assets/neural-link-v2.js \
+            assets/janus-observatory.js \
+            assets/brain-truth-v2.js \
+            assets/brain-visual-v3.js \
+            assets/janus-synthesis-observatory.js \
+            assets/research-observatory.js \
+            assets/pnp-autoresearch-observatory.js
+          do
+            node --check "$file"
+          done
+
+      - name: Verify live Pages serves every current Terminal runtime
         env:
           PAGES_BASE: https://hawkar-usls.github.io/-Terminal-for-Janus
         run: |
           set -euo pipefail
+
+          ASSETS=(
+            assets/terminal-v2.js
+            assets/neural-link-v2.js
+            assets/janus-observatory.js
+            assets/brain-truth-v2.js
+            assets/brain-visual-v3.js
+            assets/janus-synthesis-observatory.js
+            assets/research-observatory.js
+            assets/pnp-autoresearch-observatory.js
+            assets/terminal-v2.css
+            assets/neural-link-v2.css
+            assets/janus-observatory.css
+          )
+
           local_index="$(sha256sum index.html | awk '{print $1}')"
-          local_terminal="$(sha256sum assets/terminal-v2.js | awk '{print $1}')"
-          local_synthesis="$(sha256sum assets/janus-synthesis-observatory.js | awk '{print $1}')"
-          local_pnp="$(sha256sum assets/pnp-autoresearch-observatory.js | awk '{print $1}')"
+          mkdir -p /tmp/janus-live
 
           for attempt in $(seq 1 30); do
             nonce="${GITHUB_SHA}-${GITHUB_RUN_ID}-${attempt}"
-            if curl -fsSL --connect-timeout 10 --max-time 20 \
-                 "${PAGES_BASE}/?janus_live=${nonce}" \
-                 -o /tmp/live-index.html \
-              && curl -fsSL --connect-timeout 10 --max-time 20 \
-                 "${PAGES_BASE}/assets/terminal-v2.js?janus_live=${nonce}" \
-                 -o /tmp/live-terminal-v2.js \
-              && curl -fsSL --connect-timeout 10 --max-time 20 \
-                 "${PAGES_BASE}/assets/janus-synthesis-observatory.js?janus_live=${nonce}" \
-                 -o /tmp/live-synthesis.js \
-              && curl -fsSL --connect-timeout 10 --max-time 20 \
-                 "${PAGES_BASE}/assets/pnp-autoresearch-observatory.js?janus_live=${nonce}" \
-                 -o /tmp/live-pnp.js; then
-              live_index="$(sha256sum /tmp/live-index.html | awk '{print $1}')"
-              live_terminal="$(sha256sum /tmp/live-terminal-v2.js | awk '{print $1}')"
-              live_synthesis="$(sha256sum /tmp/live-synthesis.js | awk '{print $1}')"
-              live_pnp="$(sha256sum /tmp/live-pnp.js | awk '{print $1}')"
+            rm -rf /tmp/janus-live/*
+            ok=1
 
-              if [ "$live_index" = "$local_index" ] \
-                && grep -Fq 'pnp-autoresearch-observatory.js?v=20260923-2' /tmp/live-index.html \
-                && [ "$live_terminal" = "$local_terminal" ] \
-                && [ "$live_synthesis" = "$local_synthesis" ] \
-                && [ "$live_pnp" = "$local_pnp" ] \
-                && grep -Fq 'function activateTerminalView(name)' /tmp/live-synthesis.js \
-                && grep -Fq 'btn.click();' /tmp/live-synthesis.js \
-                && grep -Fq 'window.JANUS_TERMINAL_NAVIGATE=activateTerminalView' /tmp/live-synthesis.js \
-                && ! grep -Fq 'stopImmediatePropagation' /tmp/live-synthesis.js \
-                && ! grep -Fq 'stopPropagation' /tmp/live-synthesis.js \
-                && grep -Fq 'RESEARCH ORGAN FABRIC' /tmp/live-pnp.js \
-                && grep -Fq 'DEGRADED · NO PROMOTION' /tmp/live-pnp.js \
-                && grep -Fq 'research_supervisor' /tmp/live-pnp.js \
-                && grep -Fq 'KEYMASTER · MECHANISM COMPOSITION' /tmp/live-pnp.js \
-                && grep -Fq 'KEYMASTER_MECHANISM_COMPOSITION_LATEST.json' /tmp/live-pnp.js \
-                && grep -Fq 'LOCKPICK SCORE = ROUTING PRIORITY, NOT PROBABILITY OR P=NP PROGRESS.' /tmp/live-pnp.js \
-                && grep -Fq 'keymaster_authority:false' /tmp/live-pnp.js \
-                && grep -Fq 'KEYMASTER_TRUMP_BRIDGE_LATEST.json' /tmp/live-pnp.js \
-                && grep -Fq 'proof-readiness stage' /tmp/live-pnp.js \
-                && grep -Fq 'ROUTE COVERAGE · NOT P=NP PROBABILITY' /tmp/live-pnp.js \
-                && grep -Fq "keymaster_self_application:'CANDIDATE_INTERNAL_TASKS_ONLY'" /tmp/live-pnp.js; then
-                echo "PAGES_NAVIGATION_RUNTIME=LIVE_CURRENT"
-                echo "terminal_v2_sha256=$live_terminal"
-                echo "synthesis_sha256=$live_synthesis"
-                echo "pnp_autoresearch_sha256=$live_pnp"
-                exit 0
+            if ! curl -fsSL --connect-timeout 10 --max-time 20 \
+                 "${PAGES_BASE}/?janus_live=${nonce}" \
+                 -o /tmp/janus-live/index.html; then
+              ok=0
+            fi
+
+            if [ "$ok" -eq 1 ]; then
+              for asset in "${ASSETS[@]}"; do
+                name="${asset##*/}"
+                if ! curl -fsSL --connect-timeout 10 --max-time 20 \
+                     "${PAGES_BASE}/${asset}?janus_live=${nonce}" \
+                     -o "/tmp/janus-live/${name}"; then
+                  ok=0
+                  break
+                fi
+              done
+            fi
+
+            if [ "$ok" -eq 1 ]; then
+              live_index="$(sha256sum /tmp/janus-live/index.html | awk '{print $1}')"
+              [ "$live_index" = "$local_index" ] || ok=0
+
+              if [ "$ok" -eq 1 ]; then
+                for asset in "${ASSETS[@]}"; do
+                  name="${asset##*/}"
+                  local_sha="$(sha256sum "$asset" | awk '{print $1}')"
+                  live_sha="$(sha256sum "/tmp/janus-live/${name}" | awk '{print $1}')"
+                  if [ "$local_sha" != "$live_sha" ]; then
+                    echo "STALE_ASSET:$asset:$local_sha:$live_sha"
+                    ok=0
+                    break
+                  fi
+                done
               fi
             fi
+
+            if [ "$ok" -eq 1 ] \
+              && grep -Fq 'terminal-v2.js?v=20260923-3' /tmp/janus-live/index.html \
+              && grep -Fq 'neural-link-v2.js?v=20260923-3' /tmp/janus-live/index.html \
+              && grep -Fq 'janus-observatory.js?v=20260923-3' /tmp/janus-live/index.html \
+              && grep -Fq 'brain-truth-v2.js?v=20260923-3' /tmp/janus-live/index.html \
+              && grep -Fq 'brain-visual-v3.js?v=20260923-3' /tmp/janus-live/index.html \
+              && grep -Fq 'janus-synthesis-observatory.js?v=20260923-3' /tmp/janus-live/index.html \
+              && grep -Fq 'research-observatory.js?v=20260923-3' /tmp/janus-live/index.html \
+              && grep -Fq 'pnp-autoresearch-observatory.js?v=20260923-3' /tmp/janus-live/index.html \
+              && grep -Fq 'Promise.allSettled' /tmp/janus-live/terminal-v2.js \
+              && grep -Fq 'META_REGISTRY_DB -> HRAIN -> TERMINAL' /tmp/janus-live/neural-link-v2.js \
+              && grep -Fq 'history_window_not_exceed_attempt_count' /tmp/janus-live/janus-observatory.js \
+              && grep -Fq 'Rejected candidate != active brain' /tmp/janus-live/brain-truth-v2.js \
+              && grep -Fq 'function activateTerminalView(name)' /tmp/janus-live/janus-synthesis-observatory.js \
+              && grep -Fq 'cross_lane_authority_inheritance: false' /tmp/janus-live/research-observatory.js \
+              && grep -Fq 'KEYMASTER_TRUMP_BRIDGE_LATEST.json' /tmp/janus-live/pnp-autoresearch-observatory.js \
+              && grep -Fq 'ROUTE COVERAGE · NOT P=NP PROBABILITY' /tmp/janus-live/pnp-autoresearch-observatory.js \
+              && grep -Fq "keymaster_self_application:'CANDIDATE_INTERNAL_TASKS_ONLY'" /tmp/janus-live/pnp-autoresearch-observatory.js \
+              && ! grep -Fq 'stopImmediatePropagation' /tmp/janus-live/janus-synthesis-observatory.js \
+              && ! grep -Fq 'stopPropagation' /tmp/janus-live/janus-synthesis-observatory.js; then
+              echo "PAGES_COMPLETE_RUNTIME_SURFACE=LIVE_CURRENT"
+              echo "index_sha256=$live_index"
+              for asset in "${ASSETS[@]}"; do
+                sha256sum "$asset"
+              done
+              exit 0
+            fi
+
             sleep 5
           done
 
-          echo 'PAGES_NAVIGATION_RUNTIME=STALE_OR_UNREACHABLE' >&2
+          echo 'PAGES_COMPLETE_RUNTIME_SURFACE=STALE_OR_UNREACHABLE' >&2
           echo "expected index.html $local_index" >&2
-          echo "expected terminal-v2.js $local_terminal" >&2
-          echo "expected janus-synthesis-observatory.js $local_synthesis" >&2
-          echo "expected pnp-autoresearch-observatory.js $local_pnp" >&2
-          if [ -f /tmp/live-index.html ]; then sha256sum /tmp/live-index.html >&2; fi
-          if [ -f /tmp/live-terminal-v2.js ]; then sha256sum /tmp/live-terminal-v2.js >&2; fi
-          if [ -f /tmp/live-synthesis.js ]; then sha256sum /tmp/live-synthesis.js >&2; fi
-          if [ -f /tmp/live-pnp.js ]; then sha256sum /tmp/live-pnp.js >&2; fi
+          if [ -f /tmp/janus-live/index.html ]; then sha256sum /tmp/janus-live/index.html >&2; fi
+          for asset in "${ASSETS[@]}"; do
+            name="${asset##*/}"
+            echo "expected $asset $(sha256sum "$asset" | awk '{print $1}')" >&2
+            if [ -f "/tmp/janus-live/${name}" ]; then sha256sum "/tmp/janus-live/${name}" >&2; fi
+          done
           exit 1

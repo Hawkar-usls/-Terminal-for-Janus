@@ -397,18 +397,50 @@
     const btn = $('refresh-btn');
     btn?.classList.add('loading-shimmer');
     try {
-      await Promise.all([loadPersistentState(), loadLatestConversation(), loadTrumpCandidate()]);
+      const [persistentResult, conversationResult, trumpResult] = await Promise.allSettled([
+        loadPersistentState(),
+        loadLatestConversation(),
+        loadTrumpCandidate(),
+      ]);
+
+      if (persistentResult.status === 'rejected') {
+        state.identity = null;
+        state.head = null;
+        console.warn('JANUS_PERSISTENT_STATE_UNRESOLVED', persistentResult.reason);
+      }
+      if (conversationResult.status === 'rejected') {
+        state.issue = null;
+        state.response = null;
+        state.proof = {};
+        console.warn('JANUS_CONVERSATION_WITNESS_UNRESOLVED', conversationResult.reason);
+      }
+      if (trumpResult.status === 'rejected') {
+        state.trump = null;
+        state.trumpManifestDigest = null;
+        state.trumpStatus = 'UNRESOLVED';
+        state.trumpError = trumpResult.reason?.message || String(trumpResult.reason || 'UNRESOLVED');
+        console.warn('JANUS_TRUMP_WITNESS_UNRESOLVED', trumpResult.reason);
+      }
+
       state.refreshedAt = new Date();
       renderStatus();
       renderTranscript();
       renderProvenance();
       document.dispatchEvent(new CustomEvent('janus:terminal-state', { detail: { issue: state.issue, response: state.response, proof: state.proof, refreshedAt: state.refreshedAt?.toISOString() || null } }));
+
+      const failed = [
+        persistentResult.status === 'rejected' ? 'persistent state' : null,
+        conversationResult.status === 'rejected' ? 'conversation witness' : null,
+        trumpResult.status === 'rejected' ? 'TRUMP witness' : null,
+      ].filter(Boolean);
+      if (failed.length) {
+        const box = $('transcript');
+        if (box) box.insertAdjacentHTML('beforeend', '<div class="line"><span class="tag">[NET]</span><span class="body">Partial public witness: '+esc(failed.join(', '))+' unresolved. Available sources remain visible; silence is not negative evidence.</span></div>');
+      }
     } catch (err) {
-      console.warn('JANUS_TERMINAL_REFRESH_UNRESOLVED', err);
+      console.warn('JANUS_TERMINAL_RENDER_UNRESOLVED', err);
       const corePill = $('core-pill');
       if (corePill) corePill.innerHTML = '<span class="dot"></span>UNRESOLVED';
-      const box = $('transcript');
-      if (box) box.insertAdjacentHTML('beforeend', '<div class="line"><span class="tag">[NET]</span><span class="body">Public GitHub read unresolved. Silence is not negative evidence.</span></div>');
     } finally {
       btn?.classList.remove('loading-shimmer');
     }

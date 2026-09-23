@@ -21,6 +21,8 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+      - name: Syntax-check Keymaster observability runtime
+        run: node --check assets/pnp-autoresearch-observatory.js
       - name: Verify live Pages serves the current navigation runtimes
         env:
           PAGES_BASE: https://hawkar-usls.github.io/-Terminal-for-Janus
@@ -55,7 +57,11 @@ jobs:
                 && ! grep -Fq 'stopPropagation' /tmp/live-synthesis.js \
                 && grep -Fq 'RESEARCH ORGAN FABRIC' /tmp/live-pnp.js \
                 && grep -Fq 'DEGRADED · NO PROMOTION' /tmp/live-pnp.js \
-                && grep -Fq 'research_supervisor' /tmp/live-pnp.js; then
+                && grep -Fq 'research_supervisor' /tmp/live-pnp.js \
+                && grep -Fq 'KEYMASTER · MECHANISM COMPOSITION' /tmp/live-pnp.js \
+                && grep -Fq 'KEYMASTER_MECHANISM_COMPOSITION_LATEST.json' /tmp/live-pnp.js \
+                && grep -Fq 'LOCKPICK SCORE = ROUTING PRIORITY, NOT PROBABILITY OR P=NP PROGRESS.' /tmp/live-pnp.js \
+                && grep -Fq 'keymaster_authority:false' /tmp/live-pnp.js; then
                 echo "PAGES_NAVIGATION_RUNTIME=LIVE_CURRENT"
                 echo "terminal_v2_sha256=$live_terminal"
                 echo "synthesis_sha256=$live_synthesis"

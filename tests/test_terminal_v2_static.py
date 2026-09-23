@@ -156,6 +156,18 @@ def test_terminal_partial_witness_failure_does_not_blank_organism():
     assert "Available sources remain visible" in js
 
 
+def test_keymaster_progress_scale_is_route_completeness_not_probability():
+    js = (ROOT / "assets/pnp-autoresearch-observatory.js").read_text(encoding="utf-8")
+    css = (ROOT / "assets/janus-observatory.css").read_text(encoding="utf-8")
+    assert "KEYMASTER_TRUMP_BRIDGE_LATEST.json" in js
+    assert "proof-readiness stage" in js
+    assert "ROUTE COVERAGE · NOT P=NP PROBABILITY" in js
+    assert "keymaster_route_coverage_is_probability:false" in js
+    assert "keymaster_self_application:'CANDIDATE_INTERNAL_TASKS_ONLY'" in js
+    assert "automatic_switch_to_higher_ranked_admitted_runtime" in js
+    assert "keymaster-progress-track" in css
+
+
 def test_synthesis_log_uses_primary_event_log_contract_and_rehydrates():
     js = (ROOT / "assets/janus-synthesis-observatory.js").read_text(encoding="utf-8")
     assert "row.className='log-row'" in js

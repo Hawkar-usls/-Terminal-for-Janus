@@ -11,13 +11,13 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 9104,
+  "files_scanned": 9123,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 1083,
-    "SAFE_INFRA_LOOP": 1762,
-    "HISTORICAL_FROZEN": 806
+    "REVIEW": 1084,
+    "SAFE_INFRA_LOOP": 1774,
+    "HISTORICAL_FROZEN": 809
   },
   "active_hard_ring_count": 0,
   "active_hard_rings": [],
@@ -4870,6 +4870,16 @@
     },
     {
       "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "data/JANUS-P-VS-NP-R5-E9-BERGE-ACYCLIC-ESCAPE-SELECTOR-2026-09-23-v1.0.json",
+      "line": 20,
+      "classification": "HISTORICAL_FROZEN",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"ceiling\": \"Acyclicity is sufficient but not necessary; cyclic degree-3 linear NAE remains polynomial, so cycle presence alone is not the missing hardness motif.\",",
+      "active_surface": false
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
       "path": "data/JANUS-TRUMP-TIME-TRAVEL-CROSS-CHAT-HANDOFF-PROTOCOL-2026-09-11-v1.0.json",
       "line": 34,
       "classification": "HISTORICAL_FROZEN",
@@ -5136,16 +5146,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "{\"file\":\"nas_quant_cycle_120_int8.json\",\"sha256\":\"0654b35811fb500f9459bd21b39c2b56bbc080017dcf5c9c8a59297822e1f0fa\",\"bytes\":272417,\"cycle\":120,\"timestamp\":\"2026-04-18T11:48:34.027276Z\",\"best_loss\":1.4735802114009857},",
-      "active_surface": false
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "data/JANUS-QUANT-PC-NAS-HANDOFF-LINEAGE-2026-08-17-v1.0.json",
-      "line": 40,
-      "classification": "HISTORICAL_FROZEN",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "{\"file\":\"nas_quant_cycle_125_int8.json\",\"sha256\":\"e1ef23dd303c97768c73c744799c066afac005850aec0a3dd897d882525b0428\",\"bytes\":272686,\"cycle\":125,\"timestamp\":\"2026-04-18T11:49:35.212866Z\",\"best_loss\":1.4735802114009857},",
       "active_surface": false
     }
   ],

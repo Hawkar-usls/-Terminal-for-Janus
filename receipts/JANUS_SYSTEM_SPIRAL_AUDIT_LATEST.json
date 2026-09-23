@@ -11,13 +11,13 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 9054,
+  "files_scanned": 9082,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 1069,
-    "SAFE_INFRA_LOOP": 1765,
-    "HISTORICAL_FROZEN": 807
+    "REVIEW": 1071,
+    "SAFE_INFRA_LOOP": 1758,
+    "HISTORICAL_FROZEN": 806
   },
   "active_hard_ring_count": 0,
   "active_hard_rings": [],

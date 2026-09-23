@@ -50,6 +50,25 @@ def test_persistent_instance_proof_is_rendered():
     assert "janus/activator-state/state/activator" in js
 
 
+def test_first_party_browser_assets_use_cache_busting_epoch():
+    html = (ROOT / "index.html").read_text(encoding="utf-8")
+    required = (
+        "terminal-v2.css?v=20260923-3",
+        "janus-observatory.css?v=20260923-3",
+        "neural-link-v2.css?v=20260923-3",
+        "terminal-v2.js?v=20260923-3",
+        "neural-link-v2.js?v=20260923-3",
+        "janus-observatory.js?v=20260923-3",
+        "brain-truth-v2.js?v=20260923-3",
+        "brain-visual-v3.js?v=20260923-3",
+        "janus-synthesis-observatory.js?v=20260923-3",
+        "research-observatory.js?v=20260923-3",
+        "pnp-autoresearch-observatory.js?v=20260923-3",
+    )
+    for asset in required:
+        assert asset in html
+
+
 def test_html_has_no_duplicate_ids():
     parser = IdCollector()
     parser.feed((ROOT / "index.html").read_text(encoding="utf-8"))

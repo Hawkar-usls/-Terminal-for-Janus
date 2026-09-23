@@ -150,6 +150,14 @@ def test_observatory_distinguishes_active_brain_from_last_candidate():
     assert "BRAIN ${m.promotion_count" in js
 
 
+def test_modules_surface_uses_access_contract_fallback_without_faking_observation():
+    js = (ROOT / "assets/janus-observatory.js").read_text(encoding="utf-8")
+    assert "ACCESS CONTRACT FALLBACK · observation unresolved" in js
+    assert "ACCESS CONTRACT · OBSERVATION UNRESOLVED" in js
+    assert "UNRESOLVED OBSERVATION" in js
+    assert "observed-module state is stale/empty" in js
+
+
 def test_observatory_accepts_bounded_history_window_without_false_integrity_failure():
     js = (ROOT / "assets/janus-observatory.js").read_text(encoding="utf-8")
     assert "history_window_not_exceed_attempt_count" in js

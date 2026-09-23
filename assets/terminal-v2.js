@@ -353,8 +353,16 @@
   }
 
   function switchView(name) {
-    qa('.nav-btn').forEach((btn) => btn.classList.toggle('active', btn.dataset.view === name));
-    qa('.view').forEach((view) => view.classList.toggle('active', view.id === `view-${name}`));
+    qa('.nav-btn').forEach((btn) => {
+      const active = btn.dataset.view === name;
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-selected', String(active));
+    });
+    qa('.view').forEach((view) => {
+      const active = view.id === `view-${name}`;
+      view.classList.toggle('active', active);
+      view.setAttribute('aria-hidden', String(!active));
+    });
     setText('current-view', name.toUpperCase());
     if (name === 'memory') {
       const frame = $('hrain-frame');

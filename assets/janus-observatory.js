@@ -323,7 +323,7 @@
 
   function renderAll() {
     renderBrainBasics();
-    renderLossChart();
+    if (!window.JANUS_BRAIN_VISUAL_OWNER) renderLossChart();
     renderDecision();
     renderTelemetry();
     renderModules();

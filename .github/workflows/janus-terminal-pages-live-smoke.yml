@@ -112,14 +112,14 @@ jobs:
             fi
 
             if [ "$ok" -eq 1 ] \
-              && grep -Fq 'terminal-v2.js?v=20260923-3' /tmp/janus-live/index.html \
-              && grep -Fq 'neural-link-v2.js?v=20260923-3' /tmp/janus-live/index.html \
-              && grep -Fq 'janus-observatory.js?v=20260923-3' /tmp/janus-live/index.html \
-              && grep -Fq 'brain-truth-v2.js?v=20260923-3' /tmp/janus-live/index.html \
-              && grep -Fq 'brain-visual-v3.js?v=20260923-3' /tmp/janus-live/index.html \
-              && grep -Fq 'janus-synthesis-observatory.js?v=20260923-3' /tmp/janus-live/index.html \
-              && grep -Fq 'research-observatory.js?v=20260923-3' /tmp/janus-live/index.html \
-              && grep -Fq 'pnp-autoresearch-observatory.js?v=20260923-3' /tmp/janus-live/index.html \
+              && grep -Fq 'terminal-v2.js?v=20260923-4' /tmp/janus-live/index.html \
+              && grep -Fq 'neural-link-v2.js?v=20260923-4' /tmp/janus-live/index.html \
+              && grep -Fq 'janus-observatory.js?v=20260923-4' /tmp/janus-live/index.html \
+              && grep -Fq 'brain-truth-v2.js?v=20260923-4' /tmp/janus-live/index.html \
+              && grep -Fq 'brain-visual-v3.js?v=20260923-4' /tmp/janus-live/index.html \
+              && grep -Fq 'janus-synthesis-observatory.js?v=20260923-4' /tmp/janus-live/index.html \
+              && grep -Fq 'research-observatory.js?v=20260923-4' /tmp/janus-live/index.html \
+              && grep -Fq 'pnp-autoresearch-observatory.js?v=20260923-4' /tmp/janus-live/index.html \
               && grep -Fq 'Promise.allSettled' /tmp/janus-live/terminal-v2.js \
               && grep -Fq 'META_REGISTRY_DB -> HRAIN -> TERMINAL' /tmp/janus-live/neural-link-v2.js \
               && grep -Fq 'history_window_not_exceed_attempt_count' /tmp/janus-live/janus-observatory.js \

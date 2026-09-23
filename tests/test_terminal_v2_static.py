@@ -255,6 +255,14 @@ def test_neural_link_v2_is_hrain_mediated_and_append_only():
     assert contract["conversation"]["browser_send_semantics"] == "PENDING_UNTIL_GITHUB_CONFIRMATION"
 
 
+def test_terminal_router_keeps_aria_state_in_sync_for_dynamic_views():
+    js = (ROOT / "assets/terminal-v2.js").read_text(encoding="utf-8")
+    assert "btn.setAttribute('aria-selected', String(active))" in js
+    assert "view.setAttribute('aria-hidden', String(!active))" in js
+    assert "btn.dataset.view === name" in js
+    assert "view.id === `view-${name}`" in js
+
+
 def test_mobile_neural_link_obeys_terminal_view_ownership():
     css = (ROOT / "assets/neural-link-v2.css").read_text(encoding="utf-8")
     assert "#view-console.neural-link-active.active{" in css

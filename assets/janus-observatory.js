@@ -227,31 +227,44 @@
   function renderModules() {
     const state = obs.modules || {};
     const registry = obs.registry || {};
-    const rows = state.modules || [];
+    const observedRows = Array.isArray(state.modules) ? state.modules : [];
+    const accessRows = Array.isArray(obs.organAccess?.organs) ? obs.organAccess.organs : [];
     const observedCount = Number(state.module_count);
     const registryCount = Number(registry?.discovery?.discovered_module_count);
     const resolvedCount = Number.isInteger(observedCount) && observedCount > 0
       ? observedCount
       : Number.isInteger(registryCount) && registryCount > 0
         ? registryCount
-        : rows.length;
-    const observedMapStale = rows.length === 0 && resolvedCount > 0;
+        : accessRows.length || observedRows.length;
+    const observedMapStale = observedRows.length === 0 && resolvedCount > 0;
+    const rows = observedRows.length
+      ? observedRows
+      : accessRows.map((row) => ({
+          repository: row.repository,
+          agent_id: row.agent_id,
+          ref: row.target_ref,
+          target_commit: null,
+          focus: 'ACCESS CONTRACT FALLBACK · observation unresolved',
+          _access_contract_fallback: true,
+        }));
 
     set('brain-module-count', resolvedCount);
     set('modules-count', resolvedCount);
-    set('brain-module-count-note', rows.length ? `${rows.length} Scout-observed organs` : observedMapStale ? 'registry fallback · observed map stale' : 'typed organ context unresolved');
-    set('modules-count-note', rows.length ? `${rows.length} Scout-observed repositories` : observedMapStale ? 'registered count · observed map stale' : 'Scout-bound repositories unresolved');
+    set('brain-module-count-note', observedRows.length ? `${observedRows.length} Scout-observed organs` : observedMapStale ? 'access-contract fallback · observed map stale' : 'typed organ context unresolved');
+    set('modules-count-note', observedRows.length ? `${observedRows.length} Scout-observed repositories` : observedMapStale ? `${rows.length} access-contract rows · observation stale` : 'Scout-bound repositories unresolved');
     set('modules-attempts', registry?.global_mutation_policy?.max_patch_attempts ?? 2);
-    set('modules-live-status', rows.length
-      ? `${rows.length} ORGANS OBSERVED · MEMORY APPEND-ONLY`
-      : observedMapStale
-        ? `${resolvedCount} ORGANS REGISTERED · OBSERVED MAP STALE`
-        : 'UNRESOLVED');
+    set('modules-live-status', observedRows.length
+      ? `${observedRows.length} ORGANS OBSERVED · MEMORY APPEND-ONLY`
+      : observedMapStale && rows.length
+        ? `${resolvedCount} ORGANS REGISTERED · ACCESS CONTRACT FALLBACK · OBSERVATION STALE`
+        : observedMapStale
+          ? `${resolvedCount} ORGANS REGISTERED · OBSERVED MAP STALE`
+          : 'UNRESOLVED');
     const box = $('module-list');
     if (!box) return;
     if (!rows.length) {
       box.innerHTML = observedMapStale
-        ? `<div class="empty-state">${esc(resolvedCount)} repository organs are registered, but the persisted observed-module map is stale/empty. Registry count is shown; per-organ observation details remain unresolved.</div>`
+        ? `<div class="empty-state">${esc(resolvedCount)} repository organs are registered, but the persisted observed-module map is stale/empty. No access-contract fallback rows resolved.</div>`
         : '<div class="empty-state">No persisted module state resolved.</div>';
       return;
     }
@@ -259,7 +272,11 @@
     box.innerHTML = sorted.map((m) => {
       const lane = accessLaneFor(m.repository);
       const active = lane !== 'READ_ACCUMULATE';
-      return `<article class="module-card${active?' actuated':''}"><div class="module-top"><div><div class="module-name">${esc(m.repository)}</div><div class="module-role">${esc(m.scout_role || m.focus || 'typed repository organ')}</div></div><span class="module-lane">${esc(laneLabel(lane))}</span></div><div class="module-meta"><div><label>module</label><b>${esc(m.module_id || '—')}</b></div><div><label>ref</label><b>${esc(m.ref || '—')}</b></div><div><label>observed commit</label><b title="${esc(m.target_commit)}">${esc(short(m.target_commit,16))}</b></div><div><label>scout</label><b>${esc(m.agent_id || '—')}</b></div></div></article>`;
+      const fallback = m._access_contract_fallback === true;
+      const role = fallback ? 'ACCESS CONTRACT · OBSERVATION UNRESOLVED' : (m.scout_role || m.focus || 'typed repository organ');
+      const moduleId = fallback ? 'UNRESOLVED OBSERVATION' : (m.module_id || '—');
+      const commit = fallback ? 'UNRESOLVED' : short(m.target_commit,16);
+      return `<article class="module-card${active?' actuated':''}"><div class="module-top"><div><div class="module-name">${esc(m.repository)}</div><div class="module-role">${esc(role)}</div></div><span class="module-lane">${esc(laneLabel(lane))}</span></div><div class="module-meta"><div><label>module</label><b>${esc(moduleId)}</b></div><div><label>ref</label><b>${esc(m.ref || '—')}</b></div><div><label>observed commit</label><b title="${esc(m.target_commit || 'UNRESOLVED')}">${esc(commit)}</b></div><div><label>scout</label><b>${esc(m.agent_id || '—')}</b></div></div></article>`;
     }).join('');
   }
 
@@ -284,7 +301,9 @@
       if (d.status && d.status !== 'NO_ACTION') rows.push(logRow(seq++, 'PATCH', `${d.selected?.target?.repository || 'target'} · ${d.selected?.verification_profile || 'local verifier'} · proposal must be applied only through target-bounded write lane`, 'AWAIT VERIFY', 'warn'));
     }
     const mods = obs.modules?.modules || [];
+    const access = obs.organAccess?.organs || [];
     if (mods.length) rows.push(logRow(seq++, 'SCOUT', `${mods.length} repository organs present in SELF observed-module state`, 'OBSERVED'));
+    else if (access.length) rows.push(logRow(seq++, 'SCOUT', `${access.length} repository organs available from access contract; observed-module state is stale/empty`, 'FALLBACK', 'warn'));
     rows.push(logRow(seq++, 'MEMORY', 'Durable evidence is append-only: supersede, quarantine or mark stale; never erase failures, negative results or counterexamples.', 'NO DELETE'));
     rows.push(logRow(seq++, 'LAW', 'Rejected candidate != active brain. No verification = no PASS. Model output is not independent evidence. Autonomous merge remains disabled.', 'ENFORCED'));
     const box = $('janus-event-log');

@@ -93,3 +93,13 @@ def test_brain_truth_runtime_fails_visible_and_clears_stale_telemetry_state():
     assert "pill.textContent = 'BRAIN UNRESOLVED'" in js
     assert "pill.classList.add('warn')" in js
     assert "status.classList.remove('live')" in js
+
+
+def test_brain_visual_v3_is_single_chart_owner_when_present():
+    base = (ROOT / "assets/janus-observatory.js").read_text(encoding="utf-8")
+    truth = (ROOT / "assets/brain-truth-v2.js").read_text(encoding="utf-8")
+    visual = (ROOT / "assets/brain-visual-v3.js").read_text(encoding="utf-8")
+    assert "window.JANUS_BRAIN_VISUAL_OWNER = BUILD" in visual
+    assert "if (!window.JANUS_BRAIN_VISUAL_OWNER) renderLossChart()" in base
+    assert "if (!window.JANUS_BRAIN_VISUAL_OWNER) renderChart()" in truth
+    assert "state.model && !window.JANUS_BRAIN_VISUAL_OWNER" in truth

@@ -55,14 +55,21 @@
 
   function modelIntegrity(model) {
     const history = Array.isArray(model?.history) ? model.history : [];
+    const attempts = Number(model?.attempt_count);
     const promotedRows = history.filter(promoted);
     const latestPromoted = promotedRows.length ? promotedRows[promotedRows.length - 1] : null;
+    const last = history.length ? history[history.length - 1] : null;
     const checks = {
-      attempt_count_matches_history: Number(model?.attempt_count) === history.length,
-      promotion_plus_rejection_matches_attempts: Number(model?.promotion_count) + Number(model?.rejection_count) === Number(model?.attempt_count),
+      history_window_not_exceed_attempt_count: Number.isInteger(attempts) && attempts >= history.length,
+      promotion_plus_rejection_matches_attempts: Number(model?.promotion_count) + Number(model?.rejection_count) === attempts,
       active_checkpoint_matches_last_promoted: !latestPromoted || !model?.checkpoint_sha256 || latestPromoted.checkpoint_sha256 === model.checkpoint_sha256,
+      latest_history_matches_last_training_status: !last || !model?.last_training_status || last.status === model.last_training_status,
     };
-    return { pass: Object.values(checks).every(Boolean), checks };
+    return {
+      pass: Object.values(checks).every(Boolean),
+      checks,
+      history_window_truncated: Number.isInteger(attempts) && attempts > history.length,
+    };
   }
 
   async function json(url, optional = false) {

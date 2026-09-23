@@ -2,6 +2,7 @@
   'use strict';
 
   const BUILD = 'BRAIN_VISUAL_V3_2026_09_11';
+  window.JANUS_BRAIN_VISUAL_OWNER = BUILD;
   const MODEL_URL = 'https://raw.githubusercontent.com/Hawkar-usls/Janus-Demiurge/main/janus_model/state/JANUS_MODEL_STATE.json';
   const REFRESH_MS = 60000;
   const ADAPTIVE_TOLERANCE_PCT = 0.2;

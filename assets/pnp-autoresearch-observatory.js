@@ -199,14 +199,22 @@ async function refresh(){
  install(); if(!$('pnp-auto-panel'))return;
  const [h,i,t,d,f,k,kb]=await Promise.all([get(U.h,true),get(U.i,true),get(U.t,true),get(U.d,true),get(U.f,true),get(U.k,true),get(U.kb,true)]);
 
- $('pnp-h').textContent=(h.status||'UNRESOLVED')+' · '+short(h.source_commit)+' · '+(h.entry_count??'—')+' files';
- $('pnp-i').textContent=(i.status||'UNRESOLVED')+' · '+(i.topa_query_seed_count??'—')+' query seeds';
- $('pnp-t').textContent=(t.status||'UNRESOLVED')+' · '+(t.record_count??0)+' records · '+(t.edge_count??0)+' edges';
- $('pnp-d').textContent=(d.status||'UNRESOLVED')+' · '+short(d.context_sha256);
- const ready=[h,i,t].every(x=>!['UNAVAILABLE','UNRESOLVED'].includes(String(x.status||'')));
- const pill=$('pnp-auto-state');pill.textContent=ready?'AUTOMATIC · LIVE':'PARTIAL / BOOTSTRAP';pill.classList.toggle('live',ready);pill.classList.toggle('warn',!ready);
-
  const s=d?.research_supervisor||{};
+ const sourceCommits=[h?.source_commit,i?.source_commit,t?.source_commit].filter(Boolean);
+ const sourcesAligned=sourceCommits.length===3 && sourceCommits.every(x=>x===sourceCommits[0]);
+ const sourcesAvailable=[h,i,t].every(x=>!['UNAVAILABLE','UNRESOLVED'].includes(String(x.status||'')));
+ const sourceBindingCurrent=s.source_binding_current===true && sourcesAligned;
+ const ready=sourcesAvailable && sourceBindingCurrent;
+
+ $('pnp-h').textContent=(h.status||'UNRESOLVED')+' · '+short(h.source_commit)+' · '+(h.entry_count??'—')+' files';
+ $('pnp-i').textContent=(i.status||'UNRESOLVED')+' · '+short(i.source_commit)+' · '+(i.topa_query_seed_count??'—')+' query seeds';
+ $('pnp-t').textContent=(t.status||'UNRESOLVED')+' · '+short(t.source_commit)+' · '+(t.record_count??0)+' records · '+(t.edge_count??0)+' edges';
+ $('pnp-d').textContent=(d.status||'UNRESOLVED')+' · '+short(d.context_sha256);
+ const pill=$('pnp-auto-state');
+ pill.textContent=ready?'AUTOMATIC · LIVE':sourcesAvailable?'SOURCE BINDING STALE':'PARTIAL / BOOTSTRAP';
+ pill.classList.toggle('live',ready);
+ pill.classList.toggle('warn',!ready);
+
  $('organ-count').textContent=s.organ_count??(Array.isArray(f?.organs)?f.organs.length:'—');
  $('organ-stage-count').textContent=s.route_stage_count??(Array.isArray(f?.route)?f.route.length:'—');
  $('organ-source-binding').textContent=s.source_binding_current===true?'CURRENT':s.source_binding_current===false?'STALE / UNRESOLVED':'—';

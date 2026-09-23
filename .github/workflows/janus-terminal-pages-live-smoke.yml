@@ -123,7 +123,7 @@ jobs:
               && grep -Fq 'Promise.allSettled' /tmp/janus-live/terminal-v2.js \
               && grep -Fq 'META_REGISTRY_DB -> HRAIN -> TERMINAL' /tmp/janus-live/neural-link-v2.js \
               && grep -Fq 'history_window_not_exceed_attempt_count' /tmp/janus-live/janus-observatory.js \
-              && grep -Fq 'Rejected candidate != active brain' /tmp/janus-live/brain-truth-v2.js \
+              && grep -Fq 'SAME-ATTEMPT INCUMBENT' /tmp/janus-live/brain-truth-v2.js \
               && grep -Fq 'function activateTerminalView(name)' /tmp/janus-live/janus-synthesis-observatory.js \
               && grep -Fq 'cross_lane_authority_inheritance: false' /tmp/janus-live/research-observatory.js \
               && grep -Fq 'KEYMASTER_TRUMP_BRIDGE_LATEST.json' /tmp/janus-live/pnp-autoresearch-observatory.js \

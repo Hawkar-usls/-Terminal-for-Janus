@@ -53,7 +53,7 @@ jobs:
               live_pnp="$(sha256sum /tmp/live-pnp.js | awk '{print $1}')"
 
               if [ "$live_index" = "$local_index" ] \
-                && grep -Fq 'pnp-autoresearch-observatory.js?v=20260923-1' /tmp/live-index.html \
+                && grep -Fq 'pnp-autoresearch-observatory.js?v=20260923-2' /tmp/live-index.html \
                 && [ "$live_terminal" = "$local_terminal" ] \
                 && [ "$live_synthesis" = "$local_synthesis" ] \
                 && [ "$live_pnp" = "$local_pnp" ] \
@@ -68,7 +68,11 @@ jobs:
                 && grep -Fq 'KEYMASTER · MECHANISM COMPOSITION' /tmp/live-pnp.js \
                 && grep -Fq 'KEYMASTER_MECHANISM_COMPOSITION_LATEST.json' /tmp/live-pnp.js \
                 && grep -Fq 'LOCKPICK SCORE = ROUTING PRIORITY, NOT PROBABILITY OR P=NP PROGRESS.' /tmp/live-pnp.js \
-                && grep -Fq 'keymaster_authority:false' /tmp/live-pnp.js; then
+                && grep -Fq 'keymaster_authority:false' /tmp/live-pnp.js \
+                && grep -Fq 'KEYMASTER_TRUMP_BRIDGE_LATEST.json' /tmp/live-pnp.js \
+                && grep -Fq 'proof-readiness stage' /tmp/live-pnp.js \
+                && grep -Fq 'ROUTE COVERAGE · NOT P=NP PROBABILITY' /tmp/live-pnp.js \
+                && grep -Fq "keymaster_self_application:'CANDIDATE_INTERNAL_TASKS_ONLY'" /tmp/live-pnp.js; then
                 echo "PAGES_NAVIGATION_RUNTIME=LIVE_CURRENT"
                 echo "terminal_v2_sha256=$live_terminal"
                 echo "synthesis_sha256=$live_synthesis"

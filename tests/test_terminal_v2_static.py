@@ -146,6 +146,16 @@ def test_terminal_restores_all_runtime_readout_targets():
         assert f'id="{element_id}"' in html
 
 
+def test_terminal_partial_witness_failure_does_not_blank_organism():
+    js = (ROOT / "assets/terminal-v2.js").read_text(encoding="utf-8")
+    assert "Promise.allSettled" in js
+    assert "JANUS_CONVERSATION_WITNESS_UNRESOLVED" in js
+    assert "state.issue = null" in js
+    assert "state.response = null" in js
+    assert "state.proof = {}" in js
+    assert "Available sources remain visible" in js
+
+
 def test_synthesis_log_uses_primary_event_log_contract_and_rehydrates():
     js = (ROOT / "assets/janus-synthesis-observatory.js").read_text(encoding="utf-8")
     assert "row.className='log-row'" in js

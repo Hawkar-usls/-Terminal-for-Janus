@@ -131,6 +131,14 @@ def test_observatory_distinguishes_active_brain_from_last_candidate():
     assert "BRAIN ${m.promotion_count" in js
 
 
+def test_observatory_accepts_bounded_history_window_without_false_integrity_failure():
+    js = (ROOT / "assets/janus-observatory.js").read_text(encoding="utf-8")
+    assert "history_window_not_exceed_attempt_count" in js
+    assert "attempt_count_matches_history" not in js
+    assert "latest_history_matches_last_training_status" in js
+    assert "history_window_truncated" in js
+
+
 def test_observatory_has_state_integrity_and_resilient_auxiliary_reads():
     js = (ROOT / "assets/janus-observatory.js").read_text(encoding="utf-8")
     assert "modelIntegrity" in js

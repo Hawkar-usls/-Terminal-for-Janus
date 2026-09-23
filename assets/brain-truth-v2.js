@@ -270,7 +270,7 @@
       state.model = model;
       state.receipt = receipt;
       renderBasics();
-      renderChart();
+      if (!window.JANUS_BRAIN_VISUAL_OWNER) renderChart();
       clearStaleTelemetryClass();
     } catch (err) {
       console.warn('JANUS_BRAIN_TRUTH_V2_UNRESOLVED', err);
@@ -296,7 +296,7 @@
   function queueChartResize() {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
-      if (state.model) renderChart();
+      if (state.model && !window.JANUS_BRAIN_VISUAL_OWNER) renderChart();
     }, 100);
   }
 

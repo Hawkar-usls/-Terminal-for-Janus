@@ -96,6 +96,15 @@ function install(){
    '<div class="kv-row"><span>TRUMP selected runtime</span><b id="keymaster-runtime">—</b></div>'+
    '<div class="kv-row"><span>JANUS self-application</span><b id="keymaster-self-application">—</b></div>'+
    '</div>'+
+   '<h4>AUTONOMOUS LOCKPICK FORGE</h4>'+
+   '<div class="kv-stack">'+
+   '<div class="kv-row"><span>forge status</span><b id="keymaster-forge-status">—</b></div>'+
+   '<div class="kv-row"><span>cycles / distinct / duplicate</span><b id="keymaster-forge-counts">—</b></div>'+
+   '<div class="kv-row"><span>active forge target</span><b id="keymaster-forge-target">—</b></div>'+
+   '<div class="kv-row"><span>latest candidate algorithm</span><b id="keymaster-forge-candidate">—</b></div>'+
+   '<div class="kv-row"><span>next candidate gate</span><b id="keymaster-forge-next">—</b></div>'+
+   '<div class="kv-row"><span>proof/shadow admission</span><b id="keymaster-forge-admission">FALSE / FALSE</b></div>'+
+   '</div>'+
    '<h4>TOP MISSING INTERFACES</h4><div id="keymaster-frontier-list" class="kv-stack"><div class="empty-state">Resolving Keymaster frontier…</div></div>'+
    '<h4>CANDIDATE-ONLY MECHANISMS</h4><div id="keymaster-candidate-list" class="kv-stack"><div class="empty-state">Resolving candidate mechanisms…</div></div>'+
    '<div class="law">LOCKPICK SCORE = ROUTING PRIORITY, NOT PROBABILITY OR P=NP PROGRESS.</div>'+
@@ -145,6 +154,10 @@ function renderKeymaster(k,b){
    ?Number(progress.best_route_coverage_percent)
    :fallbackCoverage;
  const boundedCoverage=Math.max(0,Math.min(100,routeCoverage));
+ const forge=k?.autonomous_forge||{};
+ const forgeTarget=forge?.target||{};
+ const forgeCandidate=forge?.candidate||{};
+ const forgeAuthority=forge?.authority||{};
 
  $('keymaster-report').textContent=(k?.status||'UNRESOLVED')+' · '+short(k?.report_sha256,18);
  $('keymaster-authority-artifacts').textContent=k?.authority_artifact_count??'—';
@@ -163,6 +176,16 @@ function renderKeymaster(k,b){
  $('keymaster-self-application').textContent=bridgeSafe
    ?(b?.self_application?.mode||'CANDIDATE_INTERNAL_TASKS_ONLY')+' · AUTO-SWITCH '+String(b?.self_application?.automatic_switch_to_higher_ranked_admitted_runtime===true)
    :'FAIL-CLOSED';
+ $('keymaster-forge-status').textContent=forge.status||'NOT_CONNECTED';
+ $('keymaster-forge-counts').textContent=(forge.cycle_count??0)+' / '+(forge.distinct_candidate_count??0)+' / '+(forge.duplicate_candidate_count??0);
+ $('keymaster-forge-target').textContent=forgeTarget.from_type&&forgeTarget.to_type
+   ?short(forgeTarget.from_type,28)+' → '+short(forgeTarget.to_type,34)
+   :'—';
+ $('keymaster-forge-candidate').textContent=forgeCandidate.candidate_id
+   ?short(forgeCandidate.candidate_id,62)+' · '+(forgeCandidate.status||'CANDIDATE')
+   :'—';
+ $('keymaster-forge-next').textContent=forge.next_action||'—';
+ $('keymaster-forge-admission').textContent=String(forgeAuthority.proof===true).toUpperCase()+' / '+String(forge.keymaster_shadow_admission===true).toUpperCase();
 
  const frontier=$('keymaster-frontier-list');
  if(frontier){
@@ -229,5 +252,5 @@ async function refresh(){
 }
 function boot(){install();refresh();setInterval(refresh,60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()})}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
-window.JANUS_PNP_AUTORESEARCH={automatic:true,source_mutation:false,automatic_claim_promotion:false,research_supervisor:true,keymaster_observability:true,keymaster_authority:false,keymaster_route_coverage_is_probability:false,keymaster_self_application:'CANDIDATE_INTERNAL_TASKS_ONLY',urls:U};
+window.JANUS_PNP_AUTORESEARCH={automatic:true,source_mutation:false,automatic_claim_promotion:false,research_supervisor:true,keymaster_observability:true,keymaster_authority:false,keymaster_route_coverage_is_probability:false,keymaster_self_application:'CANDIDATE_INTERNAL_TASKS_ONLY',keymaster_autonomous_forge_observable:true,keymaster_autonomous_forge_grants_proof:false,urls:U};
 })();

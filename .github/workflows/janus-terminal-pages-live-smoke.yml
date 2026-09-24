@@ -118,7 +118,7 @@ jobs:
               && grep -Fq 'brain-truth-v2.js?v=20260923-6' /tmp/janus-live/index.html \
               && grep -Fq 'brain-visual-v3.js?v=20260923-6' /tmp/janus-live/index.html \
               && grep -Fq 'janus-synthesis-observatory.js?v=20260923-6' /tmp/janus-live/index.html \
-              && grep -Fq 'research-observatory.js?v=20260923-6' /tmp/janus-live/index.html \
+              && grep -Fq 'research-observatory.js?v=20260924-1' /tmp/janus-live/index.html \
               && grep -Fq 'pnp-autoresearch-observatory.js?v=20260923-6' /tmp/janus-live/index.html \
               && grep -Fq 'Promise.allSettled' /tmp/janus-live/terminal-v2.js \
               && grep -Fq 'META_REGISTRY_DB -> HRAIN -> TERMINAL' /tmp/janus-live/neural-link-v2.js \
@@ -128,6 +128,8 @@ jobs:
               && grep -Fq 'if (!window.JANUS_BRAIN_VISUAL_OWNER) renderLossChart()' /tmp/janus-live/janus-observatory.js \
               && grep -Fq 'function activateTerminalView(name)' /tmp/janus-live/janus-synthesis-observatory.js \
               && grep -Fq 'cross_lane_authority_inheritance: false' /tmp/janus-live/research-observatory.js \
+              && grep -Fq 'ACTIVE FUNDAMENTUM DRAFT FRONTIER' /tmp/janus-live/research-observatory.js \
+              && grep -Fq 'draft_frontier_authority: false' /tmp/janus-live/research-observatory.js \
               && grep -Fq 'KEYMASTER_TRUMP_BRIDGE_LATEST.json' /tmp/janus-live/pnp-autoresearch-observatory.js \
               && grep -Fq 'ROUTE COVERAGE · NOT P=NP PROBABILITY' /tmp/janus-live/pnp-autoresearch-observatory.js \
               && grep -Fq "keymaster_self_application:'CANDIDATE_INTERNAL_TASKS_ONLY'" /tmp/janus-live/pnp-autoresearch-observatory.js \

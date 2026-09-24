@@ -119,7 +119,7 @@ jobs:
               && grep -Fq 'brain-visual-v3.js?v=20260923-6' /tmp/janus-live/index.html \
               && grep -Fq 'janus-synthesis-observatory.js?v=20260923-6' /tmp/janus-live/index.html \
               && grep -Fq 'research-observatory.js?v=20260924-1' /tmp/janus-live/index.html \
-              && grep -Fq 'pnp-autoresearch-observatory.js?v=20260923-6' /tmp/janus-live/index.html \
+              && grep -Fq 'pnp-autoresearch-observatory.js?v=20260924-2' /tmp/janus-live/index.html \
               && grep -Fq 'Promise.allSettled' /tmp/janus-live/terminal-v2.js \
               && grep -Fq 'META_REGISTRY_DB -> HRAIN -> TERMINAL' /tmp/janus-live/neural-link-v2.js \
               && grep -Fq 'history_window_not_exceed_attempt_count' /tmp/janus-live/janus-observatory.js \
@@ -133,6 +133,9 @@ jobs:
               && grep -Fq 'KEYMASTER_TRUMP_BRIDGE_LATEST.json' /tmp/janus-live/pnp-autoresearch-observatory.js \
               && grep -Fq 'ROUTE COVERAGE · NOT P=NP PROBABILITY' /tmp/janus-live/pnp-autoresearch-observatory.js \
               && grep -Fq "keymaster_self_application:'CANDIDATE_INTERNAL_TASKS_ONLY'" /tmp/janus-live/pnp-autoresearch-observatory.js \
+              && grep -Fq 'AUTONOMOUS LOCKPICK FORGE' /tmp/janus-live/pnp-autoresearch-observatory.js \
+              && grep -Fq 'keymaster_autonomous_forge_observable:true' /tmp/janus-live/pnp-autoresearch-observatory.js \
+              && grep -Fq 'keymaster_autonomous_forge_grants_proof:false' /tmp/janus-live/pnp-autoresearch-observatory.js \
               && ! grep -Fq 'stopImmediatePropagation' /tmp/janus-live/janus-synthesis-observatory.js \
               && ! grep -Fq 'stopPropagation' /tmp/janus-live/janus-synthesis-observatory.js; then
               echo "PAGES_COMPLETE_RUNTIME_SURFACE=LIVE_CURRENT"

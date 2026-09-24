@@ -191,6 +191,23 @@ def test_terminal_partial_witness_failure_does_not_blank_organism():
     assert "Available sources remain visible" in js
 
 
+def test_research_observatory_surfaces_active_draft_without_authority():
+    js = (ROOT / "assets/research-observatory.js").read_text(encoding="utf-8")
+    for token in (
+        "fundamentumDrafts",
+        "selectActiveDraft",
+        "ACTIVE FUNDAMENTUM DRAFT FRONTIER",
+        "UNSEALED · NO AUTHORITY",
+        "NONE · DISPLAY ONLY",
+        "DRAFT PR != CANONICAL AUTHORITY",
+        "draft_frontier_authority: false",
+        "draft_frontier_display_only: true",
+    ):
+        assert token in js
+    assert "state.activeDraft" in js
+    assert "state.activeDraftHead" in js
+
+
 def test_pnp_autoresearch_live_status_requires_current_source_binding():
     js = (ROOT / "assets/pnp-autoresearch-observatory.js").read_text(encoding="utf-8")
     assert "sourceBindingCurrent=s.source_binding_current===true && sourcesAligned" in js

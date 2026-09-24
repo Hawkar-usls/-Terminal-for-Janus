@@ -5,6 +5,7 @@
   const FUNDAMENTUM_API = 'https://api.github.com/repos/Hawkar-usls/Janus-Fundamentum';
   const DEMIURGE_RAW = 'https://raw.githubusercontent.com/Hawkar-usls/Janus-Demiurge/main';
   const REFRESH_MS = 60_000;
+  const DRAFT_REFRESH_MS = 15 * 60_000;
 
   const URLS = {
     contract: './config/JANUS_RESEARCH_LANES.json',
@@ -12,6 +13,7 @@
     fundamentumBranch: `${FUNDAMENTUM_API}/branches/main`,
     researchSpine: `${DEMIURGE_RAW}/janus_model/state/JANUS_RESEARCH_SPINE.json`,
     latestDecision: `${DEMIURGE_RAW}/janus_model/state/JANUS_LATEST_DECISION.json`,
+    fundamentumDrafts: `${FUNDAMENTUM_API}/pulls?state=open&sort=updated&direction=desc&per_page=20`,
   };
 
   const state = {
@@ -20,6 +22,9 @@
     fundamentumHead: null,
     spine: null,
     decision: null,
+    activeDraft: null,
+    activeDraftHead: null,
+    draftCheckedAt: 0,
     refreshedAt: null,
     status: 'UNRESOLVED',
     error: null,
@@ -113,6 +118,25 @@
     return '';
   }
 
+  function selectActiveDraft(rows) {
+    if (!Array.isArray(rows)) return null;
+    return rows
+      .filter((p) => p && p.state === 'open' && p.draft === true && p.head?.sha)
+      .sort((a, b) => Date.parse(b.updated_at || 0) - Date.parse(a.updated_at || 0))[0] || null;
+  }
+
+  async function loadActiveDraft() {
+    const now = Date.now();
+    if (state.draftCheckedAt && (now - state.draftCheckedAt) < DRAFT_REFRESH_MS) return;
+    state.draftCheckedAt = now;
+    const pulls = await fetchJson(URLS.fundamentumDrafts, true);
+    const draft = selectActiveDraft(pulls);
+    state.activeDraft = draft;
+    state.activeDraftHead = draft?.head?.sha
+      ? await fetchJson(`${FUNDAMENTUM_API}/commits/${draft.head.sha}`, true)
+      : null;
+  }
+
   function renderFundamentum() {
     const summary = currentFundamentumSummary();
     const bound = boundFundamentum() || {};
@@ -138,6 +162,20 @@
         ? keyFiles.map((f) => `<div class="kv-row"><span>${esc(f.path || '—')}</span><b>${esc(f.status || 'BOUND')} · ${esc(short(f.sha256, 16))}</b></div>`).join('')
         : '<div class="empty-state">No persisted Fundamentum key-file binding in the current Demiurge research spine.</div>';
     }
+  }
+
+  function renderDraftFrontier() {
+    const draft = state.activeDraft;
+    const head = state.activeDraftHead;
+    set('research-draft-pr', draft ? `#${draft.number} · DRAFT` : 'NO ACTIVE DRAFT RESOLVED');
+    set('research-draft-title', draft?.title || '—');
+    set('research-draft-head', short(draft?.head?.sha, 20));
+    set('research-draft-commit', head?.commit?.message?.split('\n')[0] || '—');
+    set('research-draft-updated', draft?.updated_at ? new Date(draft.updated_at).toLocaleString() : '—');
+    set('research-draft-authority', 'NONE · DISPLAY ONLY');
+
+    const card = $('research-draft-card');
+    if (card) card.classList.toggle('unresolved', !draft);
   }
 
   function renderIndependent() {
@@ -179,12 +217,14 @@
         '<div class="law">FUNDAMENTUM → JANUS = CONTEXT WITH PROVENANCE ONLY.</div>',
         '<div class="law">JANUS → FUNDAMENTUM = PROPOSAL ONLY; TARGET LOCAL VERIFY REQUIRED BEFORE PASS.</div>',
         '<div class="law">STALE SOURCE BINDING MUST BE SHOWN, NEVER SILENTLY TREATED AS CURRENT.</div>',
+        '<div class="law">DRAFT PR != CANONICAL AUTHORITY. ACTIVE DRAFT FRONTIER IS DISPLAY ONLY AND NEVER FEEDS PROOF PROMOTION.</div>',
       ].join('');
     }
   }
 
   function renderAll() {
     renderFundamentum();
+    renderDraftFrontier();
     renderIndependent();
     renderBoundary();
   }
@@ -202,6 +242,7 @@
     state.fundamentumHead = branch?.commit?.sha || null;
     state.spine = validateSpine(spine);
     state.decision = decision;
+    await loadActiveDraft();
     state.refreshedAt = new Date();
     state.status = 'READY';
     state.error = null;
@@ -267,6 +308,18 @@
           </div>
           <div id="research-fundamentum-files" class="kv-stack"><div class="empty-state">Resolving source binding…</div></div>
         </article>
+        <article id="research-draft-card" class="card wide">
+          <div class="card-title-row"><h3>ACTIVE FUNDAMENTUM DRAFT FRONTIER</h3><span class="pill">UNSEALED · NO AUTHORITY</span></div>
+          <div class="kv-stack">
+            <div class="kv-row"><span>latest updated draft PR</span><b id="research-draft-pr">—</b></div>
+            <div class="kv-row"><span>workstream</span><b id="research-draft-title">—</b></div>
+            <div class="kv-row"><span>draft head</span><b id="research-draft-head">—</b></div>
+            <div class="kv-row"><span>latest draft commit</span><b id="research-draft-commit">—</b></div>
+            <div class="kv-row"><span>updated</span><b id="research-draft-updated">—</b></div>
+            <div class="kv-row"><span>canonical authority</span><b id="research-draft-authority">NONE · DISPLAY ONLY</b></div>
+          </div>
+          <div class="law">DRAFT FRONTIER IS OBSERVABILITY ONLY. IT DOES NOT CLEAR SOURCE BINDING, DOES NOT FEED KEYMASTER AUTHORITY, AND DOES NOT PROMOTE P=NP CLAIMS.</div>
+        </article>
         <article class="card wide">
           <div class="card-title-row"><h3>JANUS INDEPENDENT RESEARCH · OWN LANE</h3><span class="pill">CANDIDATE ONLY</span></div>
           <div class="kv-stack">
@@ -302,5 +355,7 @@
     janus_lane: 'INDEPENDENT_CANDIDATE_RESEARCH',
     stale_binding_is_visible: true,
     cross_lane_authority_inheritance: false,
+    draft_frontier_authority: false,
+    draft_frontier_display_only: true,
   };
 })();

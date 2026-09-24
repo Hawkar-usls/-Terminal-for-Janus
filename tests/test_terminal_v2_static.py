@@ -63,7 +63,7 @@ def test_first_party_browser_assets_use_cache_busting_epoch():
         "brain-visual-v3.js?v=20260923-6",
         "janus-synthesis-observatory.js?v=20260923-6",
         "research-observatory.js?v=20260924-1",
-        "pnp-autoresearch-observatory.js?v=20260923-6",
+        "pnp-autoresearch-observatory.js?v=20260924-2",
     )
     for asset in required:
         assert asset in html

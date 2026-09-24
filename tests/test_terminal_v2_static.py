@@ -217,6 +217,24 @@ def test_pnp_autoresearch_live_status_requires_current_source_binding():
     assert "short(t.source_commit)" in js
 
 
+def test_keymaster_autonomous_forge_activity_is_separate_from_route_coverage():
+    js = (ROOT / "assets/pnp-autoresearch-observatory.js").read_text(encoding="utf-8")
+    for token in (
+        "AUTONOMOUS LOCKPICK FORGE",
+        "keymaster-forge-status",
+        "keymaster-forge-counts",
+        "keymaster-forge-target",
+        "keymaster-forge-candidate",
+        "keymaster-forge-next",
+        "keymaster-forge-admission",
+        "keymaster_autonomous_forge_observable:true",
+        "keymaster_autonomous_forge_grants_proof:false",
+    ):
+        assert token in js
+    assert "forgeAuthority.proof===true" in js
+    assert "forge.keymaster_shadow_admission===true" in js
+
+
 def test_keymaster_progress_scale_is_route_completeness_not_probability():
     js = (ROOT / "assets/pnp-autoresearch-observatory.js").read_text(encoding="utf-8")
     css = (ROOT / "assets/janus-observatory.css").read_text(encoding="utf-8")

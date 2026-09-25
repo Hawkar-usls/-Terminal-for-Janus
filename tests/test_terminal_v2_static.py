@@ -63,7 +63,7 @@ def test_first_party_browser_assets_use_cache_busting_epoch():
         "brain-visual-v3.js?v=20260923-6",
         "janus-synthesis-observatory.js?v=20260923-6",
         "research-observatory.js?v=20260924-1",
-        "pnp-autoresearch-observatory.js?v=20260924-2",
+        "pnp-autoresearch-observatory.js?v=20260925-1",
     )
     for asset in required:
         assert asset in html
@@ -239,9 +239,12 @@ def test_keymaster_progress_scale_is_route_completeness_not_probability():
     js = (ROOT / "assets/pnp-autoresearch-observatory.js").read_text(encoding="utf-8")
     css = (ROOT / "assets/janus-observatory.css").read_text(encoding="utf-8")
     assert "KEYMASTER_TRUMP_BRIDGE_LATEST.json" in js
-    assert "proof-readiness stage" in js
-    assert "ROUTE COVERAGE · NOT P=NP PROBABILITY" in js
+    assert "route completeness · geometry only" in js
+    assert "NOT MATHEMATICAL PROGRESS · NOT P=NP PROBABILITY" in js
     assert "keymaster_route_coverage_is_probability:false" in js
+    assert "keymaster_route_coverage_is_progress:false" in js
+    assert "keymaster-proven-delta" in js
+    assert "PROVEN Δ " in js
     assert "keymaster_self_application:'CANDIDATE_INTERNAL_TASKS_ONLY'" in js
     assert "automatic_switch_to_higher_ranked_admitted_runtime" in js
     assert "keymaster-progress-track" in css

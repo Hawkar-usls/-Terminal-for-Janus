@@ -100,10 +100,11 @@ function install(){
    '<h4>AUTONOMOUS LOCKPICK FORGE</h4>'+
    '<div class="kv-stack">'+
    '<div class="kv-row"><span>forge status</span><b id="keymaster-forge-status">—</b></div>'+
-   '<div class="kv-row"><span>cycles / distinct / duplicate</span><b id="keymaster-forge-counts">—</b></div>'+
+   '<div class="kv-row"><span>cycles / distinct / deferred / falsified</span><b id="keymaster-forge-counts">—</b></div>'+
    '<div class="kv-row"><span>active forge target</span><b id="keymaster-forge-target">—</b></div>'+
    '<div class="kv-row"><span>latest candidate algorithm</span><b id="keymaster-forge-candidate">—</b></div>'+
    '<div class="kv-row"><span>next candidate gate</span><b id="keymaster-forge-next">—</b></div>'+
+   '<div class="kv-row"><span>last candidate attack</span><b id="keymaster-forge-last-attack">—</b></div>'+
    '<div class="kv-row"><span>proof/shadow admission</span><b id="keymaster-forge-admission">FALSE / FALSE</b></div>'+
    '</div>'+
    '<h4>TOP MISSING INTERFACES</h4><div id="keymaster-frontier-list" class="kv-stack"><div class="empty-state">Resolving Keymaster frontier…</div></div>'+
@@ -189,7 +190,7 @@ function renderKeymaster(k,b){
    ?(b?.self_application?.mode||'CANDIDATE_INTERNAL_TASKS_ONLY')+' · AUTO-SWITCH '+String(b?.self_application?.automatic_switch_to_higher_ranked_admitted_runtime===true)
    :'FAIL-CLOSED';
  $('keymaster-forge-status').textContent=forge.status||'NOT_CONNECTED';
- $('keymaster-forge-counts').textContent=(forge.cycle_count??0)+' / '+(forge.distinct_candidate_count??0)+' / '+(forge.duplicate_candidate_count??0);
+ $('keymaster-forge-counts').textContent=(forge.cycle_count??0)+' / '+(forge.distinct_candidate_count??0)+' / '+(forge.deferred_candidate_count??0)+' / '+(forge.mathematically_falsified_candidate_count??0);
  $('keymaster-forge-target').textContent=forgeTarget.from_type&&forgeTarget.to_type
    ?short(forgeTarget.from_type,28)+' → '+short(forgeTarget.to_type,34)
    :'—';
@@ -197,6 +198,10 @@ function renderKeymaster(k,b){
    ?short(forgeCandidate.candidate_id,62)+' · '+(forgeCandidate.status||'CANDIDATE')
    :'—';
  $('keymaster-forge-next').textContent=forge.next_action||'—';
+ const lastAttack=forge.last_candidate_attack||{};
+ $('keymaster-forge-last-attack').textContent=lastAttack.status
+   ?lastAttack.status+' · advance '+String(lastAttack.advance_forge===true)+' · math falsification '+String(lastAttack.mathematical_falsification===true)
+   :'—';
  $('keymaster-forge-admission').textContent=String(forgeAuthority.proof===true).toUpperCase()+' / '+String(forge.keymaster_shadow_admission===true).toUpperCase();
 
  const frontier=$('keymaster-frontier-list');
@@ -217,9 +222,13 @@ function renderKeymaster(k,b){
  }
 
  const provenPositive=provenStatus==='POSITIVE' && provenEvents>0;
+ const forgeCycles=Number.isFinite(Number(forge.cycle_count))?Number(forge.cycle_count):0;
+ const forgeDistinct=Number.isFinite(Number(forge.distinct_candidate_count))?Number(forge.distinct_candidate_count):0;
+ const forgeDeferred=Number.isFinite(Number(forge.deferred_candidate_count))?Number(forge.deferred_candidate_count):0;
  pill.textContent=safe&&bridgeSafe
-   ?'PROVEN Δ '+(provenPositive?('+'+provenEvents):'0')+' · STAGE '+stage+'/'+stageMax
+   ?'PROVEN Δ '+(provenPositive?('+'+provenEvents):'0')+' · STAGE '+stage+'/'+stageMax+' · FORGE C'+forgeCycles+'/D'+forgeDistinct+'/DEF'+forgeDeferred
    :safe?'REPORT LIVE · BRIDGE DEGRADED':'UNRESOLVED · NO CLAIM';
+ pill.title='PROVEN Δ is mathematical progress. FORGE C/D/DEF is search activity only and grants no proof authority.';
  pill.classList.toggle('live',safe&&bridgeSafe&&provenPositive);
  pill.classList.toggle('warn',!safe||!bridgeSafe||!provenPositive);
 }

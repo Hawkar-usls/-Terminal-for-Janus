@@ -63,7 +63,7 @@ def test_first_party_browser_assets_use_cache_busting_epoch():
         "brain-visual-v3.js?v=20260923-6",
         "janus-synthesis-observatory.js?v=20260923-6",
         "research-observatory.js?v=20260924-1",
-        "pnp-autoresearch-observatory.js?v=20260925-1",
+        "pnp-autoresearch-observatory.js?v=20260925-2",
     )
     for asset in required:
         assert asset in html
@@ -226,6 +226,7 @@ def test_keymaster_autonomous_forge_activity_is_separate_from_route_coverage():
         "keymaster-forge-target",
         "keymaster-forge-candidate",
         "keymaster-forge-next",
+        "keymaster-forge-last-attack",
         "keymaster-forge-admission",
         "keymaster_autonomous_forge_observable:true",
         "keymaster_autonomous_forge_grants_proof:false",
@@ -233,6 +234,10 @@ def test_keymaster_autonomous_forge_activity_is_separate_from_route_coverage():
         assert token in js
     assert "forgeAuthority.proof===true" in js
     assert "forge.keymaster_shadow_admission===true" in js
+    assert "deferred_candidate_count" in js
+    assert "mathematically_falsified_candidate_count" in js
+    assert "FORGE C" in js
+    assert "search activity only and grants no proof authority" in js
 
 
 def test_keymaster_progress_scale_is_route_completeness_not_probability():

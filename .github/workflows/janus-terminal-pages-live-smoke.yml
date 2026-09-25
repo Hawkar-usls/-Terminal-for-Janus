@@ -119,7 +119,7 @@ jobs:
               && grep -Fq 'brain-visual-v3.js?v=20260923-6' /tmp/janus-live/index.html \
               && grep -Fq 'janus-synthesis-observatory.js?v=20260923-6' /tmp/janus-live/index.html \
               && grep -Fq 'research-observatory.js?v=20260924-1' /tmp/janus-live/index.html \
-              && grep -Fq 'pnp-autoresearch-observatory.js?v=20260925-1' /tmp/janus-live/index.html \
+              && grep -Fq 'pnp-autoresearch-observatory.js?v=20260925-2' /tmp/janus-live/index.html \
               && grep -Fq 'Promise.allSettled' /tmp/janus-live/terminal-v2.js \
               && grep -Fq 'META_REGISTRY_DB -> HRAIN -> TERMINAL' /tmp/janus-live/neural-link-v2.js \
               && grep -Fq 'history_window_not_exceed_attempt_count' /tmp/janus-live/janus-observatory.js \
@@ -136,6 +136,8 @@ jobs:
               && grep -Fq 'AUTONOMOUS LOCKPICK FORGE' /tmp/janus-live/pnp-autoresearch-observatory.js \
               && grep -Fq 'keymaster_autonomous_forge_observable:true' /tmp/janus-live/pnp-autoresearch-observatory.js \
               && grep -Fq 'keymaster_autonomous_forge_grants_proof:false' /tmp/janus-live/pnp-autoresearch-observatory.js \
+              && grep -Fq 'keymaster-forge-last-attack' /tmp/janus-live/pnp-autoresearch-observatory.js \
+              && grep -Fq 'FORGE C' /tmp/janus-live/pnp-autoresearch-observatory.js \
               && grep -Fq 'keymaster_route_coverage_is_progress:false' /tmp/janus-live/pnp-autoresearch-observatory.js \
               && grep -Fq 'keymaster-proven-delta' /tmp/janus-live/pnp-autoresearch-observatory.js \
               && grep -Fq 'PROVEN Δ ' /tmp/janus-live/pnp-autoresearch-observatory.js \

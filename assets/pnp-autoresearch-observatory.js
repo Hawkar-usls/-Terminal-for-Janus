@@ -80,11 +80,12 @@ function install(){
    const k=document.createElement('article');k.id='keymaster-panel';k.className='card wide';
    k.innerHTML='<div class="card-title-row"><h3>KEYMASTER · MECHANISM COMPOSITION</h3><span id="keymaster-state" class="pill">RESOLVING</span></div>'+
    '<div class="keymaster-progress">'+
-   '<div class="keymaster-progress-head"><span>proof-readiness stage</span><b id="keymaster-proof-stage">—</b></div>'+
+   '<div class="keymaster-progress-head"><span>route completeness · geometry only</span><b id="keymaster-proof-stage">—</b></div>'+
    '<div class="keymaster-progress-track"><i id="keymaster-progress-fill"></i></div>'+
-   '<div class="keymaster-progress-foot"><span id="keymaster-route-coverage">—</span><span>ROUTE COVERAGE · NOT P=NP PROBABILITY</span></div>'+
+   '<div class="keymaster-progress-foot"><span id="keymaster-route-coverage">—</span><span>NOT MATHEMATICAL PROGRESS · NOT P=NP PROBABILITY</span></div>'+
    '</div>'+
    '<div class="kv-stack">'+
+   '<div class="kv-row"><span>proven mathematical delta</span><b id="keymaster-proven-delta">—</b></div>'+
    '<div class="kv-row"><span>latest composition report</span><b id="keymaster-report">—</b></div>'+
    '<div class="kv-row"><span>authority artifacts</span><b id="keymaster-authority-artifacts">—</b></div>'+
    '<div class="kv-row"><span>authoritative / candidate edges</span><b id="keymaster-edges">—</b></div>'+
@@ -145,6 +146,7 @@ function renderKeymaster(k,b){
  const complete=Array.isArray(k?.complete_universal_lifecycle_candidates)?k.complete_universal_lifecycle_candidates:[];
  const candidates=Array.isArray(k?.candidate_only_mechanisms)?k.candidate_only_mechanisms:[];
  const progress=k?.progress_readout||{};
+ const proven=k?.proven_delta||{};
  const stage=Number.isFinite(Number(progress.stage))?Number(progress.stage):(complete.length?3:(queue.length?2:0));
  const stageMax=Number.isFinite(Number(progress.stage_max))?Number(progress.stage_max):5;
  const fallbackCoverage=best.proved_context_edges!==undefined&&best.complete_path_edges_if_closed
@@ -159,6 +161,16 @@ function renderKeymaster(k,b){
  const forgeCandidate=forge?.candidate||{};
  const forgeAuthority=forge?.authority||{};
 
+ const provenStatus=String(proven.mathematical_progress||'UNRESOLVED_BASELINE');
+ const provenEvents=Number.isFinite(Number(proven.proven_advance_event_count))?Number(proven.proven_advance_event_count):0;
+ const edgeDelta=Number.isFinite(Number(proven.authoritative_edge_delta))?Number(proven.authoritative_edge_delta):0;
+ const barrierDelta=Number.isFinite(Number(proven.proved_barrier_delta))?Number(proven.proved_barrier_delta):0;
+ const routeDelta=Number.isFinite(Number(proven.complete_route_delta))?Number(proven.complete_route_delta):0;
+ $('keymaster-proven-delta').textContent=provenStatus+
+   ' · events '+provenEvents+
+   ' · edges '+(edgeDelta>=0?'+':'')+edgeDelta+
+   ' · barriers '+(barrierDelta>=0?'+':'')+barrierDelta+
+   ' · complete routes '+(routeDelta>=0?'+':'')+routeDelta;
  $('keymaster-report').textContent=(k?.status||'UNRESOLVED')+' · '+short(k?.report_sha256,18);
  $('keymaster-authority-artifacts').textContent=k?.authority_artifact_count??'—';
  $('keymaster-edges').textContent=(k?.authoritative_edge_count??'—')+' / '+(k?.candidate_edge_count??'—');
@@ -170,7 +182,7 @@ function renderKeymaster(k,b){
    ?best.proved_context_edges+' / '+best.complete_path_edges_if_closed+' edges'
    :'—';
  $('keymaster-proof-stage').textContent='STAGE '+stage+' / '+stageMax;
- $('keymaster-route-coverage').textContent=boundedCoverage.toFixed(1)+'% best typed route';
+ $('keymaster-route-coverage').textContent=boundedCoverage.toFixed(1)+'% route completeness';
  const fill=$('keymaster-progress-fill'); if(fill)fill.style.width=boundedCoverage+'%';
  $('keymaster-runtime').textContent=bridgeSafe?(b.selected_source_id||'NO_ADMITTED_RUNTIME'):'UNRESOLVED / FALLBACK';
  $('keymaster-self-application').textContent=bridgeSafe
@@ -204,9 +216,12 @@ function renderKeymaster(k,b){
    ).join(''):'<div class="empty-state">No candidate-only mechanisms in the latest report.</div>';
  }
 
- pill.textContent=safe&&bridgeSafe?'STAGE '+stage+'/'+stageMax+' · '+boundedCoverage.toFixed(1)+'% ROUTE':safe?'REPORT LIVE · BRIDGE DEGRADED':'UNRESOLVED · NO CLAIM';
- pill.classList.toggle('live',safe&&bridgeSafe);
- pill.classList.toggle('warn',!safe||!bridgeSafe);
+ const provenPositive=provenStatus==='POSITIVE' && provenEvents>0;
+ pill.textContent=safe&&bridgeSafe
+   ?'PROVEN Δ '+(provenPositive?('+'+provenEvents):'0')+' · STAGE '+stage+'/'+stageMax
+   :safe?'REPORT LIVE · BRIDGE DEGRADED':'UNRESOLVED · NO CLAIM';
+ pill.classList.toggle('live',safe&&bridgeSafe&&provenPositive);
+ pill.classList.toggle('warn',!safe||!bridgeSafe||!provenPositive);
 }
 
 function renderRoutes(d){
@@ -252,5 +267,5 @@ async function refresh(){
 }
 function boot(){install();refresh();setInterval(refresh,60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()})}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
-window.JANUS_PNP_AUTORESEARCH={automatic:true,source_mutation:false,automatic_claim_promotion:false,research_supervisor:true,keymaster_observability:true,keymaster_authority:false,keymaster_route_coverage_is_probability:false,keymaster_self_application:'CANDIDATE_INTERNAL_TASKS_ONLY',keymaster_autonomous_forge_observable:true,keymaster_autonomous_forge_grants_proof:false,urls:U};
+window.JANUS_PNP_AUTORESEARCH={automatic:true,source_mutation:false,automatic_claim_promotion:false,research_supervisor:true,keymaster_observability:true,keymaster_authority:false,keymaster_route_coverage_is_probability:false,keymaster_route_coverage_is_progress:false,keymaster_self_application:'CANDIDATE_INTERNAL_TASKS_ONLY',keymaster_autonomous_forge_observable:true,keymaster_autonomous_forge_grants_proof:false,urls:U};
 })();

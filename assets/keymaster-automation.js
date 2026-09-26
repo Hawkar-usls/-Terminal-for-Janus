@@ -33,17 +33,23 @@
       : String(r.status || 'unknown').toUpperCase();
   }
 
-  function nextExpected(r) {
-    let d = r && new Date(r.run_started_at || r.created_at);
-    if (d && !Number.isNaN(+d)) {
-      d = new Date(+d + 3600000);
-    } else {
-      d = new Date();
-      d.setUTCSeconds(0, 0);
-      if (d.getUTCMinutes() >= 13) d.setUTCHours(d.getUTCHours() + 1);
+  function nextScheduled() {
+    const d = new Date();
+    d.setUTCSeconds(0, 0);
+    if (d.getUTCMinutes() < 13) {
       d.setUTCMinutes(13);
+    } else {
+      d.setUTCHours(d.getUTCHours() + 1, 13, 0, 0);
     }
     return fmt(d.toISOString());
+  }
+
+  function statusClass(v) {
+    const s = String(v || '').toUpperCase();
+    if (s.includes('FAIL') || s.includes('DOWN') || s.includes('ERROR')) return 'keymaster-auto-state-down';
+    if (s.includes('IDLE') || s.includes('WAIT') || s.includes('STALE') || s.includes('NO_CANDIDATE')) return 'keymaster-auto-state-idle';
+    if (s.includes('SUCCESS') || s.includes('LIVE') || s.includes('PASS') || s.includes('RUNNING') || s.includes('IN_PROGRESS')) return 'keymaster-auto-state-live';
+    return '';
   }
 
   function ensureStyle() {
@@ -58,6 +64,7 @@
       .keymaster-auto-cell span{display:block;font-size:9px;color:#739aaa;letter-spacing:.08em}
       .keymaster-auto-cell strong{display:block;margin-top:3px;color:#d9fbff;font-size:10px;overflow-wrap:anywhere}
       .keymaster-auto-state-live{color:#5dffc5!important}
+      .keymaster-auto-state-idle{color:#ffd166!important}
       .keymaster-auto-state-stale{color:#ffd166!important}
       .keymaster-auto-state-down{color:#ff5268!important}
     `;
@@ -116,6 +123,7 @@
     try {
       const { payload, source } = await load();
       const runs = payload.workflow_runs || [];
+      const semantic = payload.materializer_semantic || null;
       const materializer = findRun(runs, (s) => s.includes('keymaster') && s.includes('materializ'));
       const attacker = findRun(runs, (s) => s.includes('keymaster') && s.includes('attack'));
       const forge = findRun(runs, (s) => s.includes('keymaster') && (s.includes('forge') || s.includes('autonomous')));
@@ -127,23 +135,33 @@
       const age = generated ? Date.now() - new Date(generated).getTime() : Infinity;
       const live = Number.isFinite(age) && age <= STALE_MS;
       const automation = live ? 'LIVE' : 'STALE';
-      const klass = live ? 'keymaster-auto-state-live' : 'keymaster-auto-state-stale';
+      const automationClass = live ? 'keymaster-auto-state-live' : 'keymaster-auto-state-stale';
+      const materializerState = semantic?.status || stateOf(materializer);
+      const forgeState = semantic?.forge_status || stateOf(forge);
+      const nextAction = semantic?.forge_next_action || '—';
+      const candidateCount = semantic?.candidate_proposal_count ?? '—';
+      const distinctCount = semantic?.distinct_candidate_count ?? '—';
+      const cycleCount = semantic?.cycle_count ?? '—';
 
       box.innerHTML = `
         <div class="keymaster-auto-head">
           <b>AUTONOMY TELEMETRY</b>
-          <b class="${klass}">${automation}</b>
+          <b class="${automationClass}">${automation}</b>
         </div>
         <div class="keymaster-auto-grid">
-          ${field('AUTOMATION', automation, klass)}
-          ${field('SCHEDULER', 'hourly :13')}
+          ${field('AUTOMATION', automation, automationClass)}
+          ${field('SCHEDULER', 'hourly :13 UTC')}
           ${field('LAST SYNC', fmt(generated))}
-          ${field('MATERIALIZER', stateOf(materializer))}
-          ${field('ATTACKER', stateOf(attacker))}
-          ${field('FORGE', stateOf(forge))}
+          ${field('MATERIALIZER', materializerState, statusClass(materializerState))}
+          ${field('ATTACKER', stateOf(attacker), statusClass(stateOf(attacker)))}
+          ${field('FORGE', forgeState, statusClass(forgeState))}
+          ${field('NEXT ACTION', nextAction, statusClass(nextAction))}
+          ${field('CYCLES', cycleCount)}
+          ${field('CANDIDATE PROPOSALS', candidateCount)}
+          ${field('DISTINCT CANDIDATES', distinctCount)}
           ${field('LAST RUN', fmt(latest?.run_started_at || latest?.created_at))}
           ${field('RUN ID', latest?.id ?? '—')}
-          ${field('NEXT EXPECTED', nextExpected(materializer))}
+          ${field('NEXT EXPECTED', nextScheduled())}
           ${field('SOURCE', source)}
         </div>`;
     } catch (err) {

@@ -1,0 +1,104 @@
+name: Sync Keymaster Automation Telemetry
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/10 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/sync-keymaster-automation.yml'
+      - 'assets/keymaster-automation.js'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: terminal-keymaster-telemetry
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch real Keymaster automation state
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          import pathlib
+          import urllib.request
+          from datetime import datetime, timezone
+
+          url = 'https://api.github.com/repos/Hawkar-usls/Janus-Demiurge/actions/runs?branch=main&per_page=100'
+          req = urllib.request.Request(url, headers={
+              'Accept': 'application/vnd.github+json',
+              'User-Agent': 'janus-terminal-keymaster-sync'
+          })
+          with urllib.request.urlopen(req, timeout=30) as response:
+              raw = json.load(response)
+
+          keys = (
+              'id', 'name', 'display_title', 'path', 'event', 'status', 'conclusion',
+              'created_at', 'updated_at', 'run_started_at', 'html_url', 'head_branch', 'head_sha'
+          )
+
+          runs = []
+          for item in raw.get('workflow_runs', []):
+              hay = ' '.join(str(item.get(k) or '') for k in ('name', 'display_title', 'path')).lower()
+              if 'keymaster' in hay:
+                  runs.append({k: item.get(k) for k in keys})
+
+          data = {
+              'schema': 'janus-keymaster-automation.v1',
+              'generated_at': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
+              'backend_repo': 'Hawkar-usls/Janus-Demiurge',
+              'scheduler': {
+                  'materializer': '13 * * * *',
+                  'terminal_telemetry': '*/10 * * * *'
+              },
+              'source': 'github-actions-api',
+              'workflow_runs': runs[:80]
+          }
+
+          target = pathlib.Path('data/keymaster-automation.json')
+          target.parent.mkdir(parents=True, exist_ok=True)
+          target.write_text(json.dumps(data, indent=2, sort_keys=True) + '\n', encoding='utf-8')
+          print(f'captured {len(runs)} Keymaster runs')
+          PY
+
+      - name: Bind telemetry renderer into terminal
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          p = Path('index.html')
+          text = p.read_text(encoding='utf-8')
+          tag = '  <script src="./assets/keymaster-automation.js"></script>'
+          if tag in text:
+              print('keymaster automation UI already bound')
+          else:
+              needle = '  <script src="./assets/pnp-autoresearch-observatory.js"></script>'
+              if needle not in text:
+                  raise SystemExit('pnp observatory script tag not found')
+              text = text.replace(needle, needle + '\n' + tag)
+              p.write_text(text, encoding='utf-8')
+              print('bound keymaster automation UI')
+          PY
+
+      - name: Persist telemetry heartbeat
+        run: |
+          set -euo pipefail
+          git config user.name 'janus-terminal-telemetry[bot]'
+          git config user.email 'janus-terminal-telemetry[bot]@users.noreply.github.com'
+          git add data/keymaster-automation.json index.html
+          if git diff --cached --quiet; then
+            echo 'NO_STATE_CHANGE'
+            exit 0
+          fi
+          git commit -m "Sync Keymaster automation telemetry"
+          git push

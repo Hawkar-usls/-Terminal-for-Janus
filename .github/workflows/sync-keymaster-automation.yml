@@ -28,18 +28,25 @@ jobs:
         run: |
           set -euo pipefail
           python - <<'PY'
+          import base64
           import json
           import pathlib
+          import urllib.parse
           import urllib.request
           from datetime import datetime, timezone
 
-          url = 'https://api.github.com/repos/Hawkar-usls/Janus-Demiurge/actions/runs?branch=main&per_page=100'
-          req = urllib.request.Request(url, headers={
+          HEADERS = {
               'Accept': 'application/vnd.github+json',
               'User-Agent': 'janus-terminal-keymaster-sync'
-          })
-          with urllib.request.urlopen(req, timeout=30) as response:
-              raw = json.load(response)
+          }
+
+          def fetch_json(url):
+              req = urllib.request.Request(url, headers=HEADERS)
+              with urllib.request.urlopen(req, timeout=30) as response:
+                  return json.load(response)
+
+          actions_url = 'https://api.github.com/repos/Hawkar-usls/Janus-Demiurge/actions/runs?branch=main&per_page=100'
+          raw = fetch_json(actions_url)
 
           keys = (
               'id', 'name', 'display_title', 'path', 'event', 'status', 'conclusion',
@@ -52,15 +59,29 @@ jobs:
               if 'keymaster' in hay:
                   runs.append({k: item.get(k) for k in keys})
 
+          semantic = None
+          semantic_error = None
+          try:
+              path = 'janus_model/autonomous-keymaster/KEYMASTER_CANDIDATE_MATERIALIZATION_LATEST.json'
+              ref = urllib.parse.urlencode({'ref': 'janus/autonomous-keymaster-lockpick'})
+              meta_url = f'https://api.github.com/repos/Hawkar-usls/Janus-Demiurge/contents/{path}?{ref}'
+              meta = fetch_json(meta_url)
+              decoded = base64.b64decode(meta['content']).decode('utf-8')
+              semantic = json.loads(decoded)
+          except Exception as exc:
+              semantic_error = f'{type(exc).__name__}: {exc}'
+
           data = {
-              'schema': 'janus-keymaster-automation.v1',
+              'schema': 'janus-keymaster-automation.v2',
               'generated_at': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
               'backend_repo': 'Hawkar-usls/Janus-Demiurge',
               'scheduler': {
                   'materializer': '13 * * * *',
                   'terminal_telemetry': '*/10 * * * *'
               },
-              'source': 'github-actions-api',
+              'source': 'github-actions-api+materializer-receipt',
+              'materializer_semantic': semantic,
+              'materializer_semantic_error': semantic_error,
               'workflow_runs': runs[:80]
           }
 
@@ -68,6 +89,9 @@ jobs:
           target.parent.mkdir(parents=True, exist_ok=True)
           target.write_text(json.dumps(data, indent=2, sort_keys=True) + '\n', encoding='utf-8')
           print(f'captured {len(runs)} Keymaster runs')
+          print('semantic=' + (str(semantic.get('status')) if semantic else 'UNAVAILABLE'))
+          if semantic_error:
+              print('semantic_error=' + semantic_error)
           PY
 
       - name: Bind telemetry renderer into terminal
@@ -78,9 +102,16 @@ jobs:
 
           p = Path('index.html')
           text = p.read_text(encoding='utf-8')
-          tag = '<script src="./assets/keymaster-automation.js?v=20260926-1" defer></script>'
+          tag = '<script src="./assets/keymaster-automation.js?v=20260926-2" defer></script>'
           if 'assets/keymaster-automation.js' in text:
-              print('keymaster automation UI already bound')
+              import re
+              text = re.sub(
+                  r'<script\s+src=["\'][^"\']*assets/keymaster-automation\.js[^"\']*["\']\s+defer></script>',
+                  tag,
+                  text
+              )
+              p.write_text(text, encoding='utf-8')
+              print('keymaster automation UI bound/refreshed')
           else:
               lines = text.splitlines()
               for i, line in enumerate(lines):

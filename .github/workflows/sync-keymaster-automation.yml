@@ -78,15 +78,18 @@ jobs:
 
           p = Path('index.html')
           text = p.read_text(encoding='utf-8')
-          tag = '  <script src="./assets/keymaster-automation.js"></script>'
-          if tag in text:
+          tag = '<script src="./assets/keymaster-automation.js?v=20260926-1" defer></script>'
+          if 'assets/keymaster-automation.js' in text:
               print('keymaster automation UI already bound')
           else:
-              needle = '  <script src="./assets/pnp-autoresearch-observatory.js"></script>'
-              if needle not in text:
+              lines = text.splitlines()
+              for i, line in enumerate(lines):
+                  if 'assets/pnp-autoresearch-observatory.js' in line:
+                      lines.insert(i + 1, tag)
+                      break
+              else:
                   raise SystemExit('pnp observatory script tag not found')
-              text = text.replace(needle, needle + '\n' + tag)
-              p.write_text(text, encoding='utf-8')
+              p.write_text('\n'.join(lines) + '\n', encoding='utf-8')
               print('bound keymaster automation UI')
           PY
 

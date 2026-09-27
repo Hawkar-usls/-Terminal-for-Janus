@@ -5,7 +5,8 @@
     'https://api.github.com/repos/Hawkar-usls/Janus-Demiurge/actions/runs?branch=main&per_page=100';
   const SNAPSHOT = './data/keymaster-automation.json';
   const REFRESH_MS = 30000;
-  const STALE_MS = 30 * 60 * 1000;
+  const SNAPSHOT_STALE_MS = 30 * 60 * 1000;
+  const RUN_STALE_MS = 90 * 60 * 1000;
 
   const esc = (v) => String(v ?? '—').replace(/[&<>"']/g, (c) => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
@@ -33,13 +34,13 @@
       : String(r.status || 'unknown').toUpperCase();
   }
 
-  function nextScheduled() {
+  function nextScheduled(minute) {
     const d = new Date();
     d.setUTCSeconds(0, 0);
-    if (d.getUTCMinutes() < 13) {
-      d.setUTCMinutes(13);
+    if (d.getUTCMinutes() < minute) {
+      d.setUTCMinutes(minute);
     } else {
-      d.setUTCHours(d.getUTCHours() + 1, 13, 0, 0);
+      d.setUTCHours(d.getUTCHours() + 1, minute, 0, 0);
     }
     return fmt(d.toISOString());
   }
@@ -47,8 +48,8 @@
   function statusClass(v) {
     const s = String(v || '').toUpperCase();
     if (s.includes('FAIL') || s.includes('DOWN') || s.includes('ERROR')) return 'keymaster-auto-state-down';
-    if (s.includes('IDLE') || s.includes('WAIT') || s.includes('STALE') || s.includes('NO_CANDIDATE')) return 'keymaster-auto-state-idle';
-    if (s.includes('SUCCESS') || s.includes('LIVE') || s.includes('PASS') || s.includes('RUNNING') || s.includes('IN_PROGRESS')) return 'keymaster-auto-state-live';
+    if (s.includes('IDLE') || s.includes('WAIT') || s.includes('STALE') || s.includes('NO_CANDIDATE') || s.includes('DEFER')) return 'keymaster-auto-state-idle';
+    if (s.includes('SUCCESS') || s.includes('LIVE') || s.includes('PASS') || s.includes('RUNNING') || s.includes('IN_PROGRESS') || s.includes('NEW_CANDIDATE')) return 'keymaster-auto-state-live';
     return '';
   }
 
@@ -57,12 +58,13 @@
     const style = document.createElement('style');
     style.id = 'keymaster-automation-style';
     style.textContent = `
-      .keymaster-automation{margin:0 0 12px;border:1px solid rgba(93,255,197,.35);border-left:3px solid #5dffc5;background:rgba(4,18,19,.72);padding:10px 12px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+      .keymaster-automation{margin:10px 0 14px;border:1px solid rgba(93,255,197,.35);border-left:3px solid #5dffc5;background:rgba(4,18,19,.72);padding:10px 12px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
       .keymaster-auto-head{display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:10px;letter-spacing:.12em;color:#7ea6b6}
-      .keymaster-auto-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:8px}
+      .keymaster-auto-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin-top:8px}
       .keymaster-auto-cell{border:1px solid rgba(89,198,220,.22);padding:7px 8px;min-width:0}
       .keymaster-auto-cell span{display:block;font-size:9px;color:#739aaa;letter-spacing:.08em}
       .keymaster-auto-cell strong{display:block;margin-top:3px;color:#d9fbff;font-size:10px;overflow-wrap:anywhere}
+      .keymaster-auto-foot{margin-top:8px;font-size:9px;color:#739aaa;letter-spacing:.06em}
       .keymaster-auto-state-live{color:#5dffc5!important}
       .keymaster-auto-state-idle{color:#ffd166!important}
       .keymaster-auto-state-stale{color:#ffd166!important}
@@ -72,14 +74,14 @@
   }
 
   function ensurePanel() {
-    const host = document.querySelector('.keymaster-observatory');
+    const host = document.querySelector('#keymaster-panel, .keymaster-observatory');
     if (!host) return null;
     let box = host.querySelector('[data-keymaster-automation]');
     if (!box) {
       box = document.createElement('section');
       box.setAttribute('data-keymaster-automation', '');
       box.className = 'keymaster-automation';
-      const head = host.querySelector('.keymaster-observatory-head');
+      const head = host.querySelector('.card-title-row, .keymaster-observatory-head');
       head ? head.after(box) : host.prepend(box);
     }
     return box;
@@ -93,7 +95,7 @@
       if (!Array.isArray(payload.workflow_runs) || !payload.workflow_runs.length) {
         throw new Error('snapshot empty');
       }
-      return { payload, source: 'TERMINAL SNAPSHOT' };
+      return { payload, source: payload.source || 'TERMINAL SNAPSHOT' };
     } catch (_) {
       const r = await fetch(BACKEND_RUNS, {
         cache: 'no-store',
@@ -123,7 +125,10 @@
     try {
       const { payload, source } = await load();
       const runs = payload.workflow_runs || [];
-      const semantic = payload.materializer_semantic || null;
+      const forgeSemantic = payload.forge_semantic || null;
+      const materializerSemantic = payload.materializer_semantic || null;
+      const attackSemantic = payload.attack_semantic || null;
+
       const materializer = findRun(runs, (s) => s.includes('keymaster') && s.includes('materializ'));
       const attacker = findRun(runs, (s) => s.includes('keymaster') && s.includes('attack'));
       const forge = findRun(runs, (s) => s.includes('keymaster') && (s.includes('forge') || s.includes('autonomous')));
@@ -131,39 +136,55 @@
         .filter(Boolean)
         .sort((a, b) => new Date(b.run_started_at || b.created_at || 0) - new Date(a.run_started_at || a.created_at || 0))[0];
 
-      const generated = payload.generated_at;
-      const age = generated ? Date.now() - new Date(generated).getTime() : Infinity;
-      const live = Number.isFinite(age) && age <= STALE_MS;
+      const generatedAt = payload.generated_at ? new Date(payload.generated_at).getTime() : NaN;
+      const latestRunAt = latest ? new Date(latest.run_started_at || latest.created_at || 0).getTime() : NaN;
+      const snapshotFresh = Number.isFinite(generatedAt) && (Date.now() - generatedAt) <= SNAPSHOT_STALE_MS;
+      const runFresh = Number.isFinite(latestRunAt) && (Date.now() - latestRunAt) <= RUN_STALE_MS;
+      const live = snapshotFresh || runFresh;
       const automation = live ? 'LIVE' : 'STALE';
       const automationClass = live ? 'keymaster-auto-state-live' : 'keymaster-auto-state-stale';
-      const materializerState = semantic?.status || stateOf(materializer);
-      const forgeState = semantic?.forge_status || stateOf(forge);
-      const nextAction = semantic?.forge_next_action || '—';
-      const candidateCount = semantic?.candidate_proposal_count ?? '—';
-      const distinctCount = semantic?.distinct_candidate_count ?? '—';
-      const cycleCount = semantic?.cycle_count ?? '—';
+
+      const forgeState = forgeSemantic?.status || stateOf(forge);
+      const materializerState = materializerSemantic?.status || stateOf(materializer);
+      const attackerState = attackSemantic?.status || stateOf(attacker);
+      const nextAction = attackSemantic?.next_action || forgeSemantic?.next_action || materializerSemantic?.next_action || '—';
+      const candidateId = forgeSemantic?.candidate?.candidate_id || forgeSemantic?.candidate_id || materializerSemantic?.candidate_id || '—';
+      const cycleCount = forgeSemantic?.cycle_count ?? '—';
+      const candidateCount = forgeSemantic?.candidate_proposal_count ?? '—';
+      const distinctCount = forgeSemantic?.distinct_candidate_count ?? '—';
+      const deferredCount = forgeSemantic?.deferred_candidate_count ?? '—';
+      const falsifiedCount = forgeSemantic?.mathematically_falsified_candidate_count ?? '—';
+      const variantFalsified = forgeSemantic?.materialized_variant_falsified_count ?? '—';
+      const attackAdvance = attackSemantic?.advance_forge;
+      const attackAdvanceText = attackAdvance === true ? 'TRUE' : attackAdvance === false ? 'FALSE' : '—';
 
       box.innerHTML = `
         <div class="keymaster-auto-head">
-          <b>AUTONOMY TELEMETRY</b>
+          <b>AUTONOMY TELEMETRY · LIVE SEARCH ACTIVITY</b>
           <b class="${automationClass}">${automation}</b>
         </div>
         <div class="keymaster-auto-grid">
           ${field('AUTOMATION', automation, automationClass)}
-          ${field('SCHEDULER', 'hourly :13 UTC')}
-          ${field('LAST SYNC', fmt(generated))}
-          ${field('MATERIALIZER', materializerState, statusClass(materializerState))}
-          ${field('ATTACKER', stateOf(attacker), statusClass(stateOf(attacker)))}
           ${field('FORGE', forgeState, statusClass(forgeState))}
+          ${field('MATERIALIZER', materializerState, statusClass(materializerState))}
+          ${field('ATTACKER', attackerState, statusClass(attackerState))}
+          ${field('ATTACK → ADVANCE FORGE', attackAdvanceText, statusClass(attackAdvanceText === 'TRUE' ? 'LIVE' : attackAdvanceText))}
           ${field('NEXT ACTION', nextAction, statusClass(nextAction))}
           ${field('CYCLES', cycleCount)}
           ${field('CANDIDATE PROPOSALS', candidateCount)}
           ${field('DISTINCT CANDIDATES', distinctCount)}
+          ${field('DEFERRED', deferredCount)}
+          ${field('MATH FALSIFIED', falsifiedCount)}
+          ${field('VARIANT FALSIFIED', variantFalsified)}
+          ${field('CURRENT CANDIDATE', candidateId)}
           ${field('LAST RUN', fmt(latest?.run_started_at || latest?.created_at))}
           ${field('RUN ID', latest?.id ?? '—')}
-          ${field('NEXT EXPECTED', nextScheduled())}
+          ${field('LAST SYNC', fmt(payload.generated_at))}
+          ${field('NEXT FORGE', nextScheduled(43))}
+          ${field('NEXT MATERIALIZER', nextScheduled(13))}
           ${field('SOURCE', source)}
-        </div>`;
+        </div>
+        <div class="keymaster-auto-foot">SEARCH ACTIVITY != MATHEMATICAL PROGRESS · PROVEN Δ REMAINS SEPARATE · P_VS_NP=OPEN UNTIL PROOF-CARRYING ADMISSION</div>`;
     } catch (err) {
       box.innerHTML = `
         <div class="keymaster-auto-head"><b>AUTONOMY TELEMETRY</b><b class="keymaster-auto-state-down">DOWN</b></div>

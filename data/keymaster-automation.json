@@ -380,7 +380,7 @@
       "to_type": "CNF_WITH_POLY_PREFIX_FACTOR_WIDTH_VTREE_ORDER"
     }
   },
-  "generated_at": "2026-09-27T17:54:53.639419Z",
+  "generated_at": "2026-09-27T17:55:34.007829Z",
   "materializer_semantic": {
     "candidate": null,
     "candidate_proposal_count": 33,

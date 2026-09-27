@@ -39,13 +39,21 @@ jobs:
               'Accept': 'application/vnd.github+json',
               'User-Agent': 'janus-terminal-keymaster-sync'
           }
+          REPO_API = 'https://api.github.com/repos/Hawkar-usls/Janus-Demiurge'
+          AUTONOMOUS_REF = 'janus/autonomous-keymaster-lockpick'
 
           def fetch_json(url):
               req = urllib.request.Request(url, headers=HEADERS)
               with urllib.request.urlopen(req, timeout=30) as response:
                   return json.load(response)
 
-          actions_url = 'https://api.github.com/repos/Hawkar-usls/Janus-Demiurge/actions/runs?branch=main&per_page=100'
+          def fetch_branch_json(path):
+              ref = urllib.parse.urlencode({'ref': AUTONOMOUS_REF})
+              meta = fetch_json(f'{REPO_API}/contents/{path}?{ref}')
+              decoded = base64.b64decode(meta['content']).decode('utf-8')
+              return json.loads(decoded)
+
+          actions_url = f'{REPO_API}/actions/runs?branch=main&per_page=100'
           raw = fetch_json(actions_url)
 
           keys = (
@@ -59,29 +67,36 @@ jobs:
               if 'keymaster' in hay:
                   runs.append({k: item.get(k) for k in keys})
 
-          semantic = None
-          semantic_error = None
-          try:
-              path = 'janus_model/autonomous-keymaster/KEYMASTER_CANDIDATE_MATERIALIZATION_LATEST.json'
-              ref = urllib.parse.urlencode({'ref': 'janus/autonomous-keymaster-lockpick'})
-              meta_url = f'https://api.github.com/repos/Hawkar-usls/Janus-Demiurge/contents/{path}?{ref}'
-              meta = fetch_json(meta_url)
-              decoded = base64.b64decode(meta['content']).decode('utf-8')
-              semantic = json.loads(decoded)
-          except Exception as exc:
-              semantic_error = f'{type(exc).__name__}: {exc}'
+          semantic_paths = {
+              'forge': 'janus_model/autonomous-keymaster/KEYMASTER_AUTONOMOUS_FORGE_LATEST.json',
+              'materializer': 'janus_model/autonomous-keymaster/KEYMASTER_CANDIDATE_MATERIALIZATION_LATEST.json',
+              'attack': 'janus_model/autonomous-keymaster/KEYMASTER_CANDIDATE_ATTACK_LATEST.json',
+          }
+          semantics = {}
+          semantic_errors = {}
+          for name, path in semantic_paths.items():
+              try:
+                  semantics[name] = fetch_branch_json(path)
+                  semantic_errors[name] = None
+              except Exception as exc:
+                  semantics[name] = None
+                  semantic_errors[name] = f'{type(exc).__name__}: {exc}'
 
           data = {
-              'schema': 'janus-keymaster-automation.v2',
+              'schema': 'janus-keymaster-automation.v3',
               'generated_at': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
               'backend_repo': 'Hawkar-usls/Janus-Demiurge',
+              'autonomous_ref': AUTONOMOUS_REF,
               'scheduler': {
+                  'forge': '43 * * * *',
                   'materializer': '13 * * * *',
                   'terminal_telemetry': '*/10 * * * *'
               },
-              'source': 'github-actions-api+materializer-receipt',
-              'materializer_semantic': semantic,
-              'materializer_semantic_error': semantic_error,
+              'source': 'github-actions-api+forge+materializer+attack-receipts',
+              'forge_semantic': semantics['forge'],
+              'materializer_semantic': semantics['materializer'],
+              'attack_semantic': semantics['attack'],
+              'semantic_errors': semantic_errors,
               'workflow_runs': runs[:80]
           }
 
@@ -89,9 +104,11 @@ jobs:
           target.parent.mkdir(parents=True, exist_ok=True)
           target.write_text(json.dumps(data, indent=2, sort_keys=True) + '\n', encoding='utf-8')
           print(f'captured {len(runs)} Keymaster runs')
-          print('semantic=' + (str(semantic.get('status')) if semantic else 'UNAVAILABLE'))
-          if semantic_error:
-              print('semantic_error=' + semantic_error)
+          for name in ('forge', 'materializer', 'attack'):
+              semantic = semantics[name]
+              print(f'{name}=' + (str(semantic.get('status')) if semantic else 'UNAVAILABLE'))
+              if semantic_errors[name]:
+                  print(f'{name}_error=' + semantic_errors[name])
           PY
 
       - name: Bind telemetry renderer into terminal
@@ -99,12 +116,12 @@ jobs:
           set -euo pipefail
           python - <<'PY'
           from pathlib import Path
+          import re
 
           p = Path('index.html')
           text = p.read_text(encoding='utf-8')
-          tag = '<script src="./assets/keymaster-automation.js?v=20260926-2" defer></script>'
+          tag = '<script src="./assets/keymaster-automation.js?v=20260927-1" defer></script>'
           if 'assets/keymaster-automation.js' in text:
-              import re
               text = re.sub(
                   r'<script\s+src=["\'][^"\']*assets/keymaster-automation\.js[^"\']*["\']\s+defer></script>',
                   tag,

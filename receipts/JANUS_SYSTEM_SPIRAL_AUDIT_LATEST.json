@@ -11,12 +11,12 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 9631,
+  "files_scanned": 9652,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 1177,
-    "SAFE_INFRA_LOOP": 1909,
+    "REVIEW": 1185,
+    "SAFE_INFRA_LOOP": 1913,
     "HISTORICAL_FROZEN": 824
   },
   "active_hard_ring_count": 0,
@@ -1327,7 +1327,7 @@
     {
       "repository": "Hawkar-usls/iNaiHR",
       "path": "janus-synth/state/JANUS_SYNTH_LATEST.json",
-      "line": 8345,
+      "line": 8346,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
@@ -2216,6 +2216,56 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E14_DISTANCE_TO_COMMUTING_FPT_TERMINAL_2026-10-02_v1.0.md",
+      "line": 67,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Decompose `P` into directed cycles.  A permutation `R` commutes with `P` iff it maps every `P`-cycle to another `P`-cycle of the same length and, inside the chosen target cycle, acts by a cyclic shift preserving the `P` orientation.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E14_DISTANCE_TO_COMMUTING_FPT_TERMINAL_2026-10-02_v1.0.md",
+      "line": 69,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Fix a cycle length `ell` and two `P`-cycles",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E14_DISTANCE_TO_COMMUTING_FPT_TERMINAL_2026-10-02_v1.0.md",
+      "line": 90,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "For all `P`-cycles of a fixed length, choose a bijection from source cycles to target cycles maximizing total weight.  This is a maximum-weight bipartite assignment problem and is polynomial-time solvable.  Retain the best shift for every chosen cycle pair.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E14_DISTANCE_TO_COMMUTING_FPT_TERMINAL_2026-10-02_v1.0.md",
+      "line": 92,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Perform this independently for every cycle length.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E14_DISTANCE_TO_COMMUTING_FPT_TERMINAL_2026-10-02_v1.0.md",
+      "line": 193,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "1. Compute the nearest Q0 in C(P) by cycle matching + cyclic shifts.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "research/TRUMP_APMA_TRINITY_OPEN_SURFACE_DIAGNOSTIC_2026-09-15.json",
       "line": 39,
       "classification": "REVIEW",
@@ -2242,6 +2292,36 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "Admission requires cycle rank at least two, `|B|<=floor(log2 L)`, and after",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E16_NULLITY_VS_COMMUTATOR_ANTIDICHOTOMY_AND_2_EDGE_CUT_FAMILY_2026-10-02_v1.0.md",
+      "line": 134,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Across the `k` blocks these are the cyclic equalities",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E16_NULLITY_VS_COMMUTATOR_ANTIDICHOTOMY_AND_2_EDGE_CUT_FAMILY_2026-10-02_v1.0.md",
+      "line": 160,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "For the reverse inequality, inspect the `P`-cycle",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E16_NULLITY_VS_COMMUTATOR_ANTIDICHOTOMY_AND_2_EDGE_CUT_FAMILY_2026-10-02_v1.0.md",
+      "line": 168,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Any permutation `R` commuting with `P` must map an entire `P`-cycle to another `P`-cycle with one common cyclic shift.  On `C_b`, the modified `Q*` agrees with the original within-block horizontal map at the two nonspecial points `(1,0),(2,0)`, but sends the special point `(0,0)` into the next block.",
       "active_surface": true
     },
     {
@@ -3062,86 +3142,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "\"v12-control-cycle-1\": {",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/trump_apma_novel_composite_transfer/POPULATION_AUDIT.json",
-      "line": 5,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"mixed robust cycle\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/direct/xor_cycle_local_twins.py",
-      "line": 5,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "formula places two inequality edges in one cycle and none in the other.  The",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/direct/xor_cycle_local_twins.py",
-      "line": 6,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "UNSAT formula places one inequality edge in each cycle.  The two marked edges",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/direct/xor_cycle_local_twins.py",
-      "line": 49,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "raise ValueError(\"cycle length must be at least four\")",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/direct/xor_cycle_local_twins.py",
-      "line": 54,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "raise ValueError(\"marked edge outside cycle\")",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/direct/xor_cycle_local_twins.py",
-      "line": 312,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "raise AssertionError(\"UNSAT member passed the cycle-parity test\")",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/direct/janus_tear_policy0a_graph_tautology_probe.py",
-      "line": 52,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# For every directed triple, forbid the cyclic orientation.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/direct/janus_tear_tseitin_condensation.py",
-      "line": 41,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"\"\"Return the unique shortest signed displacement on an odd cycle.\"\"\"",
       "active_surface": true
     }
   ],

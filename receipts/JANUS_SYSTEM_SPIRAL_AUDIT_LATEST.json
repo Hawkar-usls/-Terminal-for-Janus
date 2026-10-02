@@ -11,11 +11,11 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 9681,
+  "files_scanned": 9759,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 1197,
+    "REVIEW": 1245,
     "SAFE_INFRA_LOOP": 1929,
     "HISTORICAL_FROZEN": 824
   },
@@ -1327,7 +1327,7 @@
     {
       "repository": "Hawkar-usls/iNaiHR",
       "path": "janus-synth/state/JANUS_SYNTH_LATEST.json",
-      "line": 8345,
+      "line": 8346,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
@@ -2216,6 +2216,216 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e29_connected_commuting_nullity_collapse.py",
+      "line": 5,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "* cyclic groups Z_n with generating translations a,b;",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e29_connected_commuting_nullity_collapse.py",
+      "line": 95,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "def cyclic(n, a, b):",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e29_connected_commuting_nullity_collapse.py",
+      "line": 128,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "# Connected cyclic actions: gcd(n,a,b)=1.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e29_connected_commuting_nullity_collapse.py",
+      "line": 139,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "A = cyclic(n, a, b)",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e29_connected_commuting_nullity_collapse.py",
+      "line": 152,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "print(f\"cyclic controls: full-rank={full}, nullity-two={singular}\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e34_distance_to_tu_backdoor.py",
+      "line": 89,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "# Odd-cycle incidence: determinant 2, one-column deletion is TU, Exact-One UNSAT.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e34_distance_to_tu_backdoor.py",
+      "line": 106,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "# Two disjoint odd-cycle blocks need two backdoor columns.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e30_uniform_cyclic_lift_nullity_firewall.py",
+      "line": 5,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "uniform cyclic lifts",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e30_uniform_cyclic_lift_nullity_firewall.py",
+      "line": 95,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "# cycle + transposition bases generate transitive nonabelian permutation groups.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e30_uniform_cyclic_lift_nullity_firewall.py",
+      "line": 104,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "print(\"R5 E30 uniform cyclic-lift controls: PASS\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e30_uniform_cyclic_lift_nullity_firewall.py",
+      "line": 126,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "print(\"Conclusion: fixed-base uniform cyclic lifts stay within an r-independent nullity bound.\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e33_tu_kernel_terminal.py",
+      "line": 56,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "# Directed 3-cycle: balanced, all -1 is already a centered circulation.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e37_signed_graph_f_factor_kernel.py",
+      "line": 137,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "# Pure directed 3-cycle (+ at tail, - at head): flow special case.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e32_root_kernel_mod3_potential.py",
+      "line": 108,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "# The system fixes the three parts to cyclic colors, up to component shift.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e19_paley_3lift_schur_hierarchy_firewall.py",
+      "line": 4,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Builds a deterministic connected 3-lift of the Paley tournament cyclic-triangle",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e19_paley_3lift_schur_hierarchy_firewall.py",
+      "line": 7,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "* base: 55 tournament arcs and 55 cyclic triangles, each arc in 3 triangles;",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e19_paley_3lift_schur_hierarchy_firewall.py",
+      "line": 121,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "# Deterministic cyclic voltage rule:",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e19_paley_3lift_schur_hierarchy_firewall.py",
+      "line": 259,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "print(\"base Paley source: n=55, cyclic triangles=55, col degree=3\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E20_KERNEL_LOCAL_PROJECTION_AND_3_CIRCUIT_TERMINAL_2026-10-02_v1.0.md",
+      "line": 234,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Its 55 tournament arcs are the source variables and its 55 cyclic directed",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E20_KERNEL_LOCAL_PROJECTION_AND_3_CIRCUIT_TERMINAL_2026-10-02_v1.0.md",
+      "line": 281,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "55 cyclic triples,",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E20_KERNEL_LOCAL_PROJECTION_AND_3_CIRCUIT_TERMINAL_2026-10-02_v1.0.md",
+      "line": 285,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "For a cyclic triple",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "research/R5_E14_DISTANCE_TO_COMMUTING_FPT_TERMINAL_2026-10-02_v1.0.md",
       "line": 67,
       "classification": "REVIEW",
@@ -2286,12 +2496,32 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E31_TRIPARTITE_HIGHQ_HIGHWIDTH_FIREWALL_2026-10-02_v1.0.md",
+      "line": 511,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "cyclic-lift regime excluded by R5 E30.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "research/TRUMP_APMA_FEEDBACK_INTERFACE_TRANSFER_FORMAL_PROOF_2026-09-15.md",
       "line": 26,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "Admission requires cycle rank at least two, `|B|<=floor(log2 L)`, and after",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E32_ROOT_KERNEL_MOD3_POTENTIAL_TERMINAL_2026-10-02_v1.0.md",
+      "line": 232,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "## 6. Cycle form",
       "active_surface": true
     },
     {
@@ -2322,6 +2552,66 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "Any permutation `R` commuting with `P` must map an entire `P`-cycle to another `P`-cycle with one common cyclic shift.  On `C_b`, the modified `Q*` agrees with the original within-block horizontal map at the two nonspecial points `(1,0),(2,0)`, but sends the special point `(0,0)` into the next block.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E36_GRAPH_F_FACTOR_KERNEL_TERMINAL_2026-10-02_v1.0.md",
+      "line": 15,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "SUCH R IS GENERALLY NOT TU WHEN H CONTAINS AN ODD CYCLE.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E36_GRAPH_F_FACTOR_KERNEL_TERMINAL_2026-10-02_v1.0.md",
+      "line": 278,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "E36 is important because its representation may contain determinant-2 odd-cycle",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E51_EQUITABLE_BLOCK_COUNT_QUOTIENT_2026-10-02_v1.0.md",
+      "line": 339,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "A union of two perfect matchings in a bipartite incidence graph contains a 4-cycle",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E51_EQUITABLE_BLOCK_COUNT_QUOTIENT_2026-10-02_v1.0.md",
+      "line": 340,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "exactly when the relative permutation has a 2-cycle.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E51_EQUITABLE_BLOCK_COUNT_QUOTIENT_2026-10-02_v1.0.md",
+      "line": 345,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Since `|G|=3p` is odd, every group element has odd order. Therefore every cycle of a",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E51_EQUITABLE_BLOCK_COUNT_QUOTIENT_2026-10-02_v1.0.md",
+      "line": 349,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "So no pair of matching colors creates a 4-cycle.",
       "active_surface": true
     },
     {
@@ -2426,6 +2716,56 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E19_PALEY_3LIFT_SCHUR_HIERARCHY_FIREWALL_2026-10-02_v1.0.md",
+      "line": 36,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Take as source rows all cyclic directed triangles of the tournament.  The exact",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E19_PALEY_3LIFT_SCHUR_HIERARCHY_FIREWALL_2026-10-02_v1.0.md",
+      "line": 40,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "55 cyclic triangles,",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E19_PALEY_3LIFT_SCHUR_HIERARCHY_FIREWALL_2026-10-02_v1.0.md",
+      "line": 41,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "every arc lies in exactly 3 cyclic triangles.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E19_PALEY_3LIFT_SCHUR_HIERARCHY_FIREWALL_2026-10-02_v1.0.md",
+      "line": 63,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "For base cyclic triangle number `t`, ordered as three base arcs `(a,b,c)`, create",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E19_PALEY_3LIFT_SCHUR_HIERARCHY_FIREWALL_2026-10-02_v1.0.md",
+      "line": 98,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Every lifted clause projects to one base cyclic triangle, hence its three root",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "research/TRUMP_BICAMERAL_COMPONENT_BOUNDARY_JOIN_CARRIER_V1_2_FAILURE_2026-09-15.json",
       "line": 17,
       "classification": "REVIEW",
@@ -2446,12 +2786,42 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E50_E12_MULTICLAW_AMBIGUITY_FIREWALL_2026-10-02_v1.0.md",
+      "line": 124,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "The same argument holds for `L2,L3` by cyclic symmetry and for `P1,P2,P3` in the",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E50_E12_MULTICLAW_AMBIGUITY_FIREWALL_2026-10-02_v1.0.md",
+      "line": 195,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "The six rows `D1,...,D6` are related by the unprimed/primed and cyclic gadget",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "research/TRUMP_WIDE_FEEDBACK_INTERFACE_MECHANISM_HARVEST_2026-09-15.md",
       "line": 9,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "The preceding scoped gate established an exact multiple-cycle transfer door when the deterministic canonical feedback-interface union `B` satisfies",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E33_TOTALLY_UNIMODULAR_KERNEL_TERMINAL_2026-10-02_v1.0.md",
+      "line": 366,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Whenever that tension space is supplied with a TU orthogonal cycle representation,",
       "active_surface": true
     },
     {
@@ -2516,6 +2886,16 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E18_SCHUR_SQUARE_AND_KERNEL_PROJECTIVE_QUOTIENT_2026-10-02_v1.0.md",
+      "line": 169,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Because every directed arc originally lies in five directed 3-cycles and one cycle",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "research/TRUMP_APMA_FEEDBACK_INTERFACE_TRANSFER_HQ_REVIEW_2026-09-15.md",
       "line": 32,
       "classification": "REVIEW",
@@ -2542,6 +2922,106 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "regressions, rejected interface hyperedges, and kept a cycle-rank-11 / feedback-",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E30_UNIFORM_CYCLIC_LIFT_NULLITY_FIREWALL_2026-10-02_v1.0.md",
+      "line": 1,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "# R5 E30 — Uniform Cyclic-Lift Nullity Firewall",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E30_UNIFORM_CYCLIC_LIFT_NULLITY_FIREWALL_2026-10-02_v1.0.md",
+      "line": 14,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "TAKE ANY FIXED FINITE PERMUTATION BASE P0,Q0 AND FORM A CYCLIC LIFT",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E30_UNIFORM_CYCLIC_LIFT_NULLITY_FIREWALL_2026-10-02_v1.0.md",
+      "line": 24,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "IS BOUNDED BY A CONSTANT INDEPENDENT OF THE CYCLIC LIFT SIZE r.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E30_UNIFORM_CYCLIC_LIFT_NULLITY_FIREWALL_2026-10-02_v1.0.md",
+      "line": 37,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Let `S_r` be the cyclic shift permutation on `Z_r`.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E30_UNIFORM_CYCLIC_LIFT_NULLITY_FIREWALL_2026-10-02_v1.0.md",
+      "line": 58,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "## 2. Fourier reduction in the cyclic coordinate",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E30_UNIFORM_CYCLIC_LIFT_NULLITY_FIREWALL_2026-10-02_v1.0.md",
+      "line": 60,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Over `C`, diagonalize the cyclic shift.  For every `r`th root of unity `z`, the",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E30_UNIFORM_CYCLIC_LIFT_NULLITY_FIREWALL_2026-10-02_v1.0.md",
+      "line": 142,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Therefore, for every genuine uniform cyclic phase lift,",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E30_UNIFORM_CYCLIC_LIFT_NULLITY_FIREWALL_2026-10-02_v1.0.md",
+      "line": 194,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "fixed-base + fixed-uniform-cyclic-voltage",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E30_UNIFORM_CYCLIC_LIFT_NULLITY_FIREWALL_2026-10-02_v1.0.md",
+      "line": 227,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "E30 does not rule out cyclic or covering ideas in general.  It rules out the",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E30_UNIFORM_CYCLIC_LIFT_NULLITY_FIREWALL_2026-10-02_v1.0.md",
+      "line": 252,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "not a fixed-base uniform cyclic lift,",
       "active_surface": true
     },
     {
@@ -2662,486 +3142,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "Define `U_R` by putting one inequality edge at position `0` in each cycle.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "proof_attempts/H118/XOR_CYCLE_LOCAL_TWINS.md",
-      "line": 66,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "roots see the unmarked periodic cycle neighborhood. Hence the complete",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "proof_attempts/H118/XOR_CYCLE_LOCAL_TWINS.md",
-      "line": 79,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "Each binary clause contains the endpoints of one cycle edge. Duplicate clauses",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": ".github/workflows/trump-trinity-open-surface-diagnostic.yml",
-      "line": 30,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# Frozen triangle-cycle incidence topology. We exhaust every sign orientation.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": ".github/workflows/validate-registry.yml",
-      "line": 110,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "- name: Verify exact XOR-cycle local twins",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_WIDE_FEEDBACK_INTERFACE_HARVEST_AND_QUOTIENT_RESULT.md",
-      "line": 11,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "The preceding multiple-cycle transfer gate admitted the strict class whose deterministic canonical feedback-interface union `B` obeys",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_CAPTAIN_OBVIOUS_C023R_REPRESENTATION_CORRECTION_AND_TAIL_BALANCE.md",
-      "line": 54,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "Semantic MAJ3 restriction and cycle-space quotient lemmas remain valid under their original claim boundary.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_COMPONENT_BOUNDARY_JOIN_CARRIER_V1_3_PASS.md",
-      "line": 13,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "The hostile cycle was repaired into a genuine predecessor-admitted mixed-language overwidth object. Parent status was `OPEN_MINCUT_BRANCH_BUDGET`, branch enumerations zero, canonical cut was variables 0..19, and the post-cut components had sizes 3 and 1. Both the candidate Kruskal construction and independent Prim/tree-DP checker rejected it as `OPEN_NO_VERIFIED_COMPONENT_JOIN_TREE`.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_COMPONENT_BOUNDARY_JOIN_CARRIER_V1_3_PASS.md",
-      "line": 18,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "- v1.2: provenance-only singleton receipt repair succeeded on the core, but the original alpha-cycle negative control was outside parent scope; frozen as control failure.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_COMPONENT_BOUNDARY_JOIN_CARRIER_V1_3_PASS.md",
-      "line": 19,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "- v1.3: only the hostile cycle raw control changed; candidate semantics and v1.2 singleton receipt repair stayed frozen.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_C023R_REACHABLE_COSET_AND_EXECUTION_DAG_GATE.md",
-      "line": 135,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "derive, from frozen transition semantics, either a family-wide inherited-clause fingerprint retaining almost every MAJ3/cycle-space collision bit, or an exact symbolic template that composes into `Omega(L)` byte-identical serial diamonds on the frozen q=4 Morgenstern family.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_LOG_ALIEN_CONSTRAINT_EXACT_TRANSFER_PASS.md",
-      "line": 52,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "- OR2-base / XOR-alien positive instance was incidence-connected with cycle rank `6`;",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_LOG_ALIEN_CONSTRAINT_EXACT_TRANSFER_PASS.md",
-      "line": 53,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "- reverse affine-base / OR2-alien positive instance was incidence-connected with cycle rank `2`;",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_LOG_ALIEN_CONSTRAINT_EXACT_TRANSFER_PASS.md",
-      "line": 65,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "This gate handles connected, cyclic mixed-carrier instances that need not have a small feedback interface, provided the exact alien tuple budget is polynomially bounded.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_APMA_TRINITY_UNICYCLIC_TRANSFER_PASS.md",
-      "line": 15,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "The prior Trinity OPEN-surface diagnostic isolated a pure cycle obstruction. A successor was preregistered before implementation, implemented without modifying frozen Trinity v1.0, checked by a separate checker, attacked by deterministic hostile finite falsifiers, then reviewed formally obligation-by-obligation.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_APMA_TRINITY_UNICYCLIC_TRANSFER_PASS.md",
-      "line": 19,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "1. Admit only connected simple typed-module interaction graphs with cycle rank exactly one, no shared-variable hyperedge, and full per-module boundary at most `floor(log2 L)`.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_APMA_TRINITY_UNICYCLIC_TRANSFER_PASS.md",
-      "line": 20,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "2. Deterministically cut one canonical non-bridge cycle edge.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_APMA_TRINITY_UNICYCLIC_TRANSFER_PASS.md",
-      "line": 34,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "The preregistered 256-orientation gate had zero exact mismatches and closed all 128 historical OPEN cases on that frozen topology. A hostile augmentation attack tested 8,128 deterministic augmentations; 1,477 were in the admitted unicyclic scope, with zero exact mismatches. It exercised genuine all-sigma UNSAT rejection, trees attached to the cycle, and a multi-variable cut separator. These finite results are implementation falsifiers only and are not the proof.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_TRINITY_OPEN_SURFACE_DIAGNOSTIC.md",
-      "line": 7,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "## Cycle surface",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_TRINITY_OPEN_SURFACE_DIAGNOSTIC.md",
-      "line": 46,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "Reason: the frozen triangle-cycle topology isolates a small pure cycle obstruction without conflating it with increasing interface width.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_BUCKET_UNIQUE_CORE_RESIDUAL_K5_EXACT_TWO_OF_FOUR_TWO_FACTOR_FORENSIC.md",
-      "line": 7,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "The successor was preregistered before implementation at `729a72dd12e9ef5ac5cfaa2f4033f089cfa878a7`. The preregistered hypothesis was that interpreting each Boolean residual variable as selection of its corresponding K5 edge turns every local exact-two-of-four relation into the exact vertex constraint `selected_degree(v)=2`; globally the satisfying edge sets should therefore be spanning 2-factors. For K5 the finite specialization predicted exactly twelve solutions, every one a single five-cycle.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_BUCKET_UNIQUE_CORE_RESIDUAL_K5_EXACT_TWO_OF_FOUR_TWO_FACTOR_FORENSIC.md",
-      "line": 13,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "The independent checker was repaired separately at `2cadc96ec3020e90a8fcaf24ae1e34e288765d5f`. It independently rebuilds the ten K5 edge variables, then matches prepared residual scopes against the four incident variables for each abstract vertex. It does not import candidate discovery helpers. The candidate exhaustively checks all 1024 finite K5 edge assignments; the checker uses the degree handshake identity and independently checks the 252 five-edge subsets plus its own cycle traversal.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_BUCKET_UNIQUE_CORE_RESIDUAL_K5_EXACT_TWO_OF_FOUR_TWO_FACTOR_FORENSIC.md",
-      "line": 17,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "The exact finite receipt is unambiguous: relation truth equals the selected-degree-two predicate on every one of the 1024 K5 edge assignments; there are zero semantic mismatches; there are exactly twelve satisfying edge sets; every satisfying set has five edges and degree vector `[2,2,2,2,2]`; and every one is a single five-cycle. The independent 252-subset method derives the identical solution family.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_WIDE_MIXED_INTERFACE_CONTINUITY_CHECKPOINT.md",
-      "line": 73,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "- positive controls were connected and cyclic (cycle ranks `6` and `2` in the independent checker);",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-16_BUCKET_UNIQUE_CORE_RESIDUAL_EXACT_TWO_FACTOR_F_FACTOR_CARRIER.md",
-      "line": 17,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "The parent raw K5 exact-two-of-four instance is admitted and solved SAT. Its Tutte graph has 30 vertices and 50 edges. The verified source assignment selects edge variables `[93,94,97,98,100]`, and original relations `orig:19` through `orig:23` all replay true. The independent checker confirms that the selected edges form one five-cycle.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_COMPONENT_BOUNDARY_JOIN_CARRIER_V1_2_CONTROL_FAILURE.md",
-      "line": 7,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "The only failed obligation was the hostile alpha-cycle end-to-end control. The independent local structural checker rejected the three-relation cycle as `OPEN_NO_VERIFIED_COMPONENT_JOIN_TREE`, but the candidate returned `OUT_OF_SCOPE_PARENT_NOT_OVERWIDTH`. Therefore the raw control did not survive the predecessor admission stack and could not test this successor gate.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_COMPONENT_BOUNDARY_JOIN_CARRIER_V1_2_CONTROL_FAILURE.md",
-      "line": 11,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "No PASS is promoted. The allowed successor repair is limited to changing the alpha-cycle raw control so it remains a genuine three-relation private-variable cycle while mixing relation semantics strongly enough to stay inside the parent connected-mixed overwidth surface. Candidate semantics and the v1.2 singleton receipt repair are frozen.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_BUCKET_UNIQUE_CORE_RESIDUAL_NO_SINGLE_SEPARATOR_FORENSIC.md",
-      "line": 18,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "Residual factors `orig:4/5/6/7` have scopes `[47,48,53]`, `[47,50]`, `[48,50]`, `[53,54]`. Variable `53` is a singleton cut, but it only peels the leaf `orig:7`; the cyclic `orig:4/5/6` triangle remains GT2. Running-intersection again fails on variable `50`.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-15_BUCKET_UNIQUE_CORE_RESIDUAL_NO_SINGLE_SEPARATOR_FORENSIC.md",
-      "line": 22,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "The nearest exact successor is not a general join-tree carrier because running-intersection fails on the minimal cyclic triangle. It is not another single-variable separator because the main triangle has none. The nearest obligation is therefore a raw-derived two-variable residual separator: discover unordered pairs in O(V^2), choose the frozen lexicographic minimum structurally admissible pair, enumerate exactly four Boolean assignments, recompute residual components per assignment, and reuse o",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-14_C023R_CACHE_FIBER_DIAGNOSTIC_RESULT.md",
-      "line": 64,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "Therefore equal syndromes are cosets of the graph cycle space:",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-14_C023R_CACHE_FIBER_DIAGNOSTIC_RESULT.md",
-      "line": 82,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "is blocked. MAJ3 + Tseitin cycle-space can erase linearly many history bits exactly.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "docs/TRUMP_DEVELOPMENT_JOURNAL_ENTRIES/2026-09-14_C023R_CACHE_FIBER_DIAGNOSTIC_RESULT.md",
-      "line": 86,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "> Bound the number of reachable deterministic Policy-0A contexts per MAJ3-stifling / cycle-space residual coset on one frozen infinite MAJ3-lifted expander-Tseitin family.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/trump_apma_novel_composite_transfer/V1_3_PASS_NOTE.json",
-      "line": 5,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"claim\": \"One frozen reusable bounded-interface transfer rule, constructed only from frozen lower-level primitives, exactly solved the preregistered mixed tree-composite blind population across unseen sizes/topologies/encoder while rejecting cycle and width-4 controls.\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/trump_apma_novel_composite_transfer/V1_3_PASS_NOTE.json",
-      "line": 38,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"id\": \"v12-control-cycle-0\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/trump_apma_novel_composite_transfer/V1_3_PASS_NOTE.json",
-      "line": 52,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"id\": \"v12-control-cycle-1\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/trump_apma_novel_composite_transfer/PREREG_v1.2_2026-09-14.json",
-      "line": 30,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"CONTROL_CYCLE\": \"genuine mixed locally exact factor cycle, expected NO_ADMISSION\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/trump_apma_novel_composite_transfer/PREREG_v1.1_2026-09-14.json",
-      "line": 52,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"CONTROL_CYCLE\": \"mixed locally exact degree-2 relational components on a genuine cycle; no unit clauses\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/trump_apma_novel_composite_transfer/make_population.py",
-      "line": 165,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "cycle=[1,2,3]",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/trump_apma_novel_composite_transfer/make_population.py",
-      "line": 166,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "kind=cycle[index%len(cycle)]",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/trump_apma_novel_composite_transfer/make_population.py",
-      "line": 336,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "raw,meta=cycle_control(124000+j); cnf=transport(raw,125000+j,'hold_encoder_v6'); cid=f'v12-control-cycle-{j}'; controls.append({'id':cid,'control':'CONTROL_CYCLE','cnf':cnf,'encoder':'hold_encoder_v6'}); ctruth[cid]={'hidden_meta':meta}",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/trump_apma_novel_composite_transfer/make_population.py",
-      "line": 345,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "report={'version':'v1.2','template_audit':audit,'counts':{'calibration':len(cal),'admission':len(adm),'holdout':len(hold),'controls':len(controls)},'pair_audit':pair_audit,'all_pair_metrics_equal':all(x['metrics_equal'] for x in pair_audit),'whole_population_no_unit_clauses':True,'all_target_templates_separator_robust':True,'interaction_only_design':'hidden GF2 true + hidden Horn false + robust asymmetric 2CNF implication; same-parts pairs differ only by equal-degree challenge port swap','fresh_",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/trump_apma_novel_composite_transfer/checker_raw_v1_2.json",
-      "line": 771,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"id\": \"v12-control-cycle-0\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/trump_apma_novel_composite_transfer/checker_raw_v1_2.json",
-      "line": 785,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"id\": \"v12-control-cycle-1\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/trump_apma_novel_composite_transfer/checker_raw_v1_3.json",
-      "line": 771,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"id\": \"v12-control-cycle-0\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/trump_apma_novel_composite_transfer/checker_raw_v1_3.json",
-      "line": 785,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"id\": \"v12-control-cycle-1\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/trump_apma_novel_composite_transfer/sealed_controls.json",
-      "line": 256,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"id\": \"v12-control-cycle-0\"",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/trump_apma_novel_composite_transfer/sealed_controls.json",
-      "line": 706,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"id\": \"v12-control-cycle-1\"",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/trump_apma_novel_composite_transfer/sealed_truth.json",
-      "line": 3,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"v12-control-cycle-0\": {",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/trump_apma_novel_composite_transfer/sealed_truth.json",
-      "line": 68,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"v12-control-cycle-1\": {",
       "active_surface": true
     }
   ],

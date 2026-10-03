@@ -11,12 +11,12 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 9772,
+  "files_scanned": 9817,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 1245,
-    "SAFE_INFRA_LOOP": 1932,
+    "REVIEW": 1277,
+    "SAFE_INFRA_LOOP": 1936,
     "HISTORICAL_FROZEN": 825
   },
   "active_hard_ring_count": 0,
@@ -2266,6 +2266,56 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e55_e12_switch4_free8_hardness_localization.py",
+      "line": 4,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "For cyclic 3-regular RXC3 fixtures of sizes q=6,9,12, build the full E12 target and",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e60_permutation_factorization_anti_loop.py",
+      "line": 17,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Schreier graph need not be a cycle.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e60_permutation_factorization_anti_loop.py",
+      "line": 129,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "# p=+1 and q=+5 on Z_12.  <p,q> is transitive because p alone is a 12-cycle.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e60_permutation_factorization_anti_loop.py",
+      "line": 145,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "print(\"cycle/orbit separation: PASS (4 P+Q cycles, 1 <p,q> orbit, Schreier degree 4)\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e48_conflict_claw_forcing.py",
+      "line": 70,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "# Cyclic Fano plane: line i = {i, i+1, i+3} mod 7.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "experiments/r5_e34_distance_to_tu_backdoor.py",
       "line": 89,
       "classification": "REVIEW",
@@ -2396,6 +2446,66 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E60_PERMUTATION_FACTORIZATION_ANTI_LOOP_2026-10-03_v1.0.md",
+      "line": 29,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "THEIR SCHREIER GRAPH NEED NOT BE A CYCLE.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E60_PERMUTATION_FACTORIZATION_ANTI_LOOP_2026-10-03_v1.0.md",
+      "line": 111,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "it is not generally a cycle.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E60_PERMUTATION_FACTORIZATION_ANTI_LOOP_2026-10-03_v1.0.md",
+      "line": 117,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "orbit => cycle => constant-state linear DP",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E60_PERMUTATION_FACTORIZATION_ANTI_LOOP_2026-10-03_v1.0.md",
+      "line": 155,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "## 5. SWITCH4 and FREE8 are relation orbits, not cycle lengths",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E60_PERMUTATION_FACTORIZATION_ANTI_LOOP_2026-10-03_v1.0.md",
+      "line": 167,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "They do **not** mean a 4-vertex cycle and an 8-vertex cycle.  Therefore scanning",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E60_PERMUTATION_FACTORIZATION_ANTI_LOOP_2026-10-03_v1.0.md",
+      "line": 250,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "* identify SWITCH4/FREE8 with 4/8-cycle gadgets;",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "research/R5_E20_KERNEL_LOCAL_PROJECTION_AND_3_CIRCUIT_TERMINAL_2026-10-02_v1.0.md",
       "line": 234,
       "classification": "REVIEW",
@@ -2472,6 +2582,16 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "1. Compute the nearest Q0 in C(P) by cycle matching + cyclic shifts.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E55_SWITCH4_FREE8_HARDNESS_LOCALIZATION_2026-10-03_v1.0.md",
+      "line": 141,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "The same cyclic argument holds for `t_2,t_3`.",
       "active_surface": true
     },
     {
@@ -2646,6 +2766,16 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E51_TWO_CLAW_PERMUTATION_PROPAGATION_2026-10-03_v1.0.md",
+      "line": 142,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "A cycle is consistent exactly when the composed permutation fixes the propagated",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "research/TRUMP_APMA_TRINITY_UNICYCLIC_TRANSFER_PREREGISTRATION_2026-09-15.json",
       "line": 17,
       "classification": "REVIEW",
@@ -2712,6 +2842,76 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "\"local_hypotheses\": \"Assume an odd cycle in auxiliary F after 2-SAT assignment; obtain a path T=t1-...-tk in H|(Z∪X~12).\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E59_KERNEL_FOUR_BLOCK_NORMAL_FORM_2026-10-03_v1.0.md",
+      "line": 381,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Thus zero defect is exactly the positive 2-CNF cycle-cover condition",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E59_KERNEL_FOUR_BLOCK_NORMAL_FORM_2026-10-03_v1.0.md",
+      "line": 395,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Equivalently, in the row convention `(Pk)_i=k_{p(i)}`, every cycle of `p` must carry",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E59_KERNEL_FOUR_BLOCK_NORMAL_FORM_2026-10-03_v1.0.md",
+      "line": 400,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "## 7. Cycle-cover statistics",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E59_KERNEL_FOUR_BLOCK_NORMAL_FORM_2026-10-03_v1.0.md",
+      "line": 402,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "On the directed cycle cover of `P`, classify directed edges by the consecutive bit pair",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E59_KERNEL_FOUR_BLOCK_NORMAL_FORM_2026-10-03_v1.0.md",
+      "line": 414,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "where the two transition counts are equal because every component is a directed cycle.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E59_KERNEL_FOUR_BLOCK_NORMAL_FORM_2026-10-03_v1.0.md",
+      "line": 460,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "So `D` is exactly the set/count of `00` edges along the normalized `P` cycle cover.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E59_KERNEL_FOUR_BLOCK_NORMAL_FORM_2026-10-03_v1.0.md",
+      "line": 508,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "B. The kernel and P-cycle cover admit a polynomial canonical decomposition on which",
       "active_surface": true
     },
     {
@@ -2942,206 +3142,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "TAKE ANY FIXED FINITE PERMUTATION BASE P0,Q0 AND FORM A CYCLIC LIFT",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E30_UNIFORM_CYCLIC_LIFT_NULLITY_FIREWALL_2026-10-02_v1.0.md",
-      "line": 24,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "IS BOUNDED BY A CONSTANT INDEPENDENT OF THE CYCLIC LIFT SIZE r.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E30_UNIFORM_CYCLIC_LIFT_NULLITY_FIREWALL_2026-10-02_v1.0.md",
-      "line": 37,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "Let `S_r` be the cyclic shift permutation on `Z_r`.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E30_UNIFORM_CYCLIC_LIFT_NULLITY_FIREWALL_2026-10-02_v1.0.md",
-      "line": 58,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "## 2. Fourier reduction in the cyclic coordinate",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E30_UNIFORM_CYCLIC_LIFT_NULLITY_FIREWALL_2026-10-02_v1.0.md",
-      "line": 60,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "Over `C`, diagonalize the cyclic shift.  For every `r`th root of unity `z`, the",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E30_UNIFORM_CYCLIC_LIFT_NULLITY_FIREWALL_2026-10-02_v1.0.md",
-      "line": 142,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "Therefore, for every genuine uniform cyclic phase lift,",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E30_UNIFORM_CYCLIC_LIFT_NULLITY_FIREWALL_2026-10-02_v1.0.md",
-      "line": 194,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "fixed-base + fixed-uniform-cyclic-voltage",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E30_UNIFORM_CYCLIC_LIFT_NULLITY_FIREWALL_2026-10-02_v1.0.md",
-      "line": 227,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "E30 does not rule out cyclic or covering ideas in general.  It rules out the",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E30_UNIFORM_CYCLIC_LIFT_NULLITY_FIREWALL_2026-10-02_v1.0.md",
-      "line": 252,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "not a fixed-base uniform cyclic lift,",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/TRUMP_BICAMERAL_COMPONENT_BOUNDARY_JOIN_CARRIER_PREREGISTRATION_2026-09-15.json",
-      "line": 80,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"reason\": \"Three relation scopes form a private-variable cycle after removing B; deterministic tree must fail running-intersection and may not backtrack/search for a semantic shortcut.\"",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "proof_attempts/H115/FORMULATION_FAILURE.md",
-      "line": 14,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "For any fixed radius `R`, choose a cycle length",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "proof_attempts/H115/FORMULATION_FAILURE.md",
-      "line": 36,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "- first cycle: two inequality edges, separated by `L/2`;",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "proof_attempts/H115/FORMULATION_FAILURE.md",
-      "line": 37,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "- second cycle: no inequality edges.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "proof_attempts/H115/FORMULATION_FAILURE.md",
-      "line": 43,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "- first cycle: one inequality edge;",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "proof_attempts/H115/FORMULATION_FAILURE.md",
-      "line": 44,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "- second cycle: one inequality edge.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "proof_attempts/H115/FORMULATION_FAILURE.md",
-      "line": 74,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "A standard dynamic program on each cycle computes the parity of inequality",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "proof_attempts/H115/FORMULATION_FAILURE.md",
-      "line": 88,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "local-neighborhood equality—then the XOR-cycle family above refutes the claimed",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "proof_attempts/H118/XOR_CYCLE_LOCAL_TWINS.md",
-      "line": 1,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# H118 — exact XOR-cycle local SAT/UNSAT twins",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "proof_attempts/H118/XOR_CYCLE_LOCAL_TWINS.md",
-      "line": 18,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "Use two disjoint variable cycles of length `L`. Every primal cycle edge carries",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "proof_attempts/H118/XOR_CYCLE_LOCAL_TWINS.md",
-      "line": 38,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "first cycle and no inequality edge in the second cycle.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "proof_attempts/H118/XOR_CYCLE_LOCAL_TWINS.md",
-      "line": 40,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "Define `U_R` by putting one inequality edge at position `0` in each cycle.",
       "active_surface": true
     }
   ],

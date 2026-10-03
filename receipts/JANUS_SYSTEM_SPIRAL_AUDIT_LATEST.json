@@ -11,12 +11,12 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 9817,
+  "files_scanned": 9834,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 1277,
-    "SAFE_INFRA_LOOP": 1936,
+    "REVIEW": 1331,
+    "SAFE_INFRA_LOOP": 1944,
     "HISTORICAL_FROZEN": 825
   },
   "active_hard_ring_count": 0,
@@ -2306,6 +2306,56 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e62_hypergraph_balanced_odd_cycle_frontier.py",
+      "line": 2,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"\"\"R5 E62 exact controls: hypergraph perfect matching / balanced odd-cycle frontier.\"\"\"",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e62_hypergraph_balanced_odd_cycle_frontier.py",
+      "line": 84,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"\"\"External interface s_i=1-c_{i-1}-c_i for a strong cycle.\"\"\"",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e62_hypergraph_balanced_odd_cycle_frontier.py",
+      "line": 160,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "print(f\"  strong-3 cycle={tri} vertices={tri_v} external={tri_ext}\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e62_hypergraph_balanced_odd_cycle_frontier.py",
+      "line": 161,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "print(f\"  strong-5 cycle={five} vertices={five_v} external={five_ext}\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e62_hypergraph_balanced_odd_cycle_frontier.py",
+      "line": 190,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "print(\"R5 E62 hypergraph/balanced strong-odd-cycle frontier: PASS\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "experiments/r5_e48_conflict_claw_forcing.py",
       "line": 70,
       "classification": "REVIEW",
@@ -2386,6 +2436,66 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e63_e12_nonaffine_c5_packing_raw_parameter_firewall.py",
+      "line": 5,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "force the non-affine strong-odd-cycle interfaces to overlap enough for a small",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e63_e12_nonaffine_c5_packing_raw_parameter_firewall.py",
+      "line": 15,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "* on full-rank cyclic q=6,9,12 source controls, the target real/rational nullity",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e63_e12_nonaffine_c5_packing_raw_parameter_firewall.py",
+      "line": 127,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "def rotate_to_row(cycle):",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e63_e12_nonaffine_c5_packing_raw_parameter_firewall.py",
+      "line": 128,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "c=list(cycle)",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e63_e12_nonaffine_c5_packing_raw_parameter_firewall.py",
+      "line": 135,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "def external_ports(cycle,rows):",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e63_e12_nonaffine_c5_packing_raw_parameter_firewall.py",
+      "line": 136,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "c=rotate_to_row(cycle)",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "experiments/r5_e37_signed_graph_f_factor_kernel.py",
       "line": 137,
       "classification": "REVIEW",
@@ -2442,6 +2552,26 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "print(\"base Paley source: n=55, cyclic triangles=55, col degree=3\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E64_CONNECTED_POSTQUOTIENT_NULLITY_FIREWALL_2026-10-03.md",
+      "line": 41,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "raw strong-odd-cycle packing,",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E64_CONNECTED_POSTQUOTIENT_NULLITY_FIREWALL_2026-10-03.md",
+      "line": 336,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "raw balanced odd-cycle parameter        -> forbidden by E63",
       "active_surface": true
     },
     {
@@ -3012,136 +3142,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "The preceding scoped gate established an exact multiple-cycle transfer door when the deterministic canonical feedback-interface union `B` satisfies",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E33_TOTALLY_UNIMODULAR_KERNEL_TERMINAL_2026-10-02_v1.0.md",
-      "line": 366,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "Whenever that tension space is supplied with a TU orthogonal cycle representation,",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/TRUMP_LOG_ALIEN_CONSTRAINT_EXACT_TRANSFER_PREREGISTRATION_2026-09-15.json",
-      "line": 60,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"P1_CONNECTED_OR2_BASE_XOR_ALIENS_SAT\": \"Connected cyclic OR2 backbone with overlapping EVEN_XOR3 alien constraints, admitted by 4^k <= L, exact SAT witness replay.\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/TRUMP_APMA_FEEDBACK_INTERFACE_TRANSFER_SCIENTIFIC_SEAL_2026-09-15.json",
-      "line": 7,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"interaction\": \"connected simple module graph with cycle rank at least two\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/TRUMP_APMA_FEEDBACK_INTERFACE_TRANSFER_SCIENTIFIC_SEAL_2026-09-15.json",
-      "line": 52,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"primary_gate\": \"cycle-rank-2 K_2_3 SAT and UNSAT controls\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/TRUMP_APMA_FEEDBACK_INTERFACE_TRANSFER_PREREGISTRATION_2026-09-15.json",
-      "line": 69,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"at least one connected graph with cycle rank >=2 and canonical |B| within budget\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/TRUMP_BICAMERAL_DERIVED_TWO_RELATION_BOUNDARY_FACTOR_THEOREM_SEAL_2026-09-15.md",
-      "line": 90,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "This seal does **not** establish polynomial boundary compression for components of arbitrary relation count, arbitrary cyclic elimination, arbitrary unseen invariant discovery, general SAT in P, or P=NP/P!=NP.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/TRUMP_INVERTED_PYRAMID_ADMISSION_V2_PREREGISTRATION_2026-09-15.json",
-      "line": 40,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"connected cyclic mixed instance within explicit alien tuple budget\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E18_SCHUR_SQUARE_AND_KERNEL_PROJECTIVE_QUOTIENT_2026-10-02_v1.0.md",
-      "line": 169,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "Because every directed arc originally lies in five directed 3-cycles and one cycle",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/TRUMP_APMA_FEEDBACK_INTERFACE_TRANSFER_HQ_REVIEW_2026-09-15.md",
-      "line": 32,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "simple, whose cycle rank is at least two, and for which the deterministic",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/TRUMP_APMA_FEEDBACK_INTERFACE_TRANSFER_HQ_REVIEW_2026-09-15.md",
-      "line": 91,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "Successful gate run `34908013810` exercised a cycle-rank-2 typed `K_{2,3}` SAT",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/TRUMP_APMA_FEEDBACK_INTERFACE_TRANSFER_HQ_REVIEW_2026-09-15.md",
-      "line": 94,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "regressions, rejected interface hyperedges, and kept a cycle-rank-11 / feedback-",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E30_UNIFORM_CYCLIC_LIFT_NULLITY_FIREWALL_2026-10-02_v1.0.md",
-      "line": 1,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# R5 E30 — Uniform Cyclic-Lift Nullity Firewall",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E30_UNIFORM_CYCLIC_LIFT_NULLITY_FIREWALL_2026-10-02_v1.0.md",
-      "line": 14,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "TAKE ANY FIXED FINITE PERMUTATION BASE P0,Q0 AND FORM A CYCLIC LIFT",
       "active_surface": true
     }
   ],

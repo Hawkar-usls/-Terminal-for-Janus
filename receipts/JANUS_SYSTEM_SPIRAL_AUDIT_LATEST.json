@@ -11,13 +11,13 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 9843,
+  "files_scanned": 9864,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 1331,
-    "SAFE_INFRA_LOOP": 1963,
-    "HISTORICAL_FROZEN": 825
+    "REVIEW": 1333,
+    "SAFE_INFRA_LOOP": 1965,
+    "HISTORICAL_FROZEN": 843
   },
   "active_hard_ring_count": 0,
   "active_hard_rings": [],
@@ -1327,7 +1327,7 @@
     {
       "repository": "Hawkar-usls/iNaiHR",
       "path": "janus-synth/state/JANUS_SYNTH_LATEST.json",
-      "line": 8345,
+      "line": 8346,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
@@ -2976,6 +2976,16 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E68_LOG_LEVEL_SDP_LIFT_TOWER_FIREWALL_2026-10-04_v1.0.md",
+      "line": 142,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "can introduce a shorter cycle than the base carrier.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "research/R5_E59_KERNEL_FOUR_BLOCK_NORMAL_FORM_2026-10-03_v1.0.md",
       "line": 381,
       "classification": "REVIEW",
@@ -3132,16 +3142,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "The six rows `D1,...,D6` are related by the unprimed/primed and cyclic gadget",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/TRUMP_WIDE_FEEDBACK_INTERFACE_MECHANISM_HARVEST_2026-09-15.md",
-      "line": 9,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "The preceding scoped gate established an exact multiple-cycle transfer door when the deterministic canonical feedback-interface union `B` satisfies",
       "active_surface": true
     }
   ],

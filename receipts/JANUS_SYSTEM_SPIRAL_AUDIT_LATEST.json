@@ -11,13 +11,13 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 9910,
+  "files_scanned": 9937,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 1337,
-    "SAFE_INFRA_LOOP": 1975,
-    "HISTORICAL_FROZEN": 843
+    "REVIEW": 1350,
+    "SAFE_INFRA_LOOP": 1979,
+    "HISTORICAL_FROZEN": 860
   },
   "active_hard_ring_count": 0,
   "active_hard_rings": [],
@@ -2576,6 +2576,16 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E75_C4FREE_BOUNDED_CLUSTER_DELTA_BARRIER_2026-10-05_v1.0.md",
+      "line": 40,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Equivalently, the Tanner graph contains no 4-cycle.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "research/R5_E60_PERMUTATION_FACTORIZATION_ANTI_LOOP_2026-10-03_v1.0.md",
       "line": 29,
       "classification": "REVIEW",
@@ -3132,16 +3142,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "The same argument holds for `L2,L3` by cyclic symmetry and for `P1,P2,P3` in the",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E50_E12_MULTICLAW_AMBIGUITY_FIREWALL_2026-10-02_v1.0.md",
-      "line": 195,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "The six rows `D1,...,D6` are related by the unprimed/primed and cyclic gadget",
       "active_surface": true
     }
   ],

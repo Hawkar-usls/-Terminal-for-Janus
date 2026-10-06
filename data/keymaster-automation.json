@@ -1,7 +1,7 @@
 {
   "attack_semantic": {
     "advance_forge": false,
-    "attack_sha256": "7c6133f09dfa329cf3c503ea0b33125f6b94bfdcf0fd2a5b1a5dcfae3943851d",
+    "attack_sha256": "a1606b21555165f681598d9b8b1a80a37e9e0b9b45ea8dcf8d8ac155086c20b5",
     "candidate": null,
     "candidate_is_keymaster_edge": false,
     "candidate_is_proved": false,
@@ -51,7 +51,7 @@
       "writes_fundamentum_main": false,
       "writes_user_research_branch": false
     },
-    "forge_state_sha256": "92c5c3716e89845c14285733165d427f571fba2913b8eb39a30807c7c25913a5",
+    "forge_state_sha256": "3007ab6ba9597baa90f4d2883653a8dfabcdcfe84d8a3e4a1e6cfccfe2d379f5",
     "forge_target": {
       "barrier_penalty": 0,
       "barriers": [],
@@ -76,7 +76,7 @@
       "materialized_variant_falsified": false,
       "status": "NOT_RUN"
     },
-    "keymaster_report_sha256": "f5adbcc044db2698e5c9bc5ac416b566bc5e75192a664c87940be7c5f25e7f26",
+    "keymaster_report_sha256": "c59f4c9984113ca3864d1703beea16f565e603e36a5cc33a7714f9894c134a9e",
     "keymaster_shadow_admission": false,
     "materialization": null,
     "materialized_variant_falsified": false,
@@ -173,7 +173,7 @@
     "candidate_error": null,
     "candidate_proposal_count": 33,
     "candidate_proposer": "NONE",
-    "cycle_count": 98,
+    "cycle_count": 99,
     "deferred_candidate_count": 25,
     "distinct_candidate_count": 25,
     "duplicate_candidate_count": 8,
@@ -190,7 +190,7 @@
       "writes_fundamentum_main": false,
       "writes_user_research_branch": false
     },
-    "keymaster_report_sha256": "f5adbcc044db2698e5c9bc5ac416b566bc5e75192a664c87940be7c5f25e7f26",
+    "keymaster_report_sha256": "c59f4c9984113ca3864d1703beea16f565e603e36a5cc33a7714f9894c134a9e",
     "keymaster_shadow_admission": false,
     "last_candidate_attack": {
       "advance_forge": true,
@@ -207,7 +207,7 @@
     "mathematically_falsified_candidate_count": 0,
     "mode": "AUTONOMOUS_TARGETED_LOCKPICK_FORGE",
     "next_action": "WAIT_FOR_NEW_DONOR_OR_MODEL_CAPACITY",
-    "prompt_sha256": "68049064e21255ecf681b363a172de8098b88457a8923861ef0b76b6335fb733",
+    "prompt_sha256": "372a8d27f94b4fe9d1f495cd50c6be42449ab3d0e0e54ce33f3dccc76b368795",
     "recent_candidate_fingerprints": [
       "018a6eeae154e931e29fe4348c5263bdf5aa1774d60204adc8877d2c745ce549",
       "9e9999de2806ea0b67ffdf4c2cb0ecc82c9d1cb2d4cb8f1716cc1328327bb4f8",
@@ -355,11 +355,11 @@
       }
     ],
     "source_memory": {
-      "hrain_source_commit": "fb339ae875ac1bb4d2d05b675776f4a571ec028d",
-      "inaihr_source_commit": "fb339ae875ac1bb4d2d05b675776f4a571ec028d",
+      "hrain_source_commit": "459f9a95722f96d24e0078eb9daffb292b311d3c",
+      "inaihr_source_commit": "459f9a95722f96d24e0078eb9daffb292b311d3c",
       "topa_record_count_seen": 140
     },
-    "state_sha256": "3007ab6ba9597baa90f4d2883653a8dfabcdcfe84d8a3e4a1e6cfccfe2d379f5",
+    "state_sha256": "e4b4e3caeef9c6f1404dc18c1855085aa75fbb2b4d60a45b78099327f1bbd9a5",
     "status": "SEARCHED_NO_NOVEL_FALLBACK_CANDIDATE",
     "target": {
       "barrier_penalty": 0,
@@ -380,11 +380,11 @@
       "to_type": "CNF_WITH_POLY_PREFIX_FACTOR_WIDTH_VTREE_ORDER"
     }
   },
-  "generated_at": "2026-10-05T20:49:30.775789Z",
+  "generated_at": "2026-10-06T01:31:38.121899Z",
   "materializer_semantic": {
     "candidate": null,
     "candidate_proposal_count": 33,
-    "cycle_count": 97,
+    "cycle_count": 98,
     "deferred_candidate_count": 25,
     "distinct_candidate_count": 25,
     "firewall": {
@@ -398,7 +398,7 @@
     },
     "forge_next_action": "WAIT_FOR_NEW_DONOR_OR_MODEL_CAPACITY",
     "forge_status": "SEARCHED_NO_NOVEL_FALLBACK_CANDIDATE",
-    "generated_at": "2026-10-05T15:56:52.425099Z",
+    "generated_at": "2026-10-05T22:35:28.640220Z",
     "schema": "janus.keymaster.candidate_materialization.v1",
     "status": "IDLE_NO_CANDIDATE"
   },
@@ -415,6 +415,111 @@
   },
   "source": "github-actions-api+forge+materializer+attack-receipts",
   "workflow_runs": [
+    {
+      "conclusion": "success",
+      "created_at": "2026-10-05T22:55:01Z",
+      "display_title": "JANUS Keymaster Mechanism Composition",
+      "event": "workflow_dispatch",
+      "head_branch": "main",
+      "head_sha": "5bdc2b1385a2a84765a28cdd559ccc9f2e07913c",
+      "html_url": "https://github.com/Hawkar-usls/Janus-Demiurge/actions/runs/37385435855",
+      "id": 37385435855,
+      "name": "JANUS Keymaster Mechanism Composition",
+      "path": ".github/workflows/janus-keymaster-mechanism-composition.yml",
+      "run_started_at": "2026-10-05T22:55:01Z",
+      "status": "completed",
+      "updated_at": "2026-10-05T22:55:35Z"
+    },
+    {
+      "conclusion": "success",
+      "created_at": "2026-10-05T22:53:59Z",
+      "display_title": "JANUS Keymaster Autonomous Lockpick Forge",
+      "event": "schedule",
+      "head_branch": "main",
+      "head_sha": "1587d5083fdf1c638a94efb6c5f78d366ce84599",
+      "html_url": "https://github.com/Hawkar-usls/Janus-Demiurge/actions/runs/37385334821",
+      "id": 37385334821,
+      "name": "JANUS Keymaster Autonomous Lockpick Forge",
+      "path": ".github/workflows/janus-keymaster-autonomous-forge.yml",
+      "run_started_at": "2026-10-05T22:53:59Z",
+      "status": "completed",
+      "updated_at": "2026-10-05T22:55:07Z"
+    },
+    {
+      "conclusion": "success",
+      "created_at": "2026-10-05T22:45:14Z",
+      "display_title": "JANUS Keymaster Candidate Attacker",
+      "event": "schedule",
+      "head_branch": "main",
+      "head_sha": "d44d6b02df67a53cda270a46046289d49497904e",
+      "html_url": "https://github.com/Hawkar-usls/Janus-Demiurge/actions/runs/37384456063",
+      "id": 37384456063,
+      "name": "JANUS Keymaster Candidate Attacker",
+      "path": ".github/workflows/janus-keymaster-candidate-attacker.yml",
+      "run_started_at": "2026-10-05T22:45:14Z",
+      "status": "completed",
+      "updated_at": "2026-10-05T22:45:33Z"
+    },
+    {
+      "conclusion": "success",
+      "created_at": "2026-10-05T22:43:23Z",
+      "display_title": "JANUS Keymaster Attribution R2",
+      "event": "workflow_run",
+      "head_branch": "main",
+      "head_sha": "d44d6b02df67a53cda270a46046289d49497904e",
+      "html_url": "https://github.com/Hawkar-usls/Janus-Demiurge/actions/runs/37384254167",
+      "id": 37384254167,
+      "name": "JANUS Keymaster Attribution R2",
+      "path": ".github/workflows/janus-keymaster-attribution-r2.yml",
+      "run_started_at": "2026-10-05T22:43:23Z",
+      "status": "completed",
+      "updated_at": "2026-10-05T22:44:00Z"
+    },
+    {
+      "conclusion": "success",
+      "created_at": "2026-10-05T22:41:46Z",
+      "display_title": "JANUS Keymaster Mechanism Composition",
+      "event": "schedule",
+      "head_branch": "main",
+      "head_sha": "3d2b9120d259036a7eed83e51a461b3082cf9cd6",
+      "html_url": "https://github.com/Hawkar-usls/Janus-Demiurge/actions/runs/37384087009",
+      "id": 37384087009,
+      "name": "JANUS Keymaster Mechanism Composition",
+      "path": ".github/workflows/janus-keymaster-mechanism-composition.yml",
+      "run_started_at": "2026-10-05T22:41:46Z",
+      "status": "completed",
+      "updated_at": "2026-10-05T22:42:20Z"
+    },
+    {
+      "conclusion": "success",
+      "created_at": "2026-10-05T22:40:29Z",
+      "display_title": "JANUS Keymaster Attribution",
+      "event": "workflow_run",
+      "head_branch": "main",
+      "head_sha": "b8971ab98f05baddb2412e89d18255f17e5b6473",
+      "html_url": "https://github.com/Hawkar-usls/Janus-Demiurge/actions/runs/37383962347",
+      "id": 37383962347,
+      "name": "JANUS Keymaster Attribution",
+      "path": ".github/workflows/janus-keymaster-attribution.yml",
+      "run_started_at": "2026-10-05T22:40:29Z",
+      "status": "completed",
+      "updated_at": "2026-10-05T22:43:21Z"
+    },
+    {
+      "conclusion": "success",
+      "created_at": "2026-10-05T22:35:18Z",
+      "display_title": "JANUS Keymaster Candidate Materializer",
+      "event": "schedule",
+      "head_branch": "main",
+      "head_sha": "70b8b0ee5090976d85b56bf07e6be915dba46c39",
+      "html_url": "https://github.com/Hawkar-usls/Janus-Demiurge/actions/runs/37383420616",
+      "id": 37383420616,
+      "name": "JANUS Keymaster Candidate Materializer",
+      "path": ".github/workflows/janus-keymaster-candidate-materializer.yml",
+      "run_started_at": "2026-10-05T22:35:18Z",
+      "status": "completed",
+      "updated_at": "2026-10-05T22:35:35Z"
+    },
     {
       "conclusion": "success",
       "created_at": "2026-10-05T16:23:45Z",
@@ -624,96 +729,6 @@
       "run_started_at": "2026-10-05T07:05:43Z",
       "status": "completed",
       "updated_at": "2026-10-05T07:08:23Z"
-    },
-    {
-      "conclusion": "success",
-      "created_at": "2026-10-05T06:57:58Z",
-      "display_title": "JANUS Keymaster Candidate Materializer",
-      "event": "schedule",
-      "head_branch": "main",
-      "head_sha": "65972a368a078133448cb8e221e73161563266a3",
-      "html_url": "https://github.com/Hawkar-usls/Janus-Demiurge/actions/runs/37275116159",
-      "id": 37275116159,
-      "name": "JANUS Keymaster Candidate Materializer",
-      "path": ".github/workflows/janus-keymaster-candidate-materializer.yml",
-      "run_started_at": "2026-10-05T06:57:58Z",
-      "status": "completed",
-      "updated_at": "2026-10-05T06:58:13Z"
-    },
-    {
-      "conclusion": "success",
-      "created_at": "2026-10-05T05:47:46Z",
-      "display_title": "JANUS Keymaster Mechanism Composition",
-      "event": "schedule",
-      "head_branch": "main",
-      "head_sha": "8d70bf1c27d865b58c587c8667026156b137ca42",
-      "html_url": "https://github.com/Hawkar-usls/Janus-Demiurge/actions/runs/37269360517",
-      "id": 37269360517,
-      "name": "JANUS Keymaster Mechanism Composition",
-      "path": ".github/workflows/janus-keymaster-mechanism-composition.yml",
-      "run_started_at": "2026-10-05T05:47:46Z",
-      "status": "completed",
-      "updated_at": "2026-10-05T05:48:23Z"
-    },
-    {
-      "conclusion": "success",
-      "created_at": "2026-10-05T01:16:18Z",
-      "display_title": "JANUS Keymaster Mechanism Composition",
-      "event": "workflow_dispatch",
-      "head_branch": "main",
-      "head_sha": "91a0735116af4b997f9d596a5828648b7e08427b",
-      "html_url": "https://github.com/Hawkar-usls/Janus-Demiurge/actions/runs/37250776980",
-      "id": 37250776980,
-      "name": "JANUS Keymaster Mechanism Composition",
-      "path": ".github/workflows/janus-keymaster-mechanism-composition.yml",
-      "run_started_at": "2026-10-05T01:16:18Z",
-      "status": "completed",
-      "updated_at": "2026-10-05T01:16:48Z"
-    },
-    {
-      "conclusion": "success",
-      "created_at": "2026-10-05T01:15:30Z",
-      "display_title": "JANUS Keymaster Autonomous Lockpick Forge",
-      "event": "schedule",
-      "head_branch": "main",
-      "head_sha": "5eb244dde115397732aef9a8ff26f0c0ee33ea90",
-      "html_url": "https://github.com/Hawkar-usls/Janus-Demiurge/actions/runs/37250724701",
-      "id": 37250724701,
-      "name": "JANUS Keymaster Autonomous Lockpick Forge",
-      "path": ".github/workflows/janus-keymaster-autonomous-forge.yml",
-      "run_started_at": "2026-10-05T01:15:30Z",
-      "status": "completed",
-      "updated_at": "2026-10-05T01:16:21Z"
-    },
-    {
-      "conclusion": "success",
-      "created_at": "2026-10-05T01:02:25Z",
-      "display_title": "JANUS Keymaster Candidate Attacker",
-      "event": "schedule",
-      "head_branch": "main",
-      "head_sha": "5eb244dde115397732aef9a8ff26f0c0ee33ea90",
-      "html_url": "https://github.com/Hawkar-usls/Janus-Demiurge/actions/runs/37249813625",
-      "id": 37249813625,
-      "name": "JANUS Keymaster Candidate Attacker",
-      "path": ".github/workflows/janus-keymaster-candidate-attacker.yml",
-      "run_started_at": "2026-10-05T01:02:25Z",
-      "status": "completed",
-      "updated_at": "2026-10-05T01:02:42Z"
-    },
-    {
-      "conclusion": "success",
-      "created_at": "2026-10-05T01:00:16Z",
-      "display_title": "JANUS Keymaster Attribution R2",
-      "event": "workflow_run",
-      "head_branch": "main",
-      "head_sha": "5eb244dde115397732aef9a8ff26f0c0ee33ea90",
-      "html_url": "https://github.com/Hawkar-usls/Janus-Demiurge/actions/runs/37249669530",
-      "id": 37249669530,
-      "name": "JANUS Keymaster Attribution R2",
-      "path": ".github/workflows/janus-keymaster-attribution-r2.yml",
-      "run_started_at": "2026-10-05T01:00:16Z",
-      "status": "completed",
-      "updated_at": "2026-10-05T01:00:49Z"
     }
   ]
 }

@@ -11,11 +11,11 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 9937,
+  "files_scanned": 9982,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 1350,
+    "REVIEW": 1376,
     "SAFE_INFRA_LOOP": 1979,
     "HISTORICAL_FROZEN": 860
   },
@@ -1327,7 +1327,7 @@
     {
       "repository": "Hawkar-usls/iNaiHR",
       "path": "janus-synth/state/JANUS_SYNTH_LATEST.json",
-      "line": 8345,
+      "line": 8346,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
@@ -2386,6 +2386,36 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e80_q10_binary_delta_universality_attack.py",
+      "line": 2,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"\"\"R5 E80: exact q=10 cyclic RXC3 attack on binary-delta universality.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e80_q10_binary_delta_universality_attack.py",
+      "line": 4,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "The q=10 cyclic source is the natural continuation of the frozen q=6 family:",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e80_q10_binary_delta_universality_attack.py",
+      "line": 110,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "print(\"source: cyclic columns {j,j+1,j+3} mod 10; square/cubic/linear/C4-free/connected\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "experiments/r5_e30_uniform_cyclic_lift_nullity_firewall.py",
       "line": 5,
       "classification": "REVIEW",
@@ -2422,6 +2452,26 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "print(\"Conclusion: fixed-base uniform cyclic lifts stay within an r-independent nullity bound.\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e81_q8_global_delta_partition_counterexample.py",
+      "line": 4,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "The cyclic q=8 RXC3 source has columns {j,j+1,j+3} mod 8.  It is square,",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e81_q8_global_delta_partition_counterexample.py",
+      "line": 136,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "print(\"source: cyclic {j,j+1,j+3} mod 8; square/cubic/linear/C4-free/connected\")",
       "active_surface": true
     },
     {
@@ -2906,6 +2956,26 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E80_Q10_BINARY_DELTA_UNIVERSALITY_ATTACK_2026-10-05_v1.0.md",
+      "line": 23,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Use the cyclic square-cubic source on `q=10` source variables/checks",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E80_Q10_BINARY_DELTA_UNIVERSALITY_ATTACK_2026-10-05_v1.0.md",
+      "line": 29,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Equivalently, this is the natural cyclic continuation of the frozen q=6 source",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "research/R5_E51_TWO_CLAW_PERMUTATION_PROPAGATION_2026-10-03_v1.0.md",
       "line": 142,
       "classification": "REVIEW",
@@ -3072,76 +3142,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "Take as source rows all cyclic directed triangles of the tournament.  The exact",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E19_PALEY_3LIFT_SCHUR_HIERARCHY_FIREWALL_2026-10-02_v1.0.md",
-      "line": 40,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "55 cyclic triangles,",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E19_PALEY_3LIFT_SCHUR_HIERARCHY_FIREWALL_2026-10-02_v1.0.md",
-      "line": 41,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "every arc lies in exactly 3 cyclic triangles.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E19_PALEY_3LIFT_SCHUR_HIERARCHY_FIREWALL_2026-10-02_v1.0.md",
-      "line": 63,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "For base cyclic triangle number `t`, ordered as three base arcs `(a,b,c)`, create",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E19_PALEY_3LIFT_SCHUR_HIERARCHY_FIREWALL_2026-10-02_v1.0.md",
-      "line": 98,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "Every lifted clause projects to one base cyclic triangle, hence its three root",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/TRUMP_BICAMERAL_COMPONENT_BOUNDARY_JOIN_CARRIER_V1_2_FAILURE_2026-09-15.json",
-      "line": 17,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"interpretation\": \"The structural alpha-cycle is real locally, but the end-to-end raw control is rejected by an earlier parent gate, so it does not test the frozen successor scope.\"",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/TRUMP_BICAMERAL_COMPONENT_BOUNDARY_JOIN_CARRIER_V1_2_FAILURE_2026-09-15.json",
-      "line": 38,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"repair_rule\": \"Preserve v1 candidate and v1.2 singleton receipt repair. Replace only the alpha-cycle raw control with a hostile mixed-language instance that remains in the parent overwidth scope while preserving the same private-variable three-relation cycle.\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E50_E12_MULTICLAW_AMBIGUITY_FIREWALL_2026-10-02_v1.0.md",
-      "line": 124,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "The same argument holds for `L2,L3` by cyclic symmetry and for `P1,P2,P3` in the",
       "active_surface": true
     }
   ],

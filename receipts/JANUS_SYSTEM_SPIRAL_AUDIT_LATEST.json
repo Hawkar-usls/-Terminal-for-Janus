@@ -11,12 +11,12 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 10057,
+  "files_scanned": 10093,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 1389,
-    "SAFE_INFRA_LOOP": 2000,
+    "REVIEW": 1423,
+    "SAFE_INFRA_LOOP": 2005,
     "HISTORICAL_FROZEN": 866
   },
   "active_hard_ring_count": 0,
@@ -2476,6 +2476,96 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e112_cubic_cycle_space_cover_firewall.py",
+      "line": 2,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"\"\"R5 E112: cubic cycle-space exact-cover firewall.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e112_cubic_cycle_space_cover_firewall.py",
+      "line": 10,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "(3-edge-connected is sufficient).  Let U be its GF(2) cycle space.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e112_cubic_cycle_space_cover_firewall.py",
+      "line": 43,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "cycle-space dimension 7,",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e112_cubic_cycle_space_cover_firewall.py",
+      "line": 47,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "every one of 128 cycle-space points lies in exactly 3 forbidden flats.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e112_cubic_cycle_space_cover_firewall.py",
+      "line": 51,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "semantics not captured by this abstract cycle-space construction.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e112_cubic_cycle_space_cover_firewall.py",
+      "line": 230,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "print(\"R5 E112 cubic cycle-space affine-cover firewall: PASS\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e112_cubic_cycle_space_cover_firewall.py",
+      "line": 231,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "print(\"hexagonal prism: vertices=12 edges=18 cycle-rank=7\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e113_target6_support_lift_parity_obstruction.py",
+      "line": 2,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"\"\"R5 E113: TARGET6 support-lift parity obstruction for E112 cycle covers.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e113_target6_support_lift_parity_obstruction.py",
+      "line": 17,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "E112 cycle-space cover has the opposite property:",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "experiments/r5_e33_tu_kernel_terminal.py",
       "line": 56,
       "classification": "REVIEW",
@@ -3052,96 +3142,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "\"local_hypotheses\": \"Assume an odd cycle in auxiliary F after 2-SAT assignment; obtain a path T=t1-...-tk in H|(Z∪X~12).\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E68_LOG_LEVEL_SDP_LIFT_TOWER_FIREWALL_2026-10-04_v1.0.md",
-      "line": 142,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "can introduce a shorter cycle than the base carrier.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E59_KERNEL_FOUR_BLOCK_NORMAL_FORM_2026-10-03_v1.0.md",
-      "line": 381,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "Thus zero defect is exactly the positive 2-CNF cycle-cover condition",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E59_KERNEL_FOUR_BLOCK_NORMAL_FORM_2026-10-03_v1.0.md",
-      "line": 395,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "Equivalently, in the row convention `(Pk)_i=k_{p(i)}`, every cycle of `p` must carry",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E59_KERNEL_FOUR_BLOCK_NORMAL_FORM_2026-10-03_v1.0.md",
-      "line": 400,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "## 7. Cycle-cover statistics",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E59_KERNEL_FOUR_BLOCK_NORMAL_FORM_2026-10-03_v1.0.md",
-      "line": 402,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "On the directed cycle cover of `P`, classify directed edges by the consecutive bit pair",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E59_KERNEL_FOUR_BLOCK_NORMAL_FORM_2026-10-03_v1.0.md",
-      "line": 414,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "where the two transition counts are equal because every component is a directed cycle.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E59_KERNEL_FOUR_BLOCK_NORMAL_FORM_2026-10-03_v1.0.md",
-      "line": 460,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "So `D` is exactly the set/count of `00` edges along the normalized `P` cycle cover.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E59_KERNEL_FOUR_BLOCK_NORMAL_FORM_2026-10-03_v1.0.md",
-      "line": 508,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "B. The kernel and P-cycle cover admit a polynomial canonical decomposition on which",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E19_PALEY_3LIFT_SCHUR_HIERARCHY_FIREWALL_2026-10-02_v1.0.md",
-      "line": 36,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "Take as source rows all cyclic directed triangles of the tournament.  The exact",
       "active_surface": true
     }
   ],

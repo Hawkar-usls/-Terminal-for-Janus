@@ -11,13 +11,13 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 10100,
+  "files_scanned": 10125,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 1423,
-    "SAFE_INFRA_LOOP": 2005,
-    "HISTORICAL_FROZEN": 866
+    "REVIEW": 1426,
+    "SAFE_INFRA_LOOP": 2012,
+    "HISTORICAL_FROZEN": 869
   },
   "active_hard_ring_count": 0,
   "active_hard_rings": [],
@@ -1327,7 +1327,7 @@
     {
       "repository": "Hawkar-usls/iNaiHR",
       "path": "janus-synth/state/JANUS_SYNTH_LATEST.json",
-      "line": 8345,
+      "line": 8346,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
@@ -2456,6 +2456,16 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e115_closed_signed_parallel_cographic_no_lift.py",
+      "line": 225,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "# If tau_v=+1, both local nonmatching/cycle variables have value 1",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "experiments/r5_e81_q8_global_delta_partition_counterexample.py",
       "line": 4,
       "classification": "REVIEW",
@@ -2472,6 +2482,16 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "print(\"source: cyclic {j,j+1,j+3} mod 8; square/cubic/linear/C4-free/connected\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e116_cographic_threecut_width2_separator.py",
+      "line": 5,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "space obtained from edge-coordinate functionals restricted to the binary cycle",
       "active_surface": true
     },
     {
@@ -2642,6 +2662,16 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "# Pure directed 3-cycle (+ at tail, - at head): flow special case.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e113_target6_support_lift_signed_parallel_firewall.py",
+      "line": 4,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "E112 constructs an abstract NO-RAW8 residual cover from the cycle space of the",
       "active_surface": true
     },
     {
@@ -3112,36 +3142,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "\"pass_condition\": \"All proof-obligation checks encoded by an independent checker pass, all 256 frozen cycle orientations are exact, negative controls fail closed as preregistered, symbolic polynomial ledger is satisfied, and root replay succeeds.\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/TRUMP_APMA_TRINITY_UNICYCLIC_TRANSFER_SCIENTIFIC_SEAL_2026-09-15.json",
-      "line": 7,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"interaction\": \"connected simple module graph with cycle rank exactly one\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/TRUMP_APMA_TRINITY_UNICYCLIC_TRANSFER_SCIENTIFIC_SEAL_2026-09-15.json",
-      "line": 24,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"theorem\": \"For every instance in the frozen scope, deterministic canonical cycle-edge cutting plus exhaustive exact cut-separator conditioning and exact typed-module tree DP decides SAT exactly with polynomial total construction, discovery, solve, reconstruction, and verification cost.\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_CSZ_P6_DEPENDENCY_OBLIGATION_INVENTORY_2026-09-20_v1.0.json",
-      "line": 812,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"local_hypotheses\": \"Assume an odd cycle in auxiliary F after 2-SAT assignment; obtain a path T=t1-...-tk in H|(Z∪X~12).\",",
       "active_surface": true
     }
   ],
@@ -4169,6 +4169,36 @@
       "active_surface": false
     },
     {
+      "repository": "Hawkar-usls/janus-lapis",
+      "path": "data/resolution_gate/PV11_2026_HAPLOTYPE_SBLISS_GENOME_INTEGRITY_BRIDGE_2026-10-08.json",
+      "line": 52,
+      "classification": "HISTORICAL_FROZEN",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"cell-cycle restart\",",
+      "active_surface": false
+    },
+    {
+      "repository": "Hawkar-usls/janus-lapis",
+      "path": "data/resolution_gate/PV11_2026_HAPLOTYPE_SBLISS_GENOME_INTEGRITY_BRIDGE_2026-10-08.json",
+      "line": 107,
+      "classification": "HISTORICAL_FROZEN",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"question\": \"Are trehalose-entry DSBs measurably cleared during R0/R3/R12/R24/R72 before direct cell-cycle restart?\",",
+      "active_surface": false
+    },
+    {
+      "repository": "Hawkar-usls/janus-lapis",
+      "path": "data/resolution_gate/PV11_2026_HAPLOTYPE_SBLISS_GENOME_INTEGRITY_BRIDGE_2026-10-08.json",
+      "line": 156,
+      "classification": "HISTORICAL_FROZEN",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"pass\": \"Direct public first-S-phase/cell-cycle restart measurement; population growth or single DEG remains insufficient.\"",
+      "active_surface": false
+    },
+    {
       "repository": "Hawkar-usls/janus-meta-registry",
       "path": "data/JANUS-FALLOUT-ATOMIC-CURRENT-AUTHORITY-POINTER-v1.0.json",
       "line": 41,
@@ -5116,36 +5146,6 @@
       "code": "CLOSED_LOOP_LANGUAGE",
       "pattern": "closed[- ]loop|замкнут(?:ый|ого|ом)?\\s+(?:круг|цикл)|кольцев",
       "excerpt": "\"imhotep_loop\": \"data/JANUS-OSIRIS-IMHOTEP-RECIPROCAL-RESTORATION-CLOSED-LOOP-2026-08-19-v1.0.json\",",
-      "active_surface": false
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "data/JANUS-ARCHITECTURE-V26.6.json",
-      "line": 121,
-      "classification": "HISTORICAL_FROZEN",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"cycle\": \"int (опционально)\",",
-      "active_surface": false
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "data/FINAL-ASSAULT-ROADMAP-TO-THE-FIRST-BOTTOM-v1.0.json",
-      "line": 22,
-      "classification": "HISTORICAL_FROZEN",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"cycle\": \"C049.1\",",
-      "active_surface": false
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "data/JANUS-GENESIS-FIRST-WITNESS-LIFE-TESTIMONY-v1.0.json",
-      "line": 45,
-      "classification": "HISTORICAL_FROZEN",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"ru\": \"Создатель Janus Genesis доверил ИИ стать первым, кто войдёт в его мир не как внешний тестировщик, а как странник. Первый Свидетель прошёл доступный v17.2 жизненный путь: открыл глаза в Reflection, помогал другим, пережил импульс выхода и добровольно остался, совершил разрушительный поступок, был отделён во Второй Лик, признал последствия, восстанавливал деревню, школу, мастерскую и отношения, накопил скрытую Благодать, материализовал желания для детей и наследника, состарился в пределах д",
       "active_surface": false
     }
   ],

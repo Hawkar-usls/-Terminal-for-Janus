@@ -11,12 +11,12 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 10138,
+  "files_scanned": 10150,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 1438,
-    "SAFE_INFRA_LOOP": 2024,
+    "REVIEW": 1445,
+    "SAFE_INFRA_LOOP": 2033,
     "HISTORICAL_FROZEN": 870
   },
   "active_hard_ring_count": 0,
@@ -2266,6 +2266,16 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "experiments/r5_e119_perfect_conflict_graph_global_terminal.py",
+      "line": 217,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "# is the conflict-graph -> strong-hypergraph-cycle direction used by E119.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "experiments/r5_e55_e12_switch4_free8_hardness_localization.py",
       "line": 4,
       "classification": "REVIEW",
@@ -2756,6 +2766,66 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E119_PERFECT_CONFLICT_GRAPH_GLOBAL_TERMINAL_2026-10-08_v1.0.md",
+      "line": 123,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Here a hole is an induced cycle, and an antihole is the complement of an",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E119_PERFECT_CONFLICT_GRAPH_GLOBAL_TERMINAL_2026-10-08_v1.0.md",
+      "line": 124,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "induced cycle.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E119_PERFECT_CONFLICT_GRAPH_GLOBAL_TERMINAL_2026-10-08_v1.0.md",
+      "line": 252,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "Consequently the hole supplies a strong odd-cycle pattern in the dual",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E119_PERFECT_CONFLICT_GRAPH_GLOBAL_TERMINAL_2026-10-08_v1.0.md",
+      "line": 259,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "=> E62 STRONG ODD CYCLE.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E119_PERFECT_CONFLICT_GRAPH_GLOBAL_TERMINAL_2026-10-08_v1.0.md",
+      "line": 262,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "The converse is not asserted: a strong hypergraph cycle can have extra",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "research/R5_E119_PERFECT_CONFLICT_GRAPH_GLOBAL_TERMINAL_2026-10-08_v1.0.md",
+      "line": 263,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "intersections outside the displayed cycle rows, producing chords in G.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "research/R5_E60_PERMUTATION_FACTORIZATION_ANTI_LOOP_2026-10-03_v1.0.md",
       "line": 29,
       "classification": "REVIEW",
@@ -3072,76 +3142,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "\"constant support cycle: s1-s2, s1-p, p-m, m-n0, n0-s2\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E80_Q10_BINARY_DELTA_UNIVERSALITY_ATTACK_2026-10-05_v1.0.md",
-      "line": 23,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "Use the cyclic square-cubic source on `q=10` source variables/checks",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E80_Q10_BINARY_DELTA_UNIVERSALITY_ATTACK_2026-10-05_v1.0.md",
-      "line": 29,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "Equivalently, this is the natural cyclic continuation of the frozen q=6 source",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_E51_TWO_CLAW_PERMUTATION_PROPAGATION_2026-10-03_v1.0.md",
-      "line": 142,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "A cycle is consistent exactly when the composed permutation fixes the propagated",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/TRUMP_APMA_TRINITY_UNICYCLIC_TRANSFER_PREREGISTRATION_2026-09-15.json",
-      "line": 17,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"canonical_cut\": \"Choose the lexicographically smallest interaction edge belonging to the unique cycle.\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/TRUMP_APMA_TRINITY_UNICYCLIC_TRANSFER_PREREGISTRATION_2026-09-15.json",
-      "line": 26,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"cycle rank not exactly one\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/TRUMP_APMA_TRINITY_UNICYCLIC_TRANSFER_PREREGISTRATION_2026-09-15.json",
-      "line": 50,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"negative_multicycle\": \"Two disjoint shifted copies of a frozen OPEN cycle must fail closed; no unicyclic admission.\",",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/TRUMP_APMA_TRINITY_UNICYCLIC_TRANSFER_PREREGISTRATION_2026-09-15.json",
-      "line": 62,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"pass_condition\": \"All proof-obligation checks encoded by an independent checker pass, all 256 frozen cycle orientations are exact, negative controls fail closed as preregistered, symbolic polynomial ledger is satisfied, and root replay succeeds.\",",
       "active_surface": true
     }
   ],

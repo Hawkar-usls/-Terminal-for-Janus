@@ -11,12 +11,12 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 10423,
+  "files_scanned": 10435,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 1543,
-    "SAFE_INFRA_LOOP": 2114,
+    "REVIEW": 1545,
+    "SAFE_INFRA_LOOP": 2116,
     "HISTORICAL_FROZEN": 882
   },
   "active_hard_ring_count": 0,
@@ -1327,7 +1327,7 @@
     {
       "repository": "Hawkar-usls/iNaiHR",
       "path": "janus-synth/state/JANUS_SYNTH_LATEST.json",
-      "line": 8345,
+      "line": 8347,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",

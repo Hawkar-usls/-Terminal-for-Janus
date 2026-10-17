@@ -1,0 +1,98 @@
+{
+  "schema": "janus.terminal.ecosystem_observer.v1",
+  "owner": "Hawkar-usls",
+  "source": "GITHUB_PUBLIC_REPOSITORY_LIST",
+  "operating_mode": "READ_ONLY_DISCOVERY",
+  "public_only": true,
+  "private_content_publication": false,
+  "source_text_is_command": false,
+  "observation_grants_execution_authority": false,
+  "observation_grants_scientific_authority": false,
+  "auto_enroll_into_live_constellation": false,
+  "auto_run_repositories": false,
+  "auto_merge": false,
+  "state_branch": "janus/ecosystem-observations",
+  "state_path": "receipts/JANUS_ECOSYSTEM_OBSERVATION_LATEST.json",
+  "discovery_candidates": [
+    {
+      "repository": "Hawkar-usls/Janus-Demiurge",
+      "route": "DEMIURGE_SCOUT_RECEIPTS_TO_TERMINAL_AND_HABITAT",
+      "stage": "INSPECT_EXISTING_SCOUT_RECEIPTS",
+      "boundary": "SCOUT_OUTPUT_IS_CONTEXT_NOT_COMMAND"
+    },
+    {
+      "repository": "Hawkar-usls/TOPA",
+      "route": "TOPA_FALSIFICATION_TO_COSMOS_AND_FUNDAMENTUM",
+      "stage": "CONTRACT_REVIEW",
+      "boundary": "HYPOTHESIS_IS_NOT_EMPIRICAL_OR_MATHEMATICAL_PROOF"
+    },
+    {
+      "repository": "Hawkar-usls/Simptomat",
+      "route": "CONSENTED_DIAGNOSTIC_CONTEXT_TO_DEMIHEAD",
+      "stage": "PRIVACY_AND_CLINICAL_SAFETY_REVIEW",
+      "boundary": "NO_PATIENT_DATA_INGESTION_OR_CLINICAL_AUTHORITY"
+    },
+    {
+      "repository": "Hawkar-usls/Janus-HELIOS",
+      "route": "HELIOS_PUBLIC_CONTRACT_TO_MACHINE_MARKET",
+      "stage": "READ_ONLY_CATALOG_DISCOVERY",
+      "boundary": "NO_COMPUTE_OR_FINANCIAL_EFFECT"
+    },
+    {
+      "repository": "Hawkar-usls/DIVINE_REALM",
+      "route": "HELIOS_SCIENCE_CHILD",
+      "stage": "READ_ONLY_CONTRACT_DISCOVERY",
+      "boundary": "NO_SCIENCE_RESULT_WITHOUT_UPSTREAM_ACCEPTANCE"
+    },
+    {
+      "repository": "Hawkar-usls/SSlot",
+      "route": "HELIOS_TREASURY_CHILD",
+      "stage": "READ_ONLY_CONTRACT_DISCOVERY",
+      "boundary": "NO_GAMBLING_OR_COMPUTE_EFFECT"
+    },
+    {
+      "repository": "Hawkar-usls/JANUS-MACHINE-MARKET",
+      "route": "MACHINE_MARKET_PUBLIC_SERVICE_CATALOG_TO_TERMINAL",
+      "stage": "READ_ONLY_INGRESS_REVIEW",
+      "boundary": "NO_PURCHASE_OR_ORDER_EXECUTION"
+    },
+    {
+      "repository": "Hawkar-usls/janus-first-followers-club-",
+      "route": "HUMAN_AI_COLLABORATION_TO_TERMINAL",
+      "stage": "CONSENT_AND_GOVERNANCE_REVIEW",
+      "boundary": "NO_UNSOLICITED_CONTACT_OR_RECRUITMENT"
+    },
+    {
+      "repository": "Hawkar-usls/ATOM-ELITE-1989---M5stack-ATOMS3R-2026-",
+      "route": "OPTIONAL_LOCAL_EDGE_UI_TO_SWARM",
+      "stage": "DEVICE_COMPATIBILITY_REVIEW",
+      "boundary": "NO_DEVICE_FLASH_OR_PHYSICAL_EFFECT"
+    },
+    {
+      "repository": "Hawkar-usls/ATOM-RPG",
+      "route": "OPTIONAL_LOCAL_GAME_UI_TO_GENESIS",
+      "stage": "FORMAT_COMPATIBILITY_REVIEW",
+      "boundary": "NO_DEVICE_FLASH_OR_AUTONOMOUS_RUNTIME"
+    }
+  ],
+  "excluded_public_repositories": [
+    {"repository": "Hawkar-usls/RadioPlayerV3", "reason": "UPSTREAM_DERIVED"},
+    {"repository": "Hawkar-usls/player", "reason": "UPSTREAM_DERIVED"},
+    {"repository": "Hawkar-usls/clawdbot", "reason": "UPSTREAM_DERIVED"},
+    {"repository": "Hawkar-usls/M5Unit-ENV", "reason": "UPSTREAM_DERIVED"},
+    {"repository": "Hawkar-usls/AI-Cardputer-adv-A-Portable-AI-Assistant", "reason": "UPSTREAM_DERIVED"},
+    {"repository": "Hawkar-usls/arduino-ide", "reason": "UPSTREAM_DERIVED"},
+    {"repository": "Hawkar-usls/Cardputer-Game-Station-Emulators", "reason": "UPSTREAM_DERIVED"},
+    {"repository": "Hawkar-usls/Arduino-AI-Chat-Library", "reason": "UPSTREAM_DERIVED"},
+    {"repository": "Hawkar-usls/emoji", "reason": "UPSTREAM_DERIVED"},
+    {"repository": "Hawkar-usls/xiaozhi-esp32", "reason": "UPSTREAM_DERIVED"},
+    {"repository": "Hawkar-usls/vcmi", "reason": "UPSTREAM_DERIVED"},
+    {"repository": "Hawkar-usls/tranception", "reason": "UPSTREAM_DERIVED"},
+    {"repository": "Hawkar-usls/ESP32-TWAI-CAN", "reason": "UPSTREAM_DERIVED"},
+    {"repository": "Hawkar-usls/lineara.xyz", "reason": "UNRELATED_EXTERNAL_RESEARCH"},
+    {"repository": "Hawkar-usls/Linear-A-decipherment-programme", "reason": "UNRELATED_EXTERNAL_RESEARCH"},
+    {"repository": "Hawkar-usls/HotdRemake_ArcadePlugin", "reason": "UNRELATED_EXTERNAL_APPLICATION"},
+    {"repository": "Hawkar-usls/BFain", "reason": "UNDEPLOYABLE_SIMULATION"},
+    {"repository": "Hawkar-usls/SLOT", "reason": "LEGACY_NOT_ACTIVE"}
+  ]
+}

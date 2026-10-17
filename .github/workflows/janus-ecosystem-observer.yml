@@ -1,0 +1,104 @@
+name: JANUS Ecosystem Observer — Public Discovery and Durable Receipt
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 8 * * 1'
+  push:
+    branches: [main]
+    paths:
+      - 'config/JANUS_ECOSYSTEM_OBSERVER.json'
+      - 'tools/janus_ecosystem_observer.py'
+      - 'tests/test_janus_ecosystem_observer.py'
+      - '.github/workflows/janus-ecosystem-observer.yml'
+
+permissions:
+  contents: write  # Only the observation receipt branch is updated.
+
+concurrency:
+  group: janus-ecosystem-observer-persistent-branch
+  cancel-in-progress: false
+
+jobs:
+  observe:
+    # Do not permit forks or non-owner manual dispatches to publish state.
+    if: github.repository == 'Hawkar-usls/-Terminal-for-Janus' && (github.event_name == 'schedule' || github.actor == 'Hawkar-usls')
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Verify fail-closed observer and the full Terminal Python suite
+        run: |
+          python -m pip install --disable-pip-version-check 'pytest>=8,<9'
+          python -m pytest -q tests
+          python -m py_compile tools/janus_ecosystem_observer.py
+
+      - name: Retrieve previously committed observation without resetting it
+        shell: bash
+        run: |
+          mkdir -p runtime
+          set +e
+          git ls-remote --exit-code origin refs/heads/janus/ecosystem-observations >/dev/null
+          rc=$?
+          set -e
+          if [ "$rc" = 0 ]; then
+            git fetch --no-tags origin refs/heads/janus/ecosystem-observations:refs/remotes/origin/janus/ecosystem-observations
+            git show refs/remotes/origin/janus/ecosystem-observations:receipts/JANUS_ECOSYSTEM_OBSERVATION_LATEST.json > runtime/previous.json
+            python tools/janus_ecosystem_observer.py --verify runtime/previous.json
+          elif [ "$rc" != 2 ]; then
+            echo 'OBSERVER_PREVIOUS_BRANCH_LOOKUP=FAIL_CLOSED'
+            exit "$rc"
+          fi
+
+      - name: Enumerate all public repositories and verify integrity
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          previous=()
+          if [ -f runtime/previous.json ]; then previous=(--previous runtime/previous.json); fi
+          python tools/janus_ecosystem_observer.py --live --output runtime/latest.json "${previous[@]}"
+          python tools/janus_ecosystem_observer.py --verify runtime/latest.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x = json.loads(Path('runtime/latest.json').read_text(encoding='utf-8'))
+          assert x['source'] == 'GITHUB_REST_PUBLIC_API'
+          assert x['authority']['repository_code_executed'] is False
+          assert x['authority']['live_constellation_modified'] is False
+          assert x['authority']['external_effect_authorized'] is False
+          assert x['public_repository_count'] == len(x['public_repository_names'])
+          print('JANUS_ECOSYSTEM_PUBLIC_ONLY_AND_NO_EXECUTION=PASS')
+          PY
+
+      - name: Publish the single bounded receipt on a dedicated persistent branch
+        shell: bash
+        run: |
+          git config user.name 'janus-ecosystem-observer[bot]'
+          git config user.email 'janus-ecosystem-observer[bot]@users.noreply.github.com'
+          if git show-ref --verify --quiet refs/remotes/origin/janus/ecosystem-observations; then
+            git checkout -B janus/ecosystem-observations refs/remotes/origin/janus/ecosystem-observations
+          else
+            git checkout -b janus/ecosystem-observations
+          fi
+          mkdir -p receipts
+          cp runtime/latest.json receipts/JANUS_ECOSYSTEM_OBSERVATION_LATEST.json
+          git add receipts/JANUS_ECOSYSTEM_OBSERVATION_LATEST.json
+          git commit -m 'Receipt: bounded public JANUS ecosystem observation'
+          git push origin HEAD:refs/heads/janus/ecosystem-observations
+
+      - name: Retain per-run diagnostic copy
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: janus-ecosystem-observation
+          path: runtime/latest.json
+          if-no-files-found: ignore
+          retention-days: 30

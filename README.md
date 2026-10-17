@@ -28,6 +28,31 @@ HUMAN_AUTHORIZED_WRITE != UNBOUNDED_AUTONOMY
 
 The machine-readable map is [`config/JANUS_CONSTELLATION.json`](config/JANUS_CONSTELLATION.json).
 
+The **public ecosystem observer** is intentionally separate from that executable
+constellation. It checks the full public repository list, accounts for upstream
+working copies, and tracks proposed read-only integrations without auto-enrolling
+new projects in the live scanner. This matters because membership in
+`JANUS_CONSTELLATION.json` causes scheduled cross-repository clone/audit work.
+
+- Candidate contracts: [`config/JANUS_ECOSYSTEM_OBSERVER.json`](config/JANUS_ECOSYSTEM_OBSERVER.json)
+- Read-only observer: [`tools/janus_ecosystem_observer.py`](tools/janus_ecosystem_observer.py)
+- Weekly/manual workflow: [`.github/workflows/janus-ecosystem-observer.yml`](.github/workflows/janus-ecosystem-observer.yml)
+- Persistent receipt: branch `janus/ecosystem-observations`, file
+  `receipts/JANUS_ECOSYSTEM_OBSERVATION_LATEST.json`
+
+The observation carries a SHA-256 integrity digest and a monotonic predecessor
+link. A missing API response or tampered previous receipt fails closed and does
+not overwrite the last good state. The workflow reads only public repository
+metadata and writes only its own receipt branch. A discovered repository is not
+thereby running, authorized, tested, trustworthy, or scientific evidence.
+
+Run locally (public GitHub API required):
+
+```bash
+python tools/janus_ecosystem_observer.py --live --output /tmp/janus-ecosystem-observation.json
+python tools/janus_ecosystem_observer.py --verify /tmp/janus-ecosystem-observation.json
+```
+
 Primary control path:
 
 ```text

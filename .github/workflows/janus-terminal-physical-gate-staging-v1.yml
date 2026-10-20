@@ -1,0 +1,65 @@
+name: JANUS Terminal Physical Gate Staging v1
+
+on:
+  pull_request:
+    paths:
+      - 'commands/2026-08-22-PHYSICAL-GATES-LOCAL-CODEX-BYPASS.json'
+      - '.github/workflows/janus-terminal-physical-gate-staging-v1.yml'
+      - 'tools/verify_janus_terminal_command.py'
+      - '.janus/JANUS_TERMINAL_AUTHORITY_POLICY.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  staging-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify authenticated owner command envelope
+        run: >-
+          python tools/verify_janus_terminal_command.py
+          --command commands/2026-08-22-PHYSICAL-GATES-LOCAL-CODEX-BYPASS.json
+          --github-actor Hawkar-usls
+          --receipt /tmp/authorized.json
+      - name: Negative unauthorized actor must fail closed
+        shell: bash
+        run: |
+          set +e
+          python tools/verify_janus_terminal_command.py \
+            --command commands/2026-08-22-PHYSICAL-GATES-LOCAL-CODEX-BYPASS.json \
+            --github-actor github-actions[bot] \
+            --receipt /tmp/rejected.json
+          rc=$?
+          set -e
+          test "$rc" -eq 3
+          python - <<'PY'
+          import json
+          value=json.load(open('/tmp/rejected.json', encoding='utf-8'))
+          assert value['authorized'] is False
+          assert 'GITHUB_ACTOR_NOT_AUTHORIZED' in value['errors']
+          print('UNAUTHORIZED_ACTOR_REJECTED=PASS')
+          PY
+      - name: Physical claim ceiling and exact pin sentinels
+        shell: python
+        run: |
+          import json
+          from pathlib import Path
+          p=Path('commands/2026-08-22-PHYSICAL-GATES-LOCAL-CODEX-BYPASS.json')
+          v=json.loads(p.read_text(encoding='utf-8'))
+          assert v['execution_status']=='STAGED_PENDING_LOCAL_CODEX_OR_PC_EXECUTOR'
+          assert v['claim_ceiling_before_local_execution']['REAL_OWNER44_SOURCE_REPLAY']=='NOT_PROVEN'
+          assert v['claim_ceiling_before_local_execution']['LIVE_NAS_164_HR1_HR10']=='NOT_PROVEN'
+          assert v['claim_ceiling_before_local_execution']['FULL_ISSUE_162_ACCEPTANCE'] is False
+          assert v['authority_invariants']['SOURCE_WRITEBACK_DEFAULT']=='DENY'
+          assert v['authority_invariants']['DESTRUCTIVE_ACTION']=='FORBIDDEN'
+          assert v['authority_invariants']['AUTHORITY_DELTA']==0
+          assert v['exact_dependencies']['genesis_main']=='227d42d6848790031916cac53d39961a19c35d08'
+          assert v['exact_dependencies']['swarm_main']=='b0bb07418cb1c0e1bc2da8ae443977825c0b19d1'
+          assert v['exact_dependencies']['local_codex_bypass_head']=='9ea2f24fab8848a080bdebc8b8bc151fccad51d8'
+          assert v['exact_dependencies']['physical_receipt_join_head']=='6f7e5409bf48bde909ced9142cee83af7358d809'
+          print('TERMINAL_PHYSICAL_GATE_STAGING_CONTRACT=PASS')

@@ -1,0 +1,62 @@
+name: JANUS Terminal Router SysEar Syslog Bind v1
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  router-sysear-staging:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify authenticated owner command envelope
+        run: >-
+          python tools/verify_janus_terminal_command.py
+          --command commands/2026-08-22-ROUTER-SYSEAR-SYSLOG-BIND.json
+          --github-actor Hawkar-usls
+      - name: Negative unauthorized actor must fail closed
+        shell: bash
+        run: |
+          set +e
+          python tools/verify_janus_terminal_command.py --command commands/2026-08-22-ROUTER-SYSEAR-SYSLOG-BIND.json --github-actor intruder >/tmp/reject.json
+          rc=$?
+          set -e
+          test "$rc" -eq 3
+          grep -F 'GITHUB_ACTOR_NOT_AUTHORIZED' /tmp/reject.json
+      - name: SysEar staging policy sentinels
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          c=json.loads(Path('commands/2026-08-22-ROUTER-SYSEAR-SYSLOG-BIND.json').read_text())
+          assert c['operation'] == 'REQUEST_DEPLOYMENT'
+          assert c['authority'] == 'DEPLOY_REQUEST'
+          assert c['human_authorization'] is True
+          assert c['status'] == 'STAGED_PENDING_LOCAL_EXECUTOR'
+          assert c['capture_policy']['transport_authenticated'] is False
+          assert c['privacy']['raw_syslog_publication'] is False
+          assert c['privacy']['credentials_persisted_or_logged'] is False
+          assert 'FIREWALL_POLICY_CHANGE' in c['router_change_scope_if_needed']['forbidden']
+          assert 'REMOTE_ADMIN_ENABLE' in c['router_change_scope_if_needed']['forbidden']
+          assert 'REBOOT_UNLESS_SEPARATELY_EXPLICITLY_AUTHORIZED' in c['router_change_scope_if_needed']['forbidden']
+          pins=c['exact_surfaces']
+          assert pins['genesis_pr_198_local_codex_base'] == '9ea2f24fab8848a080bdebc8b8bc151fccad51d8'
+          assert pins['genesis_pr_199_sysear_observer'] == 'ce961b01864d160fcfed5159eb80514ded26d71e'
+          PY
+      - name: Public command must not contain live network identifiers or credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          f=commands/2026-08-22-ROUTER-SYSEAR-SYSLOG-BIND.json
+          ! grep -E '([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}' "$f"
+          ! grep -Ei 'password|passwd|token|secret|api[_-]?key' "$f"

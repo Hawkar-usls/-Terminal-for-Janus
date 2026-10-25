@@ -11,12 +11,12 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 11047,
+  "files_scanned": 11102,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 1742,
-    "SAFE_INFRA_LOOP": 2407,
+    "REVIEW": 1760,
+    "SAFE_INFRA_LOOP": 2403,
     "HISTORICAL_FROZEN": 882
   },
   "active_hard_ring_count": 0,
@@ -1966,6 +1966,16 @@
     },
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
+      "path": "registry/PHYSARIUS_INTERNAL_REPO_HRAIN_LIVE_v1.json",
+      "line": 2721,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"label\": \"fix/rowan-forge-direct-topa-feedback-cycle-20261025\",",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "registry/hypotheses-c005.json",
       "line": 1,
       "classification": "REVIEW",
@@ -3132,16 +3142,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "The checker independently verified exact SAT/UNSAT control truth, original witness replay, complete UNSAT branch accounting, overlap inconsistency handling, connected multi-cycle incidence controls, over-budget fail-closed behavior, absence of candidate full-variable-cube enumeration, and the scientific firewalls.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "research/R5_B1B1A_SUBDIVIDED_WALL_SOURCE_EMBEDDING_PREREG_2026-09-21_v1.0.json",
-      "line": 54,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"constant support cycle: s1-s2, s1-p, p-m, m-n0, n0-s2\",",
       "active_surface": true
     }
   ],

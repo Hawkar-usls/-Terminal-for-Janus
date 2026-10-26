@@ -11,12 +11,12 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 11214,
+  "files_scanned": 11293,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 1762,
-    "SAFE_INFRA_LOOP": 2423,
+    "REVIEW": 1765,
+    "SAFE_INFRA_LOOP": 2447,
     "HISTORICAL_FROZEN": 882
   },
   "active_hard_ring_count": 0,
@@ -1967,7 +1967,7 @@
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "registry/PHYSARIUS_INTERNAL_REPO_HRAIN_LIVE_v1.json",
-      "line": 2780,
+      "line": 2854,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
@@ -3198,6 +3198,26 @@
     },
     {
       "repository": "Hawkar-usls/Janus",
+      "path": "integrations/tranception_rowan/rowan_1ey0_T8A_weekly_pair.py",
+      "line": 120,
+      "classification": "SAFE_INFRA_LOOP",
+      "code": "INFRASTRUCTURE_LOOP",
+      "pattern": "safe_loop_hint",
+      "excerpt": "if not uid:raise Hold(\"SUBMISSION_UUID_ABSENT_NEVER_AUTO_RETRY\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus",
+      "path": "integrations/tranception_rowan/rowan_1ey0_T8A_weekly_pair.py",
+      "line": 149,
+      "classification": "SAFE_INFRA_LOOP",
+      "code": "INFRASTRUCTURE_LOOP",
+      "pattern": "safe_loop_hint",
+      "excerpt": "print(\"JANUS_1EY0_T8A=HOLD_PROVIDER_ERROR_NO_AUTO_RETRY\");return 3",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus",
       "path": "integrations/tranception_rowan/GITHUB_AUTONOMY.md",
       "line": 70,
       "classification": "SAFE_INFRA_LOOP",
@@ -3208,12 +3228,72 @@
     },
     {
       "repository": "Hawkar-usls/Janus",
+      "path": "integrations/tranception_rowan/rowan_1ey0_weekly_api.py",
+      "line": 139,
+      "classification": "SAFE_INFRA_LOOP",
+      "code": "INFRASTRUCTURE_LOOP",
+      "pattern": "safe_loop_hint",
+      "excerpt": "if not uid:raise Hold(\"PROVIDER_SUBMISSION_UUID_UNKNOWN_NO_RETRY\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus",
+      "path": "integrations/tranception_rowan/rowan_1ey0_weekly_api.py",
+      "line": 183,
+      "classification": "SAFE_INFRA_LOOP",
+      "code": "INFRASTRUCTURE_LOOP",
+      "pattern": "safe_loop_hint",
+      "excerpt": "# Provider failures after submission are ambiguous: NEVER auto-retry.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus",
+      "path": "integrations/tranception_rowan/rowan_1ey0_weekly_api.py",
+      "line": 184,
+      "classification": "SAFE_INFRA_LOOP",
+      "code": "INFRASTRUCTURE_LOOP",
+      "pattern": "safe_loop_hint",
+      "excerpt": "print(\"ROWAN_1EY0_API=HOLD_PROVIDER_ERROR_CHECK_EXISTING_JOB_BEFORE_RETRY\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus",
       "path": "integrations/tranception_rowan/probe.py",
       "line": 6,
       "classification": "SAFE_INFRA_LOOP",
       "code": "INFRASTRUCTURE_LOOP",
       "pattern": "safe_loop_hint",
       "excerpt": "per-job credit authorization. One arm per invocation, no auto-retry.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus",
+      "path": "integrations/tranception_rowan/rowan_scoby_milk_lalba_single.py",
+      "line": 52,
+      "classification": "SAFE_INFRA_LOOP",
+      "code": "INFRASTRUCTURE_LOOP",
+      "pattern": "safe_loop_hint",
+      "excerpt": "\"new_jobs\":0, \"no_auto_retry\":True,",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus",
+      "path": "integrations/tranception_rowan/rowan_scoby_milk_lalba_single.py",
+      "line": 81,
+      "classification": "SAFE_INFRA_LOOP",
+      "code": "INFRASTRUCTURE_LOOP",
+      "pattern": "safe_loop_hint",
+      "excerpt": "raise Hold(\"UNCONFIRMED_PROVIDER_SUBMISSION_DO_NOT_RETRY\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus",
+      "path": "integrations/tranception_rowan/rowan_scoby_milk_lalba_single.py",
+      "line": 115,
+      "classification": "SAFE_INFRA_LOOP",
+      "code": "INFRASTRUCTURE_LOOP",
+      "pattern": "safe_loop_hint",
+      "excerpt": "print(\"JANUS_LALBA=HOLD_UNKNOWN_PROVIDER_STATE_NO_AUTO_RETRY\")",
       "active_surface": true
     },
     {
@@ -3244,6 +3324,26 @@
       "code": "INFRASTRUCTURE_LOOP",
       "pattern": "safe_loop_hint",
       "excerpt": "Repeat the same operations for K5A with separate file paths. No automatic batching, retries, publication, charging, or promotion of scientific findings. If a provider submission succeeds and local receipt writing fails, verify the Rowan account first, **never retry blindly**.",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus",
+      "path": "integrations/tranception_rowan/rowan_scoby_placenta_two_protein_pilots.py",
+      "line": 133,
+      "classification": "SAFE_INFRA_LOOP",
+      "code": "INFRASTRUCTURE_LOOP",
+      "pattern": "safe_loop_hint",
+      "excerpt": "if not uid:raise Hold(\"UNKNOWN_PROVIDER_UUID_DO_NOT_RETRY\")",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Janus",
+      "path": "integrations/tranception_rowan/rowan_scoby_placenta_two_protein_pilots.py",
+      "line": 167,
+      "classification": "SAFE_INFRA_LOOP",
+      "code": "INFRASTRUCTURE_LOOP",
+      "pattern": "safe_loop_hint",
+      "excerpt": "print(\"JANUS_SCOBY_ROWAN=HOLD_PROVIDER_UNCERTAIN_NO_AUTO_RETRY\");return 3",
       "active_surface": true
     },
     {
@@ -4044,106 +4144,6 @@
       "code": "INFRASTRUCTURE_LOOP",
       "pattern": "safe_loop_hint",
       "excerpt": "assert retry[\"pending_stimulus_count\"] == 1",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Hawkar-usls",
-      "path": "tests/test_constellation_watcher.py",
-      "line": 159,
-      "classification": "SAFE_INFRA_LOOP",
-      "code": "INFRASTRUCTURE_LOOP",
-      "pattern": "safe_loop_hint",
-      "excerpt": "assert retry[\"pending_stimuli\"][0][\"stimulus_id\"] == row[\"stimulus_id\"]",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Hawkar-usls",
-      "path": "tests/test_constellation_watcher.py",
-      "line": 162,
-      "classification": "SAFE_INFRA_LOOP",
-      "code": "INFRASTRUCTURE_LOOP",
-      "pattern": "safe_loop_hint",
-      "excerpt": "def test_preflight_resumes_crash_safe_pending_before_head_poll(tmp_path: Path):",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Hawkar-usls",
-      "path": "tests/test_constellation_watcher.py",
-      "line": 163,
-      "classification": "SAFE_INFRA_LOOP",
-      "code": "INFRASTRUCTURE_LOOP",
-      "pattern": "safe_loop_hint",
-      "excerpt": "watcher = ConstellationWatcher(tmp_path, now_fn=lambda: 6.0)",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Hawkar-usls",
-      "path": "tests/test_constellation_watcher.py",
-      "line": 164,
-      "classification": "SAFE_INFRA_LOOP",
-      "code": "INFRASTRUCTURE_LOOP",
-      "pattern": "safe_loop_hint",
-      "excerpt": "watcher.scan(model_lock(\"a\" * 40))",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Hawkar-usls",
-      "path": "tests/test_constellation_watcher.py",
-      "line": 165,
-      "classification": "SAFE_INFRA_LOOP",
-      "code": "INFRASTRUCTURE_LOOP",
-      "pattern": "safe_loop_hint",
-      "excerpt": "changed = watcher.scan(model_lock(\"c\" * 40))",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Hawkar-usls",
-      "path": "tests/test_constellation_watcher.py",
-      "line": 168,
-      "classification": "SAFE_INFRA_LOOP",
-      "code": "INFRASTRUCTURE_LOOP",
-      "pattern": "safe_loop_hint",
-      "excerpt": "result = watcher.preflight(reader)",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Hawkar-usls",
-      "path": "tests/test_constellation_watcher.py",
-      "line": 176,
-      "classification": "SAFE_INFRA_LOOP",
-      "code": "INFRASTRUCTURE_LOOP",
-      "pattern": "safe_loop_hint",
-      "excerpt": "watcher = ConstellationWatcher(tmp_path, now_fn=lambda: 7.0)",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Hawkar-usls",
-      "path": "tests/test_constellation_watcher.py",
-      "line": 177,
-      "classification": "SAFE_INFRA_LOOP",
-      "code": "INFRASTRUCTURE_LOOP",
-      "pattern": "safe_loop_hint",
-      "excerpt": "watcher.scan(model_lock(\"a\" * 40))",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Hawkar-usls",
-      "path": "tests/test_constellation_watcher.py",
-      "line": 178,
-      "classification": "SAFE_INFRA_LOOP",
-      "code": "INFRASTRUCTURE_LOOP",
-      "pattern": "safe_loop_hint",
-      "excerpt": "changed = watcher.scan(model_lock(\"c\" * 40))",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Hawkar-usls",
-      "path": "tests/test_constellation_watcher.py",
-      "line": 180,
-      "classification": "SAFE_INFRA_LOOP",
-      "code": "INFRASTRUCTURE_LOOP",
-      "pattern": "safe_loop_hint",
-      "excerpt": "cycle = watcher.reconcile(sid, runtime_receipt(sid))",
       "active_surface": true
     }
   ],

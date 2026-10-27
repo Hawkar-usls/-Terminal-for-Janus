@@ -11,13 +11,13 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 11471,
+  "files_scanned": 11532,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 1772,
-    "SAFE_INFRA_LOOP": 2445,
-    "HISTORICAL_FROZEN": 882
+    "REVIEW": 1776,
+    "SAFE_INFRA_LOOP": 2451,
+    "HISTORICAL_FROZEN": 876
   },
   "active_hard_ring_count": 0,
   "active_hard_rings": [],
@@ -2057,7 +2057,7 @@
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "registry/PHYSARIUS_INTERNAL_REPO_HRAIN_LIVE_v1.json",
-      "line": 2979,
+      "line": 3012,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",

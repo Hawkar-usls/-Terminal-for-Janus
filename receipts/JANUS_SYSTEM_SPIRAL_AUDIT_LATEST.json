@@ -11,12 +11,12 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 11637,
+  "files_scanned": 11695,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 1829,
-    "SAFE_INFRA_LOOP": 2474,
+    "REVIEW": 1847,
+    "SAFE_INFRA_LOOP": 2486,
     "HISTORICAL_FROZEN": 877
   },
   "active_hard_ring_count": 0,
@@ -1316,22 +1316,22 @@
     },
     {
       "repository": "Hawkar-usls/Hrain",
-      "path": "assets/janus-json-atlas/shards/0070.json",
+      "path": "assets/janus-json-atlas/shards/0074.json",
       "line": 1,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "{\"readOnly\":true,\"records\":[{\"authority\":\"SOURCE_METADATA_ONLY\",\"deleteAllowed\":false,\"gitBlobSha\":\"cbf04b2ad33cbc585331806b023f84e8f004945a\",\"id\":\"json:10303b8ffda5221ce1107b89\",\"memoryClass\":\"OTHER_TRACKED_BLOB\",\"path\":\"EYE/r4_1/generated/palomar_xe325_remaining_origin/next_best_tests.json\",\"readOnly\":true,\"repository\":\"Hawkar-usls/janus-meta-registry\",\"sizeBytes\":1913,\"sourceCommit\":\"c7e44208b9f38486356e89a4a07508b8c99bc78e\",\"sourceSha256\":\"0ddbe79bd86a44a15ddc52a6bfccf5dbe4a6ac85ecd3139ff0d4",
+      "excerpt": "{\"readOnly\":true,\"records\":[{\"authority\":\"SOURCE_METADATA_ONLY\",\"deleteAllowed\":false,\"gitBlobSha\":\"a965d1af05758af3456a3c8c8e1f754946cd6fb4\",\"id\":\"json:bd34071286dbef7303f2589c\",\"memoryClass\":\"REGISTRY_OBJECT\",\"path\":\"data/JANUS-CONNECTION-SCAN-2026-08-13-020-DATA-BATCH-006.json\",\"readOnly\":true,\"repository\":\"Hawkar-usls/janus-meta-registry\",\"sizeBytes\":4591,\"sourceCommit\":\"4daa6adbc9d0a2390799a30da772600245a5de02\",\"sourceSha256\":\"ba1f71c603208626f0f9fd53662ef4743b37629f273bce8b4344a2f9582d3755",
       "active_surface": true
     },
     {
       "repository": "Hawkar-usls/Hrain",
-      "path": "assets/janus-json-atlas/shards/0081.json",
+      "path": "assets/janus-json-atlas/shards/0072.json",
       "line": 1,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "{\"readOnly\":true,\"records\":[{\"authority\":\"SOURCE_METADATA_ONLY\",\"deleteAllowed\":false,\"gitBlobSha\":\"da9fc7c71a65a7ab1c3ba8b725cd9d9988f92a01\",\"id\":\"json:311e12b165157a2b7b77258d\",\"memoryClass\":\"REGISTRY_OBJECT\",\"path\":\"data/JANUS-TRUMP-C11-R2-VERTEX-CONNECTIVITY-EXACT3-SEPARATOR3-TERMINAL-RESULT-2026-09-20-v1.0.json\",\"readOnly\":true,\"repository\":\"Hawkar-usls/janus-meta-registry\",\"sizeBytes\":5030,\"sourceCommit\":\"c7e44208b9f38486356e89a4a07508b8c99bc78e\",\"sourceSha256\":\"6a93769452f1e0007812754edc2",
+      "excerpt": "{\"readOnly\":true,\"records\":[{\"authority\":\"SOURCE_METADATA_ONLY\",\"deleteAllowed\":false,\"gitBlobSha\":\"a431ee623c6e3ccc93c9589ff597f699a14d9e13\",\"id\":\"json:61c66a5e0296d94301d7c868\",\"memoryClass\":\"OTHER_TRACKED_BLOB\",\"path\":\"JANUS-TRUMP-WALL-MANTEQUILLA-UUF250-001-020-ACTIVE-EXACT-SYMMETRY-PANEL-RESERVATION-2026-09-18-v1.0.json\",\"readOnly\":true,\"repository\":\"Hawkar-usls/janus-meta-registry\",\"sizeBytes\":4653,\"sourceCommit\":\"4daa6adbc9d0a2390799a30da772600245a5de02\",\"sourceSha256\":\"02309b2b810df4c42b",
       "active_surface": true
     },
     {
@@ -1341,47 +1341,47 @@
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "{\"readOnly\":true,\"records\":[{\"authority\":\"SOURCE_METADATA_ONLY\",\"deleteAllowed\":false,\"gitBlobSha\":\"4dd4bf8f554c84cc64f524438a40349743673f85\",\"id\":\"json:7728d357b170206743f47f5b\",\"memoryClass\":\"OTHER_TRACKED_BLOB\",\"path\":\"artifacts/janus-fresco-forge/calibration_failures/913aebbd201fa9f1--JANUS-BCEG-V7-FACTOR-DAG-COMPILATION-ESCAPE-2026-08-30.json\",\"readOnly\":true,\"repository\":\"Hawkar-usls/janus-meta-registry\",\"sizeBytes\":63861,\"sourceCommit\":\"c7e44208b9f38486356e89a4a07508b8c99bc78e\",\"sourceSha",
+      "excerpt": "{\"readOnly\":true,\"records\":[{\"authority\":\"SOURCE_METADATA_ONLY\",\"deleteAllowed\":false,\"gitBlobSha\":\"1f9c2f121623d412f874dd4894fcd8b78c114aeb\",\"id\":\"json:1a6c635cedeeb03fea287a43\",\"memoryClass\":\"OTHER_TRACKED_BLOB\",\"path\":\"EYE/generated/native_model_reflections/reflection-jnr-ff68be0eccfa92f072e25466.json\",\"readOnly\":true,\"repository\":\"Hawkar-usls/janus-meta-registry\",\"sizeBytes\":2712,\"sourceCommit\":\"4daa6adbc9d0a2390799a30da772600245a5de02\",\"sourceSha256\":\"c6680f3fe66d2412e6c8c8f5167ccc2b7d4bd18",
       "active_surface": true
     },
     {
       "repository": "Hawkar-usls/Hrain",
-      "path": "assets/janus-json-atlas/shards/0083.json",
+      "path": "assets/janus-json-atlas/shards/0086.json",
       "line": 1,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "{\"readOnly\":true,\"records\":[{\"authority\":\"SOURCE_METADATA_ONLY\",\"deleteAllowed\":false,\"gitBlobSha\":\"6aed1d916c3a2da4239d2f17b23e40112c9ecd4d\",\"id\":\"json:7ec884ec70266471ad480009\",\"memoryClass\":\"REGISTRY_OBJECT\",\"path\":\"data/music/the-alan-parsons-project/deep-mechanics/1979-lucifer.deep-mechanics.user-supplied-v1.0.json\",\"readOnly\":true,\"repository\":\"Hawkar-usls/janus-meta-registry\",\"sizeBytes\":2398,\"sourceCommit\":\"c7e44208b9f38486356e89a4a07508b8c99bc78e\",\"sourceSha256\":\"2942370aad87e4cb5fe34bf",
+      "excerpt": "{\"readOnly\":true,\"records\":[{\"authority\":\"SOURCE_METADATA_ONLY\",\"deleteAllowed\":false,\"gitBlobSha\":\"2b66346487d43183e7f8e4f844e1ea4036df0cd5\",\"id\":\"json:2b12c69443cb731409ca5317\",\"memoryClass\":\"REGISTRY_OBJECT\",\"path\":\"registry/myth_busted/FALLOUT-3-BRAUN-UNKNOWN-USER-PRIVILEGED-CONTROL-PLANE-AUDIT-v1.3.json\",\"readOnly\":true,\"repository\":\"Hawkar-usls/janus-meta-registry\",\"sizeBytes\":5319,\"sourceCommit\":\"4daa6adbc9d0a2390799a30da772600245a5de02\",\"sourceSha256\":\"90deef17fd16f0e3513be2f4cc51ffddcd8",
       "active_surface": true
     },
     {
       "repository": "Hawkar-usls/Hrain",
-      "path": "assets/janus-json-atlas/shards/0084.json",
+      "path": "assets/janus-json-atlas/shards/0082.json",
       "line": 1,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "{\"readOnly\":true,\"records\":[{\"authority\":\"SOURCE_METADATA_ONLY\",\"deleteAllowed\":false,\"gitBlobSha\":\"8b83175ec63f9e83f34bdab6d66ce42fcba9a8bd\",\"id\":\"json:491fc4fab38426e016484378\",\"memoryClass\":\"REGISTRY_OBJECT\",\"path\":\"registry/JANUS-MATHEMATICAL-ALGEBRAIC-PARADOX-SYNTHESIS-RULE-v1.0.0.json\",\"readOnly\":true,\"repository\":\"Hawkar-usls/janus-meta-registry\",\"sizeBytes\":2031,\"sourceCommit\":\"c7e44208b9f38486356e89a4a07508b8c99bc78e\",\"sourceSha256\":\"496768e7f6599a63084e262ff05030b6c354a99f8b9dc6bb68c45",
+      "excerpt": "{\"readOnly\":true,\"records\":[{\"authority\":\"SOURCE_METADATA_ONLY\",\"deleteAllowed\":false,\"gitBlobSha\":\"771a5e7be077fb64a26a31555f40f1d7dee5bc80\",\"id\":\"json:afcd50be07ded86f69101750\",\"memoryClass\":\"REGISTRY_OBJECT\",\"path\":\"data/JANUS-TRANCEPTION-BACK-FORTH-PNP-PATH-DIAGNOSIS-2026-08-18-v1.0.json\",\"readOnly\":true,\"repository\":\"Hawkar-usls/janus-meta-registry\",\"sizeBytes\":9435,\"sourceCommit\":\"4daa6adbc9d0a2390799a30da772600245a5de02\",\"sourceSha256\":\"7d22b67beee4d4e97a843267ec3cac42d8789eccd52c13ac7ba9",
       "active_surface": true
     },
     {
       "repository": "Hawkar-usls/Hrain",
-      "path": "assets/janus-json-atlas/shards/0073.json",
-      "line": 1,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "{\"readOnly\":true,\"records\":[{\"authority\":\"SOURCE_METADATA_ONLY\",\"deleteAllowed\":false,\"gitBlobSha\":\"a825551cb9f1d2966efc66aec86648537c90ddbb\",\"id\":\"json:b345c3bab39b4c9c777ea0be\",\"memoryClass\":\"REGISTRY_OBJECT\",\"path\":\"data/JANUS-CROFT-LIMA-DAGGER-PROVENANCE-RETRIEVAL-CHECKPOINT-2026-09-03-v1.4.json\",\"readOnly\":true,\"repository\":\"Hawkar-usls/janus-meta-registry\",\"sizeBytes\":4178,\"sourceCommit\":\"c7e44208b9f38486356e89a4a07508b8c99bc78e\",\"sourceSha256\":\"6512390d880db8ff3ae0953ee1763ce0d6cb508625d2",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Hrain",
-      "path": "assets/janus-json-atlas/shards/0077.json",
+      "path": "assets/janus-json-atlas/shards/0079.json",
       "line": 1,
       "classification": "REVIEW",
       "code": "CLOSED_LOOP_LANGUAGE",
       "pattern": "closed[- ]loop|замкнут(?:ый|ого|ом)?\\s+(?:круг|цикл)|кольцев",
-      "excerpt": "{\"readOnly\":true,\"records\":[{\"authority\":\"SOURCE_METADATA_ONLY\",\"deleteAllowed\":false,\"gitBlobSha\":\"c489b2e4ffc1d85aa12217c4c18dd8c8d27d8cde\",\"id\":\"json:6bffd967f5b7c19b2ce590ba\",\"memoryClass\":\"REGISTRY_OBJECT\",\"path\":\"data/JANUS-MENDES-PHALLUS-DJED-SAME-BODY-ASSEMBLAGE-P0-REVERSE-SPIRAL-2026-08-21-v1.0.json\",\"readOnly\":true,\"repository\":\"Hawkar-usls/janus-meta-registry\",\"sizeBytes\":22098,\"sourceCommit\":\"c7e44208b9f38486356e89a4a07508b8c99bc78e\",\"sourceSha256\":\"01081e1b7ff55ca97c2fd52a6c80432393",
+      "excerpt": "{\"readOnly\":true,\"records\":[{\"authority\":\"SOURCE_METADATA_ONLY\",\"deleteAllowed\":false,\"gitBlobSha\":\"08130f4658df0b27f793c42b44a1d3cf87f57e6c\",\"id\":\"json:659b50d895dfe61953d05a76\",\"memoryClass\":\"REGISTRY_OBJECT\",\"path\":\"data/JANUS-OSIRIS-ABYDOS-DJER-LOST-ARM-BIOLOGICAL-CONTROL-GATE-2026-09-04-v1.0.json\",\"readOnly\":true,\"repository\":\"Hawkar-usls/janus-meta-registry\",\"sizeBytes\":8981,\"sourceCommit\":\"4daa6adbc9d0a2390799a30da772600245a5de02\",\"sourceSha256\":\"562aa19ed4caff2154057b650679b8ee5f1b23f6b5",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Hrain",
+      "path": "assets/janus-json-atlas/shards/0085.json",
+      "line": 1,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "{\"readOnly\":true,\"records\":[{\"authority\":\"SOURCE_METADATA_ONLY\",\"deleteAllowed\":false,\"gitBlobSha\":\"c878b0fac879b5842a6a428c2c54bbe4a60757a8\",\"id\":\"json:27bb02dca3d3e1460482c7ae\",\"memoryClass\":\"REGISTRY_OBJECT\",\"path\":\"data/tahyon_traveler_trials/JANUS-LIMBO-RECALL-009-C-R2-INVALID120-FIRST.json\",\"readOnly\":true,\"repository\":\"Hawkar-usls/janus-meta-registry\",\"sizeBytes\":883,\"sourceCommit\":\"4daa6adbc9d0a2390799a30da772600245a5de02\",\"sourceSha256\":\"7eaf9145fb6ab89d52afa60bd436d189ff758a538a6435bee",
       "active_surface": true
     },
     {
@@ -2057,7 +2057,7 @@
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "registry/PHYSARIUS_INTERNAL_REPO_HRAIN_LIVE_v1.json",
-      "line": 3230,
+      "line": 3377,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",

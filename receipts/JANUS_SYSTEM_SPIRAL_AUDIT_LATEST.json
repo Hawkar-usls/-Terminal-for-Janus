@@ -11,13 +11,13 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 12085,
+  "files_scanned": 12155,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 1907,
-    "SAFE_INFRA_LOOP": 2700,
-    "HISTORICAL_FROZEN": 887
+    "REVIEW": 1916,
+    "SAFE_INFRA_LOOP": 2733,
+    "HISTORICAL_FROZEN": 880
   },
   "active_hard_ring_count": 0,
   "active_hard_rings": [],
@@ -2277,7 +2277,7 @@
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "registry/PHYSARIUS_INTERNAL_REPO_HRAIN_LIVE_v1.json",
-      "line": 3831,
+      "line": 3949,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
@@ -4630,6 +4630,36 @@
     },
     {
       "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "data/JANUS-SAT-220-240-HISTORICAL-FORENSIC-CONSOLIDATED-LEDGER-2026-11-01-v1.0.json",
+      "line": 186,
+      "classification": "HISTORICAL_FROZEN",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"numeric_hits_220_to_240\": \"cycle counters or incidental device observations, not task_vars=220-240\"",
+      "active_surface": false
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "data/JANUS-SAT-220-240-HISTORICAL-FORENSIC-CONSOLIDATED-LEDGER-2026-11-01-v1.0.json",
+      "line": 192,
+      "classification": "HISTORICAL_FROZEN",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"example\": \"cycle 220/225/230/235 with task_vars 22\"",
+      "active_surface": false
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "data/JANUS-SAT-220-240-HISTORICAL-FORENSIC-CONSOLIDATED-LEDGER-2026-11-01-v1.0.json",
+      "line": 378,
+      "classification": "HISTORICAL_FROZEN",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"Do not treat 220-240 cycle numbers as SAT variable count.\",",
+      "active_surface": false
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
       "path": "data/Janus Ecosystem Meta Registry.json",
       "line": 74,
       "classification": "HISTORICAL_FROZEN",
@@ -5116,36 +5146,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "{\"file\":\"nas_quant_cycle_280_int8.json\",\"sha256\":\"b904f858958316fbae7dc830f2bd3c15678ad3deae36bd1cb9987fea4709fd88\",\"bytes\":275142,\"cycle\":280,\"timestamp\":\"2026-04-18T12:24:00.209386Z\",\"best_loss\":1.383740097284317}",
-      "active_surface": false
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "data/JANUS-QUANT-PC-NAS-HANDOFF-LINEAGE-2026-08-17-v1.0.json",
-      "line": 59,
-      "classification": "HISTORICAL_FROZEN",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"event_identity_rule\": \"event_id + dedupe_key; cycle alone is not unique\",",
-      "active_surface": false
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "data/JANUS-QUANT-PC-NAS-HANDOFF-LINEAGE-2026-08-17-v1.0.json",
-      "line": 61,
-      "classification": "HISTORICAL_FROZEN",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"304\": [\"jgpt:jgpt1_pc_bridge_v12_swarm_demiurge:cycle:304:726adcea4939\",\"jgpt:jgpt1_pc_bridge_v12_swarm_demiurge:cycle:304:99184e7618d4\"],",
-      "active_surface": false
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "data/JANUS-QUANT-PC-NAS-HANDOFF-LINEAGE-2026-08-17-v1.0.json",
-      "line": 62,
-      "classification": "HISTORICAL_FROZEN",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"306\": [\"jgpt:jgpt1_pc_bridge_v12_swarm_demiurge:cycle:306:c575a1aeff46\",\"jgpt:jgpt1_pc_bridge_v12_swarm_demiurge:cycle:306:829231f23a65\"]",
       "active_surface": false
     }
   ],

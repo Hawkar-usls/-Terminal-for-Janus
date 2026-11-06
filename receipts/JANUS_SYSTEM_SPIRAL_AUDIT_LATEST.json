@@ -11,13 +11,13 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 12658,
+  "files_scanned": 12728,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 2031,
-    "SAFE_INFRA_LOOP": 2849,
-    "HISTORICAL_FROZEN": 891
+    "REVIEW": 2051,
+    "SAFE_INFRA_LOOP": 3030,
+    "HISTORICAL_FROZEN": 900
   },
   "active_hard_ring_count": 0,
   "active_hard_rings": [],
@@ -4910,6 +4910,16 @@
     },
     {
       "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "data/JANUS-STARLI-F41-SCOBY-PLA-SKINGPT-PHYSICAL-VALIDATION-BRIDGE-2026-11-06-v1.0.json",
+      "line": 265,
+      "classification": "HISTORICAL_FROZEN",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"temperature-cycle interface mismatch\",",
+      "active_surface": false
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
       "path": "data/EYE-R3.2-SEMANTIC-MECHANISM-AUDIT-2026-09-01-v1.0.json",
       "line": 51,
       "classification": "HISTORICAL_FROZEN",
@@ -5136,16 +5146,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "\"ru\": \"Этот регистр расширяет три существующих слоя JANUS — плотность переживаемого времени, формальные аналогии Рамануджана и обратное смысловое чтение Strawberry Fields — новым слоем Доугана. В клипе мир прочитывается как пространство, где большинство людей движется назад: не потому что они физически идут в прошлое, а потому что социальная норма, страх, лёгкий путь и культ прошлого заставляют их терять потенциал. Движение вперёд становится не странностью, а актом пробуждения: человек выбирает ",
-      "active_surface": false
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "data/ECHO-MOON-2026-08-19-v1.0.json",
-      "line": 208,
-      "classification": "HISTORICAL_FROZEN",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"claim\": \"Major lunar standstill is driven by the 18.6-year precession cycle\",",
       "active_surface": false
     }
   ],

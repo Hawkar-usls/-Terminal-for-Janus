@@ -1,8 +1,8 @@
 {
   "schema": "janus.terminal.ecosystem_observation.v1",
-  "observed_at": "2026-11-02T18:30:57+00:00",
-  "sequence": 4,
-  "predecessor_sha256": "5edd5be0f62630917661c0c261ba7378643a931ff9a094e7df3f2b26ee753f56",
+  "observed_at": "2026-11-09T18:55:00+00:00",
+  "sequence": 5,
+  "predecessor_sha256": "d94663410d6fe4ba9a3f66388866b3646dd02a08da672c9c5d36d419f1d6c584",
   "source": "GITHUB_REST_PUBLIC_API",
   "source_pages_complete": 1,
   "public_repository_count": 47,
@@ -183,5 +183,5 @@
     "external_effect_authorized": false,
     "human_review_required_before_activation": true
   },
-  "observation_sha256": "d94663410d6fe4ba9a3f66388866b3646dd02a08da672c9c5d36d419f1d6c584"
+  "observation_sha256": "6c29e31a0e7be18e7c668419ed7e06198cfdd918b82347d991c14da0ef21a90d"
 }

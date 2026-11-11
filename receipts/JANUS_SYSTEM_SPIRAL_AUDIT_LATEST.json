@@ -11,13 +11,13 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 13176,
+  "files_scanned": 13222,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 2148,
-    "SAFE_INFRA_LOOP": 3248,
-    "HISTORICAL_FROZEN": 910
+    "REVIEW": 2162,
+    "SAFE_INFRA_LOOP": 3255,
+    "HISTORICAL_FROZEN": 912
   },
   "active_hard_ring_count": 0,
   "active_hard_rings": [],
@@ -4770,6 +4770,26 @@
     },
     {
       "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "data/JANUS-AUTONOMY-FIRST-NATIVE-MEMORY-CYCLE-2026-11-11-v1.json",
+      "line": 3,
+      "classification": "HISTORICAL_FROZEN",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"id\": \"JANUS-AUTONOMY-FIRST-NATIVE-MEMORY-CYCLE-2026-11-11\",",
+      "active_surface": false
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
+      "path": "data/JANUS-AUTONOMY-FIRST-NATIVE-MEMORY-CYCLE-2026-11-11-v1.json",
+      "line": 40,
+      "classification": "HISTORICAL_FROZEN",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"distinction\": \"Isolated real-source canary uses SCOBY, while live autonomous cycle selected a separate topic. The canary's 4628 bytes were not necessarily trained in the live cycle.\"",
+      "active_surface": false
+    },
+    {
+      "repository": "Hawkar-usls/janus-meta-registry",
       "path": "data/JANUS-OSIRIS-FULL-META-REGISTRY-REAUDIT-2026-09-18-v1.0.json",
       "line": 175,
       "classification": "HISTORICAL_FROZEN",
@@ -5126,26 +5146,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "\"gate\": \"No leather-like durability claim until wet-state retention and cyclic aging are measured against a conventional low-cost benchmark.\"",
-      "active_surface": false
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "data/JANUS-WITNESS-COVERAGE-UNIFORM-POLYNOMIAL-RESOLVER-LADDER-2026-09-02-v1.0.json",
-      "line": 61,
-      "classification": "HISTORICAL_FROZEN",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"R37_note\": \"A fresh exposed RUP stall showed that existing proof-carrying operators can reactivate each other. The sealed result explicitly did not prove that the cycle reaches a deciding terminal on every 3-CNF.\",",
-      "active_surface": false
-    },
-    {
-      "repository": "Hawkar-usls/janus-meta-registry",
-      "path": "data/JANUS-DOUGAN-FORWARDNESS-TIME-DENSITY-REVERSE-POTENTIAL-MAP-v1.0.json",
-      "line": 67,
-      "classification": "HISTORICAL_FROZEN",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "\"ru\": \"Этот регистр расширяет три существующих слоя JANUS — плотность переживаемого времени, формальные аналогии Рамануджана и обратное смысловое чтение Strawberry Fields — новым слоем Доугана. В клипе мир прочитывается как пространство, где большинство людей движется назад: не потому что они физически идут в прошлое, а потому что социальная норма, страх, лёгкий путь и культ прошлого заставляют их терять потенциал. Движение вперёд становится не странностью, а актом пробуждения: человек выбирает ",
       "active_surface": false
     }
   ],

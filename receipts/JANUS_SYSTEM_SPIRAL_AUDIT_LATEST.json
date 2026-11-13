@@ -11,12 +11,12 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 13370,
+  "files_scanned": 13524,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 2184,
-    "SAFE_INFRA_LOOP": 3279,
+    "REVIEW": 2182,
+    "SAFE_INFRA_LOOP": 3291,
     "HISTORICAL_FROZEN": 916
   },
   "active_hard_ring_count": 0,
@@ -1266,6 +1266,16 @@
     },
     {
       "repository": "Hawkar-usls/Demi_Head",
+      "path": "tools/janus_essence.py",
+      "line": 267,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "\"\"\"Bounded offline cycle; failures isolated, never used as training labels.\"\"\"",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Demi_Head",
       "path": "holdout/truth_guard_v1/frozen_corpus.json",
       "line": 398,
       "classification": "REVIEW",
@@ -1437,7 +1447,7 @@
     {
       "repository": "Hawkar-usls/iNaiHR",
       "path": "janus-synth/state/JANUS_SYNTH_LATEST.json",
-      "line": 8347,
+      "line": 8346,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
@@ -3132,16 +3142,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "uniform cyclic lifts",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/r5_e30_uniform_cyclic_lift_nullity_firewall.py",
-      "line": 95,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "# cycle + transposition bases generate transitive nonabelian permutation groups.",
       "active_surface": true
     }
   ],

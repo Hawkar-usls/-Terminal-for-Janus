@@ -11,13 +11,13 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 13696,
+  "files_scanned": 13800,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 2197,
-    "SAFE_INFRA_LOOP": 3762,
-    "HISTORICAL_FROZEN": 916
+    "REVIEW": 2198,
+    "SAFE_INFRA_LOOP": 3755,
+    "HISTORICAL_FROZEN": 917
   },
   "active_hard_ring_count": 0,
   "active_hard_rings": [],
@@ -1422,6 +1422,16 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "{\"readOnly\":true,\"records\":[{\"authority\":\"SOURCE_METADATA_ONLY\",\"deleteAllowed\":false,\"gitBlobSha\":\"b4bc15581ce798ded6e5eb2648c76189535704fb\",\"id\":\"json:43cc89ee577136c87cd3a564\",\"memoryClass\":\"REGISTRY_OBJECT\",\"path\":\"data/JANUS-TITAN-CORE-MODULE-AND-OPTIMIZER-LINEAGE-CAPSULE-v1.0/40-optimizer-benchmark-provenance.json\",\"readOnly\":true,\"repository\":\"Hawkar-usls/janus-meta-registry\",\"sizeBytes\":2981,\"sourceCommit\":\"caf412622e8de8359d60992711474de488bd4cd6\",\"sourceSha256\":\"5456898a91ce68be3a05e45",
+      "active_surface": true
+    },
+    {
+      "repository": "Hawkar-usls/Hrain",
+      "path": "research/essence/module_organogenesis_v13/README.md",
+      "line": 5,
+      "classification": "REVIEW",
+      "code": "CYCLE_LANGUAGE",
+      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
+      "excerpt": "The real research cycle uses GitHub source-controlled fixtures and Actions artifacts only. Legacy frozen evidence is maintained in Meta Registry for reproducibility, not as a live data connection. The parent ESSENCE six-core roles and default no-permissions policy remain unchanged.",
       "active_surface": true
     },
     {
@@ -3132,16 +3142,6 @@
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
       "excerpt": "\"\"\"R5 E113: TARGET6 support-lift parity obstruction for E112 cycle covers.",
-      "active_surface": true
-    },
-    {
-      "repository": "Hawkar-usls/Janus-Fundamentum",
-      "path": "experiments/r5_e113_target6_support_lift_parity_obstruction.py",
-      "line": 17,
-      "classification": "REVIEW",
-      "code": "CYCLE_LANGUAGE",
-      "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
-      "excerpt": "E112 cycle-space cover has the opposite property:",
       "active_surface": true
     }
   ],

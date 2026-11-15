@@ -1,0 +1,20 @@
+{
+  "authority_mode": "READ_ONLY_CONVERSATION",
+  "claim_authority_granted": false,
+  "command_authority_granted": false,
+  "conversation_id": "issue-40",
+  "created_at": 1794759341.0,
+  "external_effect_authorized": false,
+  "fresh_human_stimulus": true,
+  "human_actor": "Hawkar-usls",
+  "human_authorized_write": false,
+  "message_hash": "2557f45ea766e10736675e6647d634cc9ce967597ee96c330a0d24024dae6802",
+  "message_id": "tm-386c5fa154d8e481c25aa75395a2d8607c6041218c6f0bd4d98dbc79f6aa357d",
+  "message_text": "### Message\n\n/council Ответь кратко по-русски: почему критика другого ИИ полезна для проверки гипотезы, но сама по себе не является независимым научным доказательством?\n\n### Conversation mode\n\nREAD_ONLY_CONVERSATION\n\n### Authority boundary\n\nThis is text-only model peer exchange, without training weights, tool execution or promotion.",
+  "physical_runtime_effect_authorized": false,
+  "schema": "janus.terminal.message.v1",
+  "scientific_evidence_authority_granted": false,
+  "source_ref": "Hawkar-usls/-Terminal-for-Janus#40:issue:6406353664",
+  "terminal_repository": "Hawkar-usls/-Terminal-for-Janus",
+  "world_truth_authority_granted": false
+}

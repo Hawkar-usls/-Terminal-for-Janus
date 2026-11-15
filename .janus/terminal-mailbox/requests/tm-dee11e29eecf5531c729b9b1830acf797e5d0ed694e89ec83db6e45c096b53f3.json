@@ -1,0 +1,20 @@
+{
+  "authority_mode": "READ_ONLY_CONVERSATION",
+  "claim_authority_granted": false,
+  "command_authority_granted": false,
+  "conversation_id": "issue-46",
+  "created_at": 1794765706.0,
+  "external_effect_authorized": false,
+  "fresh_human_stimulus": true,
+  "human_actor": "Hawkar-usls",
+  "human_authorized_write": false,
+  "message_hash": "a25d011ee0c38d85b725282eb5d80b62c21ba14b7540f57decd8851d3e40fdf7",
+  "message_id": "tm-dee11e29eecf5531c729b9b1830acf797e5d0ed694e89ec83db6e45c096b53f3",
+  "message_text": "### Message\n\n/council JANUS_ORACLE_ARITH_V1 a=47 b=19 offset=5 modulus=97. Вычисли (a*b+offset) mod modulus по заданным числам. Ответ должен быть ровно одним десятичным целым числом, без объяснений.\n\n### Conversation mode\n\nREAD_ONLY_CONVERSATION\n\n### Authority boundary\n\nPublic deterministic research task only. No tool execution, repository updates, model training, or automated promotion is authorized.",
+  "physical_runtime_effect_authorized": false,
+  "schema": "janus.terminal.message.v1",
+  "scientific_evidence_authority_granted": false,
+  "source_ref": "Hawkar-usls/-Terminal-for-Janus#46:issue:6407494907",
+  "terminal_repository": "Hawkar-usls/-Terminal-for-Janus",
+  "world_truth_authority_granted": false
+}

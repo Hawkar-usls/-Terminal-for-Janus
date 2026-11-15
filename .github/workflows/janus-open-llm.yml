@@ -65,6 +65,7 @@ jobs:
         (contains(github.event.issue.body, '/qwen ') || contains(github.event.issue.body, '/council '))) ||
       (github.event_name == 'issue_comment' &&
         github.actor == 'Hawkar-usls' &&
+        !github.event.issue.pull_request &&
         (startsWith(github.event.comment.body, '/qwen ') || startsWith(github.event.comment.body, '/council ')))
     runs-on: ubuntu-24.04
     timeout-minutes: 35
@@ -97,6 +98,14 @@ jobs:
           else
             python tools/janus_open_llm.py event-request --event "$GITHUB_EVENT_PATH" --output runtime/request.json
           fi
+      - name: Read preceding conversation in this issue only
+        if: github.event_name == 'issues' || github.event_name == 'issue_comment'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh api "repos/Hawkar-usls/-Terminal-for-Janus/issues/$ISSUE_NUMBER" > runtime/issue.json
+          gh api "repos/Hawkar-usls/-Terminal-for-Janus/issues/$ISSUE_NUMBER/comments?per_page=100" > runtime/comments.json
       - name: Install CPU inference packages
         run: |
           python -m pip install --disable-pip-version-check --no-cache-dir torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
@@ -122,7 +131,7 @@ jobs:
         run: gh issue comment "$ISSUE_NUMBER" --repo Hawkar-usls/-Terminal-for-Janus --body-file runtime/dialogue.md
 
   qwen-smoke:
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && startsWith(github.event.pull_request.title, 'Qwen 1.5B'))
     needs: contract
     runs-on: ubuntu-24.04
     timeout-minutes: 30

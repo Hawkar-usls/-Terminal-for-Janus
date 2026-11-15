@@ -1,0 +1,20 @@
+{
+  "authority_mode": "READ_ONLY_CONVERSATION",
+  "claim_authority_granted": false,
+  "command_authority_granted": false,
+  "conversation_id": "issue-44",
+  "created_at": 1794763256.0,
+  "external_effect_authorized": false,
+  "fresh_human_stimulus": true,
+  "human_actor": "Hawkar-usls",
+  "human_authorized_write": false,
+  "message_hash": "daa6edc075028d5abc4d4331ded8833e1780d742345689edbde994c415fdfbdc",
+  "message_id": "tm-d9abd656a3325aa8a3f7a01cf28dc0b23aef08428965787a9842b3f92801ece8",
+  "message_text": "### Message\n\n/council Ответь на русском в двух коротких предложениях: чем отличается согласие двух языковых моделей от независимой проверки научной гипотезы по новым данным? Не утверждай, что ты проводил эксперимент.\n\n### Conversation mode\n\nREAD_ONLY_CONVERSATION\n\n### Authority boundary\n\nThis is a human-initiated text-only peer discussion for a provenance and dataset-gate test. It authorizes no repository writes, external effects, weight training, or native model replacement.",
+  "physical_runtime_effect_authorized": false,
+  "schema": "janus.terminal.message.v1",
+  "scientific_evidence_authority_granted": false,
+  "source_ref": "Hawkar-usls/-Terminal-for-Janus#44:issue:6407056438",
+  "terminal_repository": "Hawkar-usls/-Terminal-for-Janus",
+  "world_truth_authority_granted": false
+}

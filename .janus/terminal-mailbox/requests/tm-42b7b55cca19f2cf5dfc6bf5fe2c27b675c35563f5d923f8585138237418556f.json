@@ -1,0 +1,20 @@
+{
+  "authority_mode": "READ_ONLY_CONVERSATION",
+  "claim_authority_granted": false,
+  "command_authority_granted": false,
+  "conversation_id": "issue-40",
+  "created_at": 1794759830.0,
+  "external_effect_authorized": false,
+  "fresh_human_stimulus": true,
+  "human_actor": "Hawkar-usls",
+  "human_authorized_write": false,
+  "message_hash": "1c2783cd2655d6d85c499bd75e2f80f76d0ff68cf6a1a78eba8088a228fa6fb3",
+  "message_id": "tm-42b7b55cca19f2cf5dfc6bf5fe2c27b675c35563f5d923f8585138237418556f",
+  "message_text": "/qwen Продолжи наш разговор о критике ИИ. Уточни одним-двумя предложениями, как отличить полезную рецензию другой модели от независимой экспериментальной проверки. И напомни, какая именно открытая модель отвечает сейчас вместо нативных весов JANUS.",
+  "physical_runtime_effect_authorized": false,
+  "schema": "janus.terminal.message.v1",
+  "scientific_evidence_authority_granted": false,
+  "source_ref": "Hawkar-usls/-Terminal-for-Janus#40:comment:6897573718",
+  "terminal_repository": "Hawkar-usls/-Terminal-for-Janus",
+  "world_truth_authority_granted": false
+}

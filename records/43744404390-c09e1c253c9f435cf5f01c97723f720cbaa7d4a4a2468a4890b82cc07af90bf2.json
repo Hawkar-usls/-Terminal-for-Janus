@@ -1,0 +1,55 @@
+{
+  "artifact_id": 14173806245,
+  "auto_promotion_authority": false,
+  "dialogue": {
+    "classification": "EXPERIMENTAL_PEER_DIALOGUE_UNVERIFIED",
+    "created_at": "2026-11-15T18:02:58.706429+00:00",
+    "exchanges": [
+      {
+        "model": "Qwen/Qwen2.5-1.5B-Instruct",
+        "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+        "role": "initial",
+        "text": "(83*41+9) % 103 = 36"
+      }
+    ],
+    "final_text": "(83*41+9) % 103 = 36",
+    "issue_context_is_weight_training": false,
+    "issue_context_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "issue_context_turns": 0,
+    "native_janus_model_modified": false,
+    "peer_feedback_is_ground_truth": false,
+    "request": {
+      "execution_authority": "TEXT_ONLY",
+      "issue_number": 48,
+      "mode": "qwen",
+      "prompt": "JANUS_ORACLE_ARITH_V1 a=83 b=41 offset=9 modulus=103. Вычисли (a*b+offset) mod modulus по заданным числам. Ответ должен быть ровно одним десятичным целым числом, без объяснений.",
+      "request_sha256": "d5f17ba8f30a9c3dee865f6b2c3437f5f0f2b6cd3d35571655eec4be3a592d8a",
+      "request_source": "github_issue",
+      "requested_by": "Hawkar-usls",
+      "schema": "janus.open_llm.request.v1",
+      "source_id": 6407495511
+    },
+    "schema": "janus.open_llm.dialogue.v1",
+    "self_evolution_verified": false,
+    "sha256": "c09e1c253c9f435cf5f01c97723f720cbaa7d4a4a2468a4890b82cc07af90bf2",
+    "training_candidate_policy": "REVIEW_REQUIRED_HOLDOUT_AND_ROLLBACK_BEFORE_ANY_WEIGHT_UPDATE",
+    "weight_update_performed": false
+  },
+  "head_sha": "696775b9b0b1209c06cb48f6ae6b16a4ab8c1e6c",
+  "model_weight_change": false,
+  "quality_is_independent_evidence": false,
+  "record_sha256": "ce74b3fabc4f7d16a56a7992aecb15b628b90fc03d8139621878398958a80476",
+  "review": {
+    "reason": "Neither model agreement nor fluent text constitutes a trusted label.",
+    "status": "HOLD_UNVERIFIED"
+  },
+  "schema": "janus.open_llm.corpus_record.v1",
+  "source_binding": {
+    "kind": "ISSUE_AND_BOT_REPLY_DIGEST_MATCH",
+    "reply_url": "https://github.com/Hawkar-usls/-Terminal-for-Janus/issues/48#issuecomment-6898858292"
+  },
+  "source_repository": "Hawkar-usls/-Terminal-for-Janus",
+  "source_run_id": 43744404390,
+  "source_run_url": "https://github.com/Hawkar-usls/-Terminal-for-Janus/actions/runs/43744404390",
+  "source_sha256": "c09e1c253c9f435cf5f01c97723f720cbaa7d4a4a2468a4890b82cc07af90bf2"
+}

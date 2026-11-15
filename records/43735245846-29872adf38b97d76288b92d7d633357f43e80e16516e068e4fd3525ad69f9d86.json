@@ -1,0 +1,56 @@
+{
+  "artifact_id": 14170431140,
+  "auto_promotion_authority": false,
+  "dialogue": {
+    "classification": "EXPERIMENTAL_PEER_DIALOGUE_UNVERIFIED",
+    "created_at": "2026-11-15T16:25:23.686397+00:00",
+    "exchanges": [
+      {
+        "model": "Qwen/Qwen2.5-1.5B-Instruct",
+        "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+        "role": "initial",
+        "text": "Для того чтобы отличить полезную рецензию другой модели от независимой экспериментальной проверки, важно следовать определенным принципам:\n\n1. **Полезная рецензия** - это анализ, который помогает расширить понимание существующих подходов и методов, а также обнаруживает пробелы и области для дальнейших исследований.\n\n2. **Независимая экспериментальная проверка** - это самостоятельное исследование, которое пров"
+      }
+    ],
+    "final_text": "Для того чтобы отличить полезную рецензию другой модели от независимой экспериментальной проверки, важно следовать определенным принципам:\n\n1. **Полезная рецензия** - это анализ, который помогает расширить понимание существующих подходов и методов, а также обнаруживает пробелы и области для дальнейших исследований.\n\n2. **Независимая экспериментальная проверка** - это самостоятельное исследование, которое пров",
+    "issue_context_is_weight_training": false,
+    "issue_context_sha256": "1a9c7e4e6b770d9272f2388a9d8590553eb382de54057da3923158a895066a25",
+    "issue_context_turns": 2,
+    "native_janus_model_modified": false,
+    "peer_feedback_is_ground_truth": false,
+    "request": {
+      "execution_authority": "TEXT_ONLY",
+      "issue_number": 40,
+      "mode": "qwen",
+      "prompt": "Продолжи наш разговор о критике ИИ. Уточни одним-двумя предложениями, как отличить полезную рецензию другой модели от независимой экспериментальной проверки. И напомни, какая именно открытая модель отвечает сейчас вместо нативных весов JANUS.",
+      "request_sha256": "3c54e76798089b862d73652f6055ff2f99d5f593915c51dcb7dbdeeaad8ff0d4",
+      "request_source": "github_issue_comment",
+      "requested_by": "Hawkar-usls",
+      "schema": "janus.open_llm.request.v1",
+      "source_id": 6897573718
+    },
+    "schema": "janus.open_llm.dialogue.v1",
+    "self_evolution_verified": false,
+    "sha256": "29872adf38b97d76288b92d7d633357f43e80e16516e068e4fd3525ad69f9d86",
+    "training_candidate_policy": "REVIEW_REQUIRED_HOLDOUT_AND_ROLLBACK_BEFORE_ANY_WEIGHT_UPDATE",
+    "weight_update_performed": false
+  },
+  "head_sha": "7a4e7158afbec1d05258418b60786123a20213ff",
+  "model_weight_change": false,
+  "quality_is_independent_evidence": false,
+  "record_sha256": "be520267683111f018170d97c360f6567df077a823101a715db99438bc3f1805",
+  "review": {
+    "reason": "Qwen 1.5B reply ended in unfinished word under old generation budget",
+    "source": "https://github.com/Hawkar-usls/-Terminal-for-Janus/issues/40#issuecomment-6897593903",
+    "status": "REJECT_TRUNCATED"
+  },
+  "schema": "janus.open_llm.corpus_record.v1",
+  "source_binding": {
+    "kind": "ISSUE_AND_BOT_REPLY_DIGEST_MATCH",
+    "reply_url": "https://github.com/Hawkar-usls/-Terminal-for-Janus/issues/40#issuecomment-6897593903"
+  },
+  "source_repository": "Hawkar-usls/-Terminal-for-Janus",
+  "source_run_id": 43735245846,
+  "source_run_url": "https://github.com/Hawkar-usls/-Terminal-for-Janus/actions/runs/43735245846",
+  "source_sha256": "29872adf38b97d76288b92d7d633357f43e80e16516e068e4fd3525ad69f9d86"
+}

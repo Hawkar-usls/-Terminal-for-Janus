@@ -1,0 +1,65 @@
+{
+  "artifact_id": 14169572698,
+  "auto_promotion_authority": false,
+  "dialogue": {
+    "classification": "EXPERIMENTAL_PEER_DIALOGUE_UNVERIFIED",
+    "created_at": "2026-11-15T16:17:00.133200+00:00",
+    "exchanges": [
+      {
+        "model": "Qwen/Qwen2.5-0.5B-Instruct",
+        "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+        "role": "initial",
+        "text": "Критика ИИ полезна для проверки гипотезы, так как она позволяет выявить ошибки и недочеты в модели, что может помочь улучшить ее качество. Однако сама по себе не является научным доказательством, так как она не подтверждает точность или правильность предположений о том, что ИИ может делать."
+      },
+      {
+        "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+        "revision": "a10cc1512eabd3dde888204e902eca88bddb4951",
+        "role": "critique",
+        "text": "Критика ИИ полезна для проверки гипотезы, но сама по себе не является независимым научным доказательством."
+      },
+      {
+        "model": "Qwen/Qwen2.5-0.5B-Instruct",
+        "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+        "role": "revised",
+        "text": "Критика ИИ полезна для проверки гипотезы, так как она позволяет выявить ошибки и недочеты в модели, что может помочь улучшить ее качество. Однако сама по себе не является научным доказательством, так как она не подтверждает точность или правильность предположений о том, что ИИ может делать."
+      }
+    ],
+    "final_text": "Критика ИИ полезна для проверки гипотезы, так как она позволяет выявить ошибки и недочеты в модели, что может помочь улучшить ее качество. Однако сама по себе не является научным доказательством, так как она не подтверждает точность или правильность предположений о том, что ИИ может делать.",
+    "native_janus_model_modified": false,
+    "peer_feedback_is_ground_truth": false,
+    "request": {
+      "execution_authority": "TEXT_ONLY",
+      "issue_number": 40,
+      "mode": "council",
+      "prompt": "Ответь кратко по-русски: почему критика другого ИИ полезна для проверки гипотезы, но сама по себе не является независимым научным доказательством?",
+      "request_sha256": "675d1fccded84d048e06255dc9c2be83030abb8f6f79d34f4ba69f8b6eea8bbc",
+      "request_source": "github_issue",
+      "requested_by": "Hawkar-usls",
+      "schema": "janus.open_llm.request.v1",
+      "source_id": 6406353664
+    },
+    "schema": "janus.open_llm.dialogue.v1",
+    "self_evolution_verified": false,
+    "sha256": "b5ad546909fa7e8b0e1343dfbaa3044794d8457712bcbd1dba2fc00a5e0ce8ad",
+    "training_candidate_policy": "REVIEW_REQUIRED_HOLDOUT_AND_ROLLBACK_BEFORE_ANY_WEIGHT_UPDATE",
+    "weight_update_performed": false
+  },
+  "head_sha": "f8c4abec125084277bfd4b4857072ee1a49239e3",
+  "model_weight_change": false,
+  "quality_is_independent_evidence": false,
+  "record_sha256": "ca3f7b26c8ff344ed90855c7e1e7e5afd7676dc9bc9c11104b6987699f957e1f",
+  "review": {
+    "reason": "SmolLM critique restates answer; no new fact verification, no independent improvement evidence",
+    "source": "https://github.com/Hawkar-usls/-Terminal-for-Janus/issues/40#issuecomment-6897486304",
+    "status": "HOLD_UNVERIFIED"
+  },
+  "schema": "janus.open_llm.corpus_record.v1",
+  "source_binding": {
+    "kind": "ISSUE_AND_BOT_REPLY_DIGEST_MATCH",
+    "reply_url": "https://github.com/Hawkar-usls/-Terminal-for-Janus/issues/40#issuecomment-6897486304"
+  },
+  "source_repository": "Hawkar-usls/-Terminal-for-Janus",
+  "source_run_id": 43734478365,
+  "source_run_url": "https://github.com/Hawkar-usls/-Terminal-for-Janus/actions/runs/43734478365",
+  "source_sha256": "b5ad546909fa7e8b0e1343dfbaa3044794d8457712bcbd1dba2fc00a5e0ce8ad"
+}

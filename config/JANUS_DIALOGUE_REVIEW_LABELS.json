@@ -1,0 +1,26 @@
+{
+  "schema": "janus.open_llm.review_labels.v1",
+  "policy": "FAIL_CLOSED_MANUAL_REVIEW_NOT_MODEL_VOTES",
+  "labels": {
+    "1ad07aaaa0a6822d510379e016fba188375711755d0dd953e54912ef39820091": {
+      "status": "REJECT_FACTUAL_ERROR",
+      "reason": "Qwen 0.5B falsely claimed JANUS belongs to Anthropic; contradiction with JANUS repo ownership and model provenance",
+      "source": "https://github.com/Hawkar-usls/-Terminal-for-Janus/issues/39#issuecomment-6897468596"
+    },
+    "b5ad546909fa7e8b0e1343dfbaa3044794d8457712bcbd1dba2fc00a5e0ce8ad": {
+      "status": "HOLD_UNVERIFIED",
+      "reason": "SmolLM critique restates answer; no new fact verification, no independent improvement evidence",
+      "source": "https://github.com/Hawkar-usls/-Terminal-for-Janus/issues/40#issuecomment-6897486304"
+    },
+    "29872adf38b97d76288b92d7d633357f43e80e16516e068e4fd3525ad69f9d86": {
+      "status": "REJECT_TRUNCATED",
+      "reason": "Qwen 1.5B reply ended in unfinished word under old generation budget",
+      "source": "https://github.com/Hawkar-usls/-Terminal-for-Janus/issues/40#issuecomment-6897593903"
+    }
+  },
+  "admission_rule": "REVIEWED_LABELS_AND_FROZEN_EXTERNAL_HOLDOUT_REQUIRED",
+  "approval_default": "HOLD_UNVERIFIED",
+  "automatic_model_self_labeling": false,
+  "positive_labels_seeded": 0,
+  "reviewed_by_external_custodian": false
+}

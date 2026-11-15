@@ -1,0 +1,67 @@
+{
+  "artifact_id": 14173239918,
+  "auto_promotion_authority": false,
+  "dialogue": {
+    "classification": "EXPERIMENTAL_PEER_DIALOGUE_UNVERIFIED",
+    "created_at": "2026-11-15T18:04:14.427210+00:00",
+    "exchanges": [
+      {
+        "model": "Qwen/Qwen2.5-1.5B-Instruct",
+        "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+        "role": "initial",
+        "text": "36"
+      },
+      {
+        "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+        "revision": "a10cc1512eabd3dde888204e902eca88bddb4951",
+        "role": "critique",
+        "text": "Yes, the answer is 36."
+      },
+      {
+        "model": "Qwen/Qwen2.5-1.5B-Instruct",
+        "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+        "role": "revised",
+        "text": "I apologize for any confusion. Let me re-evaluate the calculation:\n\nGiven:\n\\( a = 47 \\)\n\\( b = 19 \\)\n\\( offset = 5 \\)\n\\( modulus = 97 \\)\n\nThe expression we need to compute is \\( (a * b + offset) \\% modulus \\).\n\nFirst, calculate \\( a * b \\):\n\\[ 47 * 19 = 893 \\]\n\nNext, add the offset:\n\\[ 893 + 5 = 908 \\]\n\nFinally, take modulo with the given modulus:\n\\[ 908 \\% 97 = 36 \\]\n\nSo, the correct answer should be **36**.\n\nThank you for catching my mistake earlier. I appreciate your patience and feedback."
+      }
+    ],
+    "final_text": "I apologize for any confusion. Let me re-evaluate the calculation:\n\nGiven:\n\\( a = 47 \\)\n\\( b = 19 \\)\n\\( offset = 5 \\)\n\\( modulus = 97 \\)\n\nThe expression we need to compute is \\( (a * b + offset) \\% modulus \\).\n\nFirst, calculate \\( a * b \\):\n\\[ 47 * 19 = 893 \\]\n\nNext, add the offset:\n\\[ 893 + 5 = 908 \\]\n\nFinally, take modulo with the given modulus:\n\\[ 908 \\% 97 = 36 \\]\n\nSo, the correct answer should be **36**.\n\nThank you for catching my mistake earlier. I appreciate your patience and feedback.",
+    "issue_context_is_weight_training": false,
+    "issue_context_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "issue_context_turns": 0,
+    "native_janus_model_modified": false,
+    "peer_feedback_is_ground_truth": false,
+    "request": {
+      "execution_authority": "TEXT_ONLY",
+      "issue_number": 46,
+      "mode": "council",
+      "prompt": "JANUS_ORACLE_ARITH_V1 a=47 b=19 offset=5 modulus=97. Вычисли (a*b+offset) mod modulus по заданным числам. Ответ должен быть ровно одним десятичным целым числом, без объяснений.",
+      "request_sha256": "a79aaa441b9034dd324fcb7e8199be7d828737d4f346ead62b2f34b39f6b1f5f",
+      "request_source": "github_issue",
+      "requested_by": "Hawkar-usls",
+      "schema": "janus.open_llm.request.v1",
+      "source_id": 6407494907
+    },
+    "schema": "janus.open_llm.dialogue.v1",
+    "self_evolution_verified": false,
+    "sha256": "e0f3fb18e4ff3d86bb953103b3e0fd094c114977b60c71193de197ac852fc46f",
+    "training_candidate_policy": "REVIEW_REQUIRED_HOLDOUT_AND_ROLLBACK_BEFORE_ANY_WEIGHT_UPDATE",
+    "weight_update_performed": false
+  },
+  "head_sha": "696775b9b0b1209c06cb48f6ae6b16a4ab8c1e6c",
+  "model_weight_change": false,
+  "quality_is_independent_evidence": false,
+  "record_sha256": "b44d60b83b45b8e3fb226406a6191437f535167fd9ab6ba29662647a77d63334",
+  "review": {
+    "reason": "Neither model agreement nor fluent text constitutes a trusted label.",
+    "status": "HOLD_UNVERIFIED"
+  },
+  "schema": "janus.open_llm.corpus_record.v1",
+  "source_binding": {
+    "kind": "ISSUE_AND_BOT_REPLY_DIGEST_MATCH",
+    "reply_url": "https://github.com/Hawkar-usls/-Terminal-for-Janus/issues/46#issuecomment-6898874851"
+  },
+  "source_repository": "Hawkar-usls/-Terminal-for-Janus",
+  "source_run_id": 43744398415,
+  "source_run_url": "https://github.com/Hawkar-usls/-Terminal-for-Janus/actions/runs/43744398415",
+  "source_sha256": "e0f3fb18e4ff3d86bb953103b3e0fd094c114977b60c71193de197ac852fc46f"
+}

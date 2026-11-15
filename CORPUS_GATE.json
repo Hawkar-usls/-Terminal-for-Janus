@@ -1,9 +1,9 @@
 {
   "schema": "janus.open_llm.learning_gate.v1",
-  "total_source_verified": 5,
+  "total_source_verified": 6,
   "label_counts": {
     "REJECT_FACTUAL_ERROR": 1,
-    "HOLD_UNVERIFIED": 3,
+    "HOLD_UNVERIFIED": 4,
     "REJECT_TRUNCATED": 1
   },
   "approved_training_pairs": 0,

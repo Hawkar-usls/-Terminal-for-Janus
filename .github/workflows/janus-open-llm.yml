@@ -1,0 +1,159 @@
+name: JANUS Open LLM CPU Chat
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'tools/janus_open_llm.py'
+      - 'tests/test_janus_open_llm.py'
+      - 'config/JANUS_MODEL_PEERS.json'
+      - 'docs/JANUS_OPEN_LLM.md'
+      - '.github/workflows/janus-open-llm.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/janus_open_llm.py'
+      - 'tests/test_janus_open_llm.py'
+      - 'config/JANUS_MODEL_PEERS.json'
+      - 'docs/JANUS_OPEN_LLM.md'
+      - '.github/workflows/janus-open-llm.yml'
+  issues:
+    types: [opened]
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: 'Text for JANUS Qwen (public Actions log/artifact; no secrets)'
+        required: true
+        type: string
+      mode:
+        description: 'qwen or two-model peer council'
+        required: true
+        default: qwen
+        type: choice
+        options:
+          - qwen
+          - council
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    if: github.event_name == 'pull_request' || github.event_name == 'push'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check contract and Python syntax
+        run: |
+          python -m json.tool config/JANUS_MODEL_PEERS.json > /dev/null
+          python -m compileall -q tools/janus_open_llm.py tests/test_janus_open_llm.py
+      - name: Run zero-network adversarial tests
+        run: python -m unittest discover -s tests -p 'test_janus_open_llm.py' -v
+
+  infer:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'issues' &&
+        github.actor == 'Hawkar-usls' &&
+        startsWith(github.event.issue.title, '[JANUS CHAT]') &&
+        (contains(github.event.issue.body, '/qwen ') || contains(github.event.issue.body, '/council '))) ||
+      (github.event_name == 'issue_comment' &&
+        github.actor == 'Hawkar-usls' &&
+        (startsWith(github.event.comment.body, '/qwen ') || startsWith(github.event.comment.body, '/council ')))
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    concurrency:
+      group: janus-cpu-llm-${{ github.event.issue.number || github.run_id }}
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      issues: write
+    env:
+      HF_HUB_DISABLE_TELEMETRY: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      HF_HUB_DOWNLOAD_TIMEOUT: '120'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Convert human input into text-only verified request
+        env:
+          JANUS_PROMPT: ${{ inputs.prompt }}
+          JANUS_MODE: ${{ inputs.mode }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
+            python tools/janus_open_llm.py dispatch-request --output runtime/request.json
+          else
+            python tools/janus_open_llm.py event-request --event "$GITHUB_EVENT_PATH" --output runtime/request.json
+          fi
+      - name: Install CPU inference packages
+        run: |
+          python -m pip install --disable-pip-version-check --no-cache-dir torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install --disable-pip-version-check --no-cache-dir transformers==4.48.3 'safetensors>=0.4,<1'
+      - name: Generate CPU model conversation, never execute model output
+        run: |
+          python tools/janus_open_llm.py generate --request runtime/request.json --json-out runtime/dialogue.json --markdown-out runtime/dialogue.md
+          cat runtime/dialogue.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Keep receipt and unverified peer training candidate
+        uses: actions/upload-artifact@v4
+        with:
+          name: janus-open-llm-${{ github.run_id }}
+          path: |
+            runtime/request.json
+            runtime/dialogue.json
+            runtime/dialogue.md
+          retention-days: 14
+      - name: Reply to the originating Terminal issue
+        if: github.event_name == 'issues' || github.event_name == 'issue_comment'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: gh issue comment "$ISSUE_NUMBER" --repo Hawkar-usls/-Terminal-for-Janus --body-file runtime/dialogue.md
+
+  qwen-smoke:
+    if: github.event_name == 'push'
+    needs: contract
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    env:
+      HF_HUB_DISABLE_TELEMETRY: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      HF_HUB_DOWNLOAD_TIMEOUT: '120'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install CPU inference packages
+        run: |
+          python -m pip install --disable-pip-version-check --no-cache-dir torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install --disable-pip-version-check --no-cache-dir transformers==4.48.3 'safetensors>=0.4,<1'
+      - name: Boot a real Qwen response
+        env:
+          JANUS_PROMPT: 'Ответь одним коротким предложением: кто ты и на каком окружении работаешь?'
+          JANUS_MODE: qwen
+          GITHUB_ACTOR: Hawkar-usls
+        run: |
+          mkdir -p runtime
+          python tools/janus_open_llm.py dispatch-request --output runtime/request.json
+          python tools/janus_open_llm.py generate --request runtime/request.json --json-out runtime/dialogue.json --markdown-out runtime/dialogue.md
+          cat runtime/dialogue.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: janus-qwen-cpu-smoke-${{ github.run_id }}
+          path: runtime/
+          retention-days: 14

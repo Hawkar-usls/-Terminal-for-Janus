@@ -1,0 +1,34 @@
+{
+  "schema": "janus.model_peers.v1",
+  "status": "EXPERIMENTAL_CPU_TEXT_INFERENCE",
+  "operator_repository": "Hawkar-usls/-Terminal-for-Janus",
+  "resident_native_checkpoint": "UNCHANGED",
+  "primary": {
+    "id": "Qwen/Qwen2.5-0.5B-Instruct",
+    "license": "Apache-2.0",
+    "role": "TEXT_DIALOGUE"
+  },
+  "reviewer": {
+    "id": "HuggingFaceTB/SmolLM2-360M-Instruct",
+    "license": "Apache-2.0",
+    "role": "UNVERIFIED_PEER_REVIEW"
+  },
+  "clawdbot_reference": {
+    "repository": "Hawkar-usls/clawdbot",
+    "origin": "clawdbot/clawdbot",
+    "integration_status": "REFERENCE_ONLY_NO_LIVE_PROVIDER_BRIDGE",
+    "external_claude_api": "NOT_CONFIGURED",
+    "no_upstream_authorship_claim": true
+  },
+  "policy": {
+    "runtime": "GITHUB_ACTIONS_CPU_ONLY",
+    "execution": "NO_MODEL_TOOL_CALLS",
+    "max_input_chars": 2000,
+    "automatic_weight_training": false,
+    "automatic_production_model_replacement": false,
+    "cross_repository_write": false,
+    "external_secrets_required": false,
+    "peer_feedback_is_truth": false,
+    "training_candidate_status": "REQUIRES_MANUAL_LABEL_AND_CLOSED_HOLDOUT"
+  }
+}

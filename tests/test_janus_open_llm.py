@@ -12,7 +12,7 @@ def event(body, *, comment=True, actor=OWNER, sender=OWNER, repository=REPOSITOR
         "number": 42, "id": 400,
         "user": {"login": OWNER},
         "title": "[JANUS CHAT] Test",
-        "body": "### Message\\n\\n" + body + "\\n\\n### Conversation mode\\n\\nREAD_ONLY",
+        "body": "### Message\n\n" + body + "\n\n### Conversation mode\n\nREAD_ONLY",
     }
     payload = {
         "repository": {"full_name": repository},
@@ -30,7 +30,7 @@ def event(body, *, comment=True, actor=OWNER, sender=OWNER, repository=REPOSITOR
 class OpenLLMTests(unittest.TestCase):
     def test_commands(self):
         self.assertEqual(extract_command("/qwen Привет"), ("qwen", "Привет"))
-        self.assertEqual(extract_command("### Message\\n\\n/council compare\\n### Conversation mode"), ("council", "compare"))
+        self.assertEqual(extract_command("### Message\n\n/council compare\n### Conversation mode"), ("council", "compare"))
         for bad in ("", "/qwen", "/council ", "/shell rm -rf /", "hello /qwen foo", "/qwen " + "z" * 2001):
             with self.subTest(bad=bad[:20]):
                 with self.assertRaises(ValueError):

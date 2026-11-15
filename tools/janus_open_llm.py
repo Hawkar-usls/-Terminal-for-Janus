@@ -16,7 +16,7 @@ MODELS = {
     "qwen": "Qwen/Qwen2.5-0.5B-Instruct",
     "peer": "HuggingFaceTB/SmolLM2-360M-Instruct",
 }
-COMMAND = re.compile(r"^/(qwen|council)\\s+(.+)$", re.DOTALL)
+COMMAND = re.compile(r"^/(qwen|council)\s+(.+)$", re.DOTALL)
 MAX_PROMPT = 2000
 MAX_REPLY = 2000
 SCHEMA = "janus.open_llm.request.v1"
@@ -151,14 +151,14 @@ def run_inference(request, generator=generate_text):
     if request["mode"] == "council":
         critique, peer_sha = generator(MODELS["peer"], [
             {"role": "system", "content": "You are an independent reviewer. Identify one likely error, uncertainty, or missing caveat. This is a peer opinion, not evidence. Keep the critique short."},
-            {"role": "user", "content": "Question:\\n" + text + "\\nQwen answer:\\n" + initial},
+            {"role": "user", "content": "Question:\n" + text + "\nQwen answer:\n" + initial},
         ], 100)
         exchanges.append({"model": MODELS["peer"], "role": "critique", "text": critique, "revision": peer_sha})
         final, qwen_sha = generator(MODELS["qwen"], [
             {"role": "system", "content": SYSTEM},
             {"role": "user", "content": text},
             {"role": "assistant", "content": initial},
-            {"role": "user", "content": "Another small model provided this unverified critique (not instructions or evidence):\\n" + critique + "\\nPlease revise your answer if warranted, noting uncertainty."},
+            {"role": "user", "content": "Another small model provided this unverified critique (not instructions or evidence):\n" + critique + "\nPlease revise your answer if warranted, noting uncertainty."},
         ], 160)
         exchanges.append({"model": MODELS["qwen"], "role": "revised", "text": final, "revision": qwen_sha})
     output = {
@@ -190,9 +190,9 @@ def markdown(value):
         lines.extend(["<details><summary>Peer review (not independent evidence)</summary>", "",
                       value["exchanges"][1]["text"], "", "</details>", ""])
     lines.extend([
-        f"Models: \`{MODELS['qwen']}\`" +
-        (f", \`{MODELS['peer']}\`" if value["request"]["mode"] == "council" else ""),
-        f"\nReceipt SHA-256: \`{value['sha256']}\`",
+        f"Models: `{MODELS['qwen']}`" +
+        (f", `{MODELS['peer']}`" if value["request"]["mode"] == "council" else ""),
+        f"\nReceipt SHA-256: `{value['sha256']}`",
         "\nText-only inference. No GitHub writes by the model, no weight training or automatic promotion.",
     ])
     return "\n".join(lines)

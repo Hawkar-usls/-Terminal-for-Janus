@@ -4,7 +4,7 @@
   "operator_repository": "Hawkar-usls/-Terminal-for-Janus",
   "resident_native_checkpoint": "UNCHANGED",
   "primary": {
-    "id": "Qwen/Qwen2.5-0.5B-Instruct",
+    "id": "Qwen/Qwen2.5-1.5B-Instruct",
     "license": "Apache-2.0",
     "role": "TEXT_DIALOGUE"
   },

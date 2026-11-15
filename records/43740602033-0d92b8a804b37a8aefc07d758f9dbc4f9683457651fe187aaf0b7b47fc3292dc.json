@@ -1,0 +1,67 @@
+{
+  "artifact_id": 14171179925,
+  "auto_promotion_authority": false,
+  "dialogue": {
+    "classification": "EXPERIMENTAL_PEER_DIALOGUE_UNVERIFIED",
+    "created_at": "2026-11-15T17:22:56.001664+00:00",
+    "exchanges": [
+      {
+        "model": "Qwen/Qwen2.5-1.5B-Instruct",
+        "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+        "role": "initial",
+        "text": "Согласие двух языковых моделей основано на совместном обучении и обмене информации между ними, тогда как независимая проверка научной гипотезы требует самостоятельного исследования и анализа новых данных без участия других исследователей."
+      },
+      {
+        "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+        "revision": "a10cc1512eabd3dde888204e902eca88bddb4951",
+        "role": "critique",
+        "text": "Согласие двух языковых моделей основано на совместном обучении и обмене информации между ними, тогда как независимая проверка научной ги\n\n[Ответ ограничен бюджетом генерации; при необходимости попроси продолжение.]"
+      },
+      {
+        "model": "Qwen/Qwen2.5-1.5B-Instruct",
+        "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+        "role": "revised",
+        "text": "Ошибочная информация была предоставлена пользователем. Согласие двух языковых моделей происходит через обмен информацией и совместное обучение, а независимая проверка научной гипотезы требует самостоятельного исследования и анализа новых данных без участия других исследователей."
+      }
+    ],
+    "final_text": "Ошибочная информация была предоставлена пользователем. Согласие двух языковых моделей происходит через обмен информацией и совместное обучение, а независимая проверка научной гипотезы требует самостоятельного исследования и анализа новых данных без участия других исследователей.",
+    "issue_context_is_weight_training": false,
+    "issue_context_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "issue_context_turns": 0,
+    "native_janus_model_modified": false,
+    "peer_feedback_is_ground_truth": false,
+    "request": {
+      "execution_authority": "TEXT_ONLY",
+      "issue_number": 44,
+      "mode": "council",
+      "prompt": "Ответь на русском в двух коротких предложениях: чем отличается согласие двух языковых моделей от независимой проверки научной гипотезы по новым данным? Не утверждай, что ты проводил эксперимент.",
+      "request_sha256": "bb849132eeef9c9a4902ec8f56b3e96d4a9be9679ddca2feb576a68d218d3c5b",
+      "request_source": "github_issue",
+      "requested_by": "Hawkar-usls",
+      "schema": "janus.open_llm.request.v1",
+      "source_id": 6407056438
+    },
+    "schema": "janus.open_llm.dialogue.v1",
+    "self_evolution_verified": false,
+    "sha256": "0d92b8a804b37a8aefc07d758f9dbc4f9683457651fe187aaf0b7b47fc3292dc",
+    "training_candidate_policy": "REVIEW_REQUIRED_HOLDOUT_AND_ROLLBACK_BEFORE_ANY_WEIGHT_UPDATE",
+    "weight_update_performed": false
+  },
+  "head_sha": "889952de3c1b955d7d0ea3af088c1f60dce2d818",
+  "model_weight_change": false,
+  "quality_is_independent_evidence": false,
+  "record_sha256": "8f155e0a95d7d4c4f23fb9fcf0d1b55f188051023ade78f536b1565d05b9d87d",
+  "review": {
+    "reason": "Neither model agreement nor fluent text constitutes a trusted label.",
+    "status": "HOLD_UNVERIFIED"
+  },
+  "schema": "janus.open_llm.corpus_record.v1",
+  "source_binding": {
+    "kind": "ISSUE_AND_BOT_REPLY_DIGEST_MATCH",
+    "reply_url": "https://github.com/Hawkar-usls/-Terminal-for-Janus/issues/44#issuecomment-6898342597"
+  },
+  "source_repository": "Hawkar-usls/-Terminal-for-Janus",
+  "source_run_id": 43740602033,
+  "source_run_url": "https://github.com/Hawkar-usls/-Terminal-for-Janus/actions/runs/43740602033",
+  "source_sha256": "0d92b8a804b37a8aefc07d758f9dbc4f9683457651fe187aaf0b7b47fc3292dc"
+}

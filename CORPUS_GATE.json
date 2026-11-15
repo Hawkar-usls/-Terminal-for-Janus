@@ -1,0 +1,23 @@
+{
+  "schema": "janus.open_llm.learning_gate.v1",
+  "total_source_verified": 1,
+  "label_counts": {
+    "HOLD_UNVERIFIED": 1
+  },
+  "approved_training_pairs": 0,
+  "distinct_approved_issues": 0,
+  "allowed_for_shadow_training": false,
+  "automatic_weight_promotion": false,
+  "native_janus_weights_changed": false,
+  "three_node_sentinel_control_untouched": true,
+  "blockers": [
+    "HOLD_INSUFFICIENT_HUMAN_VERIFIED_PAIRS",
+    "HOLD_INSUFFICIENT_DISTINCT_ISSUES",
+    "HOLD_NO_REVIEWED_COUNCIL_CASES",
+    "HOLD_INDEPENDENT_PROSPECTIVE_CUSTODIAN_NOT_PROVIDED"
+  ],
+  "added_records": 1,
+  "errors": [],
+  "candidate_only": true,
+  "training_started": false
+}

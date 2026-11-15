@@ -266,9 +266,9 @@ def api_archive(artifact_id):
     import tempfile
     with tempfile.TemporaryDirectory() as td:
         path = Path(td) / "artifact.zip"
-        subprocess.run(["gh", "api", f"/repos/{REPO}/actions/artifacts/{int(artifact_id)}/zip",
-                        "--output", str(path)], check=True, timeout=60,
-                       stdout=subprocess.DEVNULL)
+        with path.open("wb") as archive:
+            subprocess.run(["gh", "api", f"/repos/{REPO}/actions/artifacts/{int(artifact_id)}/zip"],
+                           check=True, timeout=60, stdout=archive)
         return path.read_bytes()
 
 

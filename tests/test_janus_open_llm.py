@@ -83,6 +83,7 @@ class OpenLLMTests(unittest.TestCase):
         out = run_inference(request, stub)
         self.assertEqual(calls, [MODELS["qwen"]])
         self.assertEqual(out["final_text"], "answer")
+        self.assertIn("complete sentences", SYSTEM)
 
 
     def test_bounded_issue_recall_ignores_attacker_and_current_message(self):

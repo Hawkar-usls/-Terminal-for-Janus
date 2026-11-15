@@ -1,0 +1,20 @@
+{
+  "authority_mode": "READ_ONLY_CONVERSATION",
+  "claim_authority_granted": false,
+  "command_authority_granted": false,
+  "conversation_id": "issue-39",
+  "created_at": 1794759284.0,
+  "external_effect_authorized": false,
+  "fresh_human_stimulus": true,
+  "human_actor": "Hawkar-usls",
+  "human_authorized_write": false,
+  "message_hash": "09c039c2b9e4b47aecab17a0237fb70b2f13cd0bd30d6d6969083c446c82511c",
+  "message_id": "tm-7048899d109ac5c96a834e0f2ba441d74954aa84f7130ece1a3aaaa783e7424e",
+  "message_text": "### Message\n\n/qwen Привет, Янус! Ответь одним предложением по-русски: кто ты и чем отличается CPU-текстовый адаптер Qwen от оригинальных нейросетевых весов JANUS?\n\n### Conversation mode\n\nREAD_ONLY_CONVERSATION\n\n### Authority boundary\n\nThis message is a text-only human stimulus. No repository writes, model weight update, or deployment is authorized.",
+  "physical_runtime_effect_authorized": false,
+  "schema": "janus.terminal.message.v1",
+  "scientific_evidence_authority_granted": false,
+  "source_ref": "Hawkar-usls/-Terminal-for-Janus#39:issue:6406343222",
+  "terminal_repository": "Hawkar-usls/-Terminal-for-Janus",
+  "world_truth_authority_granted": false
+}

@@ -129,7 +129,7 @@ def prior_issue_context(issue, comments, request):
                 continue
             turns.append({"role": "user", "content": prior[:700]})
         elif login == "github-actions[bot]" and body.startswith("<!-- JANUS_OPEN_LLM_CPU_ADAPTER -->"):
-            reply = body.split("\n\n", 2)[-1]
+            reply = body.partition("\n\n")[2]
             reply = reply.split("\n\n<details", 1)[0].split("\n\nModels:", 1)[0]
             if reply.strip():
                 turns.append({"role": "assistant", "content": reply.strip()[:700]})

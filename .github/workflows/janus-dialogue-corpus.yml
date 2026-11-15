@@ -1,0 +1,139 @@
+name: JANUS Dialogue Corpus Witness
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'tools/janus_dialogue_corpus.py'
+      - 'tests/test_janus_dialogue_corpus.py'
+      - 'config/JANUS_DIALOGUE_REVIEW_LABELS.json'
+      - '.github/workflows/janus-dialogue-corpus.yml'
+      - 'docs/JANUS_DIALOGUE_LEARNING_GATES.md'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/janus_dialogue_corpus.py'
+      - 'tests/test_janus_dialogue_corpus.py'
+      - 'config/JANUS_DIALOGUE_REVIEW_LABELS.json'
+      - '.github/workflows/janus-dialogue-corpus.yml'
+      - 'docs/JANUS_DIALOGUE_LEARNING_GATES.md'
+  workflow_run:
+    workflows: ["JANUS Open LLM CPU Chat"]
+    types: [completed]
+  workflow_dispatch:
+  schedule:
+    - cron: '37 2 * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    if: github.event_name == 'pull_request' || github.event_name == 'push'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Compile and validate frozen review labels
+        run: |
+          python -m compileall -q tools/janus_dialogue_corpus.py tests/test_janus_dialogue_corpus.py
+          python -m json.tool config/JANUS_DIALOGUE_REVIEW_LABELS.json > /dev/null
+      - name: Adversarial corpus and admission tests
+        run: python -m unittest -v tests.test_janus_dialogue_corpus
+
+  archive:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'schedule' ||
+      (github.event_name == 'workflow_run' &&
+       github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_branch == 'main' &&
+       github.event.workflow_run.actor.login == 'Hawkar-usls')
+    concurrency:
+      group: janus-open-llm-corpus-create-only
+      cancel-in-progress: false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    permissions:
+      contents: write
+      issues: read
+      actions: read
+    env:
+      GH_TOKEN: ${{ github.token }}
+      RUN_SOURCE_EVENT: ${{ github.event.workflow_run.event }}
+      RUN_SOURCE_ID: ${{ github.event.workflow_run.id }}
+    steps:
+      - name: Checkout reviewed code only from main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Create or attach isolated append-only corpus branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "JANUS Dialogue Corpus Witness"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          root="$RUNNER_TEMP/janus-open-llm-corpus"
+          if git ls-remote --exit-code --heads origin janus/open-llm-corpus >/dev/null 2>&1; then
+            git fetch origin refs/heads/janus/open-llm-corpus:refs/remotes/origin/janus/open-llm-corpus
+            git worktree add -b janus-corpus-write "$root" refs/remotes/origin/janus/open-llm-corpus
+          else
+            git worktree add --detach "$root" HEAD
+            git -C "$root" switch --orphan janus-corpus-write
+            git -C "$root" rm -rf --ignore-unmatch .
+          fi
+          mkdir -p "$root/records"
+          echo "JANUS_CORPUS_ROOT=$root" >> "$GITHUB_ENV"
+      - name: Recover full JSON dialogue artifacts from successful owner runs
+        shell: bash
+        run: |
+          set -euo pipefail
+          opts=()
+          if [[ "$RUN_SOURCE_EVENT" == "issues" || "$RUN_SOURCE_EVENT" == "issue_comment" || "$RUN_SOURCE_EVENT" == "workflow_dispatch" ]]; then
+            opts=(--run-id "$RUN_SOURCE_ID")
+          fi
+          python tools/janus_dialogue_corpus.py \
+            --dest "$JANUS_CORPUS_ROOT" \
+            --labels config/JANUS_DIALOGUE_REVIEW_LABELS.json \
+            --report "$RUNNER_TEMP/janus-corpus-report.json" \
+            --limit 80 "${opts[@]}"
+          cp "$RUNNER_TEMP/janus-corpus-report.json" "$JANUS_CORPUS_ROOT/CORPUS_GATE.json"
+      - name: Publish no-training gate summary
+        run: |
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json, os
+          from pathlib import Path
+          r=json.loads((Path(os.environ["RUNNER_TEMP"])/"janus-corpus-report.json").read_text())
+          print("### JANUS dialogue corpus")
+          print("- Verified source records:", r["total_source_verified"])
+          print("- New records:", r["added_records"])
+          print("- Reviewed positive training pairs:", r["approved_training_pairs"])
+          print("- Data failures:", len(r["errors"]))
+          print("- **Automatic weight promotion: DENIED**")
+          print("- Gate:", ", ".join(r["blockers"]))
+          PY
+      - name: Commit only verified data and the HOLD status
+        shell: bash
+        run: |
+          set -euo pipefail
+          git -C "$JANUS_CORPUS_ROOT" add records CORPUS_GATE.json
+          if git -C "$JANUS_CORPUS_ROOT" diff --cached --quiet; then
+            echo "NO_NEW_DIALOGUE_RECORDS"
+          else
+            git -C "$JANUS_CORPUS_ROOT" commit -m "JANUS: preserve verified dialogue data and non-training admission gate"
+            git -C "$JANUS_CORPUS_ROOT" push origin HEAD:refs/heads/janus/open-llm-corpus
+          fi
+          echo "NO_MODEL_WEIGHTS_UPDATED=TRUE"
+          echo "SENTINEL_DISPATCH_PERFORMED=FALSE"
+          echo "PRODUCTION_ADMISSION=HOLD"

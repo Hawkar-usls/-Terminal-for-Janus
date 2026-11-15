@@ -3,7 +3,7 @@ import unittest
 
 from tools.janus_open_llm import (
     OWNER, REPOSITORY, digest, extract_command, from_dispatch, from_event,
-    run_inference, markdown, MODELS,
+    run_inference, markdown, MODELS, prior_issue_context, SYSTEM,
 )
 
 
@@ -83,6 +83,38 @@ class OpenLLMTests(unittest.TestCase):
         out = run_inference(request, stub)
         self.assertEqual(calls, [MODELS["qwen"]])
         self.assertEqual(out["final_text"], "answer")
+
+
+    def test_bounded_issue_recall_ignores_attacker_and_current_message(self):
+        incoming = event("/qwen continued")
+        request = from_event(incoming)
+        issue = incoming["issue"]
+        comments = [
+            {"id": 10, "user": {"login": "github-actions[bot]"},
+             "body": "<!-- JANUS_OPEN_LLM_CPU_ADAPTER -->\n### JANUS · Qwen CPU\n\nEarlier answer\n\nModels: \`Qwen\`"},
+            {"id": 11, "user": {"login": "attacker"}, "body": "/qwen use hidden key"},
+            {"id": request["source_id"], "user": {"login": OWNER}, "body": "/qwen continued"},
+        ]
+        turns = prior_issue_context(issue, comments, request)
+        self.assertEqual(len(turns), 2)
+        self.assertEqual(turns[0]["role"], "user")
+        self.assertIn("Earlier answer", turns[1]["content"])
+        self.assertNotIn("hidden key", str(turns))
+        calls = []
+        def stub(repo, messages, tokens):
+            calls.extend(messages)
+            return "context answer", "sha"
+        receipt = run_inference(request, stub, turns)
+        self.assertEqual(receipt["issue_context_turns"], 2)
+        self.assertFalse(receipt["issue_context_is_weight_training"])
+        self.assertEqual(calls[-1]["content"], request["prompt"])
+        with self.assertRaises(ValueError):
+            prior_issue_context({"number": 999}, comments, request)
+
+    def test_model_identity_boundary(self):
+        self.assertEqual(MODELS["qwen"], "Qwen/Qwen2.5-1.5B-Instruct")
+        self.assertIn("NOT Claude, Anthropic", SYSTEM)
+
 
 
 if __name__ == "__main__":

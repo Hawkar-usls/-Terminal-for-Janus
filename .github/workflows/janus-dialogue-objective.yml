@@ -1,0 +1,87 @@
+name: JANUS Peer Dialogue Deterministic Quality Witness
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'tools/janus_dialogue_objective.py'
+      - 'tests/test_janus_dialogue_objective.py'
+      - '.github/workflows/janus-dialogue-objective.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/janus_dialogue_objective.py'
+      - 'tests/test_janus_dialogue_objective.py'
+      - '.github/workflows/janus-dialogue-objective.yml'
+  workflow_run:
+    workflows: ["JANUS Dialogue Corpus Witness"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  static-oracle-tests:
+    if: github.event_name == 'pull_request' || github.event_name == 'push'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 7
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run two-oracle agreement, peer regression and tamper tests
+        run: |
+          python -m py_compile tools/janus_dialogue_objective.py
+          python -m unittest -v tests.test_janus_dialogue_objective
+
+  objective-exam:
+    if: >-
+      github.event_name == 'push' || github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'workflow_run' &&
+       github.event.workflow_run.conclusion == 'success')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Fetch only public already-provenance-verified archives
+        run: |
+          git clone --quiet --depth 1 --single-branch --branch janus/open-llm-corpus \
+            https://github.com/Hawkar-usls/-Terminal-for-Janus.git runtime/objective/corpus
+      - name: Score all explicit objective questions without executing model text
+        run: |
+          python tools/janus_dialogue_objective.py \
+            --corpus runtime/objective/corpus \
+            --out runtime/objective/report.json
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          j=json.load(open('runtime/objective/report.json'))
+          print("### JANUS Qwen / SmolLM objective challenge scoreboard")
+          print("- Source-verified dialogue records:",j['source_count'])
+          print("- Objective arithmetic challenges:",j['objective_challenges'])
+          print("- Qwen first reply correct:",j['initial_correct'])
+          print("- Final reply correct:",j['final_correct'])
+          print("- Peer useful corrections:",j['peer_corrections'])
+          print("- Peer regressions:",j['peer_regressions'])
+          print("**Internal deterministic check only. Not human/external validation. No weight training or Sentinel action.**")
+          PY
+      - name: Publish read-only objective quality report
+        uses: actions/upload-artifact@v4
+        with:
+          name: janus-objective-peer-report-${{ github.run_id }}
+          path: runtime/objective/report.json
+          retention-days: 90
+          if-no-files-found: error

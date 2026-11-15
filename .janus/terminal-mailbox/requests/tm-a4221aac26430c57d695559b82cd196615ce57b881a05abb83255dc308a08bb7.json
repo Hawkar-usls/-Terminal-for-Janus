@@ -1,0 +1,20 @@
+{
+  "authority_mode": "READ_ONLY_CONVERSATION",
+  "claim_authority_granted": false,
+  "command_authority_granted": false,
+  "conversation_id": "issue-48",
+  "created_at": 1794765710.0,
+  "external_effect_authorized": false,
+  "fresh_human_stimulus": true,
+  "human_actor": "Hawkar-usls",
+  "human_authorized_write": false,
+  "message_hash": "bbb76a29e3c4f25efa2838c0cf1d7c1a4d7399474f48f1ba1f28e423c4495f04",
+  "message_id": "tm-a4221aac26430c57d695559b82cd196615ce57b881a05abb83255dc308a08bb7",
+  "message_text": "### Message\n\n/qwen JANUS_ORACLE_ARITH_V1 a=83 b=41 offset=9 modulus=103. Вычисли (a*b+offset) mod modulus по заданным числам. Ответ должен быть ровно одним десятичным целым числом, без объяснений.\n\n### Conversation mode\n\nREAD_ONLY_CONVERSATION\n\n### Authority boundary\n\nPublic deterministic research task only. No tool execution, repository updates, model training, or automated promotion is authorized.",
+  "physical_runtime_effect_authorized": false,
+  "schema": "janus.terminal.message.v1",
+  "scientific_evidence_authority_granted": false,
+  "source_ref": "Hawkar-usls/-Terminal-for-Janus#48:issue:6407495511",
+  "terminal_repository": "Hawkar-usls/-Terminal-for-Janus",
+  "world_truth_authority_granted": false
+}

@@ -1,11 +1,11 @@
 {
   "schema": "janus.terminal.ecosystem_observation.v1",
-  "observed_at": "2026-11-09T18:55:00+00:00",
-  "sequence": 5,
-  "predecessor_sha256": "d94663410d6fe4ba9a3f66388866b3646dd02a08da672c9c5d36d419f1d6c584",
+  "observed_at": "2026-11-16T18:40:00+00:00",
+  "sequence": 6,
+  "predecessor_sha256": "6c29e31a0e7be18e7c668419ed7e06198cfdd918b82347d991c14da0ef21a90d",
   "source": "GITHUB_REST_PUBLIC_API",
   "source_pages_complete": 1,
-  "public_repository_count": 47,
+  "public_repository_count": 48,
   "public_repository_names": [
     "Hawkar-usls/-Terminal-for-Janus",
     "Hawkar-usls/AI-Cardputer-adv-A-Portable-AI-Assistant",
@@ -50,6 +50,7 @@
     "Hawkar-usls/janus-lapis",
     "Hawkar-usls/janus-meta-registry",
     "Hawkar-usls/lineara.xyz",
+    "Hawkar-usls/neuromorphic-vision-sensor",
     "Hawkar-usls/player",
     "Hawkar-usls/tranception",
     "Hawkar-usls/vcmi",
@@ -168,12 +169,14 @@
     "Hawkar-usls/vcmi",
     "Hawkar-usls/xiaozhi-esp32"
   ],
-  "unclassified_public": [],
+  "unclassified_public": [
+    "Hawkar-usls/neuromorphic-vision-sensor"
+  ],
   "counts": {
     "active_visible": 19,
     "candidates_visible": 10,
     "excluded_visible": 18,
-    "unclassified_visible": 0
+    "unclassified_visible": 1
   },
   "authority": {
     "github_listing_proves_runtime": false,
@@ -183,5 +186,5 @@
     "external_effect_authorized": false,
     "human_review_required_before_activation": true
   },
-  "observation_sha256": "6c29e31a0e7be18e7c668419ed7e06198cfdd918b82347d991c14da0ef21a90d"
+  "observation_sha256": "09b2b646cfcfbbec579b656a57ed3ea3c4182cdd5adf7b232679948ba6586ef9"
 }

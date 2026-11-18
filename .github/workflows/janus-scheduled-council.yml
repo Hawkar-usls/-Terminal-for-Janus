@@ -1,0 +1,98 @@
+name: JANUS Scheduled Research Council
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'tools/janus_dialogue_feed.py'
+      - 'tests/test_janus_dialogue_feed.py'
+      - '.github/workflows/janus-scheduled-council.yml'
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: janus-scheduled-research-council
+  cancel-in-progress: false
+jobs:
+  contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m unittest discover -s tests -p test_janus_dialogue_feed.py -v
+  infer:
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+    needs: contract
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    env:
+      HF_HUB_DISABLE_TELEMETRY: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      HF_HUB_DOWNLOAD_TIMEOUT: '120'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned CPU inference dependencies
+        run: |
+          python -m pip install --disable-pip-version-check torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install --disable-pip-version-check transformers==4.48.3 safetensors==0.5.3
+      - name: One bounded Qwen and SmolLM council, text only
+        run: python tools/janus_dialogue_feed.py generate --run-id "$GITHUB_RUN_ID" --dialogue runtime/dialogue.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: scheduled-council-dialogue
+          path: runtime/dialogue.json
+          retention-days: 14
+          if-no-files-found: error
+  publish:
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+    needs: infer
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          name: scheduled-council-dialogue
+          path: runtime
+      - name: Validate JSON and publish only bounded display feed
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "JANUS Scheduled Council Witness"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          root="$RUNNER_TEMP/janus-dialogue-feed"
+          if git ls-remote --exit-code --heads origin janus/dialogue-feed >/dev/null 2>&1; then
+            git fetch origin refs/heads/janus/dialogue-feed:refs/remotes/origin/janus/dialogue-feed
+            git worktree add -b janus-dialogue-write "$root" refs/remotes/origin/janus/dialogue-feed
+          else
+            git worktree add --detach "$root" HEAD
+            git -C "$root" switch --orphan janus-dialogue-write
+          fi
+          python tools/janus_dialogue_feed.py publish --run-id "$GITHUB_RUN_ID" --dialogue runtime/dialogue.json --feed "$root/FEED.json"
+          git -C "$root" add -- FEED.json
+          if ! git -C "$root" diff --cached --quiet; then
+            git -C "$root" commit -m "JANUS: publish bounded scheduled council feed"
+            git -C "$root" push origin HEAD:refs/heads/janus/dialogue-feed
+          fi
+          echo "Text-only feed published; no issues, training, or production changes." >> "$GITHUB_STEP_SUMMARY"

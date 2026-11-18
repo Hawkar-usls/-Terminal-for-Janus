@@ -1,0 +1,93 @@
+{
+  "schema": "janus.dialogue.provenance_index.v1",
+  "source": "GitHub API issue and comment metadata",
+  "verified_at": "2026-11-18",
+  "fallback_label": "Источник не подтверждён",
+  "human_authorship_requires_separate_evidence": true,
+  "records": {
+    "1ad07aaaa0a6822d510379e016fba188375711755d0dd953e54912ef39820091": {
+      "source_run_id": 43734382594,
+      "source_id": 6406343222,
+      "source_url": "https://github.com/Hawkar-usls/-Terminal-for-Janus/issues/39",
+      "account": "Hawkar-usls",
+      "app_slug": "chatgpt-codex-connector",
+      "origin_kind": "CHATGPT_GITHUB_CONNECTOR",
+      "display_label": "ChatGPT · GitHub Connector",
+      "human_authorship_verified": false,
+      "category": "RESEARCH_DIALOGUE",
+      "record_path": "records/43734382594-1ad07aaaa0a6822d510379e016fba188375711755d0dd953e54912ef39820091.json"
+    },
+    "b5ad546909fa7e8b0e1343dfbaa3044794d8457712bcbd1dba2fc00a5e0ce8ad": {
+      "source_run_id": 43734478365,
+      "source_id": 6406353664,
+      "source_url": "https://github.com/Hawkar-usls/-Terminal-for-Janus/issues/40",
+      "account": "Hawkar-usls",
+      "app_slug": "chatgpt-codex-connector",
+      "origin_kind": "CHATGPT_GITHUB_CONNECTOR",
+      "display_label": "ChatGPT · GitHub Connector",
+      "human_authorship_verified": false,
+      "category": "RESEARCH_DIALOGUE",
+      "record_path": "records/43734478365-b5ad546909fa7e8b0e1343dfbaa3044794d8457712bcbd1dba2fc00a5e0ce8ad.json"
+    },
+    "29872adf38b97d76288b92d7d633357f43e80e16516e068e4fd3525ad69f9d86": {
+      "source_run_id": 43735245846,
+      "source_id": 6897573718,
+      "source_url": "https://github.com/Hawkar-usls/-Terminal-for-Janus/issues/40#issuecomment-6897573718",
+      "account": "Hawkar-usls",
+      "app_slug": "chatgpt-codex-connector",
+      "origin_kind": "CHATGPT_GITHUB_CONNECTOR",
+      "display_label": "ChatGPT · GitHub Connector",
+      "human_authorship_verified": false,
+      "category": "RESEARCH_DIALOGUE",
+      "record_path": "records/43735245846-29872adf38b97d76288b92d7d633357f43e80e16516e068e4fd3525ad69f9d86.json"
+    },
+    "0d92b8a804b37a8aefc07d758f9dbc4f9683457651fe187aaf0b7b47fc3292dc": {
+      "source_run_id": 43740602033,
+      "source_id": 6407056438,
+      "source_url": "https://github.com/Hawkar-usls/-Terminal-for-Janus/issues/44",
+      "account": "Hawkar-usls",
+      "app_slug": "chatgpt-codex-connector",
+      "origin_kind": "CHATGPT_GITHUB_CONNECTOR",
+      "display_label": "ChatGPT · GitHub Connector",
+      "human_authorship_verified": false,
+      "category": "RESEARCH_DIALOGUE",
+      "record_path": "records/43740602033-0d92b8a804b37a8aefc07d758f9dbc4f9683457651fe187aaf0b7b47fc3292dc.json"
+    },
+    "e0f3fb18e4ff3d86bb953103b3e0fd094c114977b60c71193de197ac852fc46f": {
+      "source_run_id": 43744398415,
+      "source_id": 6407494907,
+      "source_url": "https://github.com/Hawkar-usls/-Terminal-for-Janus/issues/46",
+      "account": "Hawkar-usls",
+      "app_slug": "chatgpt-codex-connector",
+      "origin_kind": "CHATGPT_GITHUB_CONNECTOR",
+      "display_label": "ChatGPT · GitHub Connector",
+      "human_authorship_verified": false,
+      "category": "RESEARCH_TEST",
+      "record_path": "records/43744398415-e0f3fb18e4ff3d86bb953103b3e0fd094c114977b60c71193de197ac852fc46f.json"
+    },
+    "31de92319038fac5d88b83c6bd8d5cb9f019fdc481ddaa64f46b9525e0135a32": {
+      "source_run_id": 43744400657,
+      "source_id": 6407495160,
+      "source_url": "https://github.com/Hawkar-usls/-Terminal-for-Janus/issues/47",
+      "account": "Hawkar-usls",
+      "app_slug": "chatgpt-codex-connector",
+      "origin_kind": "CHATGPT_GITHUB_CONNECTOR",
+      "display_label": "ChatGPT · GitHub Connector",
+      "human_authorship_verified": false,
+      "category": "RESEARCH_TEST",
+      "record_path": "records/43744400657-31de92319038fac5d88b83c6bd8d5cb9f019fdc481ddaa64f46b9525e0135a32.json"
+    },
+    "c09e1c253c9f435cf5f01c97723f720cbaa7d4a4a2468a4890b82cc07af90bf2": {
+      "source_run_id": 43744404390,
+      "source_id": 6407495511,
+      "source_url": "https://github.com/Hawkar-usls/-Terminal-for-Janus/issues/48",
+      "account": "Hawkar-usls",
+      "app_slug": "chatgpt-codex-connector",
+      "origin_kind": "CHATGPT_GITHUB_CONNECTOR",
+      "display_label": "ChatGPT · GitHub Connector",
+      "human_authorship_verified": false,
+      "category": "RESEARCH_TEST",
+      "record_path": "records/43744404390-c09e1c253c9f435cf5f01c97723f720cbaa7d4a4a2468a4890b82cc07af90bf2.json"
+    }
+  }
+}

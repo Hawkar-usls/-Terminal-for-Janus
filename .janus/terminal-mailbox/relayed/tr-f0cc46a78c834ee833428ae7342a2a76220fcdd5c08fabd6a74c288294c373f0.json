@@ -1,0 +1,15 @@
+{
+  "command_authority_granted": false,
+  "credentialless_home_read": true,
+  "cross_repo_write_credential_used": false,
+  "external_effect_authorized": false,
+  "hrain_context_bound": true,
+  "hrain_context_hash": "8e1c5a83d0d59ebf49ecb2fafc8fcd3444e8518da8a2fa47615da8cfdaa81cff",
+  "issue_comment_confirmed": true,
+  "issue_number": 48,
+  "memory_source_commit": "451e8bb7959e5fd2de6fffaaae8d0068a0a80cc7",
+  "relayed_at": 1794970294.703348,
+  "response_hash": "f07df6b8e3ad97751b72afdab91ca68e6b2338ac829e30f11fa5d9e7afe59ab8",
+  "response_id": "tr-f0cc46a78c834ee833428ae7342a2a76220fcdd5c08fabd6a74c288294c373f0",
+  "schema": "janus.terminal.relay_receipt.v1.1"
+}

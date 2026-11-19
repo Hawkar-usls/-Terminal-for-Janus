@@ -2,6 +2,62 @@
   "schema": "janus.scheduled_dialogue.feed.v1",
   "records": [
     {
+      "source_run_id": 44585647040,
+      "slot_utc_hour": 498642,
+      "origin_kind": "JANUS_SCHEDULED_COUNCIL",
+      "display_label": "JANUS · автоматический совет моделей",
+      "human_authorship_verified": false,
+      "training_allowed": false,
+      "source_url": "https://github.com/Hawkar-usls/-Terminal-for-Janus/actions/runs/44585647040",
+      "dialogue": {
+        "schema": "janus.open_llm.dialogue.v1",
+        "created_at": "2026-11-19T18:16:26.023872+00:00",
+        "request": {
+          "schema": "janus.open_llm.request.v1",
+          "mode": "council",
+          "prompt": "Автоматический исследовательский диалог JANUS. Почему совпадение ответов двух ИИ не заменяет независимое доказательство? Ответь по-русски, кратко. Не заявляй о выполненных экспериментах.",
+          "issue_number": null,
+          "request_source": "scheduled_council",
+          "source_id": 44585647040,
+          "requested_by": "JANUS_SCHEDULED_COUNCIL",
+          "slot_utc_hour": 498642,
+          "execution_authority": "TEXT_ONLY",
+          "request_sha256": "3dbcb29e49b826b01982596a1295940707093de6b7ef2ab6e65691da78938917"
+        },
+        "issue_context_turns": 0,
+        "issue_context_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "issue_context_is_weight_training": false,
+        "exchanges": [
+          {
+            "model": "Qwen/Qwen2.5-1.5B-Instruct",
+            "role": "initial",
+            "text": "Совпадения ответов двух ИИ могут быть обусловлены различными факторами, такими как схожесть вопросов или алгоритмов обучения, а также возможные ошибки в данных или модели. Однако это не всегда свидетельствует о том, что результаты являются надежными и достоверными. Независимое доказательство требует дополнительных проверок и анализа для установления его точности и полноты.",
+            "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
+          },
+          {
+            "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+            "role": "critique",
+            "text": "Совпадение ответов двух ИИ не заменяет независимое доказательство.",
+            "revision": "a10cc1512eabd3dde888204e902eca88bddb4951"
+          },
+          {
+            "model": "Qwen/Qwen2.5-1.5B-Instruct",
+            "role": "revised",
+            "text": "Прошу прощения за недоразумение. Совпадение ответов двух ИИ может указывать на общую тенденцию или закономерность, но не является достаточным основанием для признания их абсолютной точности или полноты. Для получения надежного и достоверного вывода необходимо провести дополнительное исследование и анализ.",
+            "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
+          }
+        ],
+        "final_text": "Прошу прощения за недоразумение. Совпадение ответов двух ИИ может указывать на общую тенденцию или закономерность, но не является достаточным основанием для признания их абсолютной точности или полноты. Для получения надежного и достоверного вывода необходимо провести дополнительное исследование и анализ.",
+        "weight_update_performed": false,
+        "peer_feedback_is_ground_truth": false,
+        "native_janus_model_modified": false,
+        "self_evolution_verified": false,
+        "classification": "EXPERIMENTAL_PEER_DIALOGUE_UNVERIFIED",
+        "training_candidate_policy": "REVIEW_REQUIRED_HOLDOUT_AND_ROLLBACK_BEFORE_ANY_WEIGHT_UPDATE",
+        "sha256": "0cf034509913abb4ff5d93a312f2ee1e1f4af29893f7020f95f840bd6e5c49aa"
+      }
+    },
+    {
       "source_run_id": 44490234692,
       "slot_utc_hour": 498632,
       "origin_kind": "JANUS_SCHEDULED_COUNCIL",

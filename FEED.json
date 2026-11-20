@@ -2,6 +2,62 @@
   "schema": "janus.scheduled_dialogue.feed.v1",
   "records": [
     {
+      "source_run_id": 44703097460,
+      "slot_utc_hour": 498656,
+      "origin_kind": "JANUS_SCHEDULED_COUNCIL",
+      "display_label": "JANUS · автоматический совет моделей",
+      "human_authorship_verified": false,
+      "training_allowed": false,
+      "source_url": "https://github.com/Hawkar-usls/-Terminal-for-Janus/actions/runs/44703097460",
+      "dialogue": {
+        "schema": "janus.open_llm.dialogue.v1",
+        "created_at": "2026-11-20T08:33:17.647813+00:00",
+        "request": {
+          "schema": "janus.open_llm.request.v1",
+          "mode": "council",
+          "prompt": "Автоматический исследовательский диалог JANUS. Что такое контрольная группа? Приведи пример для обнаружения радиосигналов. Ответь по-русски, кратко. Не заявляй о выполненных экспериментах.",
+          "issue_number": null,
+          "request_source": "scheduled_council",
+          "source_id": 44703097460,
+          "requested_by": "JANUS_SCHEDULED_COUNCIL",
+          "slot_utc_hour": 498656,
+          "execution_authority": "TEXT_ONLY",
+          "request_sha256": "c4d16acdaa4905942c4f7164d863da3869bdbe72b5c4b33c8484adec612578df"
+        },
+        "issue_context_turns": 0,
+        "issue_context_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "issue_context_is_weight_training": false,
+        "exchanges": [
+          {
+            "model": "Qwen/Qwen2.5-1.5B-Instruct",
+            "role": "initial",
+            "text": "Контрольная группа - это группа участников исследования, которая не получает определённую группу воздействия или условия. Это используется для сравнения результатов с другими группами.\n\nПример: Для обнаружения радиосигналов можно использовать методы антенны и приёмника. В качестве контрольной группы можно взять группу людей, которые не используют эти устройства. Они будут сравниваться с участниками, которые используют антенну и приёмник для обнаружения радиосигналов.",
+            "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
+          },
+          {
+            "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+            "role": "critique",
+            "text": "Контрольная группа - это группа участников исследования, которая не получает определённую группу воздействия или условия. Эт\n\n[Ответ ограничен бюджетом генерации; при необходимости попроси продолжение.]",
+            "revision": "a10cc1512eabd3dde888204e902eca88bddb4951"
+          },
+          {
+            "model": "Qwen/Qwen2.5-1.5B-Instruct",
+            "role": "revised",
+            "text": "Прошу прощения за недоразумение. Контрольная группа в исследовании обычно представляет собой группу участников, которые не подвергаются определенным воздействиям или условиям, чтобы обеспечить точное сравнение результатов. \n\nПример: Если мы хотим изучить влияние различных типов упражнений на уровень физической активности, контролируемую группу может состоять из тех же людей, которые не принимают никаких дополнительных упражнений. Таким образом, мы можем точно определить, какое влияние оказывает конкретный вид упражнений.",
+            "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
+          }
+        ],
+        "final_text": "Прошу прощения за недоразумение. Контрольная группа в исследовании обычно представляет собой группу участников, которые не подвергаются определенным воздействиям или условиям, чтобы обеспечить точное сравнение результатов. \n\nПример: Если мы хотим изучить влияние различных типов упражнений на уровень физической активности, контролируемую группу может состоять из тех же людей, которые не принимают никаких дополнительных упражнений. Таким образом, мы можем точно определить, какое влияние оказывает конкретный вид упражнений.",
+        "weight_update_performed": false,
+        "peer_feedback_is_ground_truth": false,
+        "native_janus_model_modified": false,
+        "self_evolution_verified": false,
+        "classification": "EXPERIMENTAL_PEER_DIALOGUE_UNVERIFIED",
+        "training_candidate_policy": "REVIEW_REQUIRED_HOLDOUT_AND_ROLLBACK_BEFORE_ANY_WEIGHT_UPDATE",
+        "sha256": "ad34aaa4563bd1a6fb252cb36d641221f679c9e33bfeeedc9c16b25f6e6962b4"
+      }
+    },
+    {
       "source_run_id": 44647288094,
       "slot_utc_hour": 498648,
       "origin_kind": "JANUS_SCHEDULED_COUNCIL",

@@ -2,6 +2,62 @@
   "schema": "janus.scheduled_dialogue.feed.v1",
   "records": [
     {
+      "source_run_id": 44974959801,
+      "slot_utc_hour": 498698,
+      "origin_kind": "JANUS_SCHEDULED_COUNCIL",
+      "display_label": "JANUS · автоматический совет моделей",
+      "human_authorship_verified": false,
+      "training_allowed": false,
+      "source_url": "https://github.com/Hawkar-usls/-Terminal-for-Janus/actions/runs/44974959801",
+      "dialogue": {
+        "schema": "janus.open_llm.dialogue.v1",
+        "created_at": "2026-11-22T02:14:06.457290+00:00",
+        "request": {
+          "schema": "janus.open_llm.request.v1",
+          "mode": "council",
+          "prompt": "Автоматический исследовательский диалог JANUS. Как проверить, что алгоритм ускорился на новых данных, а не на обучающей выборке? Ответь по-русски, кратко. Не заявляй о выполненных экспериментах.",
+          "issue_number": null,
+          "request_source": "scheduled_council",
+          "source_id": 44974959801,
+          "requested_by": "JANUS_SCHEDULED_COUNCIL",
+          "slot_utc_hour": 498698,
+          "execution_authority": "TEXT_ONLY",
+          "request_sha256": "270150eb6efd0c5d8b61fb2dae7b043b8d8524bb636d216252bf180fa7fe0bc1"
+        },
+        "issue_context_turns": 0,
+        "issue_context_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "issue_context_is_weight_training": false,
+        "exchanges": [
+          {
+            "model": "Qwen/Qwen2.5-1.5B-Instruct",
+            "role": "initial",
+            "text": "Чтобы проверить, что ускорение произошло именно с новыми данными и не на обучающей выборке, можно сравнить время выполнения модели на этих данных с временем на обучающей выборке. Если время на новых данных меньше или равно времени на обучающей выборке, то это подтверждает, что ускорение связано только с использованием новых данных.",
+            "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
+          },
+          {
+            "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+            "role": "critique",
+            "text": "Не заявляй о выполненных экспериментах.",
+            "revision": "a10cc1512eabd3dde888204e902eca88bddb4951"
+          },
+          {
+            "model": "Qwen/Qwen2.5-1.5B-Instruct",
+            "role": "revised",
+            "text": "Прошу прощения за недоразумение. В данном контексте \"не заявлять о выполненных экспериментах\" может быть интерпретирован как предложение не делать прямые указания о проведенных исследованиях. Однако я понимаю ваше желание получить точный ответ. Возможно, стоит обратиться к автору или источнику данного сообщения для получения более детального объяснения.",
+            "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
+          }
+        ],
+        "final_text": "Прошу прощения за недоразумение. В данном контексте \"не заявлять о выполненных экспериментах\" может быть интерпретирован как предложение не делать прямые указания о проведенных исследованиях. Однако я понимаю ваше желание получить точный ответ. Возможно, стоит обратиться к автору или источнику данного сообщения для получения более детального объяснения.",
+        "weight_update_performed": false,
+        "peer_feedback_is_ground_truth": false,
+        "native_janus_model_modified": false,
+        "self_evolution_verified": false,
+        "classification": "EXPERIMENTAL_PEER_DIALOGUE_UNVERIFIED",
+        "training_candidate_policy": "REVIEW_REQUIRED_HOLDOUT_AND_ROLLBACK_BEFORE_ANY_WEIGHT_UPDATE",
+        "sha256": "a45be8930c511290baf9363ada2a72c79f176b8b7b7a4fc507017bd188fe0d23"
+      }
+    },
+    {
       "source_run_id": 44952554540,
       "slot_utc_hour": 498693,
       "origin_kind": "JANUS_SCHEDULED_COUNCIL",

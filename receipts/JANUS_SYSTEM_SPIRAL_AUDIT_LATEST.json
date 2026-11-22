@@ -11,13 +11,13 @@
       "reason": "Private repository content is not copied into a public audit runtime."
     }
   ],
-  "files_scanned": 14675,
+  "files_scanned": 14712,
   "counts": {
     "HARD_RING": 0,
     "LEGACY_COMPAT": 12,
-    "REVIEW": 2261,
-    "SAFE_INFRA_LOOP": 3955,
-    "HISTORICAL_FROZEN": 928
+    "REVIEW": 2262,
+    "SAFE_INFRA_LOOP": 3959,
+    "HISTORICAL_FROZEN": 913
   },
   "active_hard_ring_count": 0,
   "active_hard_rings": [],
@@ -1937,7 +1937,7 @@
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "registry/PHYSARIUS_INTERNAL_REPO_HRAIN_LIVE_v1.json",
-      "line": 5303,
+      "line": 5308,
       "classification": "REVIEW",
       "code": "CYCLE_LANGUAGE",
       "pattern": "\\bcycle\\b|\\bcyclic\\b|\\bцикл\\b|\\bкруг\\b",
@@ -1947,7 +1947,7 @@
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "registry/PHYSARIUS_INTERNAL_REPO_HRAIN_LIVE_v1.json",
-      "line": 5699,
+      "line": 5704,
       "classification": "REVIEW",
       "code": "CLOSED_LOOP_LANGUAGE",
       "pattern": "closed[- ]loop|замкнут(?:ый|ого|ом)?\\s+(?:круг|цикл)|кольцев",
@@ -1957,7 +1957,7 @@
     {
       "repository": "Hawkar-usls/Janus-Fundamentum",
       "path": "registry/PHYSARIUS_INTERNAL_REPO_HRAIN_LIVE_v1.json",
-      "line": 5834,
+      "line": 5839,
       "classification": "REVIEW",
       "code": "CLOSED_LOOP_LANGUAGE",
       "pattern": "closed[- ]loop|замкнут(?:ый|ого|ом)?\\s+(?:круг|цикл)|кольцев",

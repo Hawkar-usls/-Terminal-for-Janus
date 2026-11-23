@@ -1,11 +1,11 @@
 {
   "schema": "janus.terminal.ecosystem_observation.v1",
-  "observed_at": "2026-11-16T18:40:00+00:00",
-  "sequence": 6,
-  "predecessor_sha256": "6c29e31a0e7be18e7c668419ed7e06198cfdd918b82347d991c14da0ef21a90d",
+  "observed_at": "2026-11-23T20:19:55+00:00",
+  "sequence": 7,
+  "predecessor_sha256": "09b2b646cfcfbbec579b656a57ed3ea3c4182cdd5adf7b232679948ba6586ef9",
   "source": "GITHUB_REST_PUBLIC_API",
   "source_pages_complete": 1,
-  "public_repository_count": 48,
+  "public_repository_count": 49,
   "public_repository_names": [
     "Hawkar-usls/-Terminal-for-Janus",
     "Hawkar-usls/AI-Cardputer-adv-A-Portable-AI-Assistant",
@@ -29,6 +29,7 @@
     "Hawkar-usls/Janus-Demiurge",
     "Hawkar-usls/Janus-Fundamentum",
     "Hawkar-usls/Janus-HELIOS",
+    "Hawkar-usls/Janus-Portal",
     "Hawkar-usls/Janus_Genesis",
     "Hawkar-usls/Linear-A-decipherment-programme",
     "Hawkar-usls/M5Unit-ENV",
@@ -170,13 +171,14 @@
     "Hawkar-usls/xiaozhi-esp32"
   ],
   "unclassified_public": [
+    "Hawkar-usls/Janus-Portal",
     "Hawkar-usls/neuromorphic-vision-sensor"
   ],
   "counts": {
     "active_visible": 19,
     "candidates_visible": 10,
     "excluded_visible": 18,
-    "unclassified_visible": 1
+    "unclassified_visible": 2
   },
   "authority": {
     "github_listing_proves_runtime": false,
@@ -186,5 +188,5 @@
     "external_effect_authorized": false,
     "human_review_required_before_activation": true
   },
-  "observation_sha256": "09b2b646cfcfbbec579b656a57ed3ea3c4182cdd5adf7b232679948ba6586ef9"
+  "observation_sha256": "960440838aca85179b5f186ad7910b492dd7d6bbf25c544749c5a1ec26d3835b"
 }

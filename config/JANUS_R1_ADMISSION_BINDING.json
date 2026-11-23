@@ -1,0 +1,49 @@
+{
+  "schema": "janus.terminal.r1_admission_binding.v1",
+  "mode": "OBSERVE_AND_PROPOSE_ONLY",
+  "authority_delta": 0,
+  "execution_allowed": false,
+  "external_effects": false,
+  "controller": "Hawkar-usls/-Terminal-for-Janus",
+  "discovery": {
+    "policy": "config/JANUS_ECOSYSTEM_OBSERVER.json",
+    "receipt_branch": "janus/ecosystem-observations",
+    "receipt_path": "receipts/JANUS_ECOSYSTEM_OBSERVATION_LATEST.json",
+    "receipt_is_execution_approval": false
+  },
+  "independent_map_gate": {
+    "repository": "Hawkar-usls/Janus",
+    "source_commit": "4dd2d9e75f3cdf26774eedb7dda8b1374d54dcae",
+    "draft_pr": "https://github.com/Hawkar-usls/Janus/pull/71",
+    "engineering_ci": "https://github.com/Hawkar-usls/Janus/actions/runs/45219142499",
+    "verifier": "autonomy/health.py",
+    "proposal_protocol": "autonomy/admission.py",
+    "health_schema": "janus.autonomy.health.v1",
+    "health_pass_is_execution_approval": false
+  },
+  "registry": {
+    "repository": "Hawkar-usls/janus-meta-registry",
+    "branch": "research/bounded-autonomy-map-r1-20261123",
+    "review_status": "DRAFT_PR_UNMERGED",
+    "draft_pr": "https://github.com/Hawkar-usls/janus-meta-registry/pull/657",
+    "current_state": "data/autonomy_map/CURRENT_STATE.json",
+    "journal": "data/autonomy_map/JOURNAL.json",
+    "operating_contract": "data/autonomy_map/OPERATING_CONTRACT.json",
+    "role_audit": "data/autonomy_map/PUBLIC_REPOSITORY_ROLE_AUDIT.json",
+    "exact_receipt_commit": "9f8754a670eb1362074724c7abe24680e7e486a3",
+    "pointer_is_authority": false
+  },
+  "execution_blocker": "R1_EXECUTION_BINDING_REQUIRED",
+  "future_executor_requires": [
+    "SEPARATELY_REVIEWED_AUTHENTICATED_CAPABILITY_BINDING",
+    "EXACT_PUBLIC_UPSTREAM_COMMIT_TREE_DEFAULT_BRANCH_AND_LICENSE_BYTES",
+    "COMPLETE_TREE_HISTORY_SECRET_AND_WORKFLOW_QUARANTINE",
+    "SOURCE_BOUND_INDEPENDENT_REVIEW_WITH_EXPIRY_AND_ANTI_REPLAY",
+    "ANCHORED_ATOMIC_LIFETIME_BUDGET_AND_AUDIT_LEDGER",
+    "DESTINATION_IDENTITY_POST_FORK_VERIFICATION_AND_REVOCATION",
+    "NO_REMOTE_CODE_WORKFLOW_INSTALL_HOOK_OR_UPSTREAM_EFFECT"
+  ],
+  "runtime_switch_can_enable_executor": false,
+  "deployment_state": "LEGACY_FORK_WORKFLOW_DISABLED_MANUALLY_2026_11_23",
+  "deployment_rule": "Do not automatically re-enable the legacy workflow on PR merge. A separately reviewed deployment decision is required."
+}

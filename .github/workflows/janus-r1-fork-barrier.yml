@@ -1,0 +1,33 @@
+name: JANUS R1 independent fork barrier contracts
+
+on:
+  pull_request:
+    paths: ['tools/janus_habitat_fork_expansion.py', 'config/JANUS_R1_ADMISSION_BINDING.json', 'tests/test_janus_r1_fork_barrier.py', '.github/workflows/janus-r1-fork-barrier.yml', '.github/workflows/janus-habitat-fork-expansion.yml']
+  push:
+    branches: ['research/bounded-autonomy-map-r1-20261123']
+    paths: ['tools/janus_habitat_fork_expansion.py', 'config/JANUS_R1_ADMISSION_BINDING.json', 'tests/test_janus_r1_fork_barrier.py', '.github/workflows/janus-r1-fork-barrier.yml', '.github/workflows/janus-habitat-fork-expansion.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: terminal-r1-contract-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  offline-no-effects:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Reject forged approval, token and environment escalation without network
+        run: |
+          python -m unittest discover -s tests -p 'test_janus_r1_fork_barrier.py' -v
+          python -m unittest discover -s tests -p 'test_janus_ecosystem_observer.py' -v
+          python -m unittest discover -s tests -p 'test_essence_kernel.py' -v

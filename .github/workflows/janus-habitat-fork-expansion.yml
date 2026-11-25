@@ -1,32 +1,28 @@
-name: JANUS Habitat Fork Expansion
+name: JANUS Habitat Fork Proposal Preview (R1 execution blocked)
 
 on:
   workflow_dispatch:
     inputs:
       upstream_full_name:
-        description: owner/repo to evaluate
+        description: Public owner/repo to inspect without credentials
         required: true
         type: string
       purpose:
-        description: Why JANUS needs this fork
+        description: Why JANUS needs this reference
         required: true
         type: string
       expected_gain:
-        description: Expected Habitat state gain
+        description: Expected bounded utility
         required: true
         type: string
       requested_mode:
-        description: Fork mode
+        description: Proposal mode only
         required: true
         default: REFERENCE_FORK
         type: choice
-        options:
-          - REFERENCE_FORK
-          - ADAPTATION_FORK
-          - COMPATIBILITY_FORK
-          - EXPERIMENT_FORK
+        options: [REFERENCE_FORK, ADAPTATION_FORK, COMPATIBILITY_FORK, EXPERIMENT_FORK]
       execute_if_gated:
-        description: Execute when all gates pass and JANUS_FORK_TOKEN exists
+        description: Legacy execution requests are rejected by R1
         required: true
         default: false
         type: boolean
@@ -35,140 +31,86 @@ on:
     paths:
       - 'fork_requests/**/*.json'
       - 'tools/janus_habitat_fork_expansion.py'
-      - 'contracts/JANUS_HABITAT_FORK_EXPANSION-v1.0.json'
+      - 'config/JANUS_R1_ADMISSION_BINDING.json'
   schedule:
     - cron: '17 * * * *'
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: janus-habitat-fork-expansion
+  group: janus-habitat-fork-preview
   cancel-in-progress: false
 
 jobs:
-  expand:
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    env:
-      JANUS_FORK_TOKEN: ${{ secrets.JANUS_FORK_TOKEN }}
+  preview:
+    if: github.repository == 'Hawkar-usls/-Terminal-for-Janus' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Build dispatch request
-        if: github.event_name == 'workflow_dispatch'
-        shell: bash
-        env:
-          UPSTREAM: ${{ inputs.upstream_full_name }}
-          PURPOSE: ${{ inputs.purpose }}
-          EXPECTED_GAIN: ${{ inputs.expected_gain }}
-          MODE: ${{ inputs.requested_mode }}
-          EXECUTE: ${{ inputs.execute_if_gated }}
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Verify the offline execution barrier and existing observer
         run: |
-          mkdir -p .runtime/fork_requests
+          python -m unittest discover -s tests -p 'test_janus_r1_fork_barrier.py' -v
+          python -m unittest discover -s tests -p 'test_janus_ecosystem_observer.py' -v
+      - name: Reject an execution request before inspecting any candidate
+        if: github.event_name == 'workflow_dispatch' && inputs.execute_if_gated
+        run: |
+          echo 'R1_EXECUTION_BINDING_REQUIRED'
+          exit 2
+      - name: Prepare one bounded public metadata proposal
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          REQUEST_UPSTREAM: ${{ inputs.upstream_full_name }}
+          REQUEST_PURPOSE: ${{ inputs.purpose }}
+          REQUEST_GAIN: ${{ inputs.expected_gain }}
+          REQUEST_MODE: ${{ inputs.requested_mode }}
+        run: |
           python - <<'PY'
           import json, os
           from pathlib import Path
-          p = {
-            'request_id': 'dispatch-${{ github.run_id }}',
-            'upstream_full_name': os.environ['UPSTREAM'],
-            'purpose': os.environ['PURPOSE'],
-            'need_class': 'HUMAN_OR_TERMINAL_DECLARED_NEED',
-            'expected_gain': os.environ['EXPECTED_GAIN'],
-            'source_ref': 'github-actions:${{ github.run_id }}',
-            'requested_mode': os.environ['MODE'],
-            'execute_if_gated': os.environ['EXECUTE'].lower() == 'true',
-            'policy_grant_id': 'HAWKAR_JANUS_FORK_POLICY_2026_08_21'
-          }
-          Path('.runtime/fork_requests/request.json').write_text(json.dumps(p, ensure_ascii=False, indent=2)+'\n')
-          PY
-
-      - name: Select one queued request
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p .runtime/fork_requests receipts/forks
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            cp .runtime/fork_requests/request.json .runtime/selected.json
-            exit 0
-          fi
-          python - <<'PY'
-          import json
-          from pathlib import Path
           selected = None
-          for p in sorted(Path('fork_requests').glob('**/*.json')) if Path('fork_requests').exists() else []:
-              try:
-                  d = json.loads(p.read_text(encoding='utf-8-sig'))
-              except Exception:
-                  continue
-              rid = str(d.get('request_id') or p.stem)
-              if (Path('receipts/forks') / f'{rid}.json').exists():
-                  continue
-              if d.get('policy_grant_id') != 'HAWKAR_JANUS_FORK_POLICY_2026_08_21':
-                  continue
-              selected = (p, d)
-              break
-          if selected is None:
-              Path('.runtime/NO_REQUEST').write_text('1')
+          if os.environ['EVENT_NAME'] == 'workflow_dispatch':
+              selected = {'request_id': 'manual-preview',
+                          'upstream_full_name': os.environ['REQUEST_UPSTREAM'],
+                          'purpose': os.environ['REQUEST_PURPOSE'],
+                          'need_class': 'REFERENCE_PROPOSAL',
+                          'expected_gain': os.environ['REQUEST_GAIN'],
+                          'source_ref': 'MANUAL_PREVIEW',
+                          'requested_mode': os.environ['REQUEST_MODE']}
           else:
-              Path('.runtime/selected.json').write_text(json.dumps(selected[1], ensure_ascii=False, indent=2)+'\n')
+              files = sorted(Path('fork_requests').glob('**/*.json')) if Path('fork_requests').exists() else []
+              if len(files) > 16:
+                  raise SystemExit('R1_CANDIDATE_LIMIT')
+              for path in files:
+                  if path.is_symlink() or not path.resolve().is_relative_to(Path('fork_requests').resolve()):
+                      raise SystemExit('R1_UNSAFE_REQUEST_PATH')
+                  if path.stat().st_size > 65536:
+                      raise SystemExit('R1_REQUEST_TOO_LARGE')
+                  selected = json.loads(path.read_text(encoding='utf-8-sig'))
+                  break
+          if selected is not None:
+              Path(os.environ['RUNNER_TEMP'], 'r1-request.json').write_text(json.dumps(selected))
           PY
-
-      - name: Evaluate and optionally expand Habitat
-        if: ${{ hashFiles('.runtime/selected.json') != '' }}
-        shell: bash
+      - name: Inspect public metadata with no execution or credential binding
         run: |
-          set -euo pipefail
-          EXECUTE=$(python - <<'PY'
-          import json
-          print('1' if json.load(open('.runtime/selected.json')).get('execute_if_gated') is True else '0')
-          PY
-          )
-          RID=$(python - <<'PY'
-          import json
-          print(json.load(open('.runtime/selected.json'))['request_id'])
-          PY
-          )
-          if [ "$EXECUTE" = "1" ]; then
-            python tools/janus_habitat_fork_expansion.py .runtime/selected.json --execute -o "receipts/forks/${RID}.json"
-          else
-            python tools/janus_habitat_fork_expansion.py .runtime/selected.json -o "receipts/forks/${RID}.json"
+          if [ -f "$RUNNER_TEMP/r1-request.json" ]; then
+            python tools/janus_habitat_fork_expansion.py "$RUNNER_TEMP/r1-request.json" -o "$RUNNER_TEMP/r1-preview.json"
           fi
-          cat "receipts/forks/${RID}.json"
-
-      - name: Verify upstream authority remains zero
-        if: ${{ hashFiles('.runtime/selected.json') != '' }}
-        shell: bash
+      - name: Keep the effect gate explicit
+        if: always()
         run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          req=json.loads(Path('.runtime/selected.json').read_text())
-          out=json.loads((Path('receipts/forks')/f"{req['request_id']}.json").read_text())
-          c=out['candidate']
-          assert c['upstream_writeback_authorized'] is False
-          assert c['automatic_upstream_pr'] is False
-          assert c['automatic_upstream_issue'] is False
-          assert c['mass_upstream_effect_budget'] == 0
-          e=out.get('execution') or {}
-          if e.get('habitat_edge'):
-              h=e['habitat_edge']
-              assert h['upstream_writeback_authorized'] is False
-              assert h['automatic_upstream_pr'] is False
-              assert h['mass_upstream_effect_budget'] == 0
-          PY
-
-      - name: Persist receipt
-        if: ${{ hashFiles('.runtime/selected.json') != '' }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name 'JANUS Terminal'
-          git config user.email 'actions@users.noreply.github.com'
-          git add receipts/forks
-          if git diff --cached --quiet; then
-            echo 'No new receipt.'
-          else
-            git commit -m 'Receipt: JANUS Habitat fork expansion gate'
-            git push
-          fi
+          echo '## Fork execution gate' >> "$GITHUB_STEP_SUMMARY"
+          echo 'HOLD: R1_EXECUTION_BINDING_REQUIRED. This workflow must not be automatically re-enabled on merge.' >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: janus-r1-fork-preview-${{ github.run_id }}
+          path: ${{ runner.temp }}/r1-preview.json
+          if-no-files-found: ignore
+          retention-days: 14

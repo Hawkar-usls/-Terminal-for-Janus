@@ -2,6 +2,62 @@
   "schema": "janus.scheduled_dialogue.feed.v1",
   "records": [
     {
+      "source_run_id": 45589039175,
+      "slot_utc_hour": 498777,
+      "origin_kind": "JANUS_SCHEDULED_COUNCIL",
+      "display_label": "JANUS · автоматический совет моделей",
+      "human_authorship_verified": false,
+      "training_allowed": false,
+      "source_url": "https://github.com/Hawkar-usls/-Terminal-for-Janus/actions/runs/45589039175",
+      "dialogue": {
+        "schema": "janus.open_llm.dialogue.v1",
+        "created_at": "2026-11-25T09:51:37.923788+00:00",
+        "request": {
+          "schema": "janus.open_llm.request.v1",
+          "mode": "council",
+          "prompt": "Автоматический исследовательский диалог JANUS. Как оценить полную вычислительную стоимость алгоритма? Укажи две составляющие. Ответь по-русски, кратко. Не заявляй о выполненных экспериментах.",
+          "issue_number": null,
+          "request_source": "scheduled_council",
+          "source_id": 45589039175,
+          "requested_by": "JANUS_SCHEDULED_COUNCIL",
+          "slot_utc_hour": 498777,
+          "execution_authority": "TEXT_ONLY",
+          "request_sha256": "ac3d5efe77eb4c90f5ae44221c060d22282c66eee924e28a92acd1f8ff4734a4"
+        },
+        "issue_context_turns": 0,
+        "issue_context_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "issue_context_is_weight_training": false,
+        "exchanges": [
+          {
+            "model": "Qwen/Qwen2.5-1.5B-Instruct",
+            "role": "initial",
+            "text": "Полная вычислительная стоимость алгоритма включает два основных компонента: время выполнения и использование ресурсов (например, памяти). Время выполнения — это количество времени, необходимого для завершения работы алгоритма. Ресурсы используются для хранения данных и временного представления информации, что может потребовать дополнительного оборудования или мощностей.",
+            "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
+          },
+          {
+            "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+            "role": "critique",
+            "text": "Полная вычислительная стоимость алгоритма включает два основных компонента: время выполнения и использование ресурсов (например, памяти). В\n\n[Ответ ограничен бюджетом генерации; при необходимости попроси продолжение.]",
+            "revision": "a10cc1512eabd3dde888204e902eca88bddb4951"
+          },
+          {
+            "model": "Qwen/Qwen2.5-1.5B-Instruct",
+            "role": "revised",
+            "text": "Прошу прощения за недоразумение. Полная вычислительная стоимость алгоритма действительно включает два основных компонента: время выполнения и использование ресурсов (например, памяти). Однако, как я не могу предоставить точные цифры без конкретной модели, уточните модель, которую вы хотите рассмотреть.",
+            "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
+          }
+        ],
+        "final_text": "Прошу прощения за недоразумение. Полная вычислительная стоимость алгоритма действительно включает два основных компонента: время выполнения и использование ресурсов (например, памяти). Однако, как я не могу предоставить точные цифры без конкретной модели, уточните модель, которую вы хотите рассмотреть.",
+        "weight_update_performed": false,
+        "peer_feedback_is_ground_truth": false,
+        "native_janus_model_modified": false,
+        "self_evolution_verified": false,
+        "classification": "EXPERIMENTAL_PEER_DIALOGUE_UNVERIFIED",
+        "training_candidate_policy": "REVIEW_REQUIRED_HOLDOUT_AND_ROLLBACK_BEFORE_ANY_WEIGHT_UPDATE",
+        "sha256": "488d79c1e8c54f14f35ef3de27a26a29281a399224fe02d178ca717bfd80953e"
+      }
+    },
+    {
       "source_run_id": 45519857388,
       "slot_utc_hour": 498768,
       "origin_kind": "JANUS_SCHEDULED_COUNCIL",

@@ -2,6 +2,62 @@
   "schema": "janus.scheduled_dialogue.feed.v1",
   "records": [
     {
+      "source_run_id": 45819081651,
+      "slot_utc_hour": 498804,
+      "origin_kind": "JANUS_SCHEDULED_COUNCIL",
+      "display_label": "JANUS · автоматический совет моделей",
+      "human_authorship_verified": false,
+      "training_allowed": false,
+      "source_url": "https://github.com/Hawkar-usls/-Terminal-for-Janus/actions/runs/45819081651",
+      "dialogue": {
+        "schema": "janus.open_llm.dialogue.v1",
+        "created_at": "2026-11-26T12:27:20.973320+00:00",
+        "request": {
+          "schema": "janus.open_llm.request.v1",
+          "mode": "council",
+          "prompt": "Автоматический исследовательский диалог JANUS. Как провести независимую проверку математической гипотезы? Назови один контроль и одно ограничение. Ответь по-русски, кратко. Не заявляй о выполненных экспериментах.",
+          "issue_number": null,
+          "request_source": "scheduled_council",
+          "source_id": 45819081651,
+          "requested_by": "JANUS_SCHEDULED_COUNCIL",
+          "slot_utc_hour": 498804,
+          "execution_authority": "TEXT_ONLY",
+          "request_sha256": "082480c0cbcbbbb8b40a7694a732a193a4087d2a43fa3e49327ecf8a5c2dd3aa"
+        },
+        "issue_context_turns": 0,
+        "issue_context_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "issue_context_is_weight_training": false,
+        "exchanges": [
+          {
+            "model": "Qwen/Qwen2.5-1.5B-Instruct",
+            "role": "initial",
+            "text": "Независимая проверка математической гипотезы может включать следующие шаги:\n\nКонтроль:\n1. **Исследование сопоставления**: Проверьте, как гипотеза соответствует уже известным фактам или теориям.\n2. **Анализ статистики**: Используйте统计学方法来定量评估你的发现。\n3. **Проверка на случайность**: Убедитесь, что результаты не являются случайными.\n\nОграничения:\n1. **Соблюдение методологии**: Использование определенной методологии исследования.\n2. **Обеспечение объективности**: Ограничивайте влияние личных предпочтений или приверженности одной концепции.\n3. **Отсутствие аномалий**: Убедитесь, что результаты не являются результатом ошибок или недостатков в методах исследования.",
+            "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
+          },
+          {
+            "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+            "role": "critique",
+            "text": "One likely error, uncertainty, or missing caveat in this question is the lack of clear guidance on how to evaluate the validity of mathematical models. The question does not provide any specific guidelines or criteria for determining the validity of mathematical models, which could lead to inconsistent or incorrect conclusions.",
+            "revision": "a10cc1512eabd3dde888204e902eca88bddb4951"
+          },
+          {
+            "model": "Qwen/Qwen2.5-1.5B-Instruct",
+            "role": "revised",
+            "text": "Прошу прощения за возможное путаницу. Важно уточнить, как можно эффективно проверять и подтверждать математические модели. Вот несколько ключевых моментов для успешного анализа:\n\n1. **Экспертная оценка**: Обращайтесь к специалистам, имеющим глубокое понимание конкретной области, чтобы получить их мнение о значимости модели.\n\n2. **Методология исследования**: Используйте стандартные методы проверки моделей, такие как тестирование гипотез, анализ статистических данных и сравнение с другими подходами.\n\n3. **Документация и отчетность**: Соберите все необходимые документы и отчеты, которые помогут доказать точность и полноту работы модели.\n\n4. **Проверка на совместимость**: Проверяйте, как модель работает в различных условиях и при разных наборах данных.\n\n5. **Обсуж\n\n[Ответ ограничен бюджетом генерации; при необходимости попроси продолжение.]",
+            "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
+          }
+        ],
+        "final_text": "Прошу прощения за возможное путаницу. Важно уточнить, как можно эффективно проверять и подтверждать математические модели. Вот несколько ключевых моментов для успешного анализа:\n\n1. **Экспертная оценка**: Обращайтесь к специалистам, имеющим глубокое понимание конкретной области, чтобы получить их мнение о значимости модели.\n\n2. **Методология исследования**: Используйте стандартные методы проверки моделей, такие как тестирование гипотез, анализ статистических данных и сравнение с другими подходами.\n\n3. **Документация и отчетность**: Соберите все необходимые документы и отчеты, которые помогут доказать точность и полноту работы модели.\n\n4. **Проверка на совместимость**: Проверяйте, как модель работает в различных условиях и при разных наборах данных.\n\n5. **Обсуж\n\n[Ответ ограничен бюджетом генерации; при необходимости попроси продолжение.]",
+        "weight_update_performed": false,
+        "peer_feedback_is_ground_truth": false,
+        "native_janus_model_modified": false,
+        "self_evolution_verified": false,
+        "classification": "EXPERIMENTAL_PEER_DIALOGUE_UNVERIFIED",
+        "training_candidate_policy": "REVIEW_REQUIRED_HOLDOUT_AND_ROLLBACK_BEFORE_ANY_WEIGHT_UPDATE",
+        "sha256": "df3fec1c54b16181bd4d30d632a427b2d2a0cd5435324b730858058059cfef69"
+      }
+    },
+    {
       "source_run_id": 45744935132,
       "slot_utc_hour": 498794,
       "origin_kind": "JANUS_SCHEDULED_COUNCIL",

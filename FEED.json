@@ -2,6 +2,62 @@
   "schema": "janus.scheduled_dialogue.feed.v1",
   "records": [
     {
+      "source_run_id": 46082386625,
+      "slot_utc_hour": 498839,
+      "origin_kind": "JANUS_SCHEDULED_COUNCIL",
+      "display_label": "JANUS · автоматический совет моделей",
+      "human_authorship_verified": false,
+      "training_allowed": false,
+      "source_url": "https://github.com/Hawkar-usls/-Terminal-for-Janus/actions/runs/46082386625",
+      "dialogue": {
+        "schema": "janus.open_llm.dialogue.v1",
+        "created_at": "2026-11-27T23:28:01.424742+00:00",
+        "request": {
+          "schema": "janus.open_llm.request.v1",
+          "mode": "council",
+          "prompt": "Автоматический исследовательский диалог JANUS. Как сформулировать фальсифицируемую гипотезу? Дай один конкретный пример. Ответь по-русски, кратко. Не заявляй о выполненных экспериментах.",
+          "issue_number": null,
+          "request_source": "scheduled_council",
+          "source_id": 46082386625,
+          "requested_by": "JANUS_SCHEDULED_COUNCIL",
+          "slot_utc_hour": 498839,
+          "execution_authority": "TEXT_ONLY",
+          "request_sha256": "bdc9bbcf6e959a4bbe28e8bfa5d13cea12ca3c41b216b55e003e3cda1677c221"
+        },
+        "issue_context_turns": 0,
+        "issue_context_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "issue_context_is_weight_training": false,
+        "exchanges": [
+          {
+            "model": "Qwen/Qwen2.5-1.5B-Instruct",
+            "role": "initial",
+            "text": "Фальсифицируемая гипотеза - это теория, которая может быть проверена экспериментом и отвергнута, если результаты не соответствуют ее предположениям. Например: \"Возможна ли улучшение производительности компьютерной программы через внедрение искусственного интеллекта?\" Это гипотеза, которую можно проверить экспериментально.",
+            "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
+          },
+          {
+            "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+            "role": "critique",
+            "text": "Например: \"Производительность компьютерной программы через внедрение искусственного интеллекта.\" Это гипотеза, которая может быть пров\n\n[Ответ ограничен бюджетом генерации; при необходимости попроси продолжение.]",
+            "revision": "a10cc1512eabd3dde888204e902eca88bddb4951"
+          },
+          {
+            "model": "Qwen/Qwen2.5-1.5B-Instruct",
+            "role": "revised",
+            "text": "Извините за путаницу. Вот другой пример фальсифицируемой гипотезы:\n\n\"Увеличение объема данных для обучения нейронных сетей приводит к повышению их точности.\"\n\nЭта гипотеза может быть проверена экспериментально. Если увеличение объема данных действительно помогает улучшить качество обучаемых моделей, то она будет подтверждена. В противном случае, гипотеза будет отвергнута.\n\nПожалуйста, обратитесь к специалистам в области машинного обучения или анализировать данные самостоятельно для получения более точных выводов.",
+            "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
+          }
+        ],
+        "final_text": "Извините за путаницу. Вот другой пример фальсифицируемой гипотезы:\n\n\"Увеличение объема данных для обучения нейронных сетей приводит к повышению их точности.\"\n\nЭта гипотеза может быть проверена экспериментально. Если увеличение объема данных действительно помогает улучшить качество обучаемых моделей, то она будет подтверждена. В противном случае, гипотеза будет отвергнута.\n\nПожалуйста, обратитесь к специалистам в области машинного обучения или анализировать данные самостоятельно для получения более точных выводов.",
+        "weight_update_performed": false,
+        "peer_feedback_is_ground_truth": false,
+        "native_janus_model_modified": false,
+        "self_evolution_verified": false,
+        "classification": "EXPERIMENTAL_PEER_DIALOGUE_UNVERIFIED",
+        "training_candidate_policy": "REVIEW_REQUIRED_HOLDOUT_AND_ROLLBACK_BEFORE_ANY_WEIGHT_UPDATE",
+        "sha256": "b84a30ab202ce1ae96eade980f1f1ee047321310c7da5055694e1945e27c5fdb"
+      }
+    },
+    {
       "source_run_id": 46020867552,
       "slot_utc_hour": 498831,
       "origin_kind": "JANUS_SCHEDULED_COUNCIL",
